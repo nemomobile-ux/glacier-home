@@ -14,7 +14,10 @@ INSTALLS += config
 
 CONFIG += qt link_pkgconfig
 QT += quick
-
+packagesExist(qdeclarative5-boostable) {
+LIBS += -rdynamic -lmdeclarativecache5
+QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -I/usr/include/mdeclarativecache5
+}
 HEADERS +=
 
 SOURCES += \
