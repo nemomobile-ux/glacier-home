@@ -9,7 +9,7 @@ Name:       lipstick-glacier-home-qt5
 # << macros
 
 Summary:    A nice homescreen for Glacier experience
-Version:    0.26
+Version:    0.26.1
 Release:    1
 Group:      System/GUI/Other
 License:    BSD
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
 BuildRequires:  pkgconfig(Qt5Compositor)
+Provides: lipstick-colorful-home-qt5
 Conflicts:   lipstick-example-home
 
 %description
