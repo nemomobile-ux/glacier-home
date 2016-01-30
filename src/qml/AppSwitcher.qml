@@ -22,7 +22,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 
-import QtQuick 2.0
+import QtQuick 2.2
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -91,7 +91,7 @@ Item {
                     height: width * (desktop.height / desktop.width)
 
                     // The outer Item is necessary because of animations in SwitcherItem changing
-                    // its size, which would break the Grid. 
+                    // its size, which would break the Grid.
                     SwitcherItem {
                         id: switcherItem
                         width: parent.width
@@ -126,36 +126,56 @@ Item {
         }
 
         Behavior on anchors.bottomMargin { PropertyAnimation { duration: 100 } }
-
         Button {
             id: toolBarDone
             width: parent.width / 3
+            height: width
             anchors {
                 top: parent.top
                 topMargin: toolBar.padding
                 right: parent.horizontalCenter
                 rightMargin: toolBar.padding
             }
-            text: 'Done'
             onClicked: {
                 switcherRoot.closeMode = false;
+            }
+            style: ButtonStyle {
+                label: Label {
+                    text: "Done"
+                    anchors.fill: parent
+                    anchors.margins: 10
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    fontSizeMode: Text.HorizontalFit
+                    anchors.centerIn: parent
+                }
             }
         }
 
         Button {
             id: toolBarCloseAll
             width: toolBarDone.width
+            height: width
             anchors {
                 top: parent.top
                 topMargin: toolBar.padding
                 left: parent.horizontalCenter
                 leftMargin: toolBar.padding
             }
-            text: 'Close all'
             onClicked: {
                 // TODO: use close animation inside item
                 for (var i = gridRepeater.count - 1; i >= 0; i--) {
                     gridRepeater.itemAt(i).close()
+                }
+            }
+            style: ButtonStyle {
+                label: Label {
+                    text: "Close\nAll"
+                    anchors.margins: 10
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    fontSizeMode: Text.Fit
+                    anchors.centerIn: parent
                 }
             }
         }
@@ -164,7 +184,8 @@ Item {
     // Empty switcher indicator
     Label {
         visible: switcherModel.itemCount === 0
-
         text: "No apps open"
+        width: parent.width
+        fontSizeMode: Text.HorizontalFit
     }
 }
