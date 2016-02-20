@@ -58,7 +58,7 @@ Item {
         anchors.top: parent.bottom
         width: gridview.width
         height: childrenRect.height
-        cellWidth: 115
+        cellWidth: gridview.cellWidth
         cellHeight: cellWidth + 30
         Rectangle {
             anchors.fill: parent
@@ -79,7 +79,7 @@ Item {
                 width: parent.width
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 18
+                font.pixelSize: gridview.cellWidth/10
                 color: 'white'
                 anchors {
                     left: parent.left
@@ -206,7 +206,7 @@ Item {
                 top: parent.top
                 topMargin: 8
             }
-            width: 100
+            width: gridview.cellWidth - gridview.cellWidth/10
             height: width
             asynchronous: true
 
@@ -224,7 +224,7 @@ Item {
             width: parent.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 18
+            font.pixelSize: gridview.cellWidth/10
             color: 'white'
             anchors {
                 left: parent.left
