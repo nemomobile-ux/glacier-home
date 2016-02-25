@@ -9,6 +9,8 @@ Item {
     Layout.fillHeight: true
     Image {
         id: icon
+        width: root.height/2
+        height: root.height/2
         anchors.centerIn: parent
     }
     MouseArea {
