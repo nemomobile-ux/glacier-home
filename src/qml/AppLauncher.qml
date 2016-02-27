@@ -32,7 +32,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 GridView {
     id: gridview
-    cellWidth: 115
+    cellWidth: parent.width/4
     cellHeight: cellWidth + 30
     width: Math.floor(parent.width / cellWidth) * cellWidth
     cacheBuffer: gridview.contentHeight
