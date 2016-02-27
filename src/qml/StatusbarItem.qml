@@ -5,12 +5,13 @@ Item {
     property alias source: icon.source
     property string panel_source
     property Component panel
+    property double iconSize
     Layout.fillWidth: true
     Layout.fillHeight: true
     Image {
+        width: iconSize
+        height: iconSize
         id: icon
-        width: root.height/2
-        height: root.height/2
         anchors.centerIn: parent
     }
     MouseArea {
