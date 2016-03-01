@@ -5,9 +5,12 @@ Item {
     property alias source: icon.source
     property string panel_source
     property Component panel
+    property double iconSize
     Layout.fillWidth: true
     Layout.fillHeight: true
     Image {
+        width: iconSize
+        height: iconSize
         id: icon
         anchors.centerIn: parent
     }

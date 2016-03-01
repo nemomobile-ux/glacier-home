@@ -38,7 +38,7 @@ import MeeGo.Connman 0.2
 Item {
     id: root
     z: 201
-    height: 48
+    height: width/12
     width: parent.width
     anchors.bottom: parent.bottom
 
@@ -130,17 +130,19 @@ Item {
 
     RowLayout {
         anchors.fill: statusbar
-        spacing: 16
+        spacing: root.height/4
         StatusbarItem {
+            iconSize: root.height/2
             source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
         }
 
         StatusbarItem {
+            iconSize: root.height/2
             Label {
                 id: tech
-                width: 16
-                height: 16
-                font.pointSize: 6
+                width: root.height/4
+                height: root.height/4
+                font.pixelSize: root.height/4+root.height/5
                 font.bold: true
                 wrapMode: Text.ElideRight
                 text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
@@ -148,10 +150,10 @@ Item {
 
             Label {
                 anchors.top: tech.bottom
-                anchors.topMargin: 4
-                width: 16
-                height: 16
-                font.pointSize: 6
+                anchors.topMargin: root.height/8
+                width: root.height/4
+                height: root/height/4
+                font.pixelSize: root.height/4+root.height/5
                 text: {
                     var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
                     return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
@@ -161,6 +163,7 @@ Item {
         }
 
         StatusbarItem {
+            iconSize: root.height/2
             source: {
                 if (wlan.connected) {
                     if (networkManager.defaultRoute.type !== "wifi")
@@ -183,37 +186,43 @@ Item {
             panel: WifiPanel {}
         }
         StatusbarItem {
+            iconSize: root.height/2
             source: "image://theme/icon_bt_normal"
         }
         StatusbarItem {
+            iconSize: root.height/2
             source: "image://theme/icon_nfc_normal"
         }
         StatusbarItem {
+            iconSize: root.height/2
             source: "image://theme/icon_gps_normal"
         }
         StatusbarItem {
+            iconSize: root.height/2
             source: "image://theme/icon_play_pause"
         }
         StatusbarItem {
+            iconSize: root.height/2
             Label {
                 id: hours
-                width: 16
-                height: 16
-                font.pointSize: 6
+                width: root.height/4
+                height: root.height/4
+                font.pixelSize: root.height/4+root.height/5
                 text: Qt.formatDateTime(wallClock.time, "hh")
             }
             Label {
                 id: minutes
                 anchors.top: hours.bottom
-                anchors.topMargin: 4
-                width: 16
-                height: 16
-                font.pointSize: 6
+                anchors.topMargin: root.height/8
+                width: root.height/4
+                height: root.height/4
+                font.pixelSize: root.height/4+root.height/5
                 text: Qt.formatDateTime(wallClock.time, "mm")
             }
         }
 
         StatusbarItem {
+            iconSize: root.height/2
             panel: BatteryPanel {}
             source: {
                 if(batteryChargePercentage.value > 85) {
