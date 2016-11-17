@@ -32,9 +32,8 @@
 
 int main(int argc, char **argv)
 {
-    QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     HomeApplication app(argc, argv, QString());
-
+    QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
     app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
