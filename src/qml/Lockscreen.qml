@@ -15,7 +15,13 @@ Image {
     }
     DeviceLock {
         id: deviceLockUI
-        anchors.fill: parent
+        anchors {
+            top: clock.bottom
+            left: parent.left
+        }
+
+        height: parent.height-clock.height
+
         visible: deviceLock.state === 1
         z: 201
     }

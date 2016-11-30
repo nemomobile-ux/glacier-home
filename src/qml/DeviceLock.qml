@@ -6,17 +6,16 @@ import QtQuick.Layouts 1.0
 
 Item {
     id: root
-    anchors.top: clock.bottom
-    anchors.bottom: parent.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 40
+
         TextField {
             id: lockCodeField
             readOnly: true
             echoMode: TextInput.PasswordEchoOnEdit
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
         GridLayout {
