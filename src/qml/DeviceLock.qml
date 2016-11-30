@@ -26,6 +26,7 @@ Item {
                 model: ["1","2","3","4","5","6","7","8","9","Ca","0","OK"]
                 delegate:
                 Button {
+                    style: ButtonStyle {}
                     Layout.fillWidth: true
                     text: modelData
                     onClicked: {
