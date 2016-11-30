@@ -79,3 +79,6 @@ ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.targe
 %{_datadir}/lipstick-glacier-home-qt5/qml
 # >> files
 # << files
+
+%post
+systemctl-user --no-block restart lipstick.service
