@@ -147,13 +147,12 @@ Page {
         id:wallpaper
         source: "qrc:/qml/images/wallpaper-portrait-bubbles.png"
         anchors.fill: parent
+        fillMode: Image.PreserveAspectCrop
         z: -100
     }
     Lockscreen {
         id: lockScreen
-
         visible: DeviceLock.state >= DeviceLock.Locked
-
         width: parent.width
         height: parent.height
         z: 200
