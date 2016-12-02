@@ -7,6 +7,7 @@ import org.nemomobile.configuration 1.0
 Image {
     id: lockScreen
     source: lockScreenWallpaper.value
+    fillMode: Image.PreserveAspectCrop
 
     ConfigurationValue{
         id: lockScreenWallpaper
