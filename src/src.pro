@@ -111,4 +111,7 @@ OTHER_FILES += qml/*.qml \
     qml/GlacierRotation.qml \
     qml/DeviceLock.qml
 
+TRANSLATIONS += i18n/glacer-home.ts
 
+DISTFILES += \
+    i18n/glacer-home.ts

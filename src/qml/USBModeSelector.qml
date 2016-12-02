@@ -79,7 +79,7 @@ Item {
                     anchors {
                         fill: parent
                     }
-                    text: "Current mode: Charging only"
+                    text: qsTr("Current mode: Charging only")
                     color: "white"
                     font.pixelSize: 30
                     horizontalAlignment: Text.AlignHCenter
@@ -95,7 +95,7 @@ Item {
                     left: parent.left
                     right: parent.right
                 }
-                text: "MTP Mode"
+                text: qsTr("MTP Mode")
                 color: "white"
                 font.pixelSize: 30
                 wrapMode: Text.WordWrap
@@ -115,7 +115,7 @@ Item {
                     left: parent.left
                     right: parent.right
                 }
-                text: "Mass Storage Mode"
+                text: qsTr("Mass Storage Mode")
                 color: "white"
                 font.pixelSize: 30
                 wrapMode: Text.WordWrap
@@ -135,7 +135,7 @@ Item {
                     left: parent.left
                     right: parent.right
                 }
-                text: "Developer Mode"
+                text: qsTr("Developer Mode")
                 color: "white"
                 font.pixelSize: 30
                 wrapMode: Text.WordWrap

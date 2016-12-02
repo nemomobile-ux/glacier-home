@@ -170,7 +170,7 @@ Item {
             }
             style: ButtonStyle {
                 label: Label {
-                    text: "Close\nAll"
+                    text: qsTr("Close\nAll")
                     anchors.margins: 10
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -184,7 +184,7 @@ Item {
     // Empty switcher indicator
     Label {
         visible: switcherModel.itemCount === 0
-        text: "No apps open"
+        text: qsTr("No apps open")
         width: parent.width
         fontSizeMode: Text.HorizontalFit
     }
