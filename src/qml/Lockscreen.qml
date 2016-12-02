@@ -2,10 +2,17 @@ import QtQuick 2.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.configuration 1.0
 
 Image {
     id: lockScreen
-    source: "qrc:/qml/images/graphics-wallpaper-home.jpg"
+    source: lockScreenWallpaper.value
+
+    ConfigurationValue{
+        id: lockScreenWallpaper
+        key: "/home/glacier/lockScreen/wallpaperImage"
+        defaultValue: "qrc:/qml/images/graphics-wallpaper-home.jpg"
+    }
 
     LockscreenClock {
         id: clock
