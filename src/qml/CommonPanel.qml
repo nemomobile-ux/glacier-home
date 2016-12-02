@@ -39,7 +39,7 @@ Rectangle {
     color: "#313131"
     opacity: 0.5
     Button {
-        text: "Close"
+        text: qsTr("Close")
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         onClicked: {

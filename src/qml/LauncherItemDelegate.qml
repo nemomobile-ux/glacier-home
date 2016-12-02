@@ -144,8 +144,8 @@ Item {
                 reorderItem = null
                 pager.interactive = true
                 gridview.onUninstall = false
-                deleter.remove.text = "Remove"
-                deleter.uninstall.text = "Uninstall"
+                deleter.remove.text = qsTr("Remove")
+                deleter.uninstall.text = qsTr("Uninstall")
 
                 reparent(gridview.contentItem)
 
@@ -167,9 +167,9 @@ Item {
                 var delPos = deleter.remove.mapFromItem(launcherItem, width/2, height/2)
                 var isdel = deleter.childAt(delPos.x, delPos.y)
                 if (isdel === deleter.remove) {
-                    deleter.remove.text = "Removing " + iconCaption
+                    deleter.remove.text = qsTr("Removing") + " " + iconCaption
                 } else if (isdel === deleter.uninstall) {
-                    deleter.uninstall.text = "Uninstalling " + iconCaption
+                    deleter.uninstall.text = qsTr("Uninstalling") + " " + iconCaption
                 }
                 if (newIndex !== idx) {
                     reorderTimer.restart()

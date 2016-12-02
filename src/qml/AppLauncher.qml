@@ -64,7 +64,7 @@ GridView {
             Label {
                 id: removeLabel
                 anchors.centerIn: parent
-                text: "Remove"
+                text: qsTr("Remove")
                 font.pointSize: 8
             }
         }
@@ -79,7 +79,7 @@ GridView {
             Label {
                 id: uninstallLabel
                 anchors.centerIn: parent
-                text: "Uninstall"
+                text: qsTr("Uninstall")
                 font.pointSize: 8
             }
         }

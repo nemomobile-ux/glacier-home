@@ -26,6 +26,7 @@ Requires:   qt5-qtquickcontrols-nemo
 Requires:   nemo-qml-plugin-contextkit-qt5
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
+Requires:   nemo-theme-glacier
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
@@ -78,3 +79,6 @@ ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.targe
 %{_datadir}/lipstick-glacier-home-qt5/qml
 # >> files
 # << files
+
+%post
+systemctl-user --no-block restart lipstick.service

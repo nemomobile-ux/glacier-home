@@ -1,9 +1,19 @@
 import QtQuick 2.0
 
+import org.nemomobile.lipstick 0.1
+import org.nemomobile.devicelock 1.0
+import org.nemomobile.configuration 1.0
+
 Image {
     id: lockScreen
-    source: "qrc:/qml/images/graphics-wallpaper-home.jpg"
-    visible: LipstickSettings.lockscreenVisible || deviceLock.state === 1
+    source: lockScreenWallpaper.value
+    fillMode: Image.PreserveAspectCrop
+
+    ConfigurationValue{
+        id: lockScreenWallpaper
+        key: "/home/glacier/lockScreen/wallpaperImage"
+        defaultValue: "qrc:/qml/images/graphics-wallpaper-home.jpg"
+    }
 
     LockscreenClock {
         id: clock
@@ -13,10 +23,17 @@ Image {
             right: parent.right
         }
     }
-    DeviceLock {
+    DeviceLockUI {
         id: deviceLockUI
-        anchors.fill: parent
-        visible: deviceLock.state === 1
+        anchors {
+            top: clock.bottom
+            left: parent.left
+        }
+
+        height: parent.height-clock.height
+        width: parent.width
+
+        //visible:
         z: 201
     }
 
@@ -24,4 +41,3 @@ Image {
         anchors.fill: parent
     }
 }
-

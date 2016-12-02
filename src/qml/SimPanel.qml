@@ -73,7 +73,7 @@ Component {
                 }
                 Button {
                     id: pinenter
-                    text: "OK"
+                    text: qsTr("OK")
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     Layout.preferredHeight: 40
@@ -84,7 +84,7 @@ Component {
                 }
                 Button {
                     id: clearpin
-                    text: "Clear"
+                    text: qsTr("Clear")
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     Layout.preferredHeight: 40
@@ -132,7 +132,7 @@ Component {
         }
         Label {
             visible: !needsPin
-            text: "No pin required!"
+            text: qsTr("No pin required!")
             font.pointSize: 16
         }
     }

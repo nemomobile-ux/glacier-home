@@ -24,6 +24,8 @@
 import QtQuick 2.0
 import org.nemomobile.lipstick 0.1
 
+import org.nemomobile.devicelock 1.0
+
 import "compositor"
 import "scripts/desktop.js" as Desktop
 
@@ -133,7 +135,7 @@ Compositor {
         property real lockThreshold: 0.25
         property int lockscreenX
         property int lockscreenY
-        enabled: deviceLock.state === 0
+        enabled: DeviceLock.state == DeviceLock.Unlocked
 
         onGestureStarted: {
             swipeAnimation.stop()
