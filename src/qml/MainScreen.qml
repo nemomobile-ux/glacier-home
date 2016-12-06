@@ -53,7 +53,7 @@ Page {
     ConfigurationValue {
         id: wallpaperSource
         key: desktop.isPortrait ? "/desktop/meego/background/portrait/picture_filename" : "/desktop/meego/background/landscape/picture_filename"
-        defaultValue: "qrc:/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
     id: desktop
     property alias lockscreen: lockScreen
@@ -145,7 +145,7 @@ Page {
     }
     Image {
         id:wallpaper
-        source: "qrc:/qml/images/wallpaper-portrait-bubbles.png"
+        source: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         z: -100

@@ -137,7 +137,7 @@ Item {
                 }
                 width: notificationArea.notificationIconSize
                 height: width
-                source: "qrc:/qml/images/notification-circle.png"
+                source: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
             }
 
             Text {

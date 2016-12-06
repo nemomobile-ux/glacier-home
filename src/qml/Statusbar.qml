@@ -34,6 +34,7 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.freedesktop.contextkit 1.0
 import MeeGo.Connman 0.2
+import org.nemomobile.lipstick 0.1
 
 Item {
     id: root
@@ -134,6 +135,17 @@ Item {
         StatusbarItem {
             iconSize: root.height/2
             source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
+
+            MouseArea{
+                anchors.fill: parent
+                onPressAndHold: {
+                    var screenShotPath = "/home/nemo/Pictures/Screenshots/"
+                    var file = "glacier-screenshot-"+Qt.formatDateTime(new Date, "yyMMdd_hhmmss")+".png"
+
+                    Lipstick.takeScreenshot(screenShotPath + file);
+                }
+            }
+
         }
 
         StatusbarItem {
@@ -226,21 +238,21 @@ Item {
             panel: BatteryPanel {}
             source: {
                 if(batteryChargePercentage.value > 85) {
-                    return "qrc:/qml/images/battery6.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery6.png"
                 } else if (batteryChargePercentage.value <= 5) {
-                    return "qrc:/qml/images/battery0.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery0.png"
                 } else if (batteryChargePercentage.value <= 10) {
-                    return "qrc:/qml/images/battery1.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery1.png"
                 } else if (batteryChargePercentage.value <= 25) {
-                    return "qrc:/qml/images/battery2.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery2.png"
                 } else if (batteryChargePercentage.value <= 40) {
-                    return "qrc:/qml/images/battery3.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/imagesbattery3.png"
                 } else if (batteryChargePercentage.value <= 65) {
-                    return "qrc:/qml/images/battery4.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery4.png"
                 } else if (batteryChargePercentage.value <= 80) {
-                    return "qrc:/qml/images/battery5.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery5.png"
                 } else {
-                    return "qrc:/qml/images/battery6.png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery6.png"
                 }
             }
         }

@@ -27,7 +27,7 @@ Image {
     id: closeButton
     signal clicked()
 
-    source: 'qrc:/qml/theme/icon-m-framework-close-thumbnail.png'
+    source: '/usr/share/lipstick-glacier-home-qt5/qml/theme/icon-m-framework-close-thumbnail.png'
 
     MouseArea {
         anchors.fill: parent
