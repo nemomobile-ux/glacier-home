@@ -12,7 +12,7 @@ Image {
     ConfigurationValue{
         id: lockScreenWallpaper
         key: "/home/glacier/lockScreen/wallpaperImage"
-        defaultValue: "qrc:/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
 
     LockscreenClock {

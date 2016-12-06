@@ -11,6 +11,13 @@ target.path = /usr/bin
 styles.path = /usr/share/lipstick-glacier-home-qt5
 styles.files = nemovars.conf
 
+images.path = /usr/share/lipstick-glacier-home-qt5/qml/images
+images.files = qml/images/*.png \
+               qml/images/*.jpg
+
+theme.path = /usr/share/lipstick-glacier-home-qt5/qml/theme
+theme.files = qml/theme/*.png
+
 qml.path = /usr/share/lipstick-glacier-home-qt5/qml
 qml.files = qml/MainScreen.qml \
     qml/compositor.qml \
@@ -60,7 +67,7 @@ connectivity.files = qml/USBModeSelector.qml
 notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
 notifications.files = qml/NotificationPreview.qml
 
-INSTALLS += styles qml qmlcompositor scripts system volumecontrol connectivity notifications
+INSTALLS += styles images theme qml qmlcompositor scripts system volumecontrol connectivity notifications
 
 CONFIG += qt link_pkgconfig
 QT += quick compositor
@@ -73,9 +80,6 @@ MOC_DIR = .moc
 SOURCES += \
     main.cpp \
     glacierwindowmodel.cpp
-
-RESOURCES += \
-    resources-qml.qrc
 
 PKGCONFIG += lipstick-qt5
 
