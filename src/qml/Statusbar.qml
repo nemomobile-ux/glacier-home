@@ -34,6 +34,7 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.freedesktop.contextkit 1.0
 import MeeGo.Connman 0.2
+import org.nemomobile.lipstick 0.1
 
 Item {
     id: root
@@ -134,6 +135,17 @@ Item {
         StatusbarItem {
             iconSize: root.height/2
             source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
+
+            MouseArea{
+                anchors.fill: parent
+                onPressAndHold: {
+                    var screenShotPath = "/home/nemo/Pictures/Screenshots/"
+                    var file = "glacier-screenshot-"+Qt.formatDateTime(new Date, "yyMMdd_hhmmss")+".png"
+
+                    Lipstick.takeScreenshot(screenShotPath + file);
+                }
+            }
+
         }
 
         StatusbarItem {
