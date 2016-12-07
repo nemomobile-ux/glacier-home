@@ -57,11 +57,15 @@ Item {
 
     GridView {
         id: folderLoader
-        anchors.top: parent.bottom
+        parent: gridview.contentItem
+        y: wrapper.y + wrapper.height
+        x: 0
+        z: wrapper.z + 100
         width: gridview.width
         height: childrenRect.height
         cellWidth: gridview.cellWidth
         cellHeight: cellWidth + 30
+        visible: false
         Rectangle {
             anchors.fill: parent
             opacity: 0.75
