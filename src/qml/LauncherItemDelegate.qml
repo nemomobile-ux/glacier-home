@@ -70,6 +70,7 @@ Item {
             anchors.fill: parent
             opacity: 0.75
             color: "white"
+            z: -1
         }
 
         delegate: MouseArea {
@@ -77,7 +78,21 @@ Item {
             height: gridview.cellHeight
             Image {
                 id: iconimage
-                source: source
+                source: model.object.iconId
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 8
+                }
+                width: gridview.cellWidth - gridview.cellWidth/10
+                height: width
+                asynchronous: true
+
+                Spinner {
+                    id: spinner
+                    anchors.centerIn: parent
+                    enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
+                }
             }
 
             Text {
@@ -87,13 +102,14 @@ Item {
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: gridview.cellWidth/10
-                color: 'white'
+                color: 'black'
                 anchors {
                     left: parent.left
                     right: parent.right
                     top: iconimage.bottom
                     topMargin: 5
                 }
+                text: model.object.title
             }
             onClicked: {
                 model.object.launchApplication()
