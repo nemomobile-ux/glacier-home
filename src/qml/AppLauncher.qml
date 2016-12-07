@@ -91,7 +91,9 @@ GridView {
         id: launcherItem
         width: gridview.cellWidth
         height: gridview.cellHeight
-        source: model.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default_icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
         iconCaption: model.object.title
+        isFolder: model.object.type == LauncherModel.Folder
+        folderAppsCount: isFolder && model.object ? model.object.itemCount : 0
+        source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
     }
 }

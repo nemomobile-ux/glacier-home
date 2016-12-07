@@ -35,6 +35,8 @@ Item {
     property bool reordering
     property int newIndex: -1
     property real oldY
+    property bool isFolder
+    property int folderAppsCount: 0
 
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
@@ -55,15 +57,20 @@ Item {
 
     GridView {
         id: folderLoader
-        anchors.top: parent.bottom
+        parent: gridview.contentItem
+        y: wrapper.y + wrapper.height
+        x: 0
+        z: wrapper.z + 100
         width: gridview.width
         height: childrenRect.height
         cellWidth: gridview.cellWidth
         cellHeight: cellWidth + 30
+        visible: false
         Rectangle {
             anchors.fill: parent
             opacity: 0.75
             color: "white"
+            z: -1
         }
 
         delegate: MouseArea {
@@ -71,8 +78,23 @@ Item {
             height: gridview.cellHeight
             Image {
                 id: iconimage
-                source: model.object.iconId == "" ? ":/images/icons/apps.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                source: model.object.iconId
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 8
+                }
+                width: gridview.cellWidth - gridview.cellWidth/10
+                height: width
+                asynchronous: true
+
+                Spinner {
+                    id: spinner
+                    anchors.centerIn: parent
+                    enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
+                }
             }
+
             Text {
                 id: icontext
                 // elide only works if an explicit width is set
@@ -80,13 +102,14 @@ Item {
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: gridview.cellWidth/10
-                color: 'white'
+                color: 'black'
                 anchors {
                     left: parent.left
                     right: parent.right
                     top: iconimage.bottom
                     topMargin: 5
                 }
+                text: model.object.title
             }
             onClicked: {
                 model.object.launchApplication()
@@ -215,6 +238,18 @@ Item {
                 anchors.centerIn: parent
                 enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
             }
+        }
+
+
+        Text{
+            id: itemsCount
+            visible: isFolder
+            text: folderAppsCount
+            anchors.centerIn: iconImage
+
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: gridview.cellWidth/4
+            color: "white"
         }
 
         // Caption for the icon
