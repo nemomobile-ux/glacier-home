@@ -35,6 +35,8 @@ Item {
     property bool reordering
     property int newIndex: -1
     property real oldY
+    property bool isFolder
+    property int folderAppsCount: 0
 
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
@@ -71,8 +73,9 @@ Item {
             height: gridview.cellHeight
             Image {
                 id: iconimage
-                source: model.object.iconId == "" ? ":/images/icons/apps.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                source: source
             }
+
             Text {
                 id: icontext
                 // elide only works if an explicit width is set
@@ -215,6 +218,18 @@ Item {
                 anchors.centerIn: parent
                 enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
             }
+        }
+
+
+        Text{
+            id: itemsCount
+            visible: isFolder
+            text: folderAppsCount
+            anchors.centerIn: iconImage
+
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: gridview.cellWidth/4
+            color: "white"
         }
 
         // Caption for the icon
