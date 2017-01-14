@@ -27,6 +27,7 @@ Requires:   nemo-qml-plugin-contextkit-qt5
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
 Requires:   nemo-theme-glacier
+Requires:   google-opensans-fonts
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
