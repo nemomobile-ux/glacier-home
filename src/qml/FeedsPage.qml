@@ -38,9 +38,18 @@ Flickable {
         width: parent.width
         height: childrenRect.height
         // Day of week
-        Row {
+        Rectangle {
             id: daterow
             height: displayCurrentDate.height + 15
+            width: childrenRect.width
+
+            anchors{
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            color: "transparent"
+
             Label {
                 id: displayDayOfWeek
                 text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
@@ -51,7 +60,6 @@ Flickable {
                     top: parent.top
                     left: parent.left
                     topMargin: 30
-                    leftMargin: 20
                 }
             }
 
@@ -60,7 +68,6 @@ Flickable {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
                 font.pointSize: 12
-                width: rootitem.width - displayDayOfWeek.width - 20
                 wrapMode: Text.WordWrap
                 anchors {
                     left: displayDayOfWeek.right
@@ -79,8 +86,8 @@ Flickable {
                 model: NotificationListModel {
                     id: notifmodel
                 }
-                delegate:
-                    MouseArea {
+                delegate: NotificationPreview{}
+                    /*MouseArea {
                         height: Math.max(appSummary.height,appBody.height)
                         width: rootitem.width
 
@@ -116,7 +123,7 @@ Flickable {
                             wrapMode: Text.Wrap
                             anchors.left: appSummary.right
                         }
-                    }
+                    }*/
                 }
             }
         }
