@@ -28,6 +28,9 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 // Feeds page:
 // the place for an event feed.
+
+import "notifications"
+
 Flickable {
     id: mainFlickable
 
@@ -38,9 +41,18 @@ Flickable {
         width: parent.width
         height: childrenRect.height
         // Day of week
-        Row {
+        Rectangle {
             id: daterow
             height: displayCurrentDate.height + 15
+            width: childrenRect.width
+
+            anchors{
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            color: "transparent"
+
             Label {
                 id: displayDayOfWeek
                 text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
@@ -51,7 +63,6 @@ Flickable {
                     top: parent.top
                     left: parent.left
                     topMargin: 30
-                    leftMargin: 20
                 }
             }
 
@@ -60,7 +71,6 @@ Flickable {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
                 font.pointSize: 12
-                width: rootitem.width - displayDayOfWeek.width - 20
                 wrapMode: Text.WordWrap
                 anchors {
                     left: displayDayOfWeek.right
@@ -72,51 +82,17 @@ Flickable {
 
         Column {
             id: notificationColumn
-            anchors.top: daterow.bottom
-            anchors.topMargin: 20
+            width: parent.width
+            anchors{
+                top: daterow.bottom
+                topMargin: 50
+            }
             spacing: 10
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel
                 }
-                delegate:
-                    MouseArea {
-                        height: Math.max(appSummary.height,appBody.height)
-                        width: rootitem.width
-
-                        onClicked: {
-                            if (modelData.userRemovable) {
-                                modelData.actionInvoked("default")
-                            }
-                        }
-
-                        Image {
-                            id: appIcon
-                            source: {
-                                if (modelData.icon)
-                                    return "image://theme/" + modelData.icon
-                                else
-                                    return ""
-                            }
-                        }
-
-                        Label {
-                            id: appSummary
-                            text: modelData.summary
-                            width: (rootitem.width-appIcon.width)/2
-                            font.pointSize: 10
-                            anchors.left: appIcon.right
-                            wrapMode: Text.Wrap
-                        }
-                        Label {
-                            id: appBody
-                            width: (rootitem.width-appIcon.width)/2
-                            text: modelData.body
-                            font.pointSize: 8
-                            wrapMode: Text.Wrap
-                            anchors.left: appSummary.right
-                        }
-                    }
+                delegate: NotificationItem{}
                 }
             }
         }
