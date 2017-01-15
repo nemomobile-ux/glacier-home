@@ -66,7 +66,9 @@ connectivity.files = qml/connectivity/USBModeSelector.qml \
                      qml/connectivity/ConnectionSelector.qml
 
 notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
-notifications.files = qml/notifications/NotificationPreview.qml
+notifications.files = qml/notifications/NotificationItem.qml\
+                      qml/notifications/NotificationPreview.qml
+
 
 INSTALLS += styles images theme qml qmlcompositor scripts system volumecontrol connectivity notifications
 
