@@ -13,7 +13,8 @@ styles.files = nemovars.conf
 
 images.path = /usr/share/lipstick-glacier-home-qt5/qml/images
 images.files = qml/images/*.png \
-               qml/images/*.jpg
+               qml/images/*.jpg \
+               qml/images/*.svg
 
 theme.path = /usr/share/lipstick-glacier-home-qt5/qml/theme
 theme.files = qml/theme/*.png

@@ -135,7 +135,7 @@ Compositor {
         property real lockThreshold: 0.25
         property int lockscreenX
         property int lockscreenY
-        enabled: DeviceLock.state == DeviceLock.Unlocked
+        enabled: DeviceLock.state != DeviceLock.Locked
 
         onGestureStarted: {
             swipeAnimation.stop()
@@ -143,10 +143,6 @@ Compositor {
             lockAnimation.stop()
             if (root.appActive) {
                 state = "swipe"
-            } else if (root.homeActive) {
-                lockscreenX = Desktop.instance.lockscreen.x
-                lockscreenY = Desktop.instance.lockscreen.y
-                state = "lock"
             }
         }
 
@@ -182,7 +178,7 @@ Compositor {
         states: [
             State {
                 name: "swipe"
-
+                when: DeviceLock.state != DeviceLock.Locked
                 PropertyChanges {
                     target: gestureArea
                     delayReset: true
@@ -196,6 +192,7 @@ Compositor {
             },
             State {
                 name: "lock"
+                when: DeviceLock.state == DeviceLock.Locked
                 PropertyChanges {
                     target: Desktop.instance.lockscreen
                     visible: true

@@ -50,7 +50,7 @@ Item {
     Flickable {
         id: flickable
         contentHeight: gridview.height
-        width: parent.width - 10 // see comment re right anchor below
+        width: closeMode ? parent.width - 20 : parent.width // see comment re right anchor below
 
         MouseArea {
             height: flickable.contentHeight > flickable.height ? flickable.contentHeight : flickable.height
@@ -64,16 +64,17 @@ Item {
 
         anchors {
             top: parent.top
+            topMargin: closeMode ? 20 : 0
             bottom: toolBar.top
             left: parent.left
             // no right anchor to avoid double margin (complicated math)
-            margins: 10
+            leftMargin: closeMode ? 20 : 0
         }
 
         Grid {
             id: gridview
             columns: 2
-            spacing: 10
+            spacing: closeMode ? 20 : 0
             move: Transition {
                 NumberAnimation {
                     properties: "x,y"
