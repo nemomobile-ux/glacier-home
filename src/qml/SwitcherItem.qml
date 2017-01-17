@@ -34,11 +34,11 @@ MouseArea {
 
     WindowPixmapItem {
         id: windowPixmap
-        width: rotateWindowContent ? parent.height : parent.width
-        height: rotateWindowContent ? parent.width : parent.height
+        width: rotateWindowContent ? parent.width : parent.height
+        height: rotateWindowContent ? parent.height : parent.width
         windowId: model.window
         transform: Rotation {
-            angle: rotateWindowContent ? 90 : 0
+            angle: rotateWindowContent ? 0 : 90
             origin.x: windowPixmap.height / 2
             origin.y: windowPixmap.height / 2
         }
@@ -95,12 +95,15 @@ MouseArea {
 
     CloseButton {
         id: closeButton
+        width: parent.width/4
+        height: width
         Behavior on scale { PropertyAnimation { duration: 300; easing.type: Easing.OutBack } }
         scale: switcherRoot.closeMode ? 1 : 0
         opacity: scale
         enabled: !closeAnimation.running
         anchors {
             bottom: parent.bottom
+            bottomMargin: height*0.5
             horizontalCenter: parent.horizontalCenter
         }
         onClicked: closeAnimation.start()

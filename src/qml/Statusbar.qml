@@ -39,7 +39,7 @@ import org.nemomobile.lipstick 0.1
 Item {
     id: root
     z: 201
-    height: width/12
+    height: Math.min(parent.width,parent.height)/12
     width: parent.width
     anchors.bottom: parent.bottom
 
