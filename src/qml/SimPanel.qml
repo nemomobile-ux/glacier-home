@@ -50,13 +50,15 @@ Component {
             simManager.modemPath = manager.modems
         }
 
-        OfonoManager {
-            id: manager
-        }
+        property list<QtObject> _data: [
+            OfonoManager {
+                id: manager
+            },
 
-        OfonoSimManager {
-            id: simManager
-        }
+            OfonoSimManager {
+                id: simManager
+            }
+        ]
 
         ColumnLayout {
             visible: needsPin
