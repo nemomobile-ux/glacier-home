@@ -38,6 +38,9 @@ import QtQuick.Layouts 1.0
 Component {
     CommonPanel {
         id: simpanel
+        name: qsTr("SimCard")
+        switcherEnabled: false
+
         property bool needsPin: simManager.pinRequired === OfonoSimManager.SimPin ||
                                  simManager.pinRequired === OfonoSimManager.SimPuk
         onNeedsPinChanged: {
@@ -136,6 +139,7 @@ Component {
             visible: !needsPin
             text: qsTr("No pin required!")
             font.pointSize: 16
+            anchors.centerIn: parent
         }
     }
 }

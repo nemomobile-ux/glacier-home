@@ -1,7 +1,6 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2017 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -33,64 +32,16 @@
 import QtQuick 2.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import MeeGo.Connman 0.2
 
 Component {
     CommonPanel {
-        id: wifiPanel
-        name: "Wifi"
-        switcherEnabled: true
-        switcherChecked: true
+        name: qsTr("Battery");
+        switcherEnabled: false
 
-        onSwitcherCheckedChanged: {
-             wifimodel.setPowered(switcherChecked)
-        }
-
-        property list<QtObject> _data: [
-            TechnologyModel {
-                id: wifimodel
-                name: "wifi"
-            }
-        ]
-
-        Repeater {
-            model: wifimodel
-            delegate: Item {
-                width: parent.width
-                height: 40
-                function getStrengthIndex(strength) {
-                    var strengthIndex = "0"
-
-                    if (strength >= 59) {
-                        strengthIndex = "4"
-                    } else if (strength >= 55) {
-                        strengthIndex = "3"
-                    } else if (strength >= 50) {
-                        strengthIndex = "2"
-                    } else if (strength >= 40) {
-                        strengthIndex = "1"
-                    }
-                    return strengthIndex
-                }
-                Row {
-                    spacing: 12
-                    Image {
-                        id: statusImage
-                       source: (getStrengthIndex(modelData.strength) === "0")? "image://theme/icon_wifi_0" : "image://theme/icon_wifi_focused" + getStrengthIndex(modelData.strength)
-                    }
-
-                    Label {
-                        anchors{
-                            leftMargin: 20
-                            vertialCenter: statusImage.verticalCenter
-                        }
-                        width: root.width
-                        font.pointSize: 8
-                        text: modelData.name
-                        wrapMode: Text.Wrap
-                    }
-                }
-            }
+        Label {
+            text: qsTr("Level")+ ": " + batteryChargePercentage.value + "%"
+            font.pointSize: 8
+            anchors.centerIn: parent
         }
     }
 }
