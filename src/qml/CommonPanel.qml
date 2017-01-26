@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2017 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,20 +31,70 @@
 ****************************************************************************************/
 
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 Rectangle {
+    id: commonPanel
+
+    property alias switcherEnabled: columnCheckBox.enabled
+    property alias switcherChecked: columnCheckBox.checked
+    property string name: ""
+
     height: 240
     width: root.width
-    color: "#313131"
-    opacity: 0.5
-    Button {
-        text: qsTr("Close")
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        onClicked: {
-            panel_loader.visible = !panel_loader.visible
+    color: "transparent"
+
+    Rectangle{
+        anchors.fill: parent
+        color: "#313131"
+        opacity: 0.3
+    }
+
+    clip: true
+
+    default property alias contentItem: dataColumn.children
+
+    Column{
+        id: actionColumn
+        anchors{
+            top: commonPanel.top
+            topMargin: 20
+        }
+        width: parent.width
+        Label{
+            id: nameLabel
+            text: name
+            anchors{
+                left: actionColumn.left
+                leftMargin: 20
+            }
+            wrapMode: Text.Wrap
+            font.pointSize: 8
+            font.bold: true
+            color: "#ffffff"
+        }
+
+        CheckBox {
+            id: columnCheckBox
+            visible: enabled
+            anchors{
+                right: actionColumn.right
+                rightMargin: 20
+                verticalCenter: nameLabel.verticalCenter
+            }
+        }
+    }
+
+    Column{
+        id: dataColumn
+        width: parent.width-40
+        anchors{
+            left: parent.left
+            leftMargin: 20
+            top: actionColumn.bottom
+            topMargin: 60
         }
     }
 }

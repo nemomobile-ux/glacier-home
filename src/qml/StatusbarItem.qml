@@ -25,12 +25,6 @@ Item {
                 panel_loader.sourceComponent = panel
                 panel_loader.visible = !panel_loader.visible
             }
-
-            if (icon.source.toString().match("normal")) {
-                icon.source = icon.source.toString().replace("normal","focused")
-            } else {
-                icon.source = icon.source.toString().replace("focused","normal")
-            }
         }
     }
 }

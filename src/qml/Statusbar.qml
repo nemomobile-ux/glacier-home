@@ -85,6 +85,16 @@ Item {
         key: "Cellular.RegistrationStatus"
     }
 
+    ContextProperty {
+        id: bluetoothEnabled
+        key: "Bluetooth.Enabled"
+    }
+
+    ContextProperty {
+        id: bluetoothConnected
+        key: "Bluetooth.Connected"
+    }
+
     NetworkManager {
         id: networkManager
         function updateTechnologies() {
@@ -181,15 +191,15 @@ Item {
                     if (networkManager.defaultRoute.type !== "wifi")
                         return "image://theme/icon_wifi_0"
                     if (networkManager.defaultRoute.strength >= 59) {
-                        return "image://theme/icon_wifi_normal4"
+                        return "image://theme/icon_wifi_focused4"
                     } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "image://theme/icon_wifi_normal3"
+                        return "image://theme/icon_wifi_focused3"
                     } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "image://theme/icon_wifi_normal2"
+                        return "image://theme/icon_wifi_focused2"
                     } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "image://theme/icon_wifi_normal1"
+                        return "image://theme/icon_wifi_focused1"
                     } else {
-                        return "image://theme/icon_wifi_0"
+                        return "image://theme/icon_wifi_normal4"
                     }
                 } else {
                     return "image://theme/icon_wifi_0"
@@ -198,8 +208,10 @@ Item {
             panel: WifiPanel {}
         }
         StatusbarItem {
+            id: bluetootIndicator
             iconSize: root.height/2
-            source: "image://theme/icon_bt_normal"
+            source: (bluetoothConnected.value) ? "image://theme/icon_bt_focused" : "image://theme/icon_bt_normal"
+            visible: bluetoothEnabled.value
         }
         StatusbarItem {
             iconSize: root.height/2

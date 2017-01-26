@@ -23,7 +23,7 @@ Requires:   nemo-qml-plugin-configuration-qt5
 Requires:   nemo-qml-plugin-time-qt5
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtquickcontrols >= 5.2.0
-Requires:   qt5-qtquickcontrols-nemo
+Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-contextkit-qt5
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
