@@ -56,7 +56,7 @@ Component {
         Repeater {
             model: wifimodel
             delegate: Item {
-                width: parent.width
+                width: wifiPanel.width
                 height: 40
                 function getStrengthIndex(strength) {
                     var strengthIndex = "0"
