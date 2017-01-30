@@ -57,7 +57,26 @@ ProgressBar {
 
     Connections {
         target: volumeControl
-        onVolumeChanged: {
+        onVolumeKeyPressed: {
+            if(key == Qt.Key_VolumeUp)
+            {
+            //up volume
+                if(volumeControl.volume < maximumValue)
+                {
+                    volumeControl.volume = volumeControl.volume+1
+                }
+            }
+            else
+            {
+            //down volume
+                if(volumeControl.volume > 0)
+                {
+                    volumeControl.volume = volumeControl.volume-1
+                }
+            }
+
+            volumeControl.windowVisible = true
+
             volumeSlider.value = volumeControl.volume
             if (volumeControl.windowVisible) {
                 voltimer.restart()

@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2017 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -36,6 +37,8 @@ import org.freedesktop.contextkit 1.0
 import MeeGo.Connman 0.2
 import org.nemomobile.lipstick 0.1
 
+import "statusbar"
+
 Item {
     id: root
     z: 201
@@ -67,13 +70,7 @@ Item {
                 cellularDataTechnology.unsubscribe()
             }
         }
-    }
-
-    ContextProperty {
-        id: batteryChargePercentage
-        key: "Battery.ChargePercentage"
-        value: "100"
-    }
+    }    
 
     ContextProperty {
         id: cellularSignalBars
@@ -245,28 +242,6 @@ Item {
             }
         }
 
-        StatusbarItem {
-            iconSize: root.height/2
-            panel: BatteryPanel {}
-            source: {
-                if(batteryChargePercentage.value > 85) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery6.png"
-                } else if (batteryChargePercentage.value <= 5) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery0.png"
-                } else if (batteryChargePercentage.value <= 10) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery1.png"
-                } else if (batteryChargePercentage.value <= 25) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery2.png"
-                } else if (batteryChargePercentage.value <= 40) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/imagesbattery3.png"
-                } else if (batteryChargePercentage.value <= 65) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery4.png"
-                } else if (batteryChargePercentage.value <= 80) {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery5.png"
-                } else {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/images/battery6.png"
-                }
-            }
-        }
+        BatteryIndicator{}
     }
 }

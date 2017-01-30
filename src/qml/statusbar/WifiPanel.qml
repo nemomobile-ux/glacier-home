@@ -56,7 +56,7 @@ Component {
         Repeater {
             model: wifimodel
             delegate: Item {
-                width: parent.width
+                width: wifiPanel.width
                 height: 40
                 function getStrengthIndex(strength) {
                     var strengthIndex = "0"
@@ -82,7 +82,7 @@ Component {
                     Label {
                         anchors{
                             leftMargin: 20
-                            vertialCenter: statusImage.verticalCenter
+                            verticalCenter: statusImage.verticalCenter
                         }
                         width: root.width
                         font.pointSize: 8

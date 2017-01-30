@@ -70,8 +70,26 @@ notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
 notifications.files = qml/notifications/NotificationItem.qml\
                       qml/notifications/NotificationPreview.qml
 
+statusbar.path = /usr/share/lipstick-glacier-home-qt5/qml/statusbar
+statusbar.files = qml/statusbar/BatteryPanel.qml\
+                qml/statusbar/BatteryIndicator.qml \
+                qml/statusbar/CommonPanel.qml\
+                qml/statusbar/SimPanel.qml\
+                qml/statusbar/WifiPanel.qml\
+                qml/statusbar/StatusbarItem.qml\
+                qml/statusbar/NumButton.qml
 
-INSTALLS += styles images theme qml qmlcompositor scripts system volumecontrol connectivity notifications
+INSTALLS += styles \
+            images \
+            theme \
+            qml \
+            qmlcompositor\
+            scripts\
+            system\
+            volumecontrol\
+            connectivity\
+            notifications\
+            statusbar
 
 CONFIG += qt link_pkgconfig
 QT += quick compositor
@@ -122,4 +140,5 @@ TRANSLATIONS += i18n/glacer-home.ts
 
 DISTFILES += \
     i18n/glacer-home.ts \
-    qml/connectivity/ConnectionSelector.qml
+    qml/connectivity/ConnectionSelector.qml \
+    qml/statusbar/BatteryIndicator.qml

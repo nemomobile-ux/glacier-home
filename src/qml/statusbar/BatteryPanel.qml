@@ -35,9 +35,13 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 Component {
     CommonPanel {
+        name: qsTr("Battery");
+        switcherEnabled: false
+
         Label {
-            text: qsTr("Battery level")+ ": " + batteryChargePercentage.value + "%"
+            text: qsTr("Level")+ ": " + batteryChargePercentage.value + "%"
             font.pointSize: 8
+            anchors.centerIn: parent
         }
     }
 }
