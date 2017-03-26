@@ -58,6 +58,7 @@ Page {
     id: desktop
     property alias lockscreen: lockScreen
     property alias switcher: switcher
+    property int statusBarHeight: statusbar.height
     // Implements back key navigation
 
     Keys.onReleased: {

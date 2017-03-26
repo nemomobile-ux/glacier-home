@@ -43,10 +43,10 @@ GridView {
 
     // just for margin purposes
     header: Item {
-        height: 100
+        height: Math.min(parent.width,parent.height)/10
     }
     footer: Item {
-        height: 100
+        height: Math.min(parent.width,parent.height)/10
     }
 
     Item {

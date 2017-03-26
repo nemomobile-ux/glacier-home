@@ -36,7 +36,7 @@ MouseArea {
         id: appSummary
         text: modelData.summary
         width: (rootitem.width-appIcon.width)-40
-        font.pointSize: 10
+        font.pointSize: 12
         font.bold :true
         font.capitalization: Font.AllUppercase
 
@@ -52,8 +52,7 @@ MouseArea {
         id: appBody
         width: (rootitem.width-appIcon.width)-40
         text: modelData.body
-        font.pointSize: 8
-
+        font.pointSize: 14
         anchors{
             left: appSummary.left
             top: appSummary.bottom

@@ -22,7 +22,7 @@ Rectangle {
         Text {
             id: timeDisplay
 
-            font.pixelSize: 80
+            font.pointSize: 16
             font.weight: Font.Light
             lineHeight: 0.85
             color: "white"
@@ -39,7 +39,7 @@ Rectangle {
         Text {
             id: dateDisplay
 
-            font.pixelSize: 20
+            font.pointSize: 14
             color: "white"
             opacity: 0.8
             horizontalAlignment: Text.AlignHCenter

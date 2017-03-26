@@ -42,7 +42,7 @@ import "statusbar"
 Item {
     id: root
     z: 201
-    height: Math.min(parent.width,parent.height)/12
+    height: Math.min(parent.width,parent.height)/10
     width: parent.width
     anchors.bottom: parent.bottom
 

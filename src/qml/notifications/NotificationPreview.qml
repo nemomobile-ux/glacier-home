@@ -24,6 +24,9 @@
 
 import QtQuick 2.0
 import org.nemomobile.lipstick 0.1
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
+
 import "../scripts/desktop.js" as Desktop
 
 Item {
@@ -36,14 +39,28 @@ Item {
     rotation: Desktop.instance.parent.rotation
     x: Desktop.instance.parent.x
     y: Desktop.instance.parent.y
+    Rectangle {
+        id: dimmer
+
+        height: Math.min(parent.width,parent.height)/14
+
+        anchors.top: parent.top
+        anchors.topMargin: notificationArea.notificationHeight
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        gradient: Gradient {
+            GradientStop { position: 1.0; color: "black" }
+            GradientStop { position: 0; color: "transparent" }
+        }
+    }
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: 102
+        property int notificationHeight: Math.min(parent.width,parent.height)/12
         property int notificationMargin: 14
-        property int notificationIconSize: 60
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 48
+        property int notificationIconSize: Math.min(parent.width,parent.height)/12
+        anchors.top: parent.top
         anchors.left: parent.left
         width: notificationWindow.width
         height: notificationArea.notificationHeight
@@ -56,7 +73,7 @@ Item {
                 fill: parent
             }
             color: "transparent"
-            radius: 5
+            radius: 10
 
             opacity: 0
 
@@ -89,20 +106,6 @@ Item {
                     }
                 }
             ]
-            Rectangle {
-                id: dimmer
-
-                height: 15
-
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-
-                gradient: Gradient {
-                    GradientStop { position: 0; color: "black" }
-                    GradientStop { position: 1.0; color: "transparent" }
-                }
-            }
             transitions: [
                 Transition {
                     to: "show"
@@ -140,26 +143,24 @@ Item {
                 source: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
             }
 
-            Text {
+            Label {
                 id: summary
                 anchors {
                     top: parent.top
                     left: icon.right
                     right: parent.right
-                    topMargin: notificationArea.notificationMargin
                     leftMargin: notificationArea.notificationMargin + 26
                     rightMargin: notificationArea.notificationMargin
+                    bottomMargin: notificationArea.notificationMargin
                 }
-                font {
-                    pixelSize: 36
-                }
+                font.pointSize: 12
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
                 color: "white"
                 clip: true
                 elide: Text.ElideRight
             }
 
-            Text {
+            Label {
                 id: body
                 anchors {
                     top: summary.bottom
@@ -167,7 +168,7 @@ Item {
                     right: summary.right
                 }
                 font {
-                    pixelSize: 18
+                    pointSize: 10
                     bold: true
                 }
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""

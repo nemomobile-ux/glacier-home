@@ -235,7 +235,13 @@ Item {
 
             Spinner {
                 id: spinner
-                anchors.centerIn: parent
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 8
+                }
+                width: gridview.cellWidth - gridview.cellWidth/10
+                height: width
                 enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
             }
         }
@@ -259,7 +265,7 @@ Item {
             width: parent.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: gridview.cellWidth/10
+            font.pixelSize: gridview.cellWidth/8
             color: 'white'
             anchors {
                 left: parent.left
