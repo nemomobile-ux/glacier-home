@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import org.freedesktop.contextkit 1.0
 
 StatusbarItem {
@@ -38,9 +38,18 @@ StatusbarItem {
         }
     }
 
-    iconSize: Theme.itemHeightExtraSmall
+    width: statusbar.height
+    iconSize: statusbar.height * 2
+    iconSizeHeight: statusbar.height
     panel: BatteryPanel {}
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png" //+ (chargeValue === 0 ? "?red" : "")
+    source: "images/battery"+chargeValue+".png"
+
+    StatusbarItem {
+        iconSize: parent.iconSize
+        iconSizeHeight: parent.iconSizeHeight
+        anchors.centerIn: parent
+        source: "images/battery_grid.png"
+    }
 
     Timer{
         id: chargingTimer
@@ -83,4 +92,5 @@ StatusbarItem {
             batteryIndicator.chargeValue = 6
         }
     }
+
 }

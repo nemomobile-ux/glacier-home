@@ -33,60 +33,62 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import org.freedesktop.contextkit 1.0
-import MeeGo.Connman 0.2
+import QtGraphicalEffects 1.0
+import QtFeedback 5.0
+import QtMultimedia 5.0
 
+import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
+
+import MeeGo.Connman 0.2
 
 import "statusbar"
 
 Item {
     id: root
     z: 201
-    height: Theme.itemHeightMedium
+
+    height: Math.min(parent.width,parent.height)/13.33333333333 //(480/36, so 36 pixels at a 480 pixel wide screen)
     width: parent.width
-    anchors.bottom: parent.bottom
-    enabled: !lockscreenVisible()
+    anchors.top: parent.top
+
+    ControlCenter{ 
+        id: ctrlCenter
+    }
 
     Rectangle {
-        id: statusbar
-        color: Theme.fillDarkColor
+        id: statusbarPadding
         anchors.fill: parent
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.75) }
+            GradientStop { position: 1.0; color: "transparent" }
+        }
+    }
+
+    Rectangle {
+        id: statusbarPressFeedback
+        anchors.fill: parent
+        visible: false
+        color: "black"
         opacity: 0.5
-        z: 200
+        z:202
     }
 
-    MouseArea {
-        property int oldX
-        property int oldY
-        anchors.fill: row
-        z: row.z + 10
-        //enabled: !lockscreenVisible()
-        onClicked: {
-            if(oldX != mouseX && oldY !== mouseY && row.childAt(mouseX, mouseY) && row.currentChild !== row.childAt(mouseX, mouseY)) {
-                row.currentChild = row.childAt(mouseX, mouseY)
-                row.currentChild.clicked()
-            }else {
-                row.currentChild = null
-            }
-        }
-
-        onPositionChanged: {
-            oldX = mouseX
-            oldY = mouseY
-            if(pressed && row.childAt(mouseX, mouseY)) {
-                if(row.currentChild !== row.childAt(mouseX, mouseY)) {
-                    row.currentChild = row.childAt(mouseX, mouseY)
-                    if(panel_loader.visible) panel_loader.visible = false
-                    row.currentChild.clicked()
-                }
-            } else {
-                row.currentChild = null
-            }
-        }
+    Item {
+        id: statusbar
+        height: parent.height*0.5
+        width:  parent.width*0.5
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
     }
-
+    Item {
+        id: statusbarRight
+        height: parent.height*0.5
+        width:  parent.width*0.5
+        anchors.verticalCenter: statusbar.verticalCenter
+        anchors.right: parent.right
+    }
 
     Connections {
         target: lipstickSettings;
@@ -194,150 +196,142 @@ Item {
         }
     }
 
-    RowLayout {
-        id:row
+    Row {
         anchors.fill: statusbar
-        spacing: Theme.itemSpacingSmall
-        property var currentChild
+        spacing: statusbar.height / 3
+
         StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
+            iconSize:1
+        }
 
-            MouseArea{
-                anchors.fill: parent
-                onPressAndHold: {
-                    var screenShotPath = "/home/nemo/Pictures/Screenshots/"
-                    var file = "glacier-screenshot-"+Qt.formatDateTime(new Date, "yyMMdd_hhmmss")+".png"
+        BatteryIndicator{}
 
-                    Lipstick.takeScreenshot(screenShotPath + file);
-                }
-            }
+        StatusbarItem {
+            iconSize: statusbar.height
+            //source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value
+            source: "theme/icon_signal_" + cellularSignalBars.value + ".png"
 
         }
 
         StatusbarItem {
-            iconSize: root.height
-            Item {
-                anchors.centerIn: parent
-                width: parent.width
-                height: tech.font.pixelSize*2
-                Label {
-                    id: tech
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment:Text.AlignBottom
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    clip:true
-                    text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
-                }
-
-                Label {
-                    y: -contentHeight + font.pixelSize*2 + tech.y
-                    horizontalAlignment: Text.AlignHCenter
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: {
-                        var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
-                        return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
-                    }
-                }
+            
+            Text {
+                id: tech
+                wrapMode: Text.WrapAnywhere
+                font.pixelSize: statusbar.height
+                color: Theme.textColor
+                text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,10) : qsTr("No Service")
             }
-            panel: SimPanel {}
+            iconSize: tech.width
         }
 
         StatusbarItem {
-            id:wifiStatus
-            iconSize: Theme.itemHeightExtraSmall
+            iconSize: statusbar.height
             source: {
-                if (wlan.connected) {
-                    if (networkManager.defaultRoute.type !== "wifi")
-                        return "image://theme/icon_wifi_0"
+                if (wlan.connected) {                     
                     if (networkManager.defaultRoute.strength >= 59) {
-                        return "image://theme/icon_wifi_focused4"
+                        return "theme/icon_wifi_4.png"
                     } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "image://theme/icon_wifi_focused3"
+                        return "theme/icon_wifi_3.png"
                     } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "image://theme/icon_wifi_focused2"
+                        return "theme/icon_wifi_2.png"
                     } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "image://theme/icon_wifi_focused1"
+                        return "theme/icon_wifi_1.png"
                     } else {
-                        return "image://theme/icon_wifi_0"
+                        return "theme/icon_wifi_0.png"
                     }
                 } else if (wifimodel.powered && !wlan.connected) {
                     return "image://theme/icon_wifi_touch"
                 } else {
-                    return "image://theme/icon_wifi_0"
+                    return "theme/data_"+ cellularDataTechnology.value + ".png"
                 }
+                    
             }
             panel: WifiPanel {}
         }
+    }
+
+    Row {
+        anchors.fill: statusbarRight
+        spacing: statusbar.height / 3
+        layoutDirection: Qt.RightToLeft
+
         StatusbarItem {
-            id: bluetootIndicator
-            iconSize: Theme.itemHeightExtraSmall
-            source: (bluetoothConnected.value) ? "image://theme/icon_bt_focused" : "image://theme/icon_bt_normal"
+            iconSize:1
+        }
+
+        StatusbarItem {
+            Text {
+                id: hours
+                wrapMode: Text.WrapAnywhere
+                font.pixelSize: statusbar.height
+                color: Theme.textColor
+                text: {
+                    //Todo: Get regional settings
+                    var separator = ":"
+                    return Qt.formatDateTime(wallClock.time, "hh") + separator + Qt.formatDateTime(wallClock.time, "mm")
+                }
+            }
+            iconSize: hours.width
+        }
+        StatusbarItem {
+            iconSize: statusbar.height
+            source: "theme/icon_music.png"
+            visible: false
+        }
+        StatusbarItem {
+            id: bluetoothIndicator
+            iconSize:       statusbar.height * 0.671875
+            iconSizeHeight: statusbar.height
+            source: "theme/icon_bluetooth.png"
             visible: bluetoothEnabled.value
         }
-        StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: "image://theme/icon_nfc_normal"
-        }
-        StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: "image://theme/icon_gps_normal"
-        }
 
         StatusbarItem {
-            MprisManager {
-                id: mprisManager
+            iconSize: statusbar.height
+            source: "theme/icon_nfc.png"
+        }
+        StatusbarItem {
+            iconSize: statusbar.height * 0.75
+            iconSizeHeight: statusbar.height
+            source: "theme/icon_gps.png"
+        }
+
+        //Status Bar Click
+        HapticsEffect {
+            id: rumbleEffect
+            attackIntensity: 0.0
+            attackTime: 250
+            intensity: 1.0
+            duration: 1
+            fadeTime: 250
+            fadeIntensity: 0.0
+        }
+        MouseArea {
+            width: root.width
+            height: root.height
+            onClicked: {
+                //Do the stuff to show the menu
+                ctrlCenter.setControlCenterState( !ctrlCenter.getControlCenterState() )
             }
-            property bool isPlaying: mprisManager.currentService && mprisManager.playbackStatus == Mpris.Playing
-
-            iconSize: Theme.itemHeightExtraSmall
-            source: isPlaying ?
-                        "image://theme/pause"
-                      : "image://theme/play"
-
-            panel: MediaController{}
-        }
-        StatusbarItem {
-            iconSize: root.height
-            Item {
-                anchors.centerIn: parent
-                width: parent.width
-                height: hours.font.pixelSize*2
-                Label {
-                    id: hours
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment:Text.AlignBottom
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: Qt.formatDateTime(wallClock.time, "hh")
-                }
-                Label {
-                    id: minutes
-                    y: -contentHeight + font.pixelSize*2 + hours.y
-                    horizontalAlignment: Text.AlignHCenter
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: Qt.formatDateTime(wallClock.time, "mm")
-                }
+            onReleased: {
+                rumbleEffect.start();  // plays a rumble effect
+                buttonUp.play();
+                statusbarPressFeedback.visible = false
+            }
+            onPressed: {
+                rumbleEffect.start();  // plays a rumble effect
+                buttonDown.play();
+                statusbarPressFeedback.visible = true
             }
         }
-
-        BatteryIndicator{
-            id:batteryIndicator
+        SoundEffect {
+            id: buttonDown
+            source: "theme/button_down.wav"
+        }
+        SoundEffect {
+            id: buttonUp
+            source: "theme/button_up.wav"
         }
     }
 }
