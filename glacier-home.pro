@@ -45,7 +45,8 @@ qml.files = src/qml/MainScreen.qml \
     src/qml/GlacierRotation.qml \
     src/qml/DeviceLockUI.qml \
     src/qml/LauncherItemWrapper.qml \
-    src/qml/LauncherItemFolder.qml
+    src/qml/LauncherItemFolder.qml \
+    src/qml/ControlCenter.qml
 
 qmlcompositor.path = /usr/share/lipstick-glacier-home-qt5/qml/compositor
 qmlcompositor.files = src/qml/compositor/WindowWrapperMystic.qml \
