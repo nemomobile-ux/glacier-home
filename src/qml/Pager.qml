@@ -28,9 +28,10 @@ PathView {
     highlightRangeMode: PathView.ApplyRange
     preferredHighlightBegin: 0.5
     preferredHighlightEnd: 0.5
-    flickDeceleration: 10000
-    highlightMoveDuration: 100
+    flickDeceleration: -10
+    highlightMoveDuration: 200
     snapMode: PathView.SnapOneItem
+
     path: Path {
         startX: - width * model.count / 2 + width / 2
         startY: height / 2

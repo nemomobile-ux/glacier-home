@@ -1,4 +1,4 @@
-// This file is part of colorful-home, a nice user experience for touchscreens.
+/* This file is part of colorful-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
+*/
 
 import QtQuick 2.6
 
@@ -30,7 +31,6 @@ import org.nemomobile.configuration 1.0
 
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-
 
 import "applauncher"
 
@@ -101,21 +101,24 @@ Flickable{
     /*app grid*/
     GridView {
         id: gridview
-        width: parent.width
+        cellWidth: Math.min(parent.width * launcherPadding,parent.height * launcherPadding)/4
+        cellHeight: cellWidth * (32/27)
+        width: parent.width * launcherPadding
+        cacheBuffer: gridview.contentHeight
+        property Item reorderItem
+        property bool onUninstall
+        property alias deleter: deleter
+        property var switcher: null
+        property var launcherPadding: 0.9375 //(450/180)
+        maximumFlickVelocity: parent.Height * 4
+
         height: parent.height-searchListView.height-Theme.itemSpacingHuge
 
         visible: searchString.length === 0
 
-        cacheBuffer: gridview.contentHeight
-        property Item reorderItem
-        property bool onUninstall
-
         property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
         property int rows: Math.floor(parent.height / minCellSize)
         property int columns:  Math.floor(parent.width / minCellSize)
-
-        cellWidth: parent.width / columns
-        cellHeight: Math.round(parent.height / rows)
 
         anchors{
             top: searchListView.bottom
@@ -143,7 +146,7 @@ Flickable{
         }*/
 
         footer: Item {
-            height: Theme.itemHeightLarge*1.5
+            height: Math.min(parent.width,parent.height)/10
         }
 
         onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
@@ -200,5 +203,12 @@ Flickable{
         }
 
         state: "uninstall"
+        delegate: LauncherItemDelegate {
+            id: launcherItem
+            width: gridview.cellWidth
+            height: gridview.cellHeight
+            isFolder: model.object.type == LauncherModel.Folder
+            source: model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+        }
     }
 }
