@@ -28,7 +28,7 @@ MouseArea {
             if (modelData.icon)
                 return "image://theme/" + modelData.icon
             else
-                return "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
+                return "images/glacier.svg"
         }
     }
 

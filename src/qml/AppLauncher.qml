@@ -31,20 +31,18 @@ import QtQuick.Controls.Styles.Nemo 1.0
 // the place for browsing installed applications and launching them
 
 GridView {
+    property var launcherPadding: 0.9375 //(450/180)
     id: gridview
-    cellWidth: Math.min(parent.width,parent.height)/4
-    cellHeight: cellWidth + 30
-    width: parent.width
+    cellWidth: Math.min(parent.width * launcherPadding,parent.height * launcherPadding)/4
+    cellHeight: cellWidth * (32/27)
+    width: parent.width * launcherPadding
     cacheBuffer: gridview.contentHeight
     property Item reorderItem
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
+    maximumFlickVelocity: parent.Height * 4
 
-    // just for margin purposes
-    header: Item {
-        height: Math.min(parent.width,parent.height)/10
-    }
     footer: Item {
         height: Math.min(parent.width,parent.height)/10
     }
@@ -94,6 +92,6 @@ GridView {
         iconCaption: model.object.title
         isFolder: model.object.type == LauncherModel.Folder
         folderAppsCount: isFolder && model.object ? model.object.itemCount : 0
-        source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+        source: model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
     }
 }

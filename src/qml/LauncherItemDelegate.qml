@@ -27,6 +27,7 @@ import QtQuick 2.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
+import QtGraphicalEffects 1.0
 
 Item {
     id: wrapper
@@ -65,7 +66,7 @@ Item {
         height: childrenRect.height
         cellWidth: gridview.cellWidth
         cellHeight: cellWidth + 30
-        visible: false
+        visible: true
         Rectangle {
             anchors.fill: parent
             opacity: 0.75
@@ -101,7 +102,7 @@ Item {
                 width: parent.width
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: gridview.cellWidth/10
+                font.pixelSize: gridview.cellWidth/9
                 color: 'black'
                 anchors {
                     left: parent.left
@@ -227,9 +228,9 @@ Item {
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 top: parent.top
-                topMargin: 8
+                topMargin: gridview.cellWidth/2
             }
-            width: gridview.cellWidth - gridview.cellWidth/10
+            width: gridview.cellWidth * (2/3)
             height: width
             asynchronous: true
 
@@ -265,14 +266,24 @@ Item {
             width: parent.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: gridview.cellWidth/8
+            font.pointSize: 6
             color: 'white'
             anchors {
                 left: parent.left
                 right: parent.right
                 top: iconImage.bottom
-                topMargin: 5
+                topMargin: gridview.cellWidth/8
             }
+        }
+
+        DropShadow {
+            anchors.fill: iconText
+            horizontalOffset: iconText.height/15
+            verticalOffset: iconText.height/10
+            radius: iconText.height/10
+            samples: 4
+            color: "#80000000"
+            source: iconText
         }
     }
 }

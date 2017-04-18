@@ -53,7 +53,7 @@ Page {
     ConfigurationValue {
         id: wallpaperSource
         key: desktop.isPortrait ? "/desktop/meego/background/portrait/picture_filename" : "/desktop/meego/background/landscape/picture_filename"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "images/graphics-wallpaper-home.jpg"
     }
     id: desktop
     property alias lockscreen: lockScreen
@@ -70,6 +70,7 @@ Page {
         }
     }
 
+    //Todo: Property to set statusbar on top or bottom
     Statusbar {
         id: statusbar
     }
@@ -114,12 +115,11 @@ Page {
         } else {
             LipstickSettings.lockscreenVisible = false
         }
-
     }
 
     Pager {
         id: pager
-
+        anchors.topMargin: Math.min(parent.width,parent.height)/13.33333333333 //Get statusbar height instead of hardcoding the same value
         anchors.fill: parent
         model: VisualItemModel {
             AppLauncher {
@@ -146,7 +146,7 @@ Page {
     }
     Image {
         id:wallpaper
-        source: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
+        source: "images/wallpaper-portrait.png"
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         z: -100

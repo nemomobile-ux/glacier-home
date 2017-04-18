@@ -42,22 +42,29 @@ Item {
     Rectangle {
         id: dimmer
 
-        height: Math.min(parent.width,parent.height)/14
+        height: Math.min(parent.width,parent.height)/7
 
         anchors.top: parent.top
-        anchors.topMargin: notificationArea.notificationHeight
+        //anchors.topMargin: notificationArea.notificationHeight
         anchors.left: parent.left
         anchors.right: parent.right
 
-        gradient: Gradient {
-            GradientStop { position: 1.0; color: "black" }
-            GradientStop { position: 0; color: "transparent" }
+        color: "black"
+        radius: 32
+
+        //Hack to only have border radius on the bottom corner, qml doesn't allow per corner radius
+        Rectangle{
+            anchors.top: parent.top
+            height: parent.height/2
+            width: parent.width
+            color: parent.color
+            z:-1
         }
     }
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: Math.min(parent.width,parent.height)/12
+        property int notificationHeight: Math.min(parent.width,parent.height)/7
         property int notificationMargin: 14
         property int notificationIconSize: Math.min(parent.width,parent.height)/12
         anchors.top: parent.top
@@ -73,9 +80,6 @@ Item {
                 fill: parent
             }
             color: "transparent"
-            radius: 10
-
-            opacity: 0
 
             states: [
                 State {
@@ -93,7 +97,7 @@ Item {
                 },
                 State {
                     name: "hide"
-                    PropertyChanges {
+                    PropertyChanges { 
                         target: notificationPreview
                         opacity: 0
                     }
@@ -117,7 +121,7 @@ Item {
                 Transition {
                     to: "hide"
                     SequentialAnimation {
-                        NumberAnimation { property: "opacity"; duration: 200 }
+                        NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad }
                         ScriptAction { scriptName: "notificationHidden" }
                     }
                 }
@@ -130,51 +134,59 @@ Item {
                 onTriggered: notificationPreview.state = "hide"
             }
 
-            Image {
-                id: icon
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    topMargin: notificationArea.notificationMargin
-                    leftMargin: notificationArea.notificationMargin
-                }
-                width: notificationArea.notificationIconSize
-                height: width
-                source: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
-            }
+            Rectangle{
+                width:parent.height
+                height:parent.height
 
-            Label {
-                id: summary
-                anchors {
-                    top: parent.top
-                    left: icon.right
-                    right: parent.right
-                    leftMargin: notificationArea.notificationMargin + 26
-                    rightMargin: notificationArea.notificationMargin
-                    bottomMargin: notificationArea.notificationMargin
+                color: "transparent"
+                id: iconDiv
+                Image {
+                    id: icon
+                    width: notificationArea.notificationIconSize
+                    height: width
+                    anchors.centerIn: parent
+                    source: "images/notification-circle.png"
                 }
-                font.pointSize: 12
-                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
-                color: "white"
-                clip: true
-                elide: Text.ElideRight
             }
-
-            Label {
-                id: body
+            Rectangle{
+                color: "transparent"
+                width: parent.width - parent.height
+                height: icon.height
                 anchors {
-                    top: summary.bottom
-                    left: summary.left
-                    right: summary.right
+                    top: icon.top
+                    left: iconDiv.right
+                    verticalCenter: parent.verticalCenter
                 }
-                font {
-                    pointSize: 10
-                    bold: true
+                Text {
+                    id: summary
+                    width:  parent.width
+                    font {
+                        pointSize: 7
+                        bold: true
+                    }
+                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
+                    color: "white"
+                    clip: true
+                    elide: Text.ElideRight
                 }
-                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
-                color: "white"
-                clip: true
-                elide: Text.ElideRight
+
+                Text {
+                    id: body
+                    anchors {
+                        top: summary.bottom
+                        left: summary.left
+                        right: summary.right
+                    }
+                    font {
+                        pointSize: 7
+                        bold: false
+                    }
+                    width:  parent.width
+                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
+                    color: "white"
+                    clip: true
+                    elide: Text.ElideRight
+                }
             }
 
             Connections {
@@ -184,3 +196,6 @@ Item {
         }
     }
 }
+
+                
+                

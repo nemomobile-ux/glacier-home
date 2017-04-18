@@ -26,28 +26,47 @@ import QtQuick 2.0
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import QtGraphicalEffects 1.0
 
 MouseArea {
     id: switcherItemRoot
 
     property bool rotateWindowContent: desktop.isPortrait
 
-    WindowPixmapItem {
-        id: windowPixmap
+    //Cheap shadow
+    //Todo: Add a bitmap shadow
+    /*Rectangle {
+        width: parent.width
+        height: parent.height
+        color: "red"
+    }*/
+
+    Rectangle {
+        id: switcherPixmapCard
         width: rotateWindowContent ? parent.width : parent.height
         height: rotateWindowContent ? parent.height : parent.width
-        windowId: model.window
-        transform: Rotation {
-            angle: rotateWindowContent ? 0 : 90
-            origin.x: windowPixmap.height / 2
-            origin.y: windowPixmap.height / 2
-        }
-        smooth: true
-        radius: 5
-        opacity: switcherRoot.closeMode ? .6 : 1
-        Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
-    }
+        color: "black"
+        radius: 32
 
+        transform: Scale { origin.x: width/2; origin.y: height/2; xScale: 0.9; yScale: 0.9}
+
+        WindowPixmapItem {
+            id: windowPixmap
+            width: parent.width
+            height: parent.height
+            windowId: model.window
+            transform: Rotation {
+                angle: rotateWindowContent ? 0 : 90
+                origin.x: windowPixmap.height / 2
+                origin.y: windowPixmap.height / 2
+            }
+            smooth: true
+            radius: 32
+            opacity: switcherRoot.closeMode ? .6 : 1
+            Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
+        }
+    }
+    
     function close() {
         Lipstick.compositor.closeClientForWindowId(model.window)
     }
@@ -83,7 +102,7 @@ MouseArea {
             script: switcherItemRoot.close()
         }
     }
-    Label {
+    /*Label {
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
@@ -91,7 +110,7 @@ MouseArea {
         }
         font.pointSize: 8
         text: Lipstick.compositor.windowForId(model.window).title
-    }
+    }*/
 
     CloseButton {
         id: closeButton
