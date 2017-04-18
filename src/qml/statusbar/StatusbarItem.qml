@@ -6,11 +6,14 @@ Item {
     property string panel_source
     property Component panel
     property double iconSize
+    property double iconSizeHeight
     Layout.fillWidth: true
     Layout.fillHeight: true
+    width: iconSize
+    height: iconSizeHeight ? iconSizeHeight : iconSize
     Image {
-        width: iconSize
-        height: iconSize
+        width: parent.width
+        height: parent.height
         id: icon
         anchors.centerIn: parent
     }
