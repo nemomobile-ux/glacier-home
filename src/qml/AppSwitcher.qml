@@ -28,6 +28,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.glacier 1.0
+import QtGraphicalEffects 1.0
 
 // App Switcher page
 // The place for browsing already running apps
@@ -223,5 +224,26 @@ Item {
                 primary: true
             }
         }
+    }
+
+    // Empty switcher indicator
+    Text {
+        id: noAppsOpenText
+        visible: switcherModel.itemCount === 0
+        text: qsTr("Nothing open yet")
+        anchors.centerIn: parent
+        fontSizeMode: Text.Fit
+        color: Theme.textColor
+    }
+
+    DropShadow {
+        anchors.fill: noAppsOpenText
+        horizontalOffset: noAppsOpenText.height/15
+        verticalOffset: noAppsOpenText.height/10
+        radius: noAppsOpenText.height/10
+        samples: 4
+        color: "#80000000"
+        source: noAppsOpenText
+        visible: switcherModel.itemCount === 0
     }
 }

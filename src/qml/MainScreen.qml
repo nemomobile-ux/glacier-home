@@ -81,6 +81,8 @@ Page {
             } else { Qt.quit(); }
         }
     }
+
+    //Todo: Property to set statusbar on top or bottom
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
@@ -126,12 +128,11 @@ Page {
         } else {
             LipstickSettings.lockscreenVisible = false
         }
-
     }
 
     Pager {
         id: pager
-
+        anchors.topMargin: Math.min(parent.width,parent.height)/13.33333333333 //Get statusbar height instead of hardcoding the same value
         anchors.fill: parent
         model: VisualItemModel {
             AppLauncher {

@@ -26,6 +26,7 @@ import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import QtGraphicalEffects 1.0
 
 MouseArea {
     id: switcherItemRoot
@@ -44,22 +45,42 @@ MouseArea {
         }
     }
 
-    WindowPixmapItem {
-        id: windowPixmap
+    //Cheap shadow
+    //Todo: Add a bitmap shadow
+    /*Rectangle {
+        width: parent.width
+        height: parent.height
+        color: "red"
+    }*/
+
+    Rectangle {
+        id: switcherPixmapCard
         width: rotateWindowContent ? parent.width : parent.height
         height: rotateWindowContent ? parent.height : parent.width
-        windowId: model.window
-        transform: Rotation {
-            angle:desktopAngle
-            origin.x:  rotateWindowContent ? windowPixmap.width / 2 : angle === 270 ? windowPixmap.width / 2 :  windowPixmap.height / 2
-            origin.y:  rotateWindowContent ? windowPixmap.height / 2 : angle === 270 ? windowPixmap.width / 2 :  windowPixmap.height / 2
-        }
-        smooth: true
-        radius: 5
-        opacity: switcherRoot.closeMode ? .6 : 1
-        Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
-    }
 
+        color: Theme.backgroundColor
+        radius: 32
+
+        transform: Scale { origin.x: width/2; origin.y: height/2; xScale: 0.9; yScale: 0.9}
+
+        WindowPixmapItem {
+            id: windowPixmap
+            width: parent.width
+            height: parent.height
+            windowId: model.window
+            transform: Rotation {
+                angle: rotateWindowContent ? 0 : 90
+                origin.x: windowPixmap.height / 2
+                origin.y: windowPixmap.height / 2
+            }
+            smooth: true
+            radius: 32
+            opacity: switcherRoot.closeMode ? .6 : 1
+            Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
+
+        }
+    }
+    
     function close() {
         Lipstick.compositor.closeClientForWindowId(model.window)
     }

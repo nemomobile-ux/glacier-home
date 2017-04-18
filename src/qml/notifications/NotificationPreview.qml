@@ -22,11 +22,10 @@
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
 
-import QtQuick 2.6
+import QtQuick 2.0
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import QtGraphicalEffects 1.0
 
 import "../scripts/desktop.js" as Desktop
 
@@ -40,12 +39,34 @@ Item {
     rotation: Desktop.instance.parent.rotation
     x: Desktop.instance.parent.x
     y: Desktop.instance.parent.y
+    Rectangle {
+        id: dimmer
+
+        height: Math.min(parent.width,parent.height)/7
+
+        anchors.top: parent.top
+        //anchors.topMargin: notificationArea.notificationHeight
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        color: "black"
+        radius: 32
+
+        //Hack to only have border radius on the bottom corner, qml doesn't allow per corner radius
+        Rectangle{
+            anchors.top: parent.top
+            height: parent.height/2
+            width: parent.width
+            color: parent.color
+            z:-1
+        }
+    }
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: Theme.itemHeightLarge
-        property int notificationMargin: Theme.itemSpacingExtraSmall
-        property int notificationIconSize: Theme.itemHeightMedium
+        property int notificationHeight: Math.min(parent.width,parent.height)/7
+        property int notificationMargin: 14
+        property int notificationIconSize: Math.min(parent.width,parent.height)/12
         anchors.top: parent.top
         anchors.left: parent.left
         width: notificationWindow.width
@@ -53,19 +74,12 @@ Item {
 
         onClicked: if (notificationPreviewPresenter.notification != null) notificationPreviewPresenter.notification.actionInvoked("default")
 
-
-
         Rectangle {
             id: notificationPreview
             anchors {
                 fill: parent
             }
-
-            gradient: Gradient {
-                GradientStop { position: 1.0; color: Theme.fillDarkColor }
-                GradientStop { position: 0; color: "transparent"}
-            }
-            opacity: 0
+            color: "transparent"
 
             states: [
                 State {
@@ -107,7 +121,7 @@ Item {
                 Transition {
                     to: "hide"
                     SequentialAnimation {
-                        NumberAnimation { property: "opacity"; duration: 200 }
+                        NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad }
                         ScriptAction { scriptName: "notificationHidden" }
                     }
                 }
@@ -120,90 +134,59 @@ Item {
                 onTriggered: notificationPreview.state = "hide"
             }
 
-            Image {
-                id: icon
-                property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    topMargin: notificationArea.notificationMargin
-                    leftMargin: notificationArea.notificationMargin
-                }
-                width: notificationArea.notificationIconSize
-                height: width
-                source: {
-                    if(notificationPreviewPresenter.notification) {
-                        if (notificationPreviewPresenter.notification.icon) {
-                            if (notificationPreviewPresenter.notification.icon.indexOf("/") == 0)
-                                return "file://" + notificationPreviewPresenter.notification.icon
-                            else
-                                return "image://theme/" + notificationPreviewPresenter.notification.icon
-                        }else if (notificationPreviewPresenter.notification.appIcon) {
-                            if (notificationPreviewPresenter.notification.appIcon.indexOf("/") == 0)
-                                return "file://" + notificationPreviewPresenter.notification.appIcon
-                            else
-                                return "image://theme/" + notificationPreviewPresenter.notification.appIcon
-                        } else return defaultIcon
-                    } else return defaultIcon
-                }
-                onStatusChanged: {
-                    if (icon.status == Image.Error) {
-                        icon.source = defaultIcon
-                    }
+            Rectangle{
+                width:parent.height
+                height:parent.height
 
+                color: "transparent"
+                id: iconDiv
+                Image {
+                    id: icon
+                    width: notificationArea.notificationIconSize
+                    height: width
+                    anchors.centerIn: parent
+                    source: "images/notification-circle.png"
                 }
             }
-
-            Label {
-                id: summary
+            Rectangle{
+                color: "transparent"
+                width: parent.width - parent.height
+                height: icon.height
                 anchors {
                     top: icon.top
-                    left: icon.right
-                    right: parent.right
-                    topMargin: notificationArea.notificationMargin
-                    leftMargin: notificationArea.notificationMargin*2
-                    rightMargin: notificationArea.notificationMargin
+                    left: iconDiv.right
+                    verticalCenter: parent.verticalCenter
                 }
-                height: if(!text) 0
-                font.pixelSize: Theme.fontSizeTiny
-                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
-                color: Theme.textColor
-                clip: true
-                elide: Text.ElideRight
-            }
-
-            Label {
-                id: body
-                anchors {
-                    top: summary.bottom
-                    left: summary.left
-                    right: summary.right
-                }
-                height: if(!text) 0
-                font.pixelSize: Theme.fontSizeSmall
-                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
-                color: Theme.textColor
-                clip: true
-                elide: Text.ElideRight
-            }
-            //The close button goes here that is in one of the designs
-            MouseArea {
-                id: notificationCloser
-                anchors {
-                    right: parent.right
-                    top: parent.top
+                Text {
+                    id: summary
+                    width:  parent.width
+                    font {
+                        pointSize: 7
+                        bold: true
+                    }
+                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
+                    color: "white"
+                    clip: true
+                    elide: Text.ElideRight
                 }
 
-                height: notificationArea.notificationHeight
-                width: height
-                //The X icon goes here
-                /*Image {
-                    id: closeIcon
-                    anchors.centerIn: parent
-                    width: Theme.itemHeightMedium
-                    height: width
-                    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/closeapp.svg"
-                }*/
+                Text {
+                    id: body
+                    anchors {
+                        top: summary.bottom
+                        left: summary.left
+                        right: summary.right
+                    }
+                    font {
+                        pointSize: 7
+                        bold: false
+                    }
+                    width:  parent.width
+                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
+                    color: "white"
+                    clip: true
+                    elide: Text.ElideRight
+                }
             }
 
             Connections {
