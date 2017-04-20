@@ -39,36 +39,14 @@ Item {
     rotation: Desktop.instance.parent.rotation
     x: Desktop.instance.parent.x
     y: Desktop.instance.parent.y
-    Rectangle {
-        id: dimmer
 
-        height: Math.min(parent.width,parent.height)/7
-
-        anchors.top: parent.top
-        //anchors.topMargin: notificationArea.notificationHeight
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        color: "black"
-        radius: 32
-
-        //Hack to only have border radius on the bottom corner, qml doesn't allow per corner radius
-        Rectangle{
-            anchors.top: parent.top
-            height: parent.height/2
-            width: parent.width
-            color: parent.color
-            z:-1
-        }
-    }
 
     MouseArea {
         id: notificationArea
         property int notificationHeight: Math.min(parent.width,parent.height)/7
         property int notificationMargin: 14
         property int notificationIconSize: Math.min(parent.width,parent.height)/12
-        anchors.top: parent.top
-        anchors.left: parent.left
+        y: -notificationArea.height
         width: notificationWindow.width
         height: notificationArea.notificationHeight
 
@@ -76,17 +54,18 @@ Item {
 
         Rectangle {
             id: notificationPreview
-            anchors {
-                fill: parent
-            }
-            color: "transparent"
+            width: notificationWindow.width
+            height: notificationArea.notificationHeight
+            radius: 32
+            color: "black"
 
             states: [
                 State {
                     name: "show"
                     PropertyChanges {
-                        target: notificationPreview
+                        target: notificationArea
                         opacity: 1
+                        y: 0
                     }
                     StateChangeScript {
                         name: "notificationShown"
@@ -98,8 +77,9 @@ Item {
                 State {
                     name: "hide"
                     PropertyChanges { 
-                        target: notificationPreview
+                        target: notificationArea
                         opacity: 0
+                        y: -notificationArea.height
                     }
                     StateChangeScript {
                         name: "notificationHidden"
@@ -114,14 +94,20 @@ Item {
                 Transition {
                     to: "show"
                     SequentialAnimation {
-                        NumberAnimation { property: "opacity"; duration: 200 }
+                        NumberAnimation { 
+                            properties: "x,y,opacity" 
+                            easing.type: Easing.InOutQuint
+                        }
                         ScriptAction { scriptName: "notificationShown" }
                     }
                 },
                 Transition {
                     to: "hide"
                     SequentialAnimation {
-                        NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad }
+                        NumberAnimation { 
+                            properties: "x,y,opacity" 
+                            easing.type: Easing.InOutQuint
+                        }
                         ScriptAction { scriptName: "notificationHidden" }
                     }
                 }
@@ -145,7 +131,7 @@ Item {
                     width: notificationArea.notificationIconSize
                     height: width
                     anchors.centerIn: parent
-                    source: "images/notification-circle.png"
+                    source: "../images/notification-circle.png"
                 }
             }
             Rectangle{
@@ -192,6 +178,15 @@ Item {
             Connections {
                 target: notificationPreviewPresenter;
                 onNotificationChanged: notificationPreview.state = (notificationPreviewPresenter.notification != null) ? "show" : "hide"
+            }
+
+            //Hack to only have border radius on the bottom corner, qml doesn't allow per corner radius
+            Rectangle{
+                anchors.top: parent.top
+                height: parent.height/2
+                width: parent.width
+                color: parent.color
+                z:-1
             }
         }
     }
