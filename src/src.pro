@@ -44,7 +44,8 @@ qml.files = qml/MainScreen.qml \
     qml/CommonPanel.qml \
     qml/ShutdownScreen.qml \
     qml/GlacierRotation.qml \
-    qml/DeviceLockUI.qml
+    qml/DeviceLockUI.qml \
+    qml/ControlCenter.qml
 
 qmlcompositor.path = /usr/share/lipstick-glacier-home-qt5/qml/compositor
 qmlcompositor.files = qml/compositor/WindowWrapperMystic.qml \
@@ -134,7 +135,8 @@ OTHER_FILES += qml/*.qml \
     qml/BatteryPanel.qml \
     qml/CommonPanel.qml \
     qml/ShutdownScreen.qml \
-    qml/GlacierRotation.qml
+    qml/GlacierRotation.qml \
+    qml/ControlCenter.qml
 
 TRANSLATIONS += i18n/glacer-home.ts
 
