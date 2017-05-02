@@ -45,7 +45,7 @@ import "statusbar"
 Item {
     id: root
     z: 201
-    height: Math.min(parent.width,parent.height)/13.33333333333 //(480/36, so 36 pixels at a 480 pixel wide screen)
+    height: size.dp(40)
     width: parent.width
     anchors.top: parent.top
 
@@ -177,7 +177,9 @@ Item {
             iconSize:1
         }
 
-        BatteryIndicator{}
+        BatteryIndicator{
+        
+        }
 
         StatusbarItem {
             iconSize: statusbar.height
@@ -194,6 +196,8 @@ Item {
                 font.pixelSize: statusbar.height
                 color: "white"
                 text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,10) : "No Service"
+                height: statusbar.height
+                verticalAlignment: Text.AlignVCenter
             }
             iconSize: tech.width
         }
@@ -237,6 +241,8 @@ Item {
                 wrapMode: Text.WrapAnywhere
                 font.pixelSize: statusbar.height
                 color: "white"
+                height: statusbar.height
+                verticalAlignment: Text.AlignVCenter
                 text: {
                     //Todo: Get regional settings
                     var separator = ":"
