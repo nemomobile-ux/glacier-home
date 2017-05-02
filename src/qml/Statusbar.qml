@@ -48,8 +48,7 @@ import "statusbar"
 Item {
     id: root
     z: 201
-
-    height: Math.min(parent.width,parent.height)/13.33333333333 //(480/36, so 36 pixels at a 480 pixel wide screen)
+    height: size.dp(40)
     width: parent.width
     anchors.top: parent.top
 
@@ -204,12 +203,14 @@ Item {
             iconSize:1
         }
 
-        BatteryIndicator{}
+        BatteryIndicator{
+        
+        }
 
         StatusbarItem {
             iconSize: statusbar.height
             //source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value
-            source: "theme/icon_signal_" + cellularSignalBars.value + ".png"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
 
         }
 
@@ -221,6 +222,8 @@ Item {
                 font.pixelSize: statusbar.height
                 color: Theme.textColor
                 text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,10) : qsTr("No Service")
+                height: statusbar.height
+                verticalAlignment: Text.AlignVCenter
             }
             iconSize: tech.width
         }
@@ -230,20 +233,20 @@ Item {
             source: {
                 if (wlan.connected) {                     
                     if (networkManager.defaultRoute.strength >= 59) {
-                        return "theme/icon_wifi_4.png"
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_4.png"
                     } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "theme/icon_wifi_3.png"
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_3.png"
                     } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "theme/icon_wifi_2.png"
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_2.png"
                     } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "theme/icon_wifi_1.png"
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_1.png"
                     } else {
-                        return "theme/icon_wifi_0.png"
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
                     }
                 } else if (wifimodel.powered && !wlan.connected) {
                     return "image://theme/icon_wifi_touch"
                 } else {
-                    return "theme/data_"+ cellularDataTechnology.value + ".png"
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_"+ cellularDataTechnology.value + ".png"
                 }
                     
             }
@@ -266,6 +269,9 @@ Item {
                 wrapMode: Text.WrapAnywhere
                 font.pixelSize: statusbar.height
                 color: Theme.textColor
+                height: statusbar.height
+                verticalAlignment: Text.AlignVCenter
+
                 text: {
                     //Todo: Get regional settings
                     var separator = ":"
@@ -276,25 +282,25 @@ Item {
         }
         StatusbarItem {
             iconSize: statusbar.height
-            source: "theme/icon_music.png"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_music.png"
             visible: false
         }
         StatusbarItem {
             id: bluetoothIndicator
             iconSize:       statusbar.height * 0.671875
             iconSizeHeight: statusbar.height
-            source: "theme/icon_bluetooth.png"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_bluetooth.png"
             visible: bluetoothEnabled.value
         }
 
         StatusbarItem {
             iconSize: statusbar.height
-            source: "theme/icon_nfc.png"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_nfc.png"
         }
         StatusbarItem {
             iconSize: statusbar.height * 0.75
             iconSizeHeight: statusbar.height
-            source: "theme/icon_gps.png"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
         }
 
         //Status Bar Click
@@ -327,11 +333,11 @@ Item {
         }
         SoundEffect {
             id: buttonDown
-            source: "theme/button_down.wav"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_down.wav"
         }
         SoundEffect {
             id: buttonUp
-            source: "theme/button_up.wav"
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_up.wav"
         }
     }
 }

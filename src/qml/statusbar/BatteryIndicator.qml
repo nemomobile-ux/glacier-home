@@ -42,13 +42,13 @@ StatusbarItem {
     iconSize: statusbar.height * 2
     iconSizeHeight: statusbar.height
     panel: BatteryPanel {}
-    source: "images/battery"+chargeValue+".png"
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png"
 
     StatusbarItem {
         iconSize: parent.iconSize
         iconSizeHeight: parent.iconSizeHeight
         anchors.centerIn: parent
-        source: "images/battery_grid.png"
+        source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery_grid.png"
     }
 
     Timer{
