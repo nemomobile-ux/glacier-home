@@ -62,7 +62,7 @@ Item {
             }
 
             gradient: Gradient {
-                GradientStop { position: 1.0; color: "black" }
+                GradientStop { position: 1.0; color: Theme.fillDarkColor }
                 GradientStop { position: 0; color: "transparent"}
             }
             opacity: 0
@@ -145,8 +145,8 @@ Item {
                     //bottomMargin: notificationArea.notificationMargin
                 }
                 font.pixelSize: Theme.fontSizeLarge
-                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
-                color: "darkgray"
+                text: "Notification"//notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
+                color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
             }
@@ -163,7 +163,7 @@ Item {
                     bold: true
                 }
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
-                color: "white"
+                color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
             }
