@@ -16,12 +16,12 @@ MouseArea {
 
     Image {
         id: appIcon
-        height: 100
+        height: Theme.itemHeightExtraLarge
         width: height
 
         anchors{
             left: parent.left
-            leftMargin: 20
+            leftMargin: Theme.itemSpacingLarge
         }
 
         source: {
@@ -31,32 +31,48 @@ MouseArea {
                 return "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
         }
     }
+    Label {
+        id: appName
+        text: modelData.appName
+        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeMedium
+        font.capitalization: Font.AllUppercase
+        font.bold: true
+        anchors {
+            left: appIcon.right
+            top: parent.top
+            leftMargin: Theme.itemSpacingLarge
+        }
+    }
 
     Label {
         id: appSummary
         text: modelData.summary
-        width: (rootitem.width-appIcon.width)-40
-        font.pointSize: 12
-        font.bold :true
-        font.capitalization: Font.AllUppercase
+        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeLarge
+        //font.bold :true
+        //font.capitalization: Font.AllUppercase
 
         anchors{
-            left: appIcon.right
-            leftMargin: 20
-            top: parent.top
+            left: appName.left
+            top: appName.bottom
+            topMargin: Theme.itemSpacingSmall
         }
-        wrapMode: Text.Wrap
+        elide: Text.ElideRight
     }
 
     Label {
         id: appBody
-        width: (rootitem.width-appIcon.width)-40
+        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
         text: modelData.body
-        font.pointSize: 14
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeMedium
         anchors{
-            left: appSummary.left
+            left: appName.left
             top: appSummary.bottom
         }
-        wrapMode: Text.Wrap
+        elide: Text.ElideRight
     }
 }

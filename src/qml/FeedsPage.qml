@@ -49,6 +49,8 @@ Flickable {
             anchors{
                 top: parent.top
                 horizontalCenter: parent.horizontalCenter
+                topMargin: Theme.itemSpacingLarge
+                bottomMargin: Theme.itemSpacingLarge
             }
 
             color: "transparent"
@@ -56,13 +58,12 @@ Flickable {
             Label {
                 id: displayDayOfWeek
                 text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
-                color: "white"
-                font.pointSize: 12
+                color: Theme.textColor
+                font.pixelSize: Theme.fontSizeExtraLarge
                 font.bold: true
                 anchors {
                     top: parent.top
                     left: parent.left
-                    topMargin: 30
                 }
             }
 
@@ -70,12 +71,12 @@ Flickable {
             Label {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                font.pointSize: 12
+                font.pixelSize: Theme.fontSizeExtraLarge
+                color: Theme.textColor
                 wrapMode: Text.WordWrap
                 anchors {
                     left: displayDayOfWeek.right
                     top: parent.top
-                    topMargin: 30
                 }
             }
         }
@@ -87,7 +88,7 @@ Flickable {
                 top: daterow.bottom
                 topMargin: 50
             }
-            spacing: 10
+            spacing: Theme.itemSpacingHuge
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel
