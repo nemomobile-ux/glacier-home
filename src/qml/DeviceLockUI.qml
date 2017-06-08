@@ -7,6 +7,8 @@ import QtQuick.Layouts 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 
+import "scripts/desktop.js" as Desktop
+
 Item {
     id: root
 
@@ -39,6 +41,8 @@ Item {
         id: authenticator
         onAuthenticated: {
             DeviceLock.unlock(authenticationToken)
+            Desktop.instance.setLockScreen(false)
+            Desktop.instance.codepadVisible = false
         }
         onFeedback: {
             console.log('### still locked', feedback, attemptsRemaining)

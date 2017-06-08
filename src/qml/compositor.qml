@@ -135,7 +135,7 @@ Compositor {
         property real lockThreshold: 0.25
         property int lockscreenX
         property int lockscreenY
-        enabled: DeviceLock.state != DeviceLock.Locked
+        enabled: !Desktop.instance.codepadVisible//DeviceLock.state != DeviceLock.Locked
 
         onGestureStarted: {
             swipeAnimation.stop()
@@ -158,27 +158,34 @@ Compositor {
                     cancelAnimation.start()
                 }
             } else if (root.homeActive){
-                if (gestureArea.progress >= lockThreshold) {
-                    lockAnimation.valueTo = (gesture == "left" ?
-                                                 Desktop.instance.lockscreen.width :
-                                                 -Desktop.instance.lockscreen.width)
-                    lockAnimation.start()
-                    // Locks or unlocks depending if the screen is locked.
-                    if (!Desktop.instance.lockscreenVisible()) {
-                        Desktop.instance.setLockScreen(true)
+                    if (gestureArea.progress >= lockThreshold) {
+                        lockAnimation.valueTo = (gesture == "left" ?
+                                                     Desktop.instance.lockscreen.width :
+                                                     -Desktop.instance.lockscreen.width)
+                        lockAnimation.start()
+                        // Locks, unlocks or brings up codepad to enter security code
+                        //Locks
+                        if (!Desktop.instance.lockscreenVisible()) {
+                            Desktop.instance.setLockScreen(true)
+                        }
+                        //Brings up codepad
+                        else if (Desktop.instance.lockscreenVisible() && !Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked) {
+                            Desktop.instance.codepadVisible = true
+                        }
+                        //Unlocks if no security code required
+                        else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
+                            Desktop.instance.setLockScreen(false)
+                        }
                     } else {
-                        Desktop.instance.setLockScreen(false)
+                        cancelAnimation.start()
                     }
-                } else {
-                    cancelAnimation.start()
                 }
             }
-        }
 
         states: [
             State {
                 name: "swipe"
-                when: DeviceLock.state != DeviceLock.Locked
+                when: !Desktop.instance.codepadVisible
                 PropertyChanges {
                     target: gestureArea
                     delayReset: true
@@ -192,7 +199,7 @@ Compositor {
             },
             State {
                 name: "lock"
-                when: DeviceLock.state == DeviceLock.Locked
+                when: Desktop.instance.lockscreenVisible()
                 PropertyChanges {
                     target: Desktop.instance.lockscreen
                     visible: true
@@ -221,7 +228,6 @@ Compositor {
                                                                                             Desktop.instance.lockscreen.width)+gestureArea.value) ) )
                 }
             }
-
         ]
 
         SequentialAnimation {
@@ -235,6 +241,23 @@ Compositor {
                 easing.type: Easing.OutQuint
             }
 
+            PropertyAction {
+                target: gestureArea
+                property: "state"
+                value: ""
+            }
+        }
+
+        SequentialAnimation {
+            id: codePadAnimation
+            property alias valueTo: valueAnimationCode.to
+
+            SmoothedAnimation {
+                id: valueAnimationCode
+                target: Desktop.instance.codepad
+                property: "opacity"
+                easing.type: Easing.OutQuint
+            }
             PropertyAction {
                 target: gestureArea
                 property: "state"

@@ -42,13 +42,13 @@ import "statusbar"
 Item {
     id: root
     z: 201
-    height: Math.min(parent.width,parent.height)/10
+    height: Theme.itemHeightMedium
     width: parent.width
     anchors.bottom: parent.bottom
 
     Rectangle {
         id: statusbar
-        color: "black"
+        color: Theme.fillDarkColor
         anchors.fill: parent
         opacity: 0.5
         z: 200

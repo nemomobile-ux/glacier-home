@@ -1,5 +1,8 @@
 
-import QtQuick 2.0
+import QtQuick 2.1
+import org.nemomobile.devicelock 1.0
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
 Rectangle {
     id: lockscreenClock
@@ -22,10 +25,10 @@ Rectangle {
         Text {
             id: timeDisplay
 
-            font.pointSize: 16
+            font.pointSize: Theme.fontSizeExtraLarge
             font.weight: Font.Light
             lineHeight: 0.85
-            color: "white"
+            color: Theme.textColor
             horizontalAlignment: Text.AlignHCenter
 
             anchors {
@@ -35,22 +38,46 @@ Rectangle {
 
             text: Qt.formatDateTime(wallClock.time, "hh:mm")
         }
-
-        Text {
-            id: dateDisplay
-
-            font.pointSize: 14
-            color: "white"
-            opacity: 0.8
-            horizontalAlignment: Text.AlignHCenter
-
+        Rectangle {
+            id: dateRow
+            height: weekdayDisplay.height
+            width: weekdayDisplay.width + dateDisplay.width
             anchors {
-                left: parent.left
-                right: parent.right
+                horizontalCenter: parent.horizontalCenter
             }
 
-            text: Qt.formatDateTime(wallClock.time, "<b>dddd</b>, d MMMM yyyy")
+            color: "transparent"
+
+            Label {
+                id: weekdayDisplay
+
+                font.pointSize: Theme.fontSizeTiny / 1.5
+                color: Theme.textColor
+                horizontalAlignment: Text.AlignHCenter
+                font.weight: Font.Bold
+                anchors {
+                    left: parent.left
+                }
+
+                text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
+            }
+
+            Label {
+                id: dateDisplay
+
+                font.pointSize: Theme.fontSizeTiny / 1.5
+                color: Theme.textColor
+                horizontalAlignment: Text.AlignHCenter
+                font.weight: Font.Light
+                anchors {
+                    left: weekdayDisplay.right
+                    top: parent.top
+                }
+
+                text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
+            }
         }
+
     }
 }
 

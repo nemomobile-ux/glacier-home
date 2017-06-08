@@ -43,7 +43,7 @@ Flickable {
         // Day of week
         Rectangle {
             id: daterow
-            height: displayCurrentDate.height + 15
+            height: Theme.itemHeightMedium
             width: childrenRect.width
 
             anchors{
@@ -59,8 +59,8 @@ Flickable {
                 id: displayDayOfWeek
                 text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
                 color: Theme.textColor
-                font.pixelSize: Theme.fontSizeExtraLarge
-                font.bold: true
+                font.pointSize: Theme.fontSizeTiny / 1.5
+                font.weight: Font.Bold
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -71,8 +71,9 @@ Flickable {
             Label {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pointSize: Theme.fontSizeTiny / 1.5
                 color: Theme.textColor
+                font.weight: Font.Light
                 wrapMode: Text.WordWrap
                 anchors {
                     left: displayDayOfWeek.right
@@ -86,7 +87,7 @@ Flickable {
             width: parent.width
             anchors{
                 top: daterow.bottom
-                topMargin: 50
+                topMargin: Theme.itemSpacingHuge
             }
             spacing: Theme.itemSpacingHuge
             Repeater {

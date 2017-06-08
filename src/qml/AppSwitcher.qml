@@ -22,8 +22,9 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 
-import QtQuick 2.2
+import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
+import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.glacier 1.0
@@ -33,7 +34,6 @@ import org.nemomobile.glacier 1.0
 
 Item {
     id: switcherRoot
-
     property bool closeMode: false
     property bool visibleInHome: false
     property alias runningAppsCount: switcherModel.itemCount
@@ -46,12 +46,32 @@ Item {
             closeMode = false;
         }
     }
+    // Empty switcher indicator
+    Rectangle {
+        id: topText
+        visible: switcherModel.itemCount === 0
+        width: noAppsLabel.width
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            topMargin: Theme.itemSpacingLarge
+        }
+        color: "black"
 
+        Label {
+            id: noAppsLabel
+            text: qsTr("No apps open")
+            anchors {
+                top: parent.top
+                left: parent.left
+            }
+            font.weight: Font.Light
+            font.pointSize: Theme.fontSizeTiny
+        }
+    }
     Flickable {
         id: flickable
         contentHeight: gridview.height
         width: closeMode ? parent.width - 20 : parent.width // see comment re right anchor below
-
         MouseArea {
             height: flickable.contentHeight > flickable.height ? flickable.contentHeight : flickable.height
             width: flickable.width
@@ -180,13 +200,5 @@ Item {
                 }
             }
         }
-    }
-
-    // Empty switcher indicator
-    Label {
-        visible: switcherModel.itemCount === 0
-        text: qsTr("No apps open")
-        width: parent.width
-        fontSizeMode: Text.HorizontalFit
     }
 }

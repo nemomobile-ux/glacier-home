@@ -58,7 +58,10 @@ Page {
     id: desktop
     property alias lockscreen: lockScreen
     property alias switcher: switcher
+    property alias codepad: codePad
     property int statusBarHeight: statusbar.height
+    property bool codepadVisible: false
+
     // Implements back key navigation
 
     Keys.onReleased: {
@@ -142,7 +145,7 @@ Page {
         }
 
         // Initial view should be the AppLauncher
-        currentIndex: 0
+        //currentIndex: 0
     }
     Image {
         id:wallpaper
@@ -153,9 +156,18 @@ Page {
     }
     Lockscreen {
         id: lockScreen
-        visible: DeviceLock.state >= DeviceLock.Locked
+        visible: lockscreenVisible()//DeviceLock.state == DeviceLock.Locked
         width: parent.width
         height: parent.height
+        z: 200
+    }
+    DeviceLockUI {
+        id: codePad
+        visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
+        width: lockScreen.width
+        height:lockScreen.height / 2
+
+        anchors.centerIn: lockScreen
         z: 200
     }
 

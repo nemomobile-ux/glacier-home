@@ -145,7 +145,7 @@ Item {
                     //bottomMargin: notificationArea.notificationMargin
                 }
                 font.pixelSize: Theme.fontSizeLarge
-                text: "Notification"//notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
+                text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
                 color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight

@@ -14,7 +14,6 @@ Image {
         key: "/home/glacier/lockScreen/wallpaperImage"
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
-
     LockscreenClock {
         id: clock
         anchors {
@@ -25,6 +24,7 @@ Image {
     }
     DeviceLockUI {
         id: deviceLockUI
+        visible: false//DeviceLock.state === DeviceLock.Locked
         anchors {
             top: clock.bottom
             left: parent.left
