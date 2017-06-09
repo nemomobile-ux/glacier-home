@@ -135,7 +135,7 @@ Compositor {
         property real lockThreshold: 0.25
         property int lockscreenX
         property int lockscreenY
-        enabled: !Desktop.instance.codepadVisible//DeviceLock.state != DeviceLock.Locked
+        enabled: true//!Desktop.instance.codepadVisible//DeviceLock.state != DeviceLock.Locked
 
         onGestureStarted: {
             swipeAnimation.stop()
@@ -143,6 +143,15 @@ Compositor {
             lockAnimation.stop()
             if (root.appActive) {
                 state = "swipe"
+            }
+            else if (!root.appActive && DeviceLock.state !== DeviceLock.Locked) {
+                state = "lock"
+            }
+            else if (Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && !Desktop.instance.codepadVisible) {
+                state = "pullCodepad"
+            }
+            else if (Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && Desktop.instance.codepadVisible) {
+                state = "pushCodepad"
             }
         }
 
@@ -164,15 +173,19 @@ Compositor {
                                                      -Desktop.instance.lockscreen.width)
                         lockAnimation.start()
                         // Locks, unlocks or brings up codepad to enter security code
-                        //Locks
+                        // Locks
                         if (!Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(true)
                         }
-                        //Brings up codepad
-                        else if (Desktop.instance.lockscreenVisible() && !Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked) {
+                        // Brings up codepad, only left and right swipes allowed for it for now
+                        else if (Desktop.instance.lockscreenVisible() && !Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked && (gesture !== "down" && gesture !== "up")) {
                             Desktop.instance.codepadVisible = true
                         }
-                        //Unlocks if no security code required
+                        // Hides codepad but does not unlock the code, only left and right swipes allowed for now
+                        else if (Desktop.instance.lockscreenVisible() && Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked && gesture !== "down" && gesture !== "up") {
+                            Desktop.instance.codepadVisible = false
+                        }
+                        // Unlocks if no security code required
                         else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(false)
                         }
@@ -181,8 +194,9 @@ Compositor {
                     }
                 }
             }
-
+        // States are for the animations that follow your finger during swipes
         states: [
+            // Swipe state is when app is on and you are swiping it to background or closing it
             State {
                 name: "swipe"
                 when: !Desktop.instance.codepadVisible
@@ -197,6 +211,7 @@ Compositor {
                     y: gestureArea.horizontal ? 0 : gestureArea.value
                 }
             },
+            // Lock state is for when screen is locked but no security code required, can be swiped from any edge
             State {
                 name: "lock"
                 when: Desktop.instance.lockscreenVisible()
@@ -227,7 +242,65 @@ Compositor {
                                                                                             Desktop.instance.lockscreen.height :
                                                                                             Desktop.instance.lockscreen.width)+gestureArea.value) ) )
                 }
+            },
+            // pullCodepad is when you are pulling codepad into view to enter security code
+            State {
+                name: "pullCodepad"
+                when: Desktop.instance.codepadVisible
+                PropertyChanges {
+                    target: Desktop.instance
+                    codepadVisible: true
+                }
+
+                PropertyChanges {
+                    target: gestureArea
+                    delayReset: true
+                }
+
+                PropertyChanges {
+                    target: Desktop.instance.codepad
+                    // Extremely confusing logic and math to get the codepad follow your finger
+                    x: gestureArea.lockscreenX + (gestureArea.value < 0 ? Desktop.instance.lockscreen.width : -Desktop.instance.lockscreen.width) +
+                       ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
+                                                                                          (gestureArea.gesture == "right" ?
+                                                                                               ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
+                                                                                                    -Desktop.instance.lockscreen.width :
+                                                                                                    -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
+                                                                                               ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
+                                                                                                    Desktop.instance.lockscreen.width :
+                                                                                                    Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
+                    // Bringing up the codepad opacity from 0 to 1
+                    opacity: gestureArea.horizontal ? (gestureArea.value < 0 ? (gestureArea.value / -Desktop.instance.lockscreen.width) :
+                                                                               gestureArea.value / Desktop.instance.lockscreen.width) : 0
+                }
+            },
+            // pushCodepad is when you are pushing the codepad away without entering a security code
+            State {
+                name: "pushCodepad"
+                when: Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && Desktop.instance.codepadVisible
+
+                PropertyChanges {
+                    target: gestureArea
+                    delayReset: true
+                }
+                PropertyChanges {
+                    target: Desktop.instance.codepad
+                    // Confusing logic for the codepad to follow your swipe
+                    x: gestureArea.lockscreenX +
+                       ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
+                                                                                          (gestureArea.gesture == "right" ?
+                                                                                               ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
+                                                                                                    -Desktop.instance.lockscreen.width :
+                                                                                                    -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
+                                                                                               ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
+                                                                                                    Desktop.instance.lockscreen.width :
+                                                                                                    Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
+                    // Hiding the codepad with opacity fading from 1 to 0
+                    opacity: 1 - (gestureArea.horizontal ? (gestureArea.value < 0 ? (gestureArea.value / -Desktop.instance.lockscreen.width) :
+                                                                               gestureArea.value / Desktop.instance.lockscreen.width) : 0)
+                }
             }
+
         ]
 
         SequentialAnimation {
@@ -249,23 +322,6 @@ Compositor {
         }
 
         SequentialAnimation {
-            id: codePadAnimation
-            property alias valueTo: valueAnimationCode.to
-
-            SmoothedAnimation {
-                id: valueAnimationCode
-                target: Desktop.instance.codepad
-                property: "opacity"
-                easing.type: Easing.OutQuint
-            }
-            PropertyAction {
-                target: gestureArea
-                property: "state"
-                value: ""
-            }
-        }
-
-        SequentialAnimation {
             id: lockAnimation
             property alias valueTo: valueAnimationLock.to
 
@@ -273,6 +329,7 @@ Compositor {
                 id: valueAnimationLock
                 target: Desktop.instance.lockscreen
                 property: "x"
+                velocity: 1
                 easing.type: Easing.OutQuint
             }
 
@@ -328,8 +385,10 @@ Compositor {
     }
 
     onDisplayOff:
-        if (root.topmostAlarmWindow == null)
+        if (root.topmostAlarmWindow == null) {
+            Desktop.instance.codepadVisible = false
             setCurrentWindow(root.homeWindow)
+        }
 
     onWindowAdded: {
         console.log("Compositor: Window added \"" + window.title + "\"" + " category: " + window.category)

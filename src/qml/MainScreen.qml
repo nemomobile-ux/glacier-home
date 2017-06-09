@@ -166,8 +166,10 @@ Page {
         visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
         width: lockScreen.width
         height:lockScreen.height / 2
+        anchors {
+            verticalCenter: lockScreen.verticalCenter
+        }
 
-        anchors.centerIn: lockScreen
         z: 200
     }
 
