@@ -51,11 +51,13 @@ Item {
         id: topText
         visible: switcherModel.itemCount === 0
         width: noAppsLabel.width
+        height: Theme.itemHeightMedium
         anchors {
+            top: parent.top
+            topMargin:Theme.itemSpacingLarge
             horizontalCenter: parent.horizontalCenter
-            topMargin: Theme.itemSpacingLarge
         }
-        color: "black"
+        color: "transparent"
 
         Label {
             id: noAppsLabel
@@ -65,7 +67,7 @@ Item {
                 left: parent.left
             }
             font.weight: Font.Light
-            font.pointSize: Theme.fontSizeTiny
+            font.pixelSize: Theme.fontSizeExtraLarge
         }
     }
     Flickable {

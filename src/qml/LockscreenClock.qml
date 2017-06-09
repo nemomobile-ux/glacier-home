@@ -25,7 +25,7 @@ Rectangle {
         Text {
             id: timeDisplay
 
-            font.pointSize: Theme.fontSizeExtraLarge
+            font.pixelSize: Theme.fontSizeExtraLarge * 2
             font.weight: Font.Light
             lineHeight: 0.85
             color: Theme.textColor
@@ -51,7 +51,7 @@ Rectangle {
             Label {
                 id: weekdayDisplay
 
-                font.pointSize: Theme.fontSizeTiny / 1.5
+                font.pixelSize: Theme.fontSizeLarge
                 color: Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Bold
@@ -65,7 +65,7 @@ Rectangle {
             Label {
                 id: dateDisplay
 
-                font.pointSize: Theme.fontSizeTiny / 1.5
+                font.pixelSize: Theme.fontSizeLarge
                 color: Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Light
