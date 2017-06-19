@@ -75,6 +75,7 @@ Page {
 
     Statusbar {
         id: statusbar
+        enabled: DeviceLock.state !== DeviceLock.Locked
     }
 
     GlacierRotation {
@@ -83,7 +84,7 @@ Page {
         unrotatedItems: [lockScreen]
     }
 
-    orientation: Lipstick.compositor.screenOrientation
+    orientation: DeviceLock.state == DeviceLock.Locked ? nativeOrientation : Lipstick.compositor.screenOrientation
 
     onOrientationChanged: {
         if (!lockscreenVisible())

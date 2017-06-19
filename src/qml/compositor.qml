@@ -259,7 +259,7 @@ Compositor {
 
                 PropertyChanges {
                     target: Desktop.instance.codepad
-                    // Extremely confusing logic and math to get the codepad follow your finger
+                    // Confusing logic and math to get the codepad follow your finger
                     x: gestureArea.lockscreenX + (gestureArea.value < 0 ? Desktop.instance.lockscreen.width : -Desktop.instance.lockscreen.width) +
                        ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
                                                                                           (gestureArea.gesture == "right" ?
