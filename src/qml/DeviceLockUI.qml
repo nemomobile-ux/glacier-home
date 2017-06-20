@@ -58,6 +58,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             readOnly: true
             echoMode: TextInput.PasswordEchoOnEdit
+            font.pixelSize: Theme.fontSizeExtraLarge
         }
 
         GridLayout {
