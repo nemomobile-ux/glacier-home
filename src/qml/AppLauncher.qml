@@ -21,8 +21,9 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2017, Eetu Kahelin
 
-import QtQuick 2.0
+import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -32,14 +33,20 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 GridView {
     id: gridview
-    cellWidth: Math.min(parent.width,parent.height)/4
-    cellHeight: cellWidth + 30
+    cellWidth: cellSize
+    cellHeight: cellSize
     width: parent.width
     cacheBuffer: gridview.contentHeight
     property Item reorderItem
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
+    property int cellSize: Math.min(parent.width,parent.height)/4
+    property int folderIndex: -1
+    property bool isRootFolder:true
+    property bool newFolderActive
+    property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
+
 
     // just for margin purposes
     header: Item {
@@ -49,12 +56,12 @@ GridView {
         height: Math.min(parent.width,parent.height)/10
     }
 
-    Item {
+    Item {//todo
         id: deleter
         anchors.top: parent.top
         property alias remove: remove
         property alias uninstall: uninstall
-        Rectangle {
+        Rectangle {//todo
             id: remove
             property alias text: removeLabel.text
             visible: onUninstall
@@ -68,7 +75,7 @@ GridView {
                 font.pointSize: 8
             }
         }
-        Rectangle {
+        Rectangle {//todo
             id: uninstall
             property alias text: uninstallLabel.text
             anchors.left: remove.right
@@ -85,15 +92,50 @@ GridView {
         }
     }
 
-    model: LauncherFolderModel { id: launcherModel }
+    onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
 
-    delegate: LauncherItemDelegate {
-        id: launcherItem
-        width: gridview.cellWidth
-        height: gridview.cellHeight
-        iconCaption: model.object.title
-        isFolder: model.object.type == LauncherModel.Folder
-        folderAppsCount: isFolder && model.object ? model.object.itemCount : 0
-        source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+    model: LauncherFolderModel { id: launcherModel }
+    //Using loader that in the future we can also have widgets as delegate
+    delegate: Loader {
+        id:loader
+        width: cellSize
+        height: cellSize
+        onXChanged: item.x = x
+        onYChanged: item.y = y
+        property QtObject modelData : model
+        property int cellSize: gridview.cellHeight //delete
+        property int cellIndex: index
+        sourceComponent: object.type == LauncherModel.Folder ? folder : app
+    }
+
+    Component {
+        id:app
+        LauncherItemDelegate {
+            id: launcherItem
+            parent: gridview
+            parentItem: gridview
+            iconCaption.color:Theme.textColor
+            iconCaption.text: modelData.object.title
+            isFolder: modelData.object.type == LauncherModel.Folder
+            folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
+            source: modelData.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+            notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+            folderModel:launcherModel
+
+        }
+    }
+    Component {
+        id:folder
+        LauncherItemFolder {
+            id: launcherfolder
+            parent: gridview
+            iconCaption.color:Theme.textColor
+            iconCaption.text: modelData.object.title
+            isFolder: modelData.object.type == LauncherModel.Folder
+            folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
+            source: modelData.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+            notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+            folderModel:launcherModel
+        }
     }
 }

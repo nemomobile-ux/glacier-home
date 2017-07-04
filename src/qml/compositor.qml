@@ -398,6 +398,7 @@ Compositor {
         var isNotificationWindow = window.category == "notification"
         var isOverlayWindow =  window.category == "overlay"
         var isAlarmWindow = window.category == "alarm"
+        var isApplicationWindow = window.category == ""
         var parent = null
         if (window.category == "cover") {
             window.visible = false
@@ -411,9 +412,13 @@ Compositor {
             parent = overlayLayer
         } else if (isAlarmWindow) {
             parent = alarmsLayer
+        } else if (isApplicationWindow) {
+            parent = appLayer
         } else {
             parent = appLayer
         }
+
+        window.focusOnTouch = !window.isInProcess && !isOverlayWindow && !isNotificationWindow
 
         var w;
         if (isOverlayWindow) w = alphaWrapper.createObject(parent, { window: window })
