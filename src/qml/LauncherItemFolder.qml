@@ -140,15 +140,6 @@ Item {
             folderLoader.model = 0
         }
     }
-    Connections {
-        target: Lipstick.compositor
-        onWindowAdded: {
-            if(window.category=="" && window.title !== "Home"){
-                folderLoader.visible=false
-                folderLoader.model = 0
-            }
-        }
-    }
 
     InverseMouseArea {
         anchors.fill: folderLoader
