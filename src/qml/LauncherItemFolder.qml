@@ -94,7 +94,7 @@ Item {
         id: folderLoader
         property Item reorderItem
         property bool isRootFolder:false
-        cacheBuffer: gridview.contentHeight
+        cacheBuffer: folderLoader.contentHeight
         parent: gridview.contentItem
         y: wrapper.y + wrapper.width
         x: 0
@@ -109,7 +109,7 @@ Item {
             width: parent.width
             height: parent.height
             opacity: 0.85
-            color: "white"
+            color: triangle.color
             radius: Theme.itemSpacingMedium
             z: -1
         }

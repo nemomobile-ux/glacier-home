@@ -51,7 +51,7 @@ MouseArea {
     onYChanged: moved()
     drag.minimumX: parentItem.contentItem.x - width/2
     drag.maximumX: parentItem.contentItem.width + width/2
-    drag.minimumY: parentItem.contentItem.y -height/2
+    drag.minimumY: parentItem.contentItem.y -height/2 -height/4
     drag.maximumY: parentItem.contentItem.height +height/2
 
     onClicked: {
@@ -83,8 +83,8 @@ MouseArea {
 
     onReleased: {
         if (reordering) {
-            reorderEnded()
             reordering = false
+            reorderEnded()
             reorderTimer.stop()
             drag.target = null
             reorderItem = null
@@ -165,6 +165,12 @@ MouseArea {
             folderIndex = -1
            newFolderActive = false
         }
+        //To drop appicon out of the folder
+        var realY = parseInt(parentItem.mapFromItem(launcherItem, 0, 0).y) + parseInt(((launcherItem.height*launcherItem.scale-launcherItem.height)/2).toFixed(2))
+        if (!parent.isRootFolder && (realY < -Math.abs(launcherItem.height/2) || realY > parentItem.height)) {
+            var parentFolderIndex = folderModel.parentFolder.indexOf(folderModel)
+            folderModel.parentFolder.moveToFolder(modelData.object, folderModel.parentFolder, parentFolderIndex+1)
+        }
     }
 
     Timer {
@@ -195,7 +201,19 @@ MouseArea {
         NumberAnimation { target: launcherItem; property: "y"; to: wrapper.y; duration: 130; easing.type: Easing.OutQuint }
     }
 
-
+    Connections {
+        target: modelData.object
+        ignoreUnknownSignals: true
+        onItemRemoved: {
+            var modelDataObject = modelData.object
+            //If there is only one item in folder, remove the folder
+            if (modelDataObject.itemCount === 1) {
+                var parentFolderIndex = modelDataObject.parentFolder.indexOf(modelDataObject)
+                modelDataObject.parentFolder.moveToFolder(modelDataObject.get(0), modelDataObject.parentFolder, parentFolderIndex)
+                modelDataObject.destroyFolder()
+            }
+        }
+    }
 
     Item {
         id: iconWrapper
