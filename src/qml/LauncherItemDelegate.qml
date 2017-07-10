@@ -31,11 +31,10 @@ import org.nemomobile.lipstick 0.1
 
 Item {
     id: wrapper
-    property string source
-    property alias iconCaption: launcherItem.iconCaption
+    property alias source: iconImage.source
+    property alias iconCaption: iconText
     property bool reordering: launcherItem.reordering
     property bool isFolder
-    property int folderAppsCount
     //Sailfish and other app icons are larger than nemo icons. Thats why this property could be used to scale them
     property bool notNemoIcon
     property alias parentItem: launcherItem.parentItem
@@ -63,10 +62,64 @@ Item {
         id: launcherItem
         width: wrapper.width
         height: wrapper.height
-        folderAppsCount: wrapper.folderAppsCount
         isFolder: wrapper.isFolder
         notNemoIcon: wrapper.notNemoIcon
-        source: wrapper.source
+
+        Item {
+            id: iconWrapper
+            width: parent.width -parent.width/10
+            height: width - iconText.height
+            anchors.centerIn:  parent
+            Image {
+                id: iconImage
+                anchors {
+                    // centerIn:  launcherItem.n.otNemoIcon ? parent : undefined
+                    horizontalCenter: /* launcherItemnotNemoIcon ? undefined : */parent.horizontalCenter
+                    top: parent.top
+                    //topMargin: Theme.itemSpacingExtraSmall
+                }
+                width:/*launcherItem.notNemoIcon ? parent.width-parent.width/3 :  */parent.width - parent.width/4
+                height: width
+                asynchronous: true
+            }
+            Spinner {
+                id: spinnerr
+                anchors {
+                    centerIn:  iconImage
+                    top: iconImage.top
+                    topMargin: Theme.itemSpacingExtraSmall
+                }
+                width: iconWrapper.width
+                height: width
+                enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
+
+                Connections {
+                    target: Lipstick.compositor
+                    onWindowAdded: {
+                        if(window.category=="" && window.title !== "Home"){
+                            spinnerr.stop()
+                        }
+                    }
+                }
+            }
+
+        }
+        // Caption for the icon
+        Text {
+            id: iconText
+            // elide only works if an explicit width is set
+            width: iconWrapper.width
+            elide: Text.ElideRight
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.textColor
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+                topMargin: Theme.itemSpacingExtraSmall
+            }
+        }
     }
 
 

@@ -103,7 +103,7 @@ GridView {
         onXChanged: item.x = x
         onYChanged: item.y = y
         property QtObject modelData : model
-        property int cellSize: gridview.cellHeight //delete
+        property int cellSize: gridview.cellHeight
         property int cellIndex: index
         sourceComponent: object.type == LauncherModel.Folder ? folder : app
     }
@@ -117,11 +117,9 @@ GridView {
             iconCaption.color:Theme.textColor
             iconCaption.text: modelData.object.title
             isFolder: modelData.object.type == LauncherModel.Folder
-            folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
-            source: modelData.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+            source: modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
             notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
             folderModel:launcherModel
-
         }
     }
     Component {
@@ -133,7 +131,6 @@ GridView {
             iconCaption.text: modelData.object.title
             isFolder: modelData.object.type == LauncherModel.Folder
             folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
-            source: modelData.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
             notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
             folderModel:launcherModel
         }

@@ -29,14 +29,11 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 
 MouseArea {
-    property alias source: iconImage.source
-    property alias iconCaption: iconText
     property bool reordering
     property int newIndex: -1
     property int newFolderIndex: -1
     property real oldY
     property bool isFolder
-    property int folderAppsCount
     property bool notNemoIcon
     property Item parentItem
     property alias slideMoveAnim: slideMoveAnim
@@ -163,7 +160,7 @@ MouseArea {
                 folderModel.moveToFolder(modelData.object, folderModel.get(folderIndex))
             }
             folderIndex = -1
-           newFolderActive = false
+            newFolderActive = false
         }
         //To drop appicon out of the folder
         var realY = parseInt(parentItem.mapFromItem(launcherItem, 0, 0).y) + parseInt(((launcherItem.height*launcherItem.scale-launcherItem.height)/2).toFixed(2))
@@ -179,7 +176,7 @@ MouseArea {
         onTriggered: {
             if (newFolderIndex >= 0 && newFolderIndex !== cellIndex) {
                 if (!folderItem.isFolder) {
-                   newFolderActive = true
+                    newFolderActive = true
                 } else {
                     newFolderActive = false
                 }
@@ -212,74 +209,6 @@ MouseArea {
                 modelDataObject.parentFolder.moveToFolder(modelDataObject.get(0), modelDataObject.parentFolder, parentFolderIndex)
                 modelDataObject.destroyFolder()
             }
-        }
-    }
-
-    Item {
-        id: iconWrapper
-        width: parent.width -parent.width/10
-        height: width - iconText.height
-        anchors.centerIn:  parent
-        Image {
-            id: iconImage
-            anchors {
-               // centerIn:  notNemoIcon ? parent : undefined
-                horizontalCenter: /* notNemoIcon ? undefined : */parent.horizontalCenter
-                top: parent.top
-                //topMargin: Theme.itemSpacingExtraSmall
-            }
-            width:/* notNemoIcon ? parent.width-parent.width/3 :  */parent.width - parent.width/4
-            height: width
-            asynchronous: true
-
-            Spinner {
-                id: spinnerr
-                anchors {
-                    centerIn:  parent
-                    top: parent.top
-                    topMargin: Theme.itemSpacingExtraSmall
-                }
-                width: parent.cellWidth - parent.cellWidth/10
-                height: width
-                enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
-
-                Connections {
-                    target: Lipstick.compositor
-                    onWindowAdded: {
-                        if(window.category=="" && window.title !== "Home"){
-                            spinnerr.stop()
-                        }
-                    }
-                }
-            }
-
-
-            Text{
-                id: itemsCount
-                visible: isFolder
-                text: folderAppsCount
-                anchors.centerIn: parent
-
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: iconImage.width/4
-                color: "white"
-            }
-        }
-    }
-    // Caption for the icon
-    Text {
-        id: iconText
-        // elide only works if an explicit width is set
-        width: iconWrapper.width
-        elide: Text.ElideRight
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: Theme.fontSizeSmall
-        color: Theme.textColor
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            topMargin: Theme.itemSpacingExtraSmall
         }
     }
 }
