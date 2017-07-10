@@ -46,6 +46,7 @@ GridView {
     property bool isRootFolder:true
     property bool newFolderActive
     property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
+    clip: true
 
 
     // just for margin purposes
