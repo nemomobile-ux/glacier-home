@@ -72,7 +72,9 @@ MouseArea {
         drag.target = launcherItem
         z = 1000
         reordering = true
-        parentItem.onUninstall = true
+        if(!isFolder){
+            parentItem.onUninstall = true
+        }
 
         // don't allow dragging an icon out of pages with a horizontal flick
         pager.interactive = false
@@ -111,11 +113,14 @@ MouseArea {
             var idx = -1
             var folderIdx = -1
             var delPos = deleter.remove.mapFromItem(launcherItem, width/2, height/2)
-            var isdel = deleter.childAt(delPos.x, delPos.y)
-            if (isdel === deleter.remove) {
-                deleter.remove.text = qsTr("Removing") + " " + iconCaption
-            } else if (isdel === deleter.uninstall) {
-                deleter.uninstall.text = qsTr("Uninstalling") + " " + iconCaption
+            var isdel = deleter.childAt(delPos.x, delPos.y-height/4)
+            var isdel2 = deleter.childAt(delPos.x, delPos.y+height/4)//hjelp?
+            if(!isFolder) {
+                if (isdel === deleter.remove || isdel2 ===  deleter.remove) {
+                    deleter.uninstalling("remove", iconCaption.text)
+                } else if (isdel === deleter.uninstall || isdel2 ===  deleter.uninstall) {
+                    deleter.uninstalling("uninstall", iconCaption.text)
+                } else deleter.uninstalling("basic")
             }
             //When adding new icon to folder or creating new folder
             var offset = gridViewPos.x - item.x

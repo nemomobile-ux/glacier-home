@@ -71,7 +71,7 @@ Item {
                     Lipstick.compositor.windowToFront(winId)
             } else {
                 folderLoader.model = modelData.object
-                folderLoader.visible = true
+                //folderLoader.visible = true
             }
         }
         Item {
@@ -182,10 +182,9 @@ Item {
         x: 0
         z: wrapper.z + 100
         width: gridview.width
-        height: count==0 ? 0 :  (Math.floor((count*wrapper.height-1)/width) + 1) * wrapper.height
+        height: count == 0 ? 0 :  (Math.floor((count*wrapper.height-1)/width) + 1) * wrapper.height
         cellWidth: wrapper.width
         cellHeight: wrapper.width
-        visible:false
 
         Rectangle {
             width: parent.width
@@ -211,6 +210,15 @@ Item {
             iconCaption.color: Theme.backgroundColor
             folderModel:folderLoader.model
             onReorderingChanged: if(!reordering) folderIconStack.icons=folderIconStack.addIcons()
+            visible: false
+        }
+
+        Behavior on height {
+            NumberAnimation {
+                easing.type: Easing.InQuad
+                duration: 100
+                onRunningChanged: if(!running && folderLoader.count>0) folderLauncherItem.visible = true
+            }
         }
     }
 
@@ -218,7 +226,6 @@ Item {
     Connections {
         target: Lipstick.compositor
         onDisplayOff: {
-            folderLoader.visible=false
             folderLoader.model = 0
         }
     }
@@ -228,7 +235,6 @@ Item {
         enabled: folderLoader.visible && folderLoader.count > 0
         parent:folderLoader.contentItem
         onPressed: {
-            folderLoader.visible=false
             folderLoader.model = 0
         }
     }

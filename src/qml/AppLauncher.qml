@@ -57,38 +57,136 @@ GridView {
         height: Math.min(parent.width,parent.height)/10
     }
 
-    Item {//todo
+    Item {//Doesn't yet uninstall applications
         id: deleter
         anchors.top: parent.top
         property alias remove: remove
         property alias uninstall: uninstall
-        Rectangle {//todo
-            id: remove
-            property alias text: removeLabel.text
-            visible: onUninstall
-            height: 110
-            color: "red"
-            width: gridview.width / 2
-            Label {
-                id: removeLabel
-                anchors.centerIn: parent
-                text: qsTr("Remove")
-                font.pointSize: 8
+        function uninstalling(action, caption) {
+            state = action
+            if (action==="remove") {
+                remove.text = qsTr("Removing") + " " + caption
+            } else if (action == "uninstall") {
+                uninstall.text = qsTr("Uninstalling") + " " + caption
             }
         }
-        Rectangle {//todo
+
+        states: [
+            State {
+                name: "remove"
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#D9ff0000"
+                    color3: "#D9ff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    text: qsTr("Uninstall")
+                }
+            },
+            State {
+                name: "uninstall"
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#D9ff0000"
+                    color3: "#D9ff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    text: qsTr("Remove")
+                }
+            },
+            State {
+                name:"basic"
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    text: qsTr("Remove")
+                }
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    text: qsTr("Uninstall")
+                }
+            }
+        ]
+
+        Rectangle {//WHY?
+            id: remove
+            property color color1: "#D9ff0000"
+            property color color2: "#80ff0000"
+            property color color3: "#4Dff0000"
+            property alias text: removeLabel.text
+            visible: onUninstall
+            height: Theme.itemHeightExtraLarge
+            width: gridview.width / 2
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: remove.color1 }
+                GradientStop { position: 0.5; color: remove.color2 }
+                GradientStop { position: 1.0; color: remove.color3 }
+            }
+
+            Label {
+                id: removeLabel
+                height: parent.height
+                width: parent.width
+                anchors.centerIn: parent
+                text: qsTr("Remove")
+                font.pixelSize: Theme.fontSizeLarge
+                elide:Text.ElideRight
+                horizontalAlignment:Text.AlignHCenter
+                verticalAlignment:Text.AlignVCenter
+            }
+        }
+        Rectangle {
             id: uninstall
+            property color color1: "#D9ff0000"
+            property color color2: "#80ff0000"
+            property color color3: "#4Dff0000"
             property alias text: uninstallLabel.text
             anchors.left: remove.right
             visible: onUninstall
-            color: "red"
             width: gridview.width / 2
-            height: 110
+            height: Theme.itemHeightExtraLarge
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: uninstall.color1 }
+                GradientStop { position: 0.5; color: uninstall.color2 }
+                GradientStop { position: 1.0; color: uninstall.color3 }
+            }
             Label {
                 id: uninstallLabel
+                height: parent.height
+                width: parent.width
                 anchors.centerIn: parent
                 text: qsTr("Uninstall")
-                font.pointSize: 8
+                font.pixelSize: Theme.fontSizeLarge
+                elide:Text.ElideRight
+                horizontalAlignment:Text.AlignHCenter
+                verticalAlignment:Text.AlignVCenter
             }
         }
     }
