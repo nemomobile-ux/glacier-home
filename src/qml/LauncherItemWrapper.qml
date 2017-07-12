@@ -39,6 +39,7 @@ MouseArea {
     property alias slideMoveAnim: slideMoveAnim
     property QtObject folderModel
     property Item folderItem
+    property string deleteState: "basic"
 
     id: launcherItem
     parent: parentItem.contentItem
@@ -89,8 +90,8 @@ MouseArea {
             reorderItem = null
             pager.interactive = true
             parentItem.onUninstall = false
-            deleter.remove.text = qsTr("Remove")
-            deleter.uninstall.text = qsTr("Uninstall")
+            deleteState="basic"
+            deleter.uninstalling(deleteState)
             folderIndex = -1
             reparent(parentItem.contentItem)
             z = parent.z
@@ -117,10 +118,15 @@ MouseArea {
             var isdel2 = deleter.childAt(delPos.x, delPos.y+height/4)//hjelp?
             if(!isFolder) {
                 if (isdel === deleter.remove || isdel2 ===  deleter.remove) {
-                    deleter.uninstalling("remove", iconCaption.text)
+                    deleteState="remove"
+                    deleter.uninstalling(deleteState, iconCaption.text)
                 } else if (isdel === deleter.uninstall || isdel2 ===  deleter.uninstall) {
-                    deleter.uninstalling("uninstall", iconCaption.text)
-                } else deleter.uninstalling("basic")
+                    deleteState="uninstall"
+                    deleter.uninstalling(deleteState, iconCaption.text)
+                } else{
+                    deleteState="basic"
+                    deleter.uninstalling(deleteState)
+                }
             }
             //When adding new icon to folder or creating new folder
             var offset = gridViewPos.x - item.x
@@ -157,7 +163,7 @@ MouseArea {
         //called when icon is released and reordering is true
         if (folderIndex >= 0) {
             if (folderModel.get(folderIndex).type == LauncherModel.Application) {
-                var folder = folderModel.createFolder(folderIndex, "folder")
+                var folder = folderModel.createFolder(folderIndex, qsTr("folder"))
                 if (folder) {
                     folderModel.moveToFolder(modelData.object, folder)
                 }
@@ -173,7 +179,22 @@ MouseArea {
             var parentFolderIndex = folderModel.parentFolder.indexOf(folderModel)
             folderModel.parentFolder.moveToFolder(modelData.object, folderModel.parentFolder, parentFolderIndex+1)
         }
+        if(deleteState != "basic"){
+            //Just placeholder to get visual feedback
+            enabled=false
+            deleteAnimation.start()
+            deleteTimer.start()
+        }
     }
+    Timer {//Just placeholder to get visual feedback
+        id:deleteTimer
+        interval: 5000
+        onTriggered: {
+            iconWrapper.opacity=1.0
+            enabled = true
+        }
+    }
+    NumberAnimation { id:deleteAnimation; target: iconWrapper; property: "opacity"; to: 0.2; duration: 3000;}//Just placeholder to get visual feedback
 
     Timer {
         id: reorderTimer
