@@ -43,7 +43,7 @@ MouseArea {
 
     id: launcherItem
     parent: parentItem.contentItem
-    scale: newFolder && folderIndex == cellIndex && !isFolder ? 0.5 : (reordering || folderIndex == cellIndex ? 1.3 : 1)
+    scale: gridview.newFolder && parentItem.folderIndex == cellIndex && !isFolder ? 0.5 : (reordering || parentItem.folderIndex == cellIndex ? 1.3 : 1)
     transformOrigin: Item.Center
     onXChanged: moved()
     onYChanged: moved()
@@ -69,7 +69,7 @@ MouseArea {
 
     onPressAndHold: {
         reparent(parentItem)
-        reorderItem = launcherItem
+        parentItem.reorderItem = launcherItem
         drag.target = launcherItem
         z = 1000
         reordering = true
@@ -87,12 +87,12 @@ MouseArea {
             reorderEnded()
             reorderTimer.stop()
             drag.target = null
-            reorderItem = null
+            parentItem.reorderItem = null
             pager.interactive = true
             parentItem.onUninstall = false
             deleteState="basic"
             deleter.uninstalling(deleteState)
-            folderIndex = -1
+            parentItem.folderIndex = -1
             reparent(parentItem.contentItem)
             z = parent.z
 
@@ -153,25 +153,25 @@ MouseArea {
                 newFolderIndex = folderIdx
                 reorderTimer.restart()
             }
-            if (newFolderIndex != folderIndex) {
-                folderIndex = -1
+            if (newFolderIndex != parentItem.folderIndex) {
+                parentItem.folderIndex = -1
             }
         }
     }
 
     function reorderEnded() {
         //called when icon is released and reordering is true
-        if (folderIndex >= 0) {
-            if (folderModel.get(folderIndex).type == LauncherModel.Application) {
-                var folder = folderModel.createFolder(folderIndex, qsTr("folder"))
+        if (parentItem.folderIndex >= 0) {
+            if (folderModel.get(parentItem.folderIndex).type == LauncherModel.Application) {
+                var folder = folderModel.createFolder(parentItem.folderIndex, qsTr("folder"))
                 if (folder) {
                     folderModel.moveToFolder(modelData.object, folder)
                 }
             } else {
-                folderModel.moveToFolder(modelData.object, folderModel.get(folderIndex))
+                folderModel.moveToFolder(modelData.object, folderModel.get(parentItem.folderIndex))
             }
-            folderIndex = -1
-            newFolderActive = false
+            parentItem.folderIndex = -1
+            parentItem.newFolderActive = false
         }
         //To drop appicon out of the folder
         var realY = parseInt(parentItem.mapFromItem(launcherItem, 0, 0).y) + parseInt(((launcherItem.height*launcherItem.scale-launcherItem.height)/2).toFixed(2))
@@ -202,11 +202,11 @@ MouseArea {
         onTriggered: {
             if (newFolderIndex >= 0 && newFolderIndex !== cellIndex) {
                 if (!folderItem.isFolder) {
-                    newFolderActive = true
+                    parentItem.newFolderActive = true
                 } else {
-                    newFolderActive = false
+                    parentItem.newFolderActive = false
                 }
-                folderIndex = newFolderIndex
+                parentItem.folderIndex = newFolderIndex
             } else  if (newIndex != -1 && newIndex !== cellIndex) {
                 folderModel.move(cellIndex, newIndex)
             }

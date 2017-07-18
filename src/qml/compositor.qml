@@ -112,7 +112,7 @@ Compositor {
             id: overlayLayer
             z: 5
 
-            visible: root.appActive
+            //visible: root.appActive
         }
 
         Item {

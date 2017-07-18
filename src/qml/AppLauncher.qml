@@ -31,6 +31,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 // App Launcher page
 // the place for browsing installed applications and launching them
 
+
 GridView {
     id: gridview
     cellWidth: cellSize
@@ -41,6 +42,8 @@ GridView {
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
+    property string searchString
+
     property int cellSize: Math.min(parent.width,parent.height)/4
     property int folderIndex: -1
     property bool isRootFolder:true
@@ -48,11 +51,71 @@ GridView {
     property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
     clip: true
 
-
-    // just for margin purposes
-    header: Item {
-        height: Math.min(parent.width,parent.height)/10
+    onContentYChanged: {
+        if( contentY < -140 ) {
+            headerItem.visible = true;
+            timer.running = true;
+        }
     }
+
+    onSearchStringChanged: timer.restart()
+
+    Timer{
+        id: timer; running: false; interval: 7000; repeat: true
+        onTriggered: {
+            if(searchString.length < 1 ) headerItem.visible = false
+        }
+    }
+    Connections {
+        target: headerItem
+        onHeightChanged:{
+            if(headerItem.oldHeight < headerItem.height)
+                gridview.contentY = headerItem.y
+            headerItem.oldHeight = headerItem.height
+        }
+        onVisibleChanged:timer.restart()
+    }
+    Connections {
+        target: Lipstick.compositor
+        onDisplayOff: {
+            headerItem.searchField.text = ""
+            headerItem.visible = false
+        }
+        onWindowAdded: {
+            if(window.category=="" && window.title !== "Home"){
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+        onWindowRaised: {
+            if(window.category=="" && window.title !== "Home"){
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+    }
+    Connections {
+        target: pager
+        onFlickEnded: {
+            headerItem.searchField.text = ""
+            headerItem.visible = false
+
+        }
+    }
+    Connections {
+        target: lockScreen
+        onVisibleChanged: {
+            if(lockscreenVisible()) {
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+    }
+
+    header: SearchListView {
+        width: gridview.width
+    }
+
     footer: Item {
         height: Math.min(parent.width,parent.height)/10
     }
@@ -141,7 +204,7 @@ GridView {
             property color color2: "#80ff0000"
             property color color3: "#4Dff0000"
             property alias text: removeLabel.text
-            visible: onUninstall
+            visible: gridview.onUninstall
             height: Theme.itemHeightExtraLarge
             width: gridview.width / 2
             gradient: Gradient {
@@ -169,7 +232,7 @@ GridView {
             property color color3: "#4Dff0000"
             property alias text: uninstallLabel.text
             anchors.left: remove.right
-            visible: onUninstall
+            visible: gridview.onUninstall
             width: gridview.width / 2
             height: Theme.itemHeightExtraLarge
             gradient: Gradient {
