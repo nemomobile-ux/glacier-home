@@ -18,6 +18,7 @@ MouseArea {
         id: appIcon
         height: Theme.itemHeightExtraLarge
         width: height
+        property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
 
         anchors{
             left: parent.left
@@ -25,10 +26,16 @@ MouseArea {
         }
 
         source: {
+            console.log(modelData, modelData.icon)
             if (modelData.icon)
                 return "image://theme/" + modelData.icon
             else
-                return "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
+                return defaultIcon
+        }
+        onStatusChanged: {
+            if (appIcon.status == Image.Error) {
+                appIcon.source = defaultIcon
+            }
         }
     }
     Label {

@@ -57,13 +57,13 @@ Flickable {
 
             Label {
                 id: displayDayOfWeek
-                text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
+                text: Qt.formatDateTime(wallClock.time, "dddd")
                 color: Theme.textColor
                 font.pixelSize: Theme.fontSizeExtraLarge
                 font.weight: Font.Bold
                 anchors {
                     top: parent.top
-                    left: parent.left
+                    horizontalCenter: parent.horizontalCenter
                 }
             }
 
@@ -76,8 +76,8 @@ Flickable {
                 font.weight: Font.Light
                 wrapMode: Text.WordWrap
                 anchors {
-                    left: displayDayOfWeek.right
-                    top: parent.top
+                    horizontalCenter: parent.horizontalCenter
+                    top: displayDayOfWeek.bottom
                 }
             }
         }

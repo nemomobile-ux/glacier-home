@@ -40,7 +40,7 @@ Rectangle {
         }
         Rectangle {
             id: dateRow
-            height: weekdayDisplay.height
+            height: childrenRect.height
             width: weekdayDisplay.width + dateDisplay.width
             anchors {
                 horizontalCenter: parent.horizontalCenter
@@ -56,10 +56,10 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Bold
                 anchors {
-                    left: parent.left
+                    horizontalCenter: parent.horizontalCenter
                 }
 
-                text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
+                text: Qt.formatDateTime(wallClock.time, "dddd")
             }
 
             Label {
@@ -70,8 +70,8 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Light
                 anchors {
-                    left: weekdayDisplay.right
-                    top: parent.top
+                    horizontalCenter: parent.horizontalCenter
+                    top: weekdayDisplay.bottom
                 }
 
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
