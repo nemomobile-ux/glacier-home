@@ -63,15 +63,12 @@ Item {
         clip: true
         onClicked: {
             // TODO: disallow if close mode enabled
-            if (modelData.object.type !== LauncherModel.Folder) {
-                var winId = switcher.switchModel.getWindowIdForTitle(modelData.object.title)
-                if (winId == 0 || !modelData.object.isLaunching)
-                    modelData.object.launchApplication()
-                else
-                    Lipstick.compositor.windowToFront(winId)
-            } else {
-                folderLoader.model = modelData.object
-                //folderLoader.visible = true
+            if (modelData.object.type === LauncherModel.Folder) {
+                if(folderLoader.count>0 || reopenTimer.running) {
+                    folderLoader.model = 0
+                } else {
+                    folderLoader.model = modelData.object
+                }
             }
         }
         Item {
@@ -129,7 +126,7 @@ Item {
                 height: folderIconStack.iconSize
                 opacity: folderIconStack.transparency
                 anchors.centerIn: parent
-                visible: icons.length > 0
+                visible: folderIconStack.icons.length > 0
                 source: visible ? folderIconStack.icons[0]: ""
             }
             Text{
@@ -146,7 +143,7 @@ Item {
         Text {
             id: iconText
             // elide only works if an explicit width is set
-            width: iconWrapper.width
+            width: launcherItem.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeSmall
@@ -185,6 +182,7 @@ Item {
         height: count == 0 ? 0 :  (Math.floor((count*wrapper.height-1)/width) + 1) * wrapper.height
         cellWidth: wrapper.width
         cellHeight: wrapper.width
+        onReorderItemChanged: if(reorderItem == null) folderIconStack.icons=folderIconStack.addIcons()
 
         Rectangle {
             width: parent.width
@@ -209,15 +207,12 @@ Item {
             iconCaption.text: model.object.title
             iconCaption.color: Theme.backgroundColor
             folderModel:folderLoader.model
-            onReorderingChanged: if(!reordering) folderIconStack.icons=folderIconStack.addIcons()
-            visible: false
         }
 
         Behavior on height {
             NumberAnimation {
                 easing.type: Easing.InQuad
                 duration: 100
-                onRunningChanged: if(!running && folderLoader.count>0) folderLauncherItem.visible = true
             }
         }
     }
@@ -233,12 +228,17 @@ Item {
     InverseMouseArea {
         anchors.fill: folderLoader
         enabled: folderLoader.visible && folderLoader.count > 0
-        parent:folderLoader.contentItem
+        parent: folderLoader.contentItem
         onPressed: {
             folderLoader.model = 0
+            reopenTimer.start()
         }
     }
-
+    Timer {
+        id: reopenTimer
+        interval: 300
+        running: false
+    }
 
 }
 

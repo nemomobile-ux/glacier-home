@@ -81,6 +81,11 @@ Item {
                 width:/*launcherItem.notNemoIcon ? parent.width-parent.width/3 :  */parent.width - parent.width/4
                 height: width
                 asynchronous: true
+                onStatusChanged: {
+                    if (iconImage.status == Image.Error) {
+                        iconImage.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                    }
+                }
             }
             Spinner {
                 id: spinnerr

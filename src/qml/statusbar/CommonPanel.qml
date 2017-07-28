@@ -34,6 +34,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import org.nemomobile.lipstick 0.1
 
 Rectangle {
     id: commonPanel
@@ -41,6 +42,11 @@ Rectangle {
     property alias switcherEnabled: columnCheckBox.enabled
     property alias switcherChecked: columnCheckBox.checked
     property string name: ""
+    signal click
+    onClick: {
+        panel_loader.sourceComponent = parent.panel
+        panel_loader.visible = !panel_loader.visible
+    }
 
     height: 240
     width: root.width
@@ -50,6 +56,20 @@ Rectangle {
         anchors.fill: parent
         color: "#313131"
         opacity: 0.3
+
+    }
+    InverseMouseArea {
+        anchors.fill: parent
+        enabled: parent.visible
+        onPressed: {
+            parent.click()
+        }
+    }
+
+    MouseArea {
+        id:mouseArea
+        anchors.fill:parent
+        onClicked: parent.click()
     }
 
     clip: true
@@ -95,6 +115,30 @@ Rectangle {
             leftMargin: 20
             top: actionColumn.bottom
             topMargin: 60
+        }
+    }
+    Connections {
+        target: lockScreen
+        onVisibleChanged: {
+            if(lockscreenVisible()) {
+               panel_loader.visible = false
+            }
+        }
+    }
+    Connections {
+        target: Lipstick.compositor
+        onDisplayOff: {
+            panel_loader.visible = false
+        }
+        onWindowAdded: {
+            if(window.category=="" && window.title !== "Home"){
+                panel_loader.visible = false
+            }
+        }
+        onWindowRaised: {
+            if(window.category=="" && window.title !== "Home"){
+               panel_loader.visible = false
+            }
         }
     }
 }

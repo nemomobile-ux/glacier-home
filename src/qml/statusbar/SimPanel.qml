@@ -68,7 +68,7 @@ Component {
             anchors.fill: simpanel
             spacing: 0
             RowLayout {
-                spacing: 16
+                spacing: Theme.itemSpacingMedium
                 TextField {
                     id: pinquery
                     width: 140
@@ -138,7 +138,7 @@ Component {
         Label {
             visible: !needsPin
             text: qsTr("No pin required!")
-            font.pointSize: 16
+            font.pixelSize:Theme.fontSizeMedium
             anchors.centerIn: parent
         }
     }

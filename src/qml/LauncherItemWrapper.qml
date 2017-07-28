@@ -194,7 +194,7 @@ MouseArea {
             enabled = true
         }
     }
-    NumberAnimation { id:deleteAnimation; target: iconWrapper; property: "opacity"; to: 0.2; duration: 3000;}//Just placeholder to get visual feedback
+    NumberAnimation { id:deleteAnimation; target: typeof iconWrapper !== 'undefined' ? iconWrapper : parent; property: "opacity"; to: 0.2; duration: 3000;}//Just placeholder to get visual feedback
 
     Timer {
         id: reorderTimer

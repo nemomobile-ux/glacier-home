@@ -42,7 +42,7 @@ import "statusbar"
 Item {
     id: root
     z: 201
-    height: Theme.itemHeightMedium
+    height: Theme.itemHeightLarge
     width: parent.width
     anchors.bottom: parent.bottom
 
@@ -53,24 +53,28 @@ Item {
         opacity: 0.5
         z: 200
     }
+    //Just to capture clicks that don't hit statusbaritem
+    MouseArea {
+        anchors.fill: parent
+    }
     Connections {
         target: lipstickSettings;
         onLockscreenVisibleChanged: {
             if(lipstickSettings.lockscreenVisible) {
-                batteryChargePercentage.subscribe()
+                batteryIndicator.batteryChargePercentage.subscribe()
                 cellularSignalBars.subscribe()
                 cellularRegistrationStatus.subscribe()
                 cellularNetworkName.subscribe()
                 cellularDataTechnology.subscribe()
             } else {
-                batteryChargePercentage.unsubscribe()
+                batteryIndicator.batteryChargePercentage.unsubscribe()
                 cellularSignalBars.unsubscribe()
                 cellularRegistrationStatus.unsubscribe()
                 cellularNetworkName.unsubscribe()
                 cellularDataTechnology.unsubscribe()
             }
         }
-    }    
+    }
 
     ContextProperty {
         id: cellularSignalBars
@@ -196,8 +200,10 @@ Item {
                     } else if (networkManager.defaultRoute.strength >= 40) {
                         return "image://theme/icon_wifi_focused1"
                     } else {
-                        return "image://theme/icon_wifi_normal4"
+                        return "image://theme/icon_wifi_0"
                     }
+                } else if (wifimodel.powered && !wlan.connected) {
+                    return "image://theme/icon_wifi_touch"
                 } else {
                     return "image://theme/icon_wifi_0"
                 }
@@ -224,6 +230,7 @@ Item {
         }
         StatusbarItem {
             iconSize: root.height/2
+            anchors.verticalCenter: parent.verticalCenter
             Label {
                 id: hours
                 width: root.height/4
@@ -242,6 +249,8 @@ Item {
             }
         }
 
-        BatteryIndicator{}
+        BatteryIndicator{
+            id:batteryIndicator
+        }
     }
 }

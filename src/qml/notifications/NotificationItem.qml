@@ -1,6 +1,8 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import org.nemomobile.notifications 1.0
+
 
 MouseArea {
     id: notifyArea
@@ -8,10 +10,48 @@ MouseArea {
     height: childrenRect.height
     width: rootitem.width
 
+    drag.target: notifyArea
+    drag.axis: Drag.XAxis
+    drag.minimumX: 0-Theme.itemHeightMedium
+    drag.maximumX: notifyArea.width
+    drag.onActiveChanged: {
+        if(!drag.active ) {
+            if((notifyArea.x > notifyArea.width/3)) {
+                slideAnimation.start()
+            }else slideBackAnimation.start()
+        }
+    }
+
     onClicked: {
         if (modelData.userRemovable) {
-            modelData.actionInvoked("default")
+            slideAnimation.start()
         }
+    }
+    NumberAnimation {
+        id:slideAnimation
+        target: notifyArea
+        property: "x"
+        duration: 200
+        from: notifyArea.x
+        to: notifyArea.width
+        easing.type: Easing.InOutQuad
+        onStopped: modelData.actionInvoked("default")
+    }
+    NumberAnimation {
+        id:slideBackAnimation
+        target: notifyArea
+        property: "x"
+        duration: 200
+        from: notifyArea.x
+        to: 0
+        easing.type: Easing.InOutQuad
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#11ffffff"
+        visible: notifyArea.pressed
+        radius: Theme.itemSpacingMedium
     }
 
     Image {
@@ -26,7 +66,6 @@ MouseArea {
         }
 
         source: {
-            console.log(modelData, modelData.icon)
             if (modelData.icon)
                 return "image://theme/" + modelData.icon
             else

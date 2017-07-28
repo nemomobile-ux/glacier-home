@@ -44,7 +44,7 @@ Flickable {
         Rectangle {
             id: daterow
             height: Theme.itemHeightMedium
-            width: childrenRect.width
+            width: parent.width
 
             anchors{
                 top: parent.top

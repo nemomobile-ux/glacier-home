@@ -4,6 +4,7 @@ import org.freedesktop.contextkit 1.0
 StatusbarItem {
     id: batteryIndicator
     property int chargeValue: 0
+    property alias batteryChargePercentage: batteryChargePercentage
 
     ContextProperty {
         id: batteryChargePercentage
@@ -17,7 +18,12 @@ StatusbarItem {
         onValueChanged: {
             if(batteryStateContextProperty.value == "charging")
             {
-                chargingTimer.start()
+                if (batteryChargePercentage.value === 100) {
+                    chargingTimer.stop()
+                    chargeIcon()
+                }else {
+                    chargingTimer.start()
+                }
             }
             else
             {

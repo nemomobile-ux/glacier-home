@@ -70,7 +70,7 @@ GridView {
         target: headerItem
         onHeightChanged:{
             if(headerItem.oldHeight < headerItem.height)
-                gridview.contentY = headerItem.y
+                if(!flicking) gridview.contentY = headerItem.y
             headerItem.oldHeight = headerItem.height
         }
         onVisibleChanged:timer.restart()
@@ -117,7 +117,7 @@ GridView {
     }
 
     footer: Item {
-        height: Math.min(parent.width,parent.height)/10
+        height: Theme.itemHeightLarge*1.5
     }
 
     Item {//Doesn't yet uninstall applications

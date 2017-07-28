@@ -85,6 +85,39 @@ Item {
         anchors.topMargin: Theme.itemSpacingSmall
         visible: searchString.length>0
         section.property: 'category'
+        section.delegate: Component{
+            id: sectionHeading
+            Rectangle {
+                width: listView.width
+                height: Theme.itemHeightMedium
+                color: "transparent"
+
+                Text {
+                    id: sectionText
+                    text: section
+                    font.capitalization: Font.AllUppercase
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.textColor
+                    anchors{
+                        left: parent.left
+                        leftMargin: Theme.itemSpacingSmall
+                        verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                Rectangle{
+                    id: line
+                    height: 1
+                    color: Theme.textColor
+                    width: listView.width-sectionText.width-Theme.itemHeightExtraSmall
+                    anchors{
+                        left: sectionText.right
+                        leftMargin: Theme.itemSpacingSmall
+                        verticalCenter: sectionText.verticalCenter
+                    }
+                }
+            }
+        }
 
         Behavior on height {
             NumberAnimation{ duration: 300 }
