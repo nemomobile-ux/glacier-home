@@ -45,6 +45,7 @@ Item {
     height: Theme.itemHeightLarge
     width: parent.width
     anchors.bottom: parent.bottom
+    enabled: !lockscreenVisible()
 
     Rectangle {
         id: statusbar
@@ -53,10 +54,37 @@ Item {
         opacity: 0.5
         z: 200
     }
-    //Just to capture clicks that don't hit statusbaritem
     MouseArea {
-        anchors.fill: parent
+        property int oldX
+        property int oldY
+        anchors.fill: row
+        z: row.z + 10
+        enabled: !lockscreenVisible()
+        onClicked: {
+            if(oldX != mouseX && oldY !== mouseY && row.childAt(mouseX, mouseY) && row.currentChild !== row.childAt(mouseX, mouseY)) {
+                row.currentChild = row.childAt(mouseX, mouseY)
+                row.currentChild.clicked()
+            }else {
+                 row.currentChild = null
+            }
+        }
+
+        onPositionChanged: {
+            oldX = mouseX
+            oldY = mouseY
+            if(pressed && row.childAt(mouseX, mouseY)) {
+                if(row.currentChild !== row.childAt(mouseX, mouseY)) {
+                    row.currentChild = row.childAt(mouseX, mouseY)
+                    if(panel_loader.visible) panel_loader.visible = false
+                    row.currentChild.clicked()
+                }
+            } else {
+                row.currentChild = null
+            }
+        }
     }
+
+
     Connections {
         target: lipstickSettings;
         onLockscreenVisibleChanged: {
@@ -135,14 +163,39 @@ Item {
     Loader {
         id: panel_loader
         anchors.bottom: root.top
-        height: 240
+        height: 0
         width: parent.width
         visible: false
+        onVisibleChanged: {
+            if(visible) riseUp.start()
+            else closeDown.start()
+        }
+
+        NumberAnimation {
+            id:riseUp
+            target: panel_loader
+            property: "height"
+            duration: 200
+            from:0
+            to:Theme.itemWidthMedium
+            easing.type: Easing.InOutQuad
+        }
+        NumberAnimation {
+            id:closeDown
+            target: panel_loader
+            property: "height"
+            duration: 200
+            from: panel_loader.height
+            to: 0
+            easing.type: Easing.InOutQuad
+        }
     }
 
     RowLayout {
+        id:row
         anchors.fill: statusbar
         spacing: root.height/4
+        property var currentChild
         StatusbarItem {
             iconSize: root.height/2
             source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"

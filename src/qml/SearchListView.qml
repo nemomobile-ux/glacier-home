@@ -183,7 +183,6 @@ Item {
                     found = existingTitleObject.hasOwnProperty(iconTitle)
                     if (!found) {
                         // for simplicity, just adding to end instead of corresponding position in original list
-                        console.log(iconTitle)
                         listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'category':category})
                     }
                 }

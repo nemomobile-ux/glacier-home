@@ -10,6 +10,11 @@ StatusbarItem {
         id: batteryChargePercentage
         key: "Battery.ChargePercentage"
         value: "100"
+        onValueChanged: {
+            if(batteryStateContextProperty.value != "charging") {
+                chargeIcon();
+            }
+        }
     }
 
     ContextProperty {

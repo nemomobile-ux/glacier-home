@@ -33,7 +33,7 @@ import "notifications"
 
 Flickable {
     id: mainFlickable
-
+    clip: true
     contentHeight: rootitem.height
     contentWidth: parent.width
     Item {
