@@ -30,8 +30,10 @@
 ****************************************************************************************/
 import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
+import QtQuick.Controls 1.4
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import org.nemomobile.contacts 1.0
 
 Item {
     height: (searchField.text.length > 0 ?  listView.height+searchField.height : searchField.height) + (visible ? Theme.itemSpacingHuge + margin.height : 0)
@@ -94,7 +96,17 @@ Item {
 
                 Text {
                     id: sectionText
-                    text: section
+                    text: {
+                        switch (section) {
+                        case 'Application':
+                            return qsTr("Application")
+                        case 'Contact':
+                            return qsTr("Contact")
+                        default:
+                            return qsTr("Content")
+                        }
+                    }
+
                     font.capitalization: Font.AllUppercase
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.textColor
@@ -134,19 +146,36 @@ Item {
         }
 
         LauncherFolderModel { id: searchLauncherModel }
+        PeopleModel {
+            id: peopleModel
+            filterType: PeopleModel.FilterAll
+            filterPattern: searchString
+            requiredProperty: PeopleModel.PhoneNumberRequired
+            //searchableProperty: root.searchableProperty
+        }
 
+        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com>
+        //Function has been modified
         function update() {
             if(searchString.length<1) {
                 listModel.clear()
             } else {
                 var iconTitle
+                var category
+                var extraCaption
                 var iconId
                 var found
                 var i
 
                 var titles = []
+                var contacts = []
                 for (i = 0; i < searchLauncherModel.itemCount; ++i) {
                     titles.push({'iconTitle':searchLauncherModel.get(i).title, 'iconSource':searchLauncherModel.get(i).iconId, 'id':i, 'category':qsTr("Application")})
+                }
+                for (i = 0; i < peopleModel.count; ++i) {
+                    if(peopleModel.get(i).firstName && peopleModel.get(i).lastName) {
+                        contacts.push({'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName), 'iconSource':peopleModel.get(i).avatarUrl.toString(), 'extraCaption':peopleModel.get(i).phoneNumbers, 'category':qsTr("Contact")})
+                    }
                 }
                 var filteredTitles = titles.filter(function (icon) {
                     return icon.iconTitle.toLowerCase().indexOf(searchString) !== -1
@@ -173,25 +202,44 @@ Item {
                         i++
                     }
                 }
-
                 // add new items
                 for (i = 0; i < filteredTitles.length; ++i) {
                     iconTitle = filteredTitles[i].iconTitle
                     iconId =  filteredTitles[i].iconSource
                     var id = filteredTitles[i].id
-                    var category = filteredTitles[i].category
+                    category = filteredTitles[i].category
                     found = existingTitleObject.hasOwnProperty(iconTitle)
                     if (!found) {
                         // for simplicity, just adding to end instead of corresponding position in original list
                         listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'category':category})
                     }
                 }
+                for (i = 0; i < contacts.length; ++i) {
+                    iconTitle = contacts[i].title
+                    iconId =  contacts[i].iconSource
+                    extraCaption = contacts[i].extraCaption[0]
+                    category = contacts[i].category
+                    listModel.append({'title':iconTitle, 'iconSource':iconId, 'extraCaption':extraCaption, 'category':category})
+                }
             }
         }
 
         delegate: Item {
+            width: parent.width
+            height:Theme.itemHeightExtraLarge*1.2
             property string iconCaption: model.title
-            property string iconSource: model.iconSource== "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : ( model.iconSource.indexOf("/") == 0 ? "file://" : "image://theme/") + model.iconSource
+            property string iconSource: {
+                if(model.iconSource) {
+                    if(model.iconSource.indexOf("file:///") == 0) {
+                        return model.iconSource
+                    }else {
+                        if( model.iconSource.indexOf("/") == 0) {
+                            return "file://" + model.iconSource
+                        } else return "image://theme/" + model.iconSource
+                    }
+                } else return "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+            }
+
             Rectangle {
                 anchors.fill: parent
                 color: "#11ffffff"
@@ -205,6 +253,11 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.itemSpacingLarge
+                onStatusChanged: {
+                    if (iconImage.status == Image.Error) {
+                        iconImage.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                    }
+                }
             }
             Spinner {
                 id: spinner
@@ -226,36 +279,62 @@ Item {
                     }
                 }
             }
-            Label {
-                text:iconCaption
-                anchors.left: iconImage.right
-                anchors.leftMargin: Theme.itemSpacingLarge
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: Theme.itemSpacingLarge
-                font.pixelSize:Theme.fontSizeLarge
-                height:parent.height
-                color:Theme.textColor
-                elide:Text.ElideRight
-                horizontalAlignment:Text.AlignHCenter
-                verticalAlignment:Text.AlignVCenter
+            Item {
+                id: labelWrapper
+                anchors {
+                    left: iconImage.right
+                    leftMargin: Theme.itemSpacingLarge
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    rightMargin: Theme.itemSpacingLarge
+                }
+                height: labelWrapper.childrenRect.height
+                Label {
+                    id:mainLabel
+                    text:iconCaption
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    font.pixelSize:Theme.fontSizeLarge
+                    color:Theme.textColor
+                    elide:Text.ElideRight
+                    verticalAlignment:Text.AlignVCenter
+                }
+                Label {
+                    id:extraLabel
+                    text: extraCaption ? extraCaption : category === "Application" ? qsTr("Open" + " " + iconCaption) : ""
+                    anchors {
+                        top:mainLabel.bottom
+                        left:mainLabel.left
+                    }
+                    font.pixelSize:Theme.fontSizeSmall
+                    color:Theme.textColor
+                    elide:Text.ElideRight
+                    verticalAlignment:Text.AlignVCenter
+                }
             }
-            width: parent.width
-            height:Theme.itemHeightExtraLarge*1.2
             MouseArea {
                 id:mouse
                 anchors.fill: parent
                 onClicked: {
-                    if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
-                        var winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                        if (winId == 0 || !searchLauncherModel.get(model.id).isLaunching)
-                            searchLauncherModel.get(model.id).launchApplication()
-                        else
-                            Lipstick.compositor.windowToFront(winId)
+                    switch (category ) {
+                    case "Application":
+                        if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
+                            var winId = switcher.switchModel.getWindowIdForTitle(model.title)
+                            if (winId == 0 || !searchLauncherModel.get(model.id).isLaunching)
+                                searchLauncherModel.get(model.id).launchApplication()
+                            else
+                                Lipstick.compositor.windowToFront(winId)
+                        }
+                        context.state=""
+                        break
+                    case "Contact":
+                        console.log("Call to person. Or open contextmenu where sms and call")
+                        break
                     }
                 }
             }
         }
     }
-
 }
