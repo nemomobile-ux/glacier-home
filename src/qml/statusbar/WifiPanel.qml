@@ -30,7 +30,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.1
+import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import MeeGo.Connman 0.2
@@ -40,7 +40,7 @@ Component {
         id: wifiPanel
         name: "Wifi"
         switcherEnabled: true
-        switcherChecked: true
+        switcherChecked: wifimodel.powered
 
         onSwitcherCheckedChanged: {
              wifimodel.setPowered(switcherChecked)
@@ -57,10 +57,9 @@ Component {
             model: wifimodel
             delegate: Item {
                 width: wifiPanel.width
-                height: 40
+                height: Theme.itemHeightSmall
                 function getStrengthIndex(strength) {
                     var strengthIndex = "0"
-
                     if (strength >= 59) {
                         strengthIndex = "4"
                     } else if (strength >= 55) {
@@ -73,21 +72,22 @@ Component {
                     return strengthIndex
                 }
                 Row {
-                    spacing: 12
+                    spacing: Theme.itemSpacingSmall
                     Image {
                         id: statusImage
-                       source: (getStrengthIndex(modelData.strength) === "0")? "image://theme/icon_wifi_0" : "image://theme/icon_wifi_focused" + getStrengthIndex(modelData.strength)
+                       source: (getStrengthIndex(modelData.strength) === "0")? "image://theme/icon_wifi_0" : (modelData.state === "online" ? "image://theme/icon_wifi_focused" : "image://theme/icon_wifi_normal")+ getStrengthIndex(modelData.strength)
                     }
 
                     Label {
                         anchors{
-                            leftMargin: 20
+                            leftMargin: Theme.itemSpacingLarge
                             verticalCenter: statusImage.verticalCenter
                         }
                         width: root.width
-                        font.pointSize: 8
+                        font.pixelSize: Theme.fontSizeMedium
                         text: modelData.name
                         wrapMode: Text.Wrap
+                        color: modelData.state === "online" ? Theme.accentColor : Theme.textColor
                     }
                 }
             }

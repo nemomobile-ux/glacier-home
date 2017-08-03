@@ -1,0 +1,16 @@
+*.pro.user
+*.pyc
+.directory
+*.o
+*.so
+*.qmlc
+moc_*
+qrc_*
+.qmake.stash
+*.spec.*
+documentation.list
+examples/touch/glacier-components
+Makefile
+installroot/
+RPMS/
+debug*.list

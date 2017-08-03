@@ -21,8 +21,9 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2017, Eetu Kahelin
 
-import QtQuick 2.0
+import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -30,70 +31,270 @@ import QtQuick.Controls.Styles.Nemo 1.0
 // App Launcher page
 // the place for browsing installed applications and launching them
 
+
 GridView {
     id: gridview
-    cellWidth: Math.min(parent.width,parent.height)/4
-    cellHeight: cellWidth + 30
+    cellWidth: cellSize
+    cellHeight: cellSize
     width: parent.width
     cacheBuffer: gridview.contentHeight
     property Item reorderItem
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
+    property string searchString
 
-    // just for margin purposes
-    header: Item {
-        height: Math.min(parent.width,parent.height)/10
+    property int cellSize: Math.min(parent.width,parent.height)/4
+    property int folderIndex: -1
+    property bool isRootFolder:true
+    property bool newFolderActive
+    property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
+    clip: true
+
+    onContentYChanged: {
+        if( contentY < -140 ) {
+            headerItem.visible = true;
+            timer.running = true;
+        }
     }
+
+    onSearchStringChanged: timer.restart()
+
+    Timer{
+        id: timer; running: false; interval: 7000; repeat: true
+        onTriggered: {
+            if(searchString.length < 1 ) headerItem.visible = false
+        }
+    }
+    Connections {
+        target: headerItem
+        onHeightChanged:{
+            if(headerItem.oldHeight < headerItem.height)
+                if(!flicking) gridview.contentY = headerItem.y
+            headerItem.oldHeight = headerItem.height
+        }
+        onVisibleChanged:timer.restart()
+    }
+    Connections {
+        target: Lipstick.compositor
+        onDisplayOff: {
+            headerItem.searchField.text = ""
+            headerItem.visible = false
+        }
+        onWindowAdded: {
+            if(window.category=="" && window.title !== "Home"){
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+        onWindowRaised: {
+            if(window.category=="" && window.title !== "Home"){
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+    }
+    Connections {
+        target: pager
+        onFlickEnded: {
+            headerItem.searchField.text = ""
+            headerItem.visible = false
+
+        }
+    }
+    Connections {
+        target: lockScreen
+        onVisibleChanged: {
+            if(lockscreenVisible()) {
+                headerItem.searchField.text = ""
+                headerItem.visible = false
+            }
+        }
+    }
+
+    header: SearchListView {
+        width: gridview.width
+    }
+
     footer: Item {
-        height: Math.min(parent.width,parent.height)/10
+        height: Theme.itemHeightLarge*1.5
     }
 
-    Item {
+    Item {//Doesn't yet uninstall applications
         id: deleter
         anchors.top: parent.top
         property alias remove: remove
         property alias uninstall: uninstall
-        Rectangle {
+        function uninstalling(action, caption) {
+            state = action
+            if (action==="remove") {
+                remove.text = qsTr("Removing") + " " + caption
+            } else if (action == "uninstall") {
+                uninstall.text = qsTr("Uninstalling") + " " + caption
+            }
+        }
+
+        states: [
+            State {
+                name: "remove"
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#D9ff0000"
+                    color3: "#D9ff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    text: qsTr("Uninstall")
+                }
+            },
+            State {
+                name: "uninstall"
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#D9ff0000"
+                    color3: "#D9ff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    text: qsTr("Remove")
+                }
+            },
+            State {
+                name:"basic"
+                PropertyChanges {
+                    target: remove
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: remove
+                    text: qsTr("Remove")
+                }
+                PropertyChanges {
+                    target: uninstall
+                    color1: "#D9ff0000"
+                    color2: "#80ff0000"
+                    color3: "#4Dff0000"
+                }
+                PropertyChanges {
+                    target: uninstall
+                    text: qsTr("Uninstall")
+                }
+            }
+        ]
+
+        Rectangle {//WHY?
             id: remove
+            property color color1: "#D9ff0000"
+            property color color2: "#80ff0000"
+            property color color3: "#4Dff0000"
             property alias text: removeLabel.text
-            visible: onUninstall
-            height: 110
-            color: "red"
+            visible: gridview.onUninstall
+            height: Theme.itemHeightExtraLarge
             width: gridview.width / 2
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: remove.color1 }
+                GradientStop { position: 0.5; color: remove.color2 }
+                GradientStop { position: 1.0; color: remove.color3 }
+            }
+
             Label {
                 id: removeLabel
+                height: parent.height
+                width: parent.width
                 anchors.centerIn: parent
                 text: qsTr("Remove")
-                font.pointSize: 8
+                font.pixelSize: Theme.fontSizeLarge
+                elide:Text.ElideRight
+                horizontalAlignment:Text.AlignHCenter
+                verticalAlignment:Text.AlignVCenter
             }
         }
         Rectangle {
             id: uninstall
+            property color color1: "#D9ff0000"
+            property color color2: "#80ff0000"
+            property color color3: "#4Dff0000"
             property alias text: uninstallLabel.text
             anchors.left: remove.right
-            visible: onUninstall
-            color: "red"
+            visible: gridview.onUninstall
             width: gridview.width / 2
-            height: 110
+            height: Theme.itemHeightExtraLarge
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: uninstall.color1 }
+                GradientStop { position: 0.5; color: uninstall.color2 }
+                GradientStop { position: 1.0; color: uninstall.color3 }
+            }
             Label {
                 id: uninstallLabel
+                height: parent.height
+                width: parent.width
                 anchors.centerIn: parent
                 text: qsTr("Uninstall")
-                font.pointSize: 8
+                font.pixelSize: Theme.fontSizeLarge
+                elide:Text.ElideRight
+                horizontalAlignment:Text.AlignHCenter
+                verticalAlignment:Text.AlignVCenter
             }
         }
     }
 
-    model: LauncherFolderModel { id: launcherModel }
+    onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
 
-    delegate: LauncherItemDelegate {
-        id: launcherItem
-        width: gridview.cellWidth
-        height: gridview.cellHeight
-        iconCaption: model.object.title
-        isFolder: model.object.type == LauncherModel.Folder
-        folderAppsCount: isFolder && model.object ? model.object.itemCount : 0
-        source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+    model: LauncherFolderModel { id: launcherModel }
+    //Using loader that in the future we can also have widgets as delegate
+    delegate: Loader {
+        id:loader
+        width: cellSize
+        height: cellSize
+        onXChanged: item.x = x
+        onYChanged: item.y = y
+        property QtObject modelData : model
+        property int cellSize: gridview.cellHeight
+        property int cellIndex: index
+        sourceComponent: object.type == LauncherModel.Folder ? folder : app
+    }
+
+    Component {
+        id:app
+        LauncherItemDelegate {
+            id: launcherItem
+            parent: gridview
+            parentItem: gridview
+            iconCaption.color:Theme.textColor
+            iconCaption.text: modelData.object.title
+            isFolder: modelData.object.type == LauncherModel.Folder
+            source: modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+            notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+            folderModel:launcherModel
+        }
+    }
+    Component {
+        id:folder
+        LauncherItemFolder {
+            id: launcherfolder
+            parent: gridview
+            iconCaption.color:Theme.textColor
+            iconCaption.text: modelData.object.title
+            isFolder: modelData.object.type == LauncherModel.Folder
+            folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
+            notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+            folderModel:launcherModel
+        }
     }
 }

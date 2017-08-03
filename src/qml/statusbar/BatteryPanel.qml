@@ -40,7 +40,7 @@ Component {
 
         Label {
             text: qsTr("Level")+ ": " + batteryChargePercentage.value + "%"
-            font.pointSize: 8
+            font.pixelSize: Theme.fontSizeMedium
             anchors.centerIn: parent
         }
     }

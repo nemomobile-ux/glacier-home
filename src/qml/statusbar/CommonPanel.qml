@@ -34,6 +34,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import org.nemomobile.lipstick 0.1
 
 Rectangle {
     id: commonPanel
@@ -41,8 +42,14 @@ Rectangle {
     property alias switcherEnabled: columnCheckBox.enabled
     property alias switcherChecked: columnCheckBox.checked
     property string name: ""
+    signal click
+    onClick: {
+        panel_loader.sourceComponent = parent.panel
+        panel_loader.visible = !panel_loader.visible
+        row.currentChild=null
+    }
 
-    height: 240
+    height: Theme.itemWidthMedium
     width: root.width
     color: "transparent"
 
@@ -50,6 +57,20 @@ Rectangle {
         anchors.fill: parent
         color: "#313131"
         opacity: 0.3
+
+    }
+    InverseMouseArea {
+        anchors.fill: parent
+        enabled: parent.visible
+        onPressed: {
+            parent.click()
+        }
+    }
+
+    MouseArea {
+        id:mouseArea
+        anchors.fill:parent
+        onClicked: parent.click()
     }
 
     clip: true
@@ -60,7 +81,7 @@ Rectangle {
         id: actionColumn
         anchors{
             top: commonPanel.top
-            topMargin: 20
+            topMargin: Theme.itemSpacingLarge
         }
         width: parent.width
         Label{
@@ -68,7 +89,7 @@ Rectangle {
             text: name
             anchors{
                 left: actionColumn.left
-                leftMargin: 20
+                leftMargin: Theme.itemSpacingLarge
             }
             wrapMode: Text.Wrap
             font.pointSize: 8
@@ -81,7 +102,7 @@ Rectangle {
             visible: enabled
             anchors{
                 right: actionColumn.right
-                rightMargin: 20
+                rightMargin: Theme.itemSpacingLarge
                 verticalCenter: nameLabel.verticalCenter
             }
         }
@@ -89,12 +110,54 @@ Rectangle {
 
     Column{
         id: dataColumn
-        width: parent.width-40
+        width: parent.width-settingsIcon.width
         anchors{
             left: parent.left
-            leftMargin: 20
+            leftMargin: Theme.itemSpacingLarge
             top: actionColumn.bottom
-            topMargin: 60
+            topMargin: Theme.itemSpacingHuge*1.5
+        }
+    }
+    //Just placeholder until IconButton will get merged
+    Image {
+        id:settingsIcon
+        fillMode: Image.PreserveAspectFit
+        height: Theme.itemHeightMedium
+        visible: parent.height > Theme.itemSpacingMedium
+        source: "image://theme/icon-app-settings" //maybe better icon? settings.png from statusbar spec
+        anchors{
+            right: parent.right
+            rightMargin: Theme.itemSpacingLarge
+            bottom:parent.bottom
+            bottomMargin: Theme.itemSpacingLarge
+        }
+        MouseArea {
+            anchors.fill:parent
+            onClicked: console.log("open right settings page...")
+        }
+    }
+    Connections {
+        target: lockScreen
+        onVisibleChanged: {
+            if(lockscreenVisible()) {
+               panel_loader.visible = false
+            }
+        }
+    }
+    Connections {
+        target: Lipstick.compositor
+        onDisplayOff: {
+            panel_loader.visible = false
+        }
+        onWindowAdded: {
+            if(window.category=="" && window.title !== "Home"){
+                panel_loader.visible = false
+            }
+        }
+        onWindowRaised: {
+            if(window.category=="" && window.title !== "Home"){
+               panel_loader.visible = false
+            }
         }
     }
 }

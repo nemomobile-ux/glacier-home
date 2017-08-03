@@ -33,7 +33,7 @@ import "notifications"
 
 Flickable {
     id: mainFlickable
-
+    clip: true
     contentHeight: rootitem.height
     contentWidth: parent.width
     Item {
@@ -43,26 +43,27 @@ Flickable {
         // Day of week
         Rectangle {
             id: daterow
-            height: displayCurrentDate.height + 15
-            width: childrenRect.width
+            height: Theme.itemHeightMedium
+            width: parent.width
 
             anchors{
                 top: parent.top
                 horizontalCenter: parent.horizontalCenter
+                topMargin: Theme.itemSpacingLarge
+                bottomMargin: Theme.itemSpacingLarge
             }
 
             color: "transparent"
 
             Label {
                 id: displayDayOfWeek
-                text: Qt.formatDateTime(wallClock.time, "dddd") + ", "
-                color: "white"
-                font.pointSize: 12
-                font.bold: true
+                text: Qt.formatDateTime(wallClock.time, "dddd")
+                color: Theme.textColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+                font.weight: Font.Bold
                 anchors {
                     top: parent.top
-                    left: parent.left
-                    topMargin: 30
+                    horizontalCenter: parent.horizontalCenter
                 }
             }
 
@@ -70,12 +71,13 @@ Flickable {
             Label {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                font.pointSize: 12
+                font.pixelSize: Theme.fontSizeExtraLarge
+                color: Theme.textColor
+                font.weight: Font.Light
                 wrapMode: Text.WordWrap
                 anchors {
-                    left: displayDayOfWeek.right
-                    top: parent.top
-                    topMargin: 30
+                    horizontalCenter: parent.horizontalCenter
+                    top: displayDayOfWeek.bottom
                 }
             }
         }
@@ -85,9 +87,9 @@ Flickable {
             width: parent.width
             anchors{
                 top: daterow.bottom
-                topMargin: 50
+                topMargin: Theme.itemSpacingHuge
             }
-            spacing: 10
+            spacing: Theme.itemSpacingHuge
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel

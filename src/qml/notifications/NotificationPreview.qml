@@ -26,6 +26,7 @@ import QtQuick 2.0
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import QtGraphicalEffects 1.0
 
 import "../scripts/desktop.js" as Desktop
 
@@ -39,27 +40,12 @@ Item {
     rotation: Desktop.instance.parent.rotation
     x: Desktop.instance.parent.x
     y: Desktop.instance.parent.y
-    Rectangle {
-        id: dimmer
-
-        height: Math.min(parent.width,parent.height)/14
-
-        anchors.top: parent.top
-        anchors.topMargin: notificationArea.notificationHeight
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        gradient: Gradient {
-            GradientStop { position: 1.0; color: "black" }
-            GradientStop { position: 0; color: "transparent" }
-        }
-    }
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: Math.min(parent.width,parent.height)/12
-        property int notificationMargin: 14
-        property int notificationIconSize: Math.min(parent.width,parent.height)/12
+        property int notificationHeight: Theme.itemHeightExtraLarge
+        property int notificationMargin: Theme.itemSpacingExtraSmall
+        property int notificationIconSize: Theme.itemHeightMedium
         anchors.top: parent.top
         anchors.left: parent.left
         width: notificationWindow.width
@@ -67,14 +53,18 @@ Item {
 
         onClicked: if (notificationPreviewPresenter.notification != null) notificationPreviewPresenter.notification.actionInvoked("default")
 
+
+
         Rectangle {
             id: notificationPreview
             anchors {
                 fill: parent
             }
-            color: "transparent"
-            radius: 10
 
+            gradient: Gradient {
+                GradientStop { position: 1.0; color: Theme.fillDarkColor }
+                GradientStop { position: 0; color: "transparent"}
+            }
             opacity: 0
 
             states: [
@@ -149,13 +139,14 @@ Item {
                     top: parent.top
                     left: icon.right
                     right: parent.right
-                    leftMargin: notificationArea.notificationMargin + 26
+                    topMargin: notificationArea.notificationMargin
+                    leftMargin: notificationArea.notificationMargin*2
                     rightMargin: notificationArea.notificationMargin
-                    bottomMargin: notificationArea.notificationMargin
+                    //bottomMargin: notificationArea.notificationMargin
                 }
-                font.pointSize: 12
+                font.pixelSize: Theme.fontSizeLarge
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
-                color: "white"
+                color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
             }
@@ -168,13 +159,32 @@ Item {
                     right: summary.right
                 }
                 font {
-                    pointSize: 10
+                    pixelSize: Theme.fontSizeMedium
                     bold: true
                 }
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
-                color: "white"
+                color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
+            }
+            //The close button goes here that is in one of the designs
+            MouseArea {
+                id: notificationCloser
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                }
+
+                height: notificationArea.notificationHeight
+                width: height
+                //The X icon goes here
+                /*Image {
+                    id: closeIcon
+                    anchors.centerIn: parent
+                    width: Theme.itemHeightMedium
+                    height: width
+                    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/closeapp.svg"
+                }*/
             }
 
             Connections {
