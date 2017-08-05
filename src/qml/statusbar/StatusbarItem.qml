@@ -35,7 +35,9 @@ Item {
     }
     MouseArea {
         id:mouse
-        anchors.fill: parent
+        anchors.centerIn: parent
+        width: parent.width + Theme.itemSpacingSmall
+        height: parent.height + Theme.itemSpacingSmall
         enabled: !lockscreenVisible()
         onClicked: parent.clicked()
     }

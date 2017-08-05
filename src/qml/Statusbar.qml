@@ -59,7 +59,7 @@ Item {
         property int oldY
         anchors.fill: row
         z: row.z + 10
-        enabled: !lockscreenVisible()
+        //enabled: !lockscreenVisible()
         onClicked: {
             if(oldX != mouseX && oldY !== mouseY && row.childAt(mouseX, mouseY) && row.currentChild !== row.childAt(mouseX, mouseY)) {
                 row.currentChild = row.childAt(mouseX, mouseY)

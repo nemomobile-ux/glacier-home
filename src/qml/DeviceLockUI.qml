@@ -14,6 +14,8 @@ Item {
 
     property bool shouldAuthenticate: Lipstick.compositor.visible
                                       && authenticator.availableMethods !== 0
+    property int remainingAttempts
+
     onShouldAuthenticateChanged: {
         if (shouldAuthenticate) {
             DeviceLock.authorization.requestChallenge()
@@ -36,16 +38,18 @@ Item {
         }
     }
 
-
     Authenticator {
         id: authenticator
         onAuthenticated: {
             DeviceLock.unlock(authenticationToken)
             Desktop.instance.setLockScreen(false)
             Desktop.instance.codepadVisible = false
+            remainingAttempts = 0
         }
         onFeedback: {
             console.log('### still locked', feedback, attemptsRemaining)
+            remainingAttempts = attemptsRemaining
+            animation.start()
         }
     }
 
@@ -53,6 +57,21 @@ Item {
         anchors.fill: parent
         spacing: Theme.itemSpacingLarge
 
+        SequentialAnimation  {
+            id: animation;
+            SequentialAnimation  {
+                loops: 4
+                NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 55; duration: 50 }
+                NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 0; duration: 50 }
+            }
+            NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 0; duration: 100 }
+        }
+        Label {
+            font.pixelSize: Theme.fontSizeMedium
+            width: parent.width
+            text:  remainingAttempts > 0 ? qsTr("Attempts remaining:") + " " + remainingAttempts : ""
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
         TextField {
             id: lockCodeField
             anchors.horizontalCenter: parent.horizontalCenter
@@ -62,6 +81,7 @@ Item {
         }
 
         GridLayout {
+            id: codePad
             height: parent.height
             width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter

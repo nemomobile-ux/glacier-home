@@ -190,7 +190,7 @@ MouseArea {
     }
     Timer {//Just placeholder to get visual feedback
         id:deleteTimer
-        interval: 5000
+        interval: 3000
         onTriggered: {
             iconWrapper.opacity=1.0
             enabled = true
