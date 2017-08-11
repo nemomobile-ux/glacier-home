@@ -86,6 +86,9 @@ applauncher.path = /usr/share/lipstick-glacier-home-qt5/qml/applauncher
 applauncher.files = src/qml/applauncher/SearchListView.qml \
                 src/qml/applauncher/Deleter.qml
 
+controlcenter.path = /usr/share/lipstick-glacier-home-qt5/qml/controlcenter
+controlcenter.files = src/qml/controlcenter/ControlButton.qml
+
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
                        src/settings-plugins/wallpaper/selectImage.qml \
                        src/settings-plugins/wallpaper/wallpaper.svg
@@ -119,6 +122,7 @@ INSTALLS += styles \
             connectivity\
             notifications\
             statusbar\
+            controlcenter \
             settingswallpaperplugin\
             settingsnotificationsplugin\
             settingspluginconfig \
