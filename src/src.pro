@@ -141,4 +141,51 @@ TRANSLATIONS += i18n/glacer-home.ts
 DISTFILES += \
     i18n/glacer-home.ts \
     qml/connectivity/ConnectionSelector.qml \
-    qml/statusbar/BatteryIndicator.qml
+    qml/statusbar/BatteryIndicator.qml \
+    qml/scripts/fontawesome.js \
+    qml/scripts/ionicons.js \
+    qml/theme/fonts/FiraSansCondensed-Light.otf \
+    qml/theme/fonts/FiraSansCondensed-Regular.otf \
+    qml/theme/fonts/FiraSansCondensed-SemiBold.otf \
+    qml/theme/fonts/FiraSans-Hair.ttf \
+    qml/theme/fonts/FiraSans-Light.ttf \
+    qml/theme/fonts/FiraSans-Regular.ttf \
+    qml/theme/fonts/FiraSans-Thin.ttf \
+    qml/theme/fonts/fontawesome-webfont.ttf \
+    qml/theme/fonts/ionicons.ttf \
+    qml/theme/button_down.wav \
+    qml/theme/button_up.wav \
+    qml/theme/battery0.png \
+    qml/theme/battery1.png \
+    qml/theme/battery2.png \
+    qml/theme/battery3.png \
+    qml/theme/battery4.png \
+    qml/theme/battery5.png \
+    qml/theme/battery6.png \
+    qml/theme/battery_grid.png \
+    qml/theme/data_egprs.png \
+    qml/theme/data_gprs.png \
+    qml/theme/data_hspa.png \
+    qml/theme/data_lte.png \
+    qml/theme/data_unknown.png \
+    qml/theme/data_utms.png \
+    qml/theme/default-icon.png \
+    qml/theme/icon-m-framework-close-thumbnail.png \
+    qml/theme/icon_bluetooth.png \
+    qml/theme/icon_gps.png \
+    qml/theme/icon_music.png \
+    qml/theme/icon_nfc.png \
+    qml/theme/icon_signal_0.png \
+    qml/theme/icon_signal_1.png \
+    qml/theme/icon_signal_2.png \
+    qml/theme/icon_signal_3.png \
+    qml/theme/icon_signal_4.png \
+    qml/theme/icon_signal_5.png \
+    qml/theme/icon_wifi_0.png \
+    qml/theme/icon_wifi_1.png \
+    qml/theme/icon_wifi_2.png \
+    qml/theme/icon_wifi_3.png \
+    qml/theme/icon_wifi_4.png \
+    qml/theme/mask_multitask_shadow.png \
+    qml/theme/fonts/OFL.txt \
+    qml/controlcenter/ControlButton.qml
