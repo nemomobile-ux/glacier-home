@@ -57,9 +57,8 @@ MouseArea {
         id: switcherPixmapCard
         width: rotateWindowContent ? parent.width : parent.height
         height: rotateWindowContent ? parent.height : parent.width
-
         color: Theme.backgroundColor
-        radius: 32
+        radius: size.dp(8)
 
         transform: Scale { origin.x: width/2; origin.y: height/2; xScale: 0.9; yScale: 0.9}
 
@@ -74,7 +73,7 @@ MouseArea {
                 origin.y: windowPixmap.height / 2
             }
             smooth: true
-            radius: 32
+            radius: size.dp(8)
             opacity: switcherRoot.closeMode ? .6 : 1
             Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
 

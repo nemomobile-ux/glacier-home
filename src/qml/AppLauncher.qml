@@ -101,18 +101,19 @@ Flickable{
     /*app grid*/
     GridView {
         id: gridview
-        cellWidth: Math.min(parent.width * launcherPadding,parent.height * launcherPadding)/4
-        cellHeight: cellWidth * (32/27)
-        width: parent.width * launcherPadding
+        cellWidth: size.dp(iconSize + 40)
+        cellHeight: size.dp(iconSize + 80)
+        height: parent.height
+        width: cellWidth * Math.floor(parent.width / cellWidth)
         cacheBuffer: gridview.contentHeight
+
         property Item reorderItem
         property bool onUninstall
         property alias deleter: deleter
         property var switcher: null
-        property var launcherPadding: 0.9375 //(450/180)
-        maximumFlickVelocity: parent.Height * 4
+        property int iconSize: 86
 
-        height: parent.height-searchListView.height-Theme.itemSpacingHuge
+        maximumFlickVelocity: parent.Height * 4
 
         visible: searchString.length === 0
 

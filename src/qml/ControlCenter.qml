@@ -35,11 +35,15 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
-import org.freedesktop.contextkit 1.0
-import MeeGo.Connman 0.2
-import org.nemomobile.lipstick 0.1
 import QtFeedback 5.0
 import QtMultimedia 5.0
+
+import MeeGo.Connman 0.2
+
+import org.freedesktop.contextkit 1.0
+import org.nemomobile.lipstick 0.1
+
+import "controlcenter"
 
 //Area to return
 MouseArea{
@@ -66,21 +70,49 @@ MouseArea{
 	        id: controlCenter
 	        width: parent.width
 	        height: parent.width
-	        color:"black"
+            color: Theme.backgroundColor
 	        radius:32
 	        x:0
 	        y:0
+
+	        RowLayout {
+			    id: layout
+
+			    anchors.top: parent.top
+                anchors.topMargin: size.dp(40 + 22)
+			    width: parent.width
+                height: size.dp(86)
+
+                ControlButton{
+                    image: "image://theme/wifi"
+                    textLabel: qsTr("Wi-Fi")
+                }
+                ControlButton{
+                    image: "image://theme/bluetooth"
+                    textLabel: qsTr("Bluetooth")
+                }
+                ControlButton{
+                    image: "image://theme/exchange-alt"
+                    textLabel: qsTr("Data")
+                }
+                ControlButton{
+                    image: "image://theme/map-marker-alt"
+                    textLabel: qsTr("Location")
+                }
+                ControlButton{
+                    image: "image://theme/moon"
+                    textLabel: qsTr("Quiet")
+                }
+			}
 
 	        Text {
 		        id: placeHolderText
 		        text: qsTr(":^)")
 		        anchors.centerIn: parent
 		        fontSizeMode: Text.Fit
-		        color: "white"
+                color: Theme.textColor
 		    }
 		}
-
-		
 	}
 
 	//Close the thing if background is tapped
