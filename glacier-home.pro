@@ -23,6 +23,7 @@ qml.files = src/qml/MainScreen.qml \
     src/qml/compositor.qml \
     src/qml/LauncherItemDelegate.qml \
     src/qml/Lockscreen.qml \
+    src/qml/LockscreenNotificationItem.qml \
     src/qml/LockscreenClock.qml \
     src/qml/AppSwitcher.qml \
     src/qml/AppLauncher.qml \

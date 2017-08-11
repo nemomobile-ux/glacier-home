@@ -1,8 +1,9 @@
-
 import QtQuick 2.6
-import org.nemomobile.devicelock 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+import QtGraphicalEffects 1.0
+
+import org.nemomobile.devicelock 1.0
 
 Rectangle {
     id: lockscreenClock
@@ -16,28 +17,29 @@ Rectangle {
     Column {
         id: clockColumn
 
+        width: timeDisplay.paintedWidth
+        height: timeDisplay.paintedHeight + dateDisplay.paintedHeight
+
         anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
         }
 
         Text {
             id: timeDisplay
 
-            font.pixelSize: Theme.fontSizeExtraLarge * 2
-            font.weight: Font.Light
+            font.pointSize: 40
             lineHeight: 0.85
-            color: Theme.textColor
+            font.weight: Font.Light
             horizontalAlignment: Text.AlignHCenter
-
+            visible: false
             anchors {
                 left: parent.left
                 right: parent.right
             }
-
             text: Qt.formatDateTime(wallClock.time, "hh:mm")
         }
+
         Rectangle {
             id: dateRow
             height: childrenRect.height
@@ -46,37 +48,39 @@ Rectangle {
                 horizontalCenter: parent.horizontalCenter
             }
 
-            color: "transparent"
-
-            Label {
-                id: weekdayDisplay
-
-                font.pixelSize: Theme.fontSizeMedium
-                color: Theme.textColor
-                horizontalAlignment: Text.AlignHCenter
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
+            LinearGradient  {
+                anchors.fill: timeDisplay
+                source: timeDisplay
+                gradient: Gradient {
+                    GradientStop { position: 0; color: "white" }
+                    GradientStop { position: 1; color: "#dcdcdc" }
                 }
-
-                text: Qt.formatDateTime(wallClock.time, "dddd")
             }
 
-            Label {
+            Text {
                 id: dateDisplay
 
-                font.pixelSize: Theme.fontSizeMedium
+                font.pointSize: 9
+                font.capitalization: Font.AllUppercase
                 color: Theme.textColor
-                horizontalAlignment: Text.AlignHCenter
-                font.weight: Font.Light
+
                 anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    top: weekdayDisplay.bottom
+                    left: parent.left
+                    bottom: parent.bottom;
                 }
 
-                text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
+                text: Qt.formatDateTime(wallClock.time, "<b>ddd</b>, MMM d")
             }
         }
 
+        DropShadow {
+            anchors.fill: clockColumn
+            horizontalOffset: 2
+            verticalOffset: 4
+            radius: 5
+            samples: 5
+            color: "#50000000"
+            source: clockColumn
+        }
     }
 }
-

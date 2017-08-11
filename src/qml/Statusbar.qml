@@ -204,7 +204,7 @@ Item {
         }
 
         BatteryIndicator{
-        
+            id: batteryIndicator
         }
 
         StatusbarItem {
