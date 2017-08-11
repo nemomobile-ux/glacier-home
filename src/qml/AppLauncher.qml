@@ -30,17 +30,19 @@ import QtQuick.Controls.Styles.Nemo 1.0
 // App Launcher page
 // the place for browsing installed applications and launching them
 
+//FIXME: to properly center uneven icons we should do some weird math with cellWidth * numPossibleIconsInARow
 GridView {
-    property var launcherPadding: 0.9375 //(450/180)
     id: gridview
-    cellWidth: Math.min(parent.width * launcherPadding,parent.height * launcherPadding)/4
-    cellHeight: cellWidth * (32/27)
-    width: parent.width * launcherPadding
+    cellWidth: size.dp(iconSize + 40)
+    cellHeight: size.dp(iconSize + 80)
+    height: parent.height
+    width: cellWidth * Math.floor(parent.width / cellWidth)
     cacheBuffer: gridview.contentHeight
     property Item reorderItem
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
+    property var iconSize: 86
     maximumFlickVelocity: parent.Height * 4
 
     footer: Item {
@@ -93,5 +95,6 @@ GridView {
         isFolder: model.object.type == LauncherModel.Folder
         folderAppsCount: isFolder && model.object ? model.object.itemCount : 0
         source: model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+        iconSize: gridview.iconSize
     }
 }

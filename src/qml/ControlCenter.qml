@@ -41,6 +41,11 @@ import org.nemomobile.lipstick 0.1
 import QtFeedback 5.0
 import QtMultimedia 5.0
 
+import "scripts/fontawesome.js" as FontAwesome
+import "scripts/ionicons.js" as Ionicons
+
+import "controlcenter"
+
 //Area to return
 MouseArea{
 	property bool controlCenterState: false //Is control center enabled or disabled?
@@ -49,6 +54,13 @@ MouseArea{
     height: Screen.height
     visible: controlCenterState
     state: "hide"
+
+    FontLoader {
+        source: "theme/fonts/fontawesome-webfont.ttf"
+    }
+    FontLoader {
+        source: "theme/fonts/ionicons.ttf"
+    }
 
     Rectangle{
     	id: controlCenterOutAreaDim
@@ -70,6 +82,39 @@ MouseArea{
 	        radius:32
 	        x:0
 	        y:0
+
+	        RowLayout {
+			    id: layout
+
+			    anchors.top: parent.top
+                anchors.topMargin: size.dp(40 + 22)
+			    width: parent.width
+                height: size.dp(86)
+
+			    spacing: 0
+
+                ControlButton{
+                    glyph: Ionicons.Icon.wifi
+                    textLabel: "Wi-Fi"
+                }
+                ControlButton{
+                    glyph: Ionicons.Icon.bluetooth
+                    textLabel: "Bluetooth"
+                }
+                ControlButton{
+                    glyph: Ionicons.Icon.connectbars
+                    textLabel: "Data"
+                }
+                ControlButton{
+                    glyph: Ionicons.Icon.location
+                    textLabel: "Location"
+                }
+                ControlButton{
+                    glyph: Ionicons.Icon.moon
+                    textLabel: "Quiet"
+                }
+			    
+			}
 
 	        Text {
 		        id: placeHolderText

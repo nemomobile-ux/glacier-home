@@ -28,17 +28,16 @@ StatusbarItem {
             }
         }
     }
-    width: statusbar.height
     iconSize: statusbar.height * 2
     iconSizeHeight: statusbar.height
     panel: BatteryPanel {}
-    source: "images/battery"+chargeValue+".png"
+    source: "../theme/battery"+chargeValue+".png"
 
     StatusbarItem {
         iconSize: parent.iconSize
         iconSizeHeight: parent.iconSizeHeight
         anchors.centerIn: parent
-        source: "images/battery_grid.png"
+        source: "../theme/battery_grid.png"
     }
 
     Timer{

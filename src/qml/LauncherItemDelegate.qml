@@ -38,6 +38,7 @@ Item {
     property real oldY
     property bool isFolder
     property int folderAppsCount: 0
+    property int iconSize: 86
 
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
@@ -65,7 +66,7 @@ Item {
         width: gridview.width
         height: childrenRect.height
         cellWidth: gridview.cellWidth
-        cellHeight: cellWidth + 30
+        cellHeight: cellWidth
         visible: true
         Rectangle {
             anchors.fill: parent
@@ -83,7 +84,7 @@ Item {
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     top: parent.top
-                    topMargin: 8
+                    topMargin: size.dp(8)
                 }
                 width: gridview.cellWidth - gridview.cellWidth/10
                 height: width
@@ -108,7 +109,7 @@ Item {
                     left: parent.left
                     right: parent.right
                     top: iconimage.bottom
-                    topMargin: 5
+                    topMargin: size.dp(5)
                 }
                 text: model.object.title
             }
@@ -230,7 +231,7 @@ Item {
                 top: parent.top
                 topMargin: gridview.cellWidth/2
             }
-            width: gridview.cellWidth * (2/3)
+            width: size.dp(iconSize)
             height: width
             asynchronous: true
 
@@ -245,6 +246,14 @@ Item {
                 height: width
                 enabled: (model.object.type === LauncherModel.Application) ? model.object.isLaunching : false
             }
+
+            onStatusChanged: {
+                 if (status == Image.Error)
+                 {
+                    console.log("source: " + source + ": failed to load");
+                    source = "theme/default-icon.png";
+                 }
+              }
         }
 
 
@@ -264,15 +273,21 @@ Item {
             id: iconText
             // elide only works if an explicit width is set
             width: parent.width
-            elide: Text.ElideRight
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 6
+
             color: 'white'
+            font.pointSize: 6
+
+            horizontalAlignment: Text.AlignHCenter
+
+            elide: Text.ElideRight
+            wrapMode: Text.WordWrap
+            maximumLineCount:2
+
             anchors {
                 left: parent.left
                 right: parent.right
                 top: iconImage.bottom
-                topMargin: gridview.cellWidth/8
+                topMargin: size.dp(15)
             }
         }
 
@@ -284,6 +299,16 @@ Item {
             samples: 4
             color: "#80000000"
             source: iconText
+        }
+
+        DropShadow {
+            anchors.fill: iconImage
+            horizontalOffset: 0
+            verticalOffset: iconImage.height/10
+            radius: iconImage.height/10
+            samples: 4
+            color: "#80000000"
+            source: iconImage
         }
     }
 }

@@ -71,6 +71,7 @@ Page {
     }
 
     //Todo: Property to set statusbar on top or bottom
+    //Also todo: Make this a window?
     Statusbar {
         id: statusbar
     }
@@ -121,6 +122,7 @@ Page {
         id: pager
         anchors.topMargin: Math.min(parent.width,parent.height)/13.33333333333 //Get statusbar height instead of hardcoding the same value
         anchors.fill: parent
+        scale: 0.9 + 0.1 * lockScreen.openingState
         model: VisualItemModel {
             AppLauncher {
                 id: launcher
@@ -149,11 +151,22 @@ Page {
         source: "images/wallpaper-portrait.png"
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
+        
         z: -100
     }
+
+    //Rectangle for dimming on app swipe close 
+    Rectangle{
+        width: parent.width
+        height: parent.height
+        opacity: 1-lockScreen.openingState
+        visible: lockScreen.openingState === 1? false : true
+        color: "black"
+        z: 199
+    }
+
     Lockscreen {
         id: lockScreen
-        visible: DeviceLock.state >= DeviceLock.Locked
         width: parent.width
         height: parent.height
         z: 200
