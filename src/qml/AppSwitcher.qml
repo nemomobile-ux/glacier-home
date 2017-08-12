@@ -46,6 +46,7 @@ Item {
             closeMode = false;
         }
     }
+    clip: true
     // Empty switcher indicator
     Rectangle {
         id: topText
