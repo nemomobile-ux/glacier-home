@@ -247,7 +247,7 @@ Item {
             }
             Image {
                 id: iconImage
-                width: parent.height-Theme.itemSpacingMedium
+                width: Math.min(Theme.iconSizeLauncher, parent.height-Theme.itemSpacingMedium)
                 height: width
                 source:iconSource
                 anchors.verticalCenter: parent.verticalCenter

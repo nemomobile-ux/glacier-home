@@ -89,9 +89,11 @@ MouseArea {
             drag.target = null
             parentItem.reorderItem = null
             pager.interactive = true
-            parentItem.onUninstall = false
-            deleteState="basic"
-            deleter.uninstalling(deleteState)
+            if(parentItem.onUninstall){
+                parentItem.onUninstall = false
+                deleteState="basic"
+                deleter.uninstalling(deleteState)
+            }
             parentItem.folderIndex = -1
             reparent(parentItem.contentItem)
             z = parent.z
