@@ -31,6 +31,18 @@ MouseArea {
     id: switcherItemRoot
 
     property bool rotateWindowContent: desktop.isPortrait
+    property int desktopAngle: {
+        switch(desktop.orientation) {
+        case Qt.PortraitOrientation:
+            return 0
+        case Qt.InvertedPortraitOrientation:
+            return 180
+        case Qt.LandscapeOrientation:
+            return 270
+        case Qt.InvertedLandscapeOrientation:
+            return 90
+        }
+    }
 
     WindowPixmapItem {
         id: windowPixmap
@@ -38,9 +50,9 @@ MouseArea {
         height: rotateWindowContent ? parent.height : parent.width
         windowId: model.window
         transform: Rotation {
-            angle: rotateWindowContent ? 0 : 90
-            origin.x: windowPixmap.height / 2
-            origin.y: windowPixmap.height / 2
+            angle:desktopAngle
+            origin.x:  rotateWindowContent ? windowPixmap.width / 2 : angle === 270 ? windowPixmap.width / 2 :  windowPixmap.height / 2
+            origin.y:  rotateWindowContent ? windowPixmap.height / 2 : angle === 270 ? windowPixmap.width / 2 :  windowPixmap.height / 2
         }
         smooth: true
         radius: 5
