@@ -166,7 +166,7 @@ Item {
             //searchableProperty: root.searchableProperty
         }
 
-        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com>
+        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com> **BSD
         //Function has been modified
         function update() {
             if(searchString.length<1) {

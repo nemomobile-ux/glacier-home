@@ -74,11 +74,12 @@ Item {
     Flickable {
         id: flickable
         contentHeight: gridview.height
-        width: closeMode ? parent.width - 20 : parent.width // see comment re right anchor below
+        width: closeMode ? parent.width - Theme.itemSpacingLarge : parent.width // see comment re right anchor below
         MouseArea {
             height: flickable.contentHeight > flickable.height ? flickable.contentHeight : flickable.height
             width: flickable.width
             onPressAndHold: closeMode = !closeMode
+            enabled: gridRepeater.count > 0
             onClicked: {
                 if (closeMode)
                     closeMode = false
@@ -87,17 +88,17 @@ Item {
 
         anchors {
             top: parent.top
-            topMargin: closeMode ? 20 : 0
+            topMargin: closeMode ? Theme.itemSpacingLarge : 0
             bottom: toolBar.top
             left: parent.left
             // no right anchor to avoid double margin (complicated math)
-            leftMargin: closeMode ? 20 : 0
+            leftMargin: closeMode ? Theme.itemSpacingLarge : 0
         }
 
         Grid {
             id: gridview
             columns: 2
-            spacing: closeMode ? 20 : 0
+            spacing: closeMode ? Theme.itemSpacingLarge : 0
             move: Transition {
                 NumberAnimation {
                     properties: "x,y"
@@ -130,76 +131,118 @@ Item {
         }
     }
 
+    Connections {
+        target:gridRepeater
+        onCountChanged: {
+            if(gridRepeater.count < 1) {
+                closeMode = false
+            }
+        }
+    }
+    Connections {
+        target: Lipstick.compositor
+        onDisplayOff: {
+            closeMode = false
+        }
+    }
+    Connections {
+        target: lockScreen
+        onVisibleChanged: {
+            if(lockscreenVisible()) {
+                closeMode = false
+            }
+        }
+    }
+    Connections {
+        target: pager
+        onFlickEnded: {
+            closeMode = false
+        }
+    }
     Rectangle {
         id: toolBar
-        color: 'black'
+        color: Theme.backgroundColor
         border {
             width: 1
-            color: '#333333'
+            color: Theme.fillDarkColor
         }
         z: 202
-        height: toolBarDone.height + 2*padding
-        property int padding: 9
+        height:Theme.itemHeightExtraLarge + 2*padding
+        property int padding: Theme.itemSpacingSmall
 
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
             margins: -1
-            bottomMargin: switcherRoot.closeMode ? 48 : -height
+            bottomMargin: switcherRoot.closeMode ? statusbar.height : -height
         }
 
         Behavior on anchors.bottomMargin { PropertyAnimation { duration: 100 } }
-        Button {
-            id: toolBarDone
-            width: parent.width / 3
-            height: width
+        Row {
             anchors {
                 top: parent.top
-                topMargin: toolBar.padding
-                right: parent.horizontalCenter
-                rightMargin: toolBar.padding
+                margins: toolBar.padding
+                right: parent.right
+                left: parent.left
+                bottom:  parent.bottom
             }
-            onClicked: {
-                switcherRoot.closeMode = false;
-            }
-            style: ButtonStyle {
-                label: Label {
-                    text: "Done"
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    fontSizeMode: Text.HorizontalFit
-                    anchors.centerIn: parent
-                }
-            }
-        }
+            spacing: toolBar.padding*2
 
-        Button {
-            id: toolBarCloseAll
-            width: toolBarDone.width
-            height: width
-            anchors {
-                top: parent.top
-                topMargin: toolBar.padding
-                left: parent.horizontalCenter
-                leftMargin: toolBar.padding
-            }
-            onClicked: {
-                // TODO: use close animation inside item
-                for (var i = gridRepeater.count - 1; i >= 0; i--) {
-                    gridRepeater.itemAt(i).close()
+            Button {
+                id: toolBarDone
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: parent.width / 2 - toolBar.padding
+                onClicked: {
+                    switcherRoot.closeMode = false;
+                }
+                text: qsTr("Done")
+                //Untill fontSizes are fixed
+                style: ButtonStyle {
+                    label: Text {
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text: control.text
+                        color: Theme.textColor
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSizeMedium
+                        font.weight: control.primary ? Theme.fontWeightLarge : Theme.fontWeightMedium
+                        opacity: control.enabled ? 1.0 : 0.3
+                    }
                 }
             }
-            style: ButtonStyle {
-                label: Label {
-                    text: qsTr("Close\nAll")
-                    anchors.margins: 10
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    fontSizeMode: Text.Fit
-                    anchors.centerIn: parent
+
+            Button {
+                id: toolBarCloseAll
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                 width: parent.width / 2 - toolBar.padding
+                onClicked: {
+                    // TODO: use close animation inside item
+                    for (var i = gridRepeater.count - 1; i >= 0; i--) {
+                        gridRepeater.itemAt(i).close()
+                    }
+                }
+                text: qsTr("Close All")
+                //Untill fontSizes are fixed
+                style: ButtonStyle {
+                    label: Text {
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text: control.text
+                        color: Theme.textColor
+                        font.family: Theme.fontFamily
+                        font.pixelSize: Theme.fontSizeMedium
+                        font.weight: control.primary ? Theme.fontWeightLarge : Theme.fontWeightMedium
+                        opacity: control.enabled ? 1.0 : 0.3
+                    }
                 }
             }
         }

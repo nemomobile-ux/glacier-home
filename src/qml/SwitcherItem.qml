@@ -67,6 +67,8 @@ MouseArea {
     onClicked: {
         if (!switcherRoot.closeMode) {
             Lipstick.compositor.windowToFront(model.window);
+        } else {
+            switcherRoot.closeMode = false
         }
     }
 
@@ -95,15 +97,15 @@ MouseArea {
             script: switcherItemRoot.close()
         }
     }
-    Label {
+   /* Label {
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
-            topMargin: 30
+            topMargin: Theme.itemSpacingHuge
         }
-        font.pointSize: 8
+        font.pointSize: Theme.fontSizeTiny
         text: Lipstick.compositor.windowForId(model.window).title
-    }
+    }*/
 
     CloseButton {
         id: closeButton
