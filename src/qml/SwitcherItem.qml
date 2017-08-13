@@ -97,15 +97,6 @@ MouseArea {
             script: switcherItemRoot.close()
         }
     }
-   /* Label {
-        anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
-            topMargin: Theme.itemSpacingHuge
-        }
-        font.pointSize: Theme.fontSizeTiny
-        text: Lipstick.compositor.windowForId(model.window).title
-    }*/
 
     CloseButton {
         id: closeButton

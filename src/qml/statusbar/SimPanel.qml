@@ -139,7 +139,7 @@ Component {
             visible: !needsPin
             text: qsTr("No pin required!")
             font.pixelSize:Theme.fontSizeMedium
-            anchors.centerIn: parent
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 }
