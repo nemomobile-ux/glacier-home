@@ -45,6 +45,8 @@ Compositor {
     property Item topmostApplicationWindow
     property Item topmostAlarmWindow: null
 
+    property bool gestureOnGoing
+
     function windowToFront(winId) {
         var o = root.windowForId(winId)
         var window = null
@@ -141,6 +143,7 @@ Compositor {
             swipeAnimation.stop()
             cancelAnimation.stop()
             lockAnimation.stop()
+            gestureOnGoing = true
             if (root.appActive) {
                 state = "swipe"
             }
@@ -176,6 +179,9 @@ Compositor {
                         // Locks
                         if (!Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(true)
+                            if(gesture == "down") {
+                                setDisplayOff()
+                            }
                         }
                         // Brings up codepad, only left and right swipes allowed for it for now
                         else if (Desktop.instance.lockscreenVisible() && !Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked && (gesture !== "down" && gesture !== "up")) {
@@ -193,7 +199,8 @@ Compositor {
                         cancelAnimation.start()
                     }
                 }
-            }
+            gestureOnGoing = false
+        }
         // States are for the animations that follow your finger during swipes
         states: [
             // Swipe state is when app is on and you are swiping it to background or closing it

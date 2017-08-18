@@ -67,19 +67,18 @@ Item {
 
         Item {
             id: iconWrapper
-            width: parent.width -parent.width/10
-            height: width - iconText.height
-            anchors.centerIn:  parent
+            height: parent.height - iconText.height
+            width: parent.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: Math.round((parent.height - (height + iconText.height)) / 2)
+
             Image {
                 id: iconImage
-                anchors {
-                    // centerIn:  launcherItem.n.otNemoIcon ? parent : undefined
-                    horizontalCenter: /* launcherItemnotNemoIcon ? undefined : */parent.horizontalCenter
-                    top: parent.top
-                    //topMargin: Theme.itemSpacingExtraSmall
-                }
-                width:/*launcherItem.notNemoIcon ? parent.width-parent.width/3 :  */parent.width - parent.width/4
-                height: width
+                anchors.centerIn: parent
+                sourceSize.width: Theme.iconSizeLauncher
+                sourceSize.height: Theme.iconSizeLauncher
+                height: Theme.iconSizeLauncher
+                width: height
                 asynchronous: true
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
@@ -89,11 +88,7 @@ Item {
             }
             Spinner {
                 id: spinnerr
-                anchors {
-                    centerIn:  iconImage
-                    top: iconImage.top
-                    topMargin: Theme.itemSpacingExtraSmall
-                }
+                anchors.centerIn:  iconImage
                 width: iconWrapper.width
                 height: width
                 enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
@@ -116,13 +111,13 @@ Item {
             width: iconWrapper.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: Theme.fontSizeSmall
+            font.pixelSize: Theme.fontSizeTiny
             color: Theme.textColor
+            //https://bugreports.qt.io/browse/QTBUG-56052
+            y: -contentHeight + font.pixelSize + iconWrapper.y + iconWrapper.height
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom
-                topMargin: Theme.itemSpacingExtraSmall
             }
         }
     }

@@ -6,7 +6,14 @@ MouseArea {
     id: notifyArea
 
     height: childrenRect.height
-    width: rootitem.width
+    width: parent.width
+
+    property alias appIcon: appIcon
+    property alias appBody: appBody
+    property alias appName: appName
+    property alias appSummary: appSummary
+    property int iconSize: Theme.itemHeightExtraLarge
+
 
     drag.target: notifyArea
     drag.axis: Drag.XAxis
@@ -54,10 +61,10 @@ MouseArea {
 
     Image {
         id: appIcon
-        height: Theme.itemHeightExtraLarge
-        width: height
         property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
 
+        height: iconSize
+        width: iconSize
         anchors{
             left: parent.left
             leftMargin: Theme.itemSpacingLarge
@@ -78,7 +85,7 @@ MouseArea {
     Label {
         id: appName
         text: modelData.appName
-        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
+        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
         color: Theme.textColor
         font.pixelSize: Theme.fontSizeMedium
         font.capitalization: Font.AllUppercase
@@ -93,7 +100,7 @@ MouseArea {
     Label {
         id: appSummary
         text: modelData.summary
-        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
+        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
         color: Theme.textColor
         font.pixelSize: Theme.fontSizeLarge
         //font.bold :true
@@ -109,7 +116,7 @@ MouseArea {
 
     Label {
         id: appBody
-        width: (rootitem.width-appIcon.width)-Theme.itemSpacingHuge
+        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
         text: modelData.body
         color: Theme.textColor
         font.pixelSize: Theme.fontSizeMedium
