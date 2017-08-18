@@ -222,7 +222,7 @@ GridView {
                 width: parent.width
                 anchors.centerIn: parent
                 text: qsTr("Remove")
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSizeSmall
                 elide:Text.ElideRight
                 horizontalAlignment:Text.AlignHCenter
                 verticalAlignment:Text.AlignVCenter
@@ -249,7 +249,7 @@ GridView {
                 width: parent.width
                 anchors.centerIn: parent
                 text: qsTr("Uninstall")
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSizeSmall
                 elide:Text.ElideRight
                 horizontalAlignment:Text.AlignHCenter
                 verticalAlignment:Text.AlignVCenter

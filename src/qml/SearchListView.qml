@@ -107,7 +107,7 @@ Item {
                     }
 
                     font.capitalization: Font.AllUppercase
-                    font.pixelSize: Theme.fontSizeMedium
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.textColor
                     anchors{
                         left: parent.left
@@ -294,7 +294,7 @@ Item {
                         left: parent.left
                         right: parent.right
                     }
-                    font.pixelSize:Theme.fontSizeLarge
+                    font.pixelSize:Theme.fontSizeMedium
                     color:Theme.textColor
                     elide:Text.ElideRight
                     verticalAlignment:Text.AlignVCenter
@@ -306,7 +306,7 @@ Item {
                         top:mainLabel.bottom
                         left:mainLabel.left
                     }
-                    font.pixelSize:Theme.fontSizeSmall
+                    font.pixelSize:Theme.fontSizeTiny
                     color:Theme.textColor
                     elide:Text.ElideRight
                     verticalAlignment:Text.AlignVCenter

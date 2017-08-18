@@ -102,7 +102,7 @@ MouseArea {
         text: modelData.summary
         width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
         color: Theme.textColor
-        font.pixelSize: Theme.fontSizeLarge
+        font.pixelSize: Theme.fontSizeSmall
         //font.bold :true
         //font.capitalization: Font.AllUppercase
 
@@ -119,7 +119,7 @@ MouseArea {
         width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
         text: modelData.body
         color: Theme.textColor
-        font.pixelSize: Theme.fontSizeMedium
+        font.pixelSize: Theme.fontSizeSmall
         anchors{
             left: appName.left
             top: appSummary.bottom

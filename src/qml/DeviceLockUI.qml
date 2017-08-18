@@ -55,7 +55,7 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: Theme.itemSpacingLarge
+        spacing: Theme.itemSpacingExtraSmall
 
         SequentialAnimation  {
             id: animation;
@@ -77,7 +77,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             readOnly: true
             echoMode: TextInput.PasswordEchoOnEdit
-            font.pixelSize: Theme.fontSizeExtraLarge
+            font.pixelSize: Theme.fontSizeMedium
         }
 
         GridLayout {
@@ -90,27 +90,19 @@ Item {
                 model: ["1","2","3","4","5","6","7","8","9","Ca","0","OK"]
                 delegate:
                     Button {
-                    height: Theme.itemHeightHuge
-                    width: Theme.itemHeightHuge
-                    Layout.maximumWidth: Theme.itemHeightHuge * 1.5
-                    Layout.maximumHeight: Theme.itemHeightHuge * 1.5
-                    Label {
-                        id: btnLabel
-                        text: modelData
-                        font.pixelSize: Theme.fontSizeExtraLarge * 1.5
-                        anchors {
-                            centerIn: parent
-                        }
-                    }
-
+                    id:button
+                    Layout.maximumWidth: Theme.itemWidthSmall
+                    Layout.maximumHeight: Theme.itemHeightHuge * 2
+                    Layout.minimumHeight: Theme.itemHeightHuge * 1.5
+                    text: modelData
                     onClicked: {
-                        if (btnLabel.text !== "Ca" && btnLabel.text !== "OK") {
-                            lockCodeField.insert(lockCodeField.cursorPosition, btnLabel.text)
+                        if (button.text !== "Ca" && button.text !== "OK") {
+                            lockCodeField.insert(lockCodeField.cursorPosition, button.text)
                         } else {
-                            if (btnLabel.text === "OK") {
+                            if (button.text === "OK") {
                                 authenticator.enterLockCode(lockCodeField.text)
                                 lockCodeField.text = ""
-                            } else if (btnLabel.text === "Ca"){
+                            } else if (button.text === "Ca"){
                                 lockCodeField.text = ""
                             }
                         }

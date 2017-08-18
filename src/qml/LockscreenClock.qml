@@ -51,7 +51,7 @@ Rectangle {
             Label {
                 id: weekdayDisplay
 
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSizeMedium
                 color: Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Bold
@@ -65,7 +65,7 @@ Rectangle {
             Label {
                 id: dateDisplay
 
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSizeMedium
                 color: Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.Light

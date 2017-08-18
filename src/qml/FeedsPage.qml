@@ -59,7 +59,7 @@ Flickable {
                 id: displayDayOfWeek
                 text: Qt.formatDateTime(wallClock.time, "dddd")
                 color: Theme.textColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pixelSize: Theme.fontSizeLarge
                 font.weight: Font.Bold
                 anchors {
                     top: parent.top
@@ -71,7 +71,7 @@ Flickable {
             Label {
                 id: displayCurrentDate
                 text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pixelSize: Theme.fontSizeLarge
                 color: Theme.textColor
                 font.weight: Font.Light
                 wrapMode: Text.WordWrap
