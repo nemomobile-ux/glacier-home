@@ -93,7 +93,7 @@ Rectangle {
                 leftMargin: Theme.itemSpacingLarge
             }
             wrapMode: Text.Wrap
-            font.pointSize: 8
+            font.pixelSize: Theme.fontSizeMedium
             font.bold: true
             color: "#ffffff"
         }

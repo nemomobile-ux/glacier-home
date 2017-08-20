@@ -30,7 +30,6 @@
 ****************************************************************************************/
 import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
-import QtQuick.Controls 1.4
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.contacts 1.0
@@ -120,7 +119,7 @@ Item {
                     }
 
                     font.capitalization: Font.AllUppercase
-                    font.pixelSize: Theme.fontSizeMedium
+                    font.pixelSize: Theme.fontSizeSmall
                     color: Theme.textColor
                     anchors{
                         left: parent.left
@@ -163,7 +162,6 @@ Item {
             filterType: PeopleModel.FilterAll
             filterPattern: searchString
             requiredProperty: PeopleModel.PhoneNumberRequired
-            //searchableProperty: root.searchableProperty
         }
 
         //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com> **BSD
@@ -259,7 +257,7 @@ Item {
             }
             Image {
                 id: iconImage
-                width: parent.height-Theme.itemSpacingMedium
+                width: Math.min(Theme.iconSizeLauncher, parent.height-Theme.itemSpacingMedium)
                 height: width
                 source:iconSource
                 anchors.verticalCenter: parent.verticalCenter
@@ -308,7 +306,7 @@ Item {
                         left: parent.left
                         right: parent.right
                     }
-                    font.pixelSize:Theme.fontSizeLarge
+                    font.pixelSize:Theme.fontSizeMedium
                     color:Theme.textColor
                     elide:Text.ElideRight
                     verticalAlignment:Text.AlignVCenter
@@ -320,7 +318,7 @@ Item {
                         top:mainLabel.bottom
                         left:mainLabel.left
                     }
-                    font.pixelSize:Theme.fontSizeSmall
+                    font.pixelSize:Theme.fontSizeTiny
                     color:Theme.textColor
                     elide:Text.ElideRight
                     verticalAlignment:Text.AlignVCenter

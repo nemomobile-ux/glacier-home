@@ -73,10 +73,11 @@ Item {
         }
         Item {
             id:folderIconStack
-            width: size
-            height: size
-            property int size: parent.width -parent.width/10
-            property int iconSize: (/*launcherItem.notNemoIcon ? size-size/3 : */ (size - size/4)) * 0.9
+            width: parent.width
+            height: parent.height - iconText.height
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: Math.round((parent.height - (height + iconText.height)) / 2)
+            property int iconSize: Theme.iconSizeLauncher * 0.9
             property real transparency: 0.6
             property int iconCount: 4
             property var icons: addIcons()
@@ -146,13 +147,13 @@ Item {
             width: launcherItem.width
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: Theme.fontSizeSmall
+            font.pixelSize: Theme.fontSizeTiny
             color: Theme.textColor
+            //https://bugreports.qt.io/browse/QTBUG-56052
+            y: -contentHeight + font.pixelSize + folderIconStack.y + folderIconStack.height
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom
-                topMargin: Theme.itemSpacingExtraSmall
             }
         }
 
@@ -173,15 +174,16 @@ Item {
         id: folderLoader
         property Item reorderItem
         property bool isRootFolder:false
+        property int folderIndex: -1
         cacheBuffer: folderLoader.contentHeight
         parent: gridview.contentItem
         y: wrapper.y + wrapper.width
         x: 0
         z: wrapper.z + 100
         width: gridview.width
-        height: count == 0 ? 0 :  (Math.floor((count*wrapper.height-1)/width) + 1) * wrapper.height
+        height: count == 0 ? 0 :  (Math.floor((count*wrapper.width-1)/width) + 1) * wrapper.height
         cellWidth: wrapper.width
-        cellHeight: wrapper.width
+        cellHeight: wrapper.height
         onReorderItemChanged: if(reorderItem == null) folderIconStack.icons=folderIconStack.addIcons()
 
         Rectangle {

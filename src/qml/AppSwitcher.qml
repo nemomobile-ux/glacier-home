@@ -68,7 +68,7 @@ Item {
                 left: parent.left
             }
             font.weight: Font.Light
-            font.pixelSize: Theme.fontSizeExtraLarge
+            font.pixelSize: Theme.fontSizeLarge
         }
     }
     Flickable {

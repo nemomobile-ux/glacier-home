@@ -34,17 +34,20 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 GridView {
     id: gridview
-    cellWidth: cellSize
-    cellHeight: cellSize
-    width: parent.width
+    width: cellWidth * columns
     cacheBuffer: gridview.contentHeight
     property Item reorderItem
     property bool onUninstall
     property alias deleter: deleter
     property var switcher: null
     property string searchString
+    property int minCellSize: Theme.iconSizeLauncher + Theme.itemSpacingHuge
+    property int rows: Math.floor(parent.height / minCellSize)
+    property int columns:  Math.floor(parent.width / minCellSize)
 
-    property int cellSize: Math.min(parent.width,parent.height)/4
+    cellWidth: parent.width / columns
+    cellHeight: Math.round(parent.height / rows)
+
     property int folderIndex: -1
     property bool isRootFolder:true
     property bool newFolderActive
@@ -232,7 +235,7 @@ GridView {
                     height: parent.height
                     width: parent.width - (removeIcon.visible ?  removeIcon.width : 0)
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeLarge
+                    font.pixelSize: Theme.fontSizeSmall
                     elide:Text.ElideRight
                     horizontalAlignment:Text.AlignHCenter
                     verticalAlignment:Text.AlignVCenter
@@ -266,14 +269,13 @@ GridView {
                     source: "image://theme/trash"
                     visible: deleter.state != "uninstall"
                 }
-
                 Label {
                     id: uninstallLabel
                     height: parent.height
                     width: parent.width - (trashIcon.visible ?  trashIcon.width : 0)
                     anchors.verticalCenter: parent.verticalCenter
                     text: qsTr("Uninstall")
-                    font.pixelSize: Theme.fontSizeLarge
+                    font.pixelSize: Theme.fontSizeSmall
                     elide:Text.ElideRight
                     horizontalAlignment:Text.AlignHCenter
                     verticalAlignment:Text.AlignVCenter
@@ -288,12 +290,11 @@ GridView {
     //Using loader that in the future we can also have widgets as delegate
     delegate: Loader {
         id:loader
-        width: cellSize
-        height: cellSize
+        width: cellWidth
+        height: cellHeight
         onXChanged: item.x = x
         onYChanged: item.y = y
         property QtObject modelData : model
-        property int cellSize: gridview.cellHeight
         property int cellIndex: index
         sourceComponent: object.type == LauncherModel.Folder ? folder : app
     }

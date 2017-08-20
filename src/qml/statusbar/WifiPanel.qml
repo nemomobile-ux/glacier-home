@@ -85,7 +85,7 @@ Component {
                             verticalCenter: statusImage.verticalCenter
                         }
                         width: root.width
-                        font.pixelSize: Theme.fontSizeMedium
+                        font.pixelSize: Theme.fontSizeSmall
                         text: modelData.name
                         wrapMode: Text.Wrap
                         color: modelData.state === "online" ? Theme.accentColor : Theme.textColor

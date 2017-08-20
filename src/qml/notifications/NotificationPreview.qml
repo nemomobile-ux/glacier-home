@@ -144,7 +144,7 @@ Item {
                     rightMargin: notificationArea.notificationMargin
                     //bottomMargin: notificationArea.notificationMargin
                 }
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSizeMedium
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
                 color: Theme.textColor
                 clip: true
@@ -159,7 +159,7 @@ Item {
                     right: summary.right
                 }
                 font {
-                    pixelSize: Theme.fontSizeMedium
+                    pixelSize: Theme.fontSizeSmall
                     bold: true
                 }
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""

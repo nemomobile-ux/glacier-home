@@ -89,9 +89,11 @@ MouseArea {
             drag.target = null
             parentItem.reorderItem = null
             pager.interactive = true
-            parentItem.onUninstall = false
-            deleteState="basic"
-            deleter.uninstalling(deleteState)
+            if(parentItem.onUninstall){
+                parentItem.onUninstall = false
+                deleteState="basic"
+                deleter.uninstalling(deleteState)
+            }
             parentItem.folderIndex = -1
             reparent(parentItem.contentItem)
             z = parent.z
@@ -188,7 +190,7 @@ MouseArea {
     }
     Timer {//Just placeholder to get visual feedback
         id:deleteTimer
-        interval: 5000
+        interval: 3000
         onTriggered: {
             iconWrapper.opacity=1.0
             enabled = true

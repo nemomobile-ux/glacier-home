@@ -46,8 +46,16 @@ Page {
     // This is used in the favorites page and in the lock screen
     WallClock {
         id: wallClock
-        enabled: true /* XXX: Disable when display is off */
+        enabled: true
         updateFrequency: WallClock.Minute
+    }
+    //force refresh
+    Connections {
+        target: Lipstick.compositor
+        onDisplayAboutToBeOn: {
+            wallClock.enabled = false
+            wallClock.enabled = true
+        }
     }
     // This is used in the lock screen
     ConfigurationValue {
