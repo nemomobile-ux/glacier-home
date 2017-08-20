@@ -207,6 +207,7 @@ GridView {
             property color color2: "#80ff0000"
             property color color3: "#4Dff0000"
             property alias text: removeLabel.text
+            anchors.left: parent.left
             visible: gridview.onUninstall
             height: Theme.itemHeightExtraLarge
             width: gridview.width / 2
@@ -215,17 +216,30 @@ GridView {
                 GradientStop { position: 0.5; color: remove.color2 }
                 GradientStop { position: 1.0; color: remove.color3 }
             }
-
-            Label {
-                id: removeLabel
-                height: parent.height
+            Row {
                 width: parent.width
-                anchors.centerIn: parent
-                text: qsTr("Remove")
-                font.pixelSize: Theme.fontSizeSmall
-                elide:Text.ElideRight
-                horizontalAlignment:Text.AlignHCenter
-                verticalAlignment:Text.AlignVCenter
+                height: parent.height
+                Image {
+                    id:removeIcon
+                    fillMode: Image.PreserveAspectFit
+                    height: parent.height -Theme.itemSpacingExtraSmall
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "image://theme/remove"
+                    visible: deleter.state != "remove"
+                }
+
+                Label {
+                    id: removeLabel
+                    text: qsTr("Remove")
+                    height: parent.height
+                    width: parent.width - (removeIcon.visible ?  removeIcon.width : 0)
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideRight
+                    horizontalAlignment:Text.AlignHCenter
+                    verticalAlignment:Text.AlignVCenter
+                }
             }
         }
         Rectangle {
@@ -243,16 +257,29 @@ GridView {
                 GradientStop { position: 0.5; color: uninstall.color2 }
                 GradientStop { position: 1.0; color: uninstall.color3 }
             }
-            Label {
-                id: uninstallLabel
-                height: parent.height
+            Row {
                 width: parent.width
-                anchors.centerIn: parent
-                text: qsTr("Uninstall")
-                font.pixelSize: Theme.fontSizeSmall
-                elide:Text.ElideRight
-                horizontalAlignment:Text.AlignHCenter
-                verticalAlignment:Text.AlignVCenter
+                height: parent.height
+                Image {
+                    id:trashIcon
+                    fillMode: Image.PreserveAspectFit
+                    height: parent.height -Theme.itemSpacingExtraSmall
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "image://theme/trash"
+                    visible: deleter.state != "uninstall"
+                }
+                Label {
+                    id: uninstallLabel
+                    height: parent.height
+                    width: parent.width - (trashIcon.visible ?  trashIcon.width : 0)
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Uninstall")
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideRight
+                    horizontalAlignment:Text.AlignHCenter
+                    verticalAlignment:Text.AlignVCenter
+                }
             }
         }
     }

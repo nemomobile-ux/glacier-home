@@ -83,6 +83,7 @@ Rectangle {
             top: commonPanel.top
             topMargin: Theme.itemSpacingLarge
         }
+        height: nameLabel.height
         width: parent.width
         Label{
             id: nameLabel
@@ -115,7 +116,7 @@ Rectangle {
             left: parent.left
             leftMargin: Theme.itemSpacingLarge
             top: actionColumn.bottom
-            topMargin: Theme.itemSpacingHuge*1.5
+            topMargin: Theme.itemSpacingMedium
         }
     }
     //Just placeholder until IconButton will get merged

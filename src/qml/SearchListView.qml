@@ -57,9 +57,8 @@ Item {
         id:margin
         height: Theme.itemSpacingSmall
     }
-
-    TextField {
-        id:searchField
+    Row {
+        id:searchRow
         anchors {
             top:margin.bottom
             left: parent.left
@@ -69,12 +68,25 @@ Item {
             rightMargin: Theme.itemSpacingMedium
             bottomMargin:Theme.itemSpacingHuge
         }
+    Image {
+        id:searchIcon
+        anchors.verticalCenter: parent.verticalCenter
+        width:height
+        height: searchField.height
+        fillMode: Image.PreserveAspectFit
+        source: "image://theme/search"
+    }
+
+    TextField {
+        id:searchField
+        width:parent.width - searchIcon.width - Theme.itemSpacingMedium
+        placeholderText: qsTr("Search")
         Binding {
             target: gridview
             property: "searchString"
             value: searchField.text.toLowerCase().trim()
         }
-
+}
 
     }
     ListView {
@@ -82,7 +94,7 @@ Item {
         clip: true
         width: parent.width
         height:contentHeight
-        anchors.top: searchField.bottom
+        anchors.top: searchRow.bottom
         anchors.topMargin: Theme.itemSpacingSmall
         visible: searchString.length>0
         section.property: 'category'
@@ -152,7 +164,7 @@ Item {
             requiredProperty: PeopleModel.PhoneNumberRequired
         }
 
-        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com>
+        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com> **BSD
         //Function has been modified
         function update() {
             if(searchString.length<1) {

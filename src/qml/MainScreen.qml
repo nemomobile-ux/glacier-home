@@ -169,17 +169,18 @@ Page {
         width: parent.width
         height: parent.height
         z: 200
-    }
-    DeviceLockUI {
-        id: codePad
-        visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
-        width: lockScreen.width
-        height:lockScreen.height / 2
-        anchors {
-            verticalCenter: lockScreen.verticalCenter
-        }
 
-        z: 200
+        DeviceLockUI {
+            id: codePad
+            visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
+            width: lockScreen.width
+            height:lockScreen.height / 2
+            anchors {
+                verticalCenter: lockScreen.verticalCenter
+            }
+
+            z: 200
+        }
     }
 
 }

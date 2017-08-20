@@ -54,6 +54,7 @@ Component {
         ]
 
         Repeater {
+            anchors.top: parent.top
             model: wifimodel
             delegate: Item {
                 width: wifiPanel.width
