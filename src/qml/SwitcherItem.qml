@@ -100,7 +100,7 @@ MouseArea {
 
     CloseButton {
         id: closeButton
-        width: parent.width/4
+        width: rotateWindowContent ? parent.width/4 :parent.height/4
         height: width
         Behavior on scale { PropertyAnimation { duration: 300; easing.type: Easing.OutBack } }
         scale: switcherRoot.closeMode ? 1 : 0

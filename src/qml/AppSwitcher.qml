@@ -74,7 +74,7 @@ Item {
     Flickable {
         id: flickable
         contentHeight: gridview.height
-        width: closeMode ? parent.width - Theme.itemSpacingLarge : parent.width // see comment re right anchor below
+        width: closeMode ? parent.width - Theme.itemSpacingLarge : parent.width - Theme.itemSpacingSmall // see comment re right anchor below
         MouseArea {
             height: flickable.contentHeight > flickable.height ? flickable.contentHeight : flickable.height
             width: flickable.width
@@ -88,17 +88,17 @@ Item {
 
         anchors {
             top: parent.top
-            topMargin: closeMode ? Theme.itemSpacingLarge : 0
+            topMargin: closeMode ? Theme.itemSpacingLarge : Theme.itemSpacingSmall
             bottom: toolBar.top
             left: parent.left
             // no right anchor to avoid double margin (complicated math)
-            leftMargin: closeMode ? Theme.itemSpacingLarge : 0
+            leftMargin: closeMode ? Theme.itemSpacingLarge : Theme.itemSpacingSmall
         }
 
         Grid {
             id: gridview
             columns: 2
-            spacing: closeMode ? Theme.itemSpacingLarge : 0
+            spacing: closeMode ? Theme.itemSpacingLarge : Theme.itemSpacingSmall
             move: Transition {
                 NumberAnimation {
                     properties: "x,y"
@@ -159,17 +159,9 @@ Item {
             closeMode = false
         }
     }
-    Rectangle {
+    Item {
         id: toolBar
-        color: Theme.backgroundColor
-        border {
-            width: 1
-            color: Theme.fillDarkColor
-        }
-        z: 202
-        height:Theme.itemHeightExtraLarge + 2*padding
         property int padding: Theme.itemSpacingSmall
-
         anchors {
             left: parent.left
             right: parent.right
@@ -177,8 +169,20 @@ Item {
             margins: -1
             bottomMargin: switcherRoot.closeMode ? statusbar.height : -height
         }
-
         Behavior on anchors.bottomMargin { PropertyAnimation { duration: 100 } }
+        z: 202
+        height:Theme.itemHeightExtraLarge + 2 * toolBar.padding
+
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.fillDarkColor
+            opacity: 0.3
+            border {
+                width: 1
+                color: Theme.backgroundColor
+            }
+        }
+
         Row {
             anchors {
                 top: parent.top
@@ -187,7 +191,7 @@ Item {
                 left: parent.left
                 bottom:  parent.bottom
             }
-            spacing: toolBar.padding*2
+            spacing: toolBar.padding * 2
 
             Button {
                 id: toolBarDone
@@ -222,7 +226,7 @@ Item {
                     top: parent.top
                     bottom: parent.bottom
                 }
-                 width: parent.width / 2 - toolBar.padding
+                width: parent.width / 2 - toolBar.padding
                 onClicked: {
                     // TODO: use close animation inside item
                     for (var i = gridRepeater.count - 1; i >= 0; i--) {

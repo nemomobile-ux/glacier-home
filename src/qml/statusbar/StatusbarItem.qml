@@ -22,7 +22,7 @@ Item {
 
     Rectangle{
         anchors.fill:parent
-        opacity: 0.8
+        opacity: 0.6
         color: Theme.fillDarkColor
         visible: panel_loader.visible && (panel_loader.sourceComponent == panel)
     }

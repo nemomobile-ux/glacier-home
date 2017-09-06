@@ -55,7 +55,7 @@ Rectangle {
 
     Rectangle{
         anchors.fill: parent
-        color: "#313131"
+        color: Theme.fillDarkColor
         opacity: 0.3
 
     }

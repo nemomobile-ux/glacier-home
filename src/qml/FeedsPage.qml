@@ -81,22 +81,35 @@ Flickable {
                 }
             }
         }
+        Timer {
+            id: timestampTimer
+            interval: 60000
+            running: true
+            repeat: true
+        }
 
         Column {
             id: notificationColumn
             width: parent.width
             anchors{
                 top: daterow.bottom
-                topMargin: Theme.itemSpacingHuge
+                topMargin: Theme.itemHeightLarge
             }
-            spacing: Theme.itemSpacingHuge
+            spacing: Theme.itemSpacingMedium
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel
                 }
-                delegate: NotificationItem{}
+                delegate: NotificationItem{
+                    id: notifItem
+                    Connections {
+                        target: timestampTimer
+                        onTriggered: notifItem.refreshTimestamp()
+                        onRunningChanged: if (timestampTimer.running) notifItem.refreshTimestamp()
+                    }
                 }
             }
         }
+    }
 }
 

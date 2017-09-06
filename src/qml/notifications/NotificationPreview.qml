@@ -136,7 +136,7 @@ Item {
             Label {
                 id: summary
                 anchors {
-                    top: parent.top
+                    top: icon.top
                     left: icon.right
                     right: parent.right
                     topMargin: notificationArea.notificationMargin
@@ -144,11 +144,13 @@ Item {
                     rightMargin: notificationArea.notificationMargin
                     //bottomMargin: notificationArea.notificationMargin
                 }
-                font.pixelSize: Theme.fontSizeMedium
+                height: if(!text) 0
+                font.pixelSize: Theme.fontSizeTiny
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
                 color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
+                Component.onCompleted: console.log(height, "--",  notificationPreviewPresenter.notification != null)
             }
 
             Label {
@@ -158,9 +160,10 @@ Item {
                     left: summary.left
                     right: summary.right
                 }
+                height: if(!text) 0
                 font {
-                    pixelSize: Theme.fontSizeSmall
                     bold: true
+                    pixelSize: Theme.fontSizeSmall
                 }
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
                 color: Theme.textColor
