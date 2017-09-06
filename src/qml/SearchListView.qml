@@ -35,6 +35,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.contacts 1.0
 
 Item {
+    id:rootItem
     height: (searchField.text.length > 0 ?  listView.height+searchField.height : searchField.height) + (visible ? Theme.itemSpacingHuge + margin.height : 0)
     visible: false
     anchors.bottomMargin:Theme.itemSpacingHuge
@@ -48,8 +49,10 @@ Item {
 
 
     onVisibleChanged: {
-        if( visible) searchField.focus = true
-        else searchField.focus = false
+        if( visible){
+            searchField.focus = true
+            searchField.forceActiveFocus()
+        } else searchField.focus = false
         oldHeight=height
     }
 
@@ -68,25 +71,30 @@ Item {
             rightMargin: Theme.itemSpacingMedium
             bottomMargin:Theme.itemSpacingHuge
         }
-    Image {
-        id:searchIcon
-        anchors.verticalCenter: parent.verticalCenter
-        width:height
-        height: searchField.height
-        fillMode: Image.PreserveAspectFit
-        source: "image://theme/search"
-    }
-
-    TextField {
-        id:searchField
-        width:parent.width - searchIcon.width - Theme.itemSpacingMedium
-        placeholderText: qsTr("Search")
-        Binding {
-            target: gridview
-            property: "searchString"
-            value: searchField.text.toLowerCase().trim()
+        Image {
+            id:searchIcon
+            anchors.verticalCenter: parent.verticalCenter
+            width:height
+            height: searchField.height
+            fillMode: Image.PreserveAspectFit
+            source: "image://theme/search"
         }
-}
+
+        TextField {
+            id:searchField
+            width:parent.width - searchIcon.width - Theme.itemSpacingMedium
+            placeholderText: qsTr("Search")
+            Binding {
+                target: gridview
+                property: "searchString"
+                value: searchField.text.toLowerCase().trim()
+            }
+            onTextChanged: {
+                if(tex.lenght>0) {
+                    searchField.forceActiveFocus()
+                }
+            }
+        }
 
     }
     ListView {
@@ -180,7 +188,13 @@ Item {
                 var titles = []
                 var contacts = []
                 for (i = 0; i < searchLauncherModel.itemCount; ++i) {
-                    titles.push({'iconTitle':searchLauncherModel.get(i).title, 'iconSource':searchLauncherModel.get(i).iconId, 'id':i, 'category':qsTr("Application")})
+                    if (searchLauncherModel.get(i).type === LauncherModel.Folder) {
+                        for(var j = 0; j< searchLauncherModel.get(i).itemCount; ++j ) {
+                            titles.push({'iconTitle':searchLauncherModel.get(i).get(j).title, 'iconSource':searchLauncherModel.get(i).get(j).iconId, 'id':i, 'folderId':j, 'category':qsTr("Application")})
+                        }
+                    } else {
+                        titles.push({'iconTitle':searchLauncherModel.get(i).title, 'iconSource':searchLauncherModel.get(i).iconId, 'id':i, 'folderId':-1, 'category':qsTr("Application")})
+                    }
                 }
                 for (i = 0; i < peopleModel.count; ++i) {
                     if(peopleModel.get(i).firstName && peopleModel.get(i).lastName) {
@@ -217,11 +231,12 @@ Item {
                     iconTitle = filteredTitles[i].iconTitle
                     iconId =  filteredTitles[i].iconSource
                     var id = filteredTitles[i].id
+                    var folderId = filteredTitles[i].folderId
                     category = filteredTitles[i].category
                     found = existingTitleObject.hasOwnProperty(iconTitle)
                     if (!found) {
                         // for simplicity, just adding to end instead of corresponding position in original list
-                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'category':category})
+                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category})
                     }
                 }
                 for (i = 0; i < contacts.length; ++i) {
@@ -278,8 +293,16 @@ Item {
                 }
                 width: iconImage.width
                 height: width
-                enabled: (searchLauncherModel.get(model.id).type === LauncherModel.Application) ? searchLauncherModel.get(model.id).isLaunching ? switcher.switchModel.getWindowIdForTitle(model.title) == 0 : false : false
-
+                enabled: {
+                    if(searchLauncherModel.get(model.id).type === LauncherModel.Application) {
+                        if(searchLauncherModel.get(model.id).isLaunching)
+                            return switcher.switchModel.getWindowIdForTitle(model.title) == 0
+                    } else if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
+                        if (searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
+                            return switcher.switchModel.getWindowIdForTitle(model.title) == 0
+                    }
+                    return false
+                }
                 Connections {
                     target: Lipstick.compositor
                     onWindowAdded: {
@@ -330,14 +353,21 @@ Item {
                 onClicked: {
                     switch (category ) {
                     case "Application":
+                        var winId
                         if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
-                            var winId = switcher.switchModel.getWindowIdForTitle(model.title)
+                            winId = switcher.switchModel.getWindowIdForTitle(model.title)
                             if (winId == 0 || !searchLauncherModel.get(model.id).isLaunching)
                                 searchLauncherModel.get(model.id).launchApplication()
                             else
                                 Lipstick.compositor.windowToFront(winId)
+                        } else  if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
+                            winId = switcher.switchModel.getWindowIdForTitle(model.title)
+                            if (winId == 0 || !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
+                                searchLauncherModel.get(model.id).get(model.folderId).launchApplication()
+                            else
+                                Lipstick.compositor.windowToFront(winId)
                         }
-                        context.state=""
+
                         break
                     case "Contact":
                         console.log("Call to person. Or open contextmenu where sms and call")

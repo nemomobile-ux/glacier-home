@@ -60,7 +60,6 @@ Flickable {
                 text: Qt.formatDateTime(wallClock.time, "dddd")
                 color: Theme.textColor
                 font.pixelSize: Theme.fontSizeLarge
-                font.weight: Font.Bold
                 anchors {
                     top: parent.top
                     horizontalCenter: parent.horizontalCenter
@@ -93,7 +92,7 @@ Flickable {
             width: parent.width
             anchors{
                 top: daterow.bottom
-                topMargin: Theme.itemHeightLarge
+                topMargin: Theme.itemHeightLarge*1.5
             }
             spacing: Theme.itemSpacingMedium
             Repeater {

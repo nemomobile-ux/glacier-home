@@ -17,16 +17,21 @@ MouseArea {
     property alias pressBg: pressBg
     property int iconSize:Math.min(Theme.iconSizeLauncher, height-Theme.itemSpacingMedium)
     property string timeAgo
+    property int swipeTreshold: notifyArea.width/3
 
-    drag.target: notifyArea
+    drag.target: modelData.userRemovable ? notifyArea : null
     drag.axis: Drag.XAxis
-    drag.minimumX: 0-Theme.itemHeightMedium
+    drag.minimumX: -notifyArea.width
     drag.maximumX: notifyArea.width
     drag.onActiveChanged: {
         if(!drag.active ) {
-            if((notifyArea.x > notifyArea.width/3)) {
+            if((notifyArea.x > swipeTreshold)) {
                 slideAnimation.start()
-            }else slideBackAnimation.start()
+            }else if (notifyArea.x < -swipeTreshold){
+                slideReverseAnimation.start()
+            } else {
+                slideBackAnimation.start()
+            }
         }
     }
 
@@ -57,7 +62,7 @@ MouseArea {
                 timeAgo =  days + " " + qsTr("day ago")
             }
         }else if (hours >= 1) {
-            if (hours >= 1) {
+            if (hours > 1) {
                 timeAgo =  hours + " " + qsTr("hours ago")
             } else {
                 timeAgo =  hours + " " + qsTr("hour ago")
@@ -76,6 +81,8 @@ MouseArea {
     onClicked: {
         if (modelData.userRemovable) {
             slideAnimation.start()
+        } else {
+            modelData.actionInvoked("default")
         }
     }
     NumberAnimation {
@@ -87,6 +94,16 @@ MouseArea {
         to: notifyArea.width
         easing.type: Easing.InOutQuad
         onStopped: modelData.actionInvoked("default")
+    }
+    NumberAnimation {
+        id:slideReverseAnimation
+        target: notifyArea
+        property: "x"
+        duration: 200
+        from: notifyArea.x
+        to: -notifyArea.width
+        easing.type: Easing.InOutQuad
+        onStopped: modelData.removeRequested()
     }
     NumberAnimation {
         id:slideBackAnimation
@@ -122,7 +139,9 @@ MouseArea {
         source: {
             if (modelData.icon)
                 return "image://theme/" + modelData.icon
-            else
+            else if (modelData.appIcon) {
+                return "image://theme/" + modelData.appIcon
+            } else
                 return defaultIcon
         }
         onStatusChanged: {
@@ -144,11 +163,10 @@ MouseArea {
         Label {
             id: appName
             text: modelData.appName
-            width: parent.width-appTimestamp.width-Theme.itemSpacingSmall
+            width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
             color: Theme.textColor
             elide: Text.ElideRight
             font.pixelSize: Theme.fontSizeSmall
-            font.capitalization: Font.AllUppercase
             anchors {
                 left: parent.left
             }
@@ -175,8 +193,9 @@ MouseArea {
             font.pixelSize: Theme.fontSizeTiny
             anchors{
                 left: parent.left
-               // topMargin: Theme.itemSpacingSmall
+                // topMargin: Theme.itemSpacingSmall
             }
+            maximumLineCount: 1
             elide: Text.ElideRight
         }
 
@@ -189,6 +208,7 @@ MouseArea {
             anchors{
                 left: parent.left
             }
+            maximumLineCount: 1
             elide: Text.ElideRight
         }
     }

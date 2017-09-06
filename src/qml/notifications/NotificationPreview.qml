@@ -122,6 +122,7 @@ Item {
 
             Image {
                 id: icon
+                property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -130,7 +131,20 @@ Item {
                 }
                 width: notificationArea.notificationIconSize
                 height: width
-                source: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
+                source: {
+                    if (notificationPreviewPresenter.notification.icon)
+                        return "image://theme/" + notificationPreviewPresenter.notification.icon
+                    else if (notificationPreviewPresenter.notification.appIcon) {
+                        return "image://theme/" + notificationPreviewPresenter.notification.appIcon
+                    } else
+                        return defaultIcon
+                }
+                onStatusChanged: {
+                    if (icon.status == Image.Error) {
+                        icon.source = defaultIcon
+                    }
+
+                }
             }
 
             Label {
@@ -150,7 +164,6 @@ Item {
                 color: Theme.textColor
                 clip: true
                 elide: Text.ElideRight
-                Component.onCompleted: console.log(height, "--",  notificationPreviewPresenter.notification != null)
             }
 
             Label {
@@ -161,10 +174,7 @@ Item {
                     right: summary.right
                 }
                 height: if(!text) 0
-                font {
-                    bold: true
-                    pixelSize: Theme.fontSizeSmall
-                }
+                font.pixelSize: Theme.fontSizeSmall
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
                 color: Theme.textColor
                 clip: true

@@ -95,7 +95,7 @@ Rectangle {
             wrapMode: Text.Wrap
             font.pixelSize: Theme.fontSizeMedium
             font.bold: true
-            color: "#ffffff"
+            color: Theme.textColor
         }
 
         CheckBox {

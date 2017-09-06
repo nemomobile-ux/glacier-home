@@ -54,7 +54,6 @@ Rectangle {
                 font.pixelSize: Theme.fontSizeMedium
                 color: Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
-                font.weight: Font.Bold
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                 }

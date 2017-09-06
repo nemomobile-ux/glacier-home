@@ -41,7 +41,7 @@ GridView {
     property alias deleter: deleter
     property var switcher: null
     property string searchString
-    property int minCellSize: Theme.iconSizeLauncher + Theme.itemSpacingHuge
+    property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
     property int rows: Math.floor(parent.height / minCellSize)
     property int columns:  Math.floor(parent.width / minCellSize)
 

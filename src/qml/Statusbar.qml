@@ -220,7 +220,7 @@ Item {
                 height: root.height/4
                 font.pixelSize: root.height/4+root.height/5
                 font.bold: true
-                wrapMode: Text.ElideRight
+                elide:Text.ElideNone
                 text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
             }
 
@@ -230,6 +230,7 @@ Item {
                 width: root.height/4
                 height: root/height/4
                 font.pixelSize: root.height/4+root.height/5
+                elide:Text.ElideNone
                 text: {
                     var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
                     return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
@@ -289,6 +290,7 @@ Item {
                 width: root.height/4
                 height: root.height/4
                 font.pixelSize: root.height/4+root.height/5
+                elide:Text.ElideNone
                 text: Qt.formatDateTime(wallClock.time, "hh")
             }
             Label {
@@ -298,6 +300,7 @@ Item {
                 width: root.height/4
                 height: root.height/4
                 font.pixelSize: root.height/4+root.height/5
+                elide:Text.ElideNone
                 text: Qt.formatDateTime(wallClock.time, "mm")
             }
         }
