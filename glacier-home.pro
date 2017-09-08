@@ -57,7 +57,13 @@ INSTALLS += styles \
             mce
 
 CONFIG += qt link_pkgconfig
-QT += quick compositor dbus
+QT += quick dbus
+equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 7) {
+QT += compositor
+}
+equals(QT_MAJOR_VERSION, 5):greaterThan(QT_MINOR_VERSION,7) {
+QT += waylandcompositor
+}
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
     src/bluetooth/bluetoothagent.h \
