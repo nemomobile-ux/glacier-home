@@ -55,7 +55,7 @@ GridView {
     clip: true
 
     onContentYChanged: {
-        if( contentY < -140 ) {
+        if( contentY < -Theme.itemHeightHuge*2 ) {
             headerItem.visible = true;
             timer.running = true;
         }

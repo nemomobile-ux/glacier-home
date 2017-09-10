@@ -30,7 +30,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -46,6 +46,7 @@ Rectangle {
     onClick: {
         panel_loader.sourceComponent = parent.panel
         panel_loader.visible = !panel_loader.visible
+        row.currentChild._reopenTimer.start()
         row.currentChild=null
     }
 
@@ -59,18 +60,14 @@ Rectangle {
         opacity: 0.3
 
     }
+
     InverseMouseArea {
         anchors.fill: parent
         enabled: parent.visible
+        parent:commonPanel
         onPressed: {
             parent.click()
         }
-    }
-
-    MouseArea {
-        id:mouseArea
-        anchors.fill:parent
-        onClicked: parent.click()
     }
 
     clip: true
@@ -94,7 +91,6 @@ Rectangle {
             }
             wrapMode: Text.Wrap
             font.pixelSize: Theme.fontSizeMedium
-            font.bold: true
             color: Theme.textColor
         }
 
@@ -119,7 +115,7 @@ Rectangle {
             topMargin: Theme.itemSpacingMedium
         }
     }
-    //Just placeholder until IconButton will get merged
+
     Image {
         id:settingsIcon
         fillMode: Image.PreserveAspectFit

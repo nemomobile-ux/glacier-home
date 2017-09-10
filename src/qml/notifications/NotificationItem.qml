@@ -5,7 +5,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 MouseArea {
     id: notifyArea
 
-    height:  Theme.itemHeightExtraLarge*1.2
+    height:  Theme.itemHeightExtraLarge
     width: parent.width
 
     property alias appIcon: appIcon
@@ -137,12 +137,17 @@ MouseArea {
         }
 
         source: {
-            if (modelData.icon)
-                return "image://theme/" + modelData.icon
-            else if (modelData.appIcon) {
-                return "image://theme/" + modelData.appIcon
-            } else
-                return defaultIcon
+            if (modelData.icon) {
+                if(modelData.icon.indexOf("/") == 0)
+                    return "file://" + modelData.icon
+                else
+                    return "image://theme/" + modelData.icon
+            } else if (modelData.appIcon) {
+                if(modelData.appIcon.indexOf("/") == 0)
+                    return "file://" + modelData.appIcon
+                else
+                    return "image://theme/" + modelData.appIcon
+            } else return defaultIcon
         }
         onStatusChanged: {
             if (appIcon.status == Image.Error) {
@@ -193,7 +198,6 @@ MouseArea {
             font.pixelSize: Theme.fontSizeTiny
             anchors{
                 left: parent.left
-                // topMargin: Theme.itemSpacingSmall
             }
             maximumLineCount: 1
             elide: Text.ElideRight

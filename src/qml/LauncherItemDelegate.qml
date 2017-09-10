@@ -89,8 +89,8 @@ Item {
             Spinner {
                 id: spinnerr
                 anchors.centerIn:  iconImage
-                width: iconWrapper.width
-                height: width
+                width: height
+                height: parent.height - Theme.itemSpacingHuge
                 enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
 
                 Connections {

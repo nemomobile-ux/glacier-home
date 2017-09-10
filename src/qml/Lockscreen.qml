@@ -88,6 +88,7 @@ Image {
         }
         clip:true
         delegate: NotificationItem {
+            height: Theme.itemHeightLarge
             enabled:DeviceLock.state !== DeviceLock.Locked
             scale: notificationColumn.opacity
             transformOrigin: Item.Left

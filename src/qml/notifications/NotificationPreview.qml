@@ -22,7 +22,7 @@
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
 
-import QtQuick 2.0
+import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -43,7 +43,7 @@ Item {
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: Theme.itemHeightExtraLarge
+        property int notificationHeight: Theme.itemHeightLarge
         property int notificationMargin: Theme.itemSpacingExtraSmall
         property int notificationIconSize: Theme.itemHeightMedium
         anchors.top: parent.top
@@ -132,12 +132,17 @@ Item {
                 width: notificationArea.notificationIconSize
                 height: width
                 source: {
-                    if (notificationPreviewPresenter.notification.icon)
-                        return "image://theme/" + notificationPreviewPresenter.notification.icon
-                    else if (notificationPreviewPresenter.notification.appIcon) {
-                        return "image://theme/" + notificationPreviewPresenter.notification.appIcon
-                    } else
-                        return defaultIcon
+                    if (notificationPreviewPresenter.notification.icon) {
+                        if (notificationPreviewPresenter.notification.icon.indexOf("/") == 0)
+                            return "file://" + notificationPreviewPresenter.notification.icon
+                        else
+                            return "image://theme/" + notificationPreviewPresenter.notification.icon
+                    }else if (notificationPreviewPresenter.notification.appIcon) {
+                        if (notificationPreviewPresenter.notification.appIcon.indexOf("/") == 0)
+                            return "file://" + notificationPreviewPresenter.notification.appIcon
+                        else
+                            return "image://theme/" + notificationPreviewPresenter.notification.appIcon
+                    } else return defaultIcon
                 }
                 onStatusChanged: {
                     if (icon.status == Image.Error) {
@@ -156,7 +161,6 @@ Item {
                     topMargin: notificationArea.notificationMargin
                     leftMargin: notificationArea.notificationMargin*2
                     rightMargin: notificationArea.notificationMargin
-                    //bottomMargin: notificationArea.notificationMargin
                 }
                 height: if(!text) 0
                 font.pixelSize: Theme.fontSizeTiny

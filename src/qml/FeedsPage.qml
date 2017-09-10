@@ -94,7 +94,7 @@ Flickable {
                 top: daterow.bottom
                 topMargin: Theme.itemHeightLarge*1.5
             }
-            spacing: Theme.itemSpacingMedium
+            spacing: Theme.itemSpacingExtraSmall
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel

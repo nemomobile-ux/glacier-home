@@ -38,9 +38,9 @@ StatusbarItem {
         }
     }
 
-    iconSize: root.height/2
+    iconSize: Theme.itemHeightExtraSmall
     panel: BatteryPanel {}
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png"
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png" //+ (chargeValue === 0 ? "?red" : "")
 
     Timer{
         id: chargingTimer

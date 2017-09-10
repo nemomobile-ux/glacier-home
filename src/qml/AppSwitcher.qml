@@ -171,14 +171,14 @@ Item {
         }
         Behavior on anchors.bottomMargin { PropertyAnimation { duration: 100 } }
         z: 202
-        height:Theme.itemHeightExtraLarge + 2 * toolBar.padding
+        height:Theme.itemHeightLarge + 2 * toolBar.padding
 
         Rectangle {
             anchors.fill: parent
             color: Theme.fillDarkColor
             opacity: 0.3
             border {
-                width: 1
+                width: size.ratio(1)
                 color: Theme.backgroundColor
             }
         }
@@ -204,20 +204,6 @@ Item {
                     switcherRoot.closeMode = false;
                 }
                 text: qsTr("Done")
-                //Untill fontSizes are fixed
-                style: ButtonStyle {
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        text: control.text
-                        color: Theme.textColor
-                        font.family: Theme.fontFamily
-                        font.pixelSize: Theme.fontSizeMedium
-                        font.weight: control.primary ? Theme.fontWeightLarge : Theme.fontWeightMedium
-                        opacity: control.enabled ? 1.0 : 0.3
-                    }
-                }
             }
 
             Button {
@@ -234,20 +220,7 @@ Item {
                     }
                 }
                 text: qsTr("Close All")
-                //Untill fontSizes are fixed
-                style: ButtonStyle {
-                    label: Text {
-                        renderType: Text.NativeRendering
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        text: control.text
-                        color: Theme.textColor
-                        font.family: Theme.fontFamily
-                        font.pixelSize: Theme.fontSizeMedium
-                        font.weight: control.primary ? Theme.fontWeightLarge : Theme.fontWeightMedium
-                        opacity: control.enabled ? 1.0 : 0.3
-                    }
-                }
+                primary: true
             }
         }
     }

@@ -288,11 +288,9 @@ Item {
                 id: spinner
                 anchors {
                     centerIn:  iconImage
-                    top: iconImage.top
-                    topMargin: Theme.itemSpacingExtraSmall
                 }
-                width: iconImage.width
-                height: width
+                width: height
+                height: parent.height - Theme.itemSpacingHuge
                 enabled: {
                     if(searchLauncherModel.get(model.id).type === LauncherModel.Application) {
                         if(searchLauncherModel.get(model.id).isLaunching)
