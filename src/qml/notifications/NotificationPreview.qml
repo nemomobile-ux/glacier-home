@@ -132,16 +132,18 @@ Item {
                 width: notificationArea.notificationIconSize
                 height: width
                 source: {
-                    if (notificationPreviewPresenter.notification.icon) {
-                        if (notificationPreviewPresenter.notification.icon.indexOf("/") == 0)
-                            return "file://" + notificationPreviewPresenter.notification.icon
-                        else
-                            return "image://theme/" + notificationPreviewPresenter.notification.icon
-                    }else if (notificationPreviewPresenter.notification.appIcon) {
-                        if (notificationPreviewPresenter.notification.appIcon.indexOf("/") == 0)
-                            return "file://" + notificationPreviewPresenter.notification.appIcon
-                        else
-                            return "image://theme/" + notificationPreviewPresenter.notification.appIcon
+                    if(notificationPreviewPresenter.notification) {
+                        if (notificationPreviewPresenter.notification.icon) {
+                            if (notificationPreviewPresenter.notification.icon.indexOf("/") == 0)
+                                return "file://" + notificationPreviewPresenter.notification.icon
+                            else
+                                return "image://theme/" + notificationPreviewPresenter.notification.icon
+                        }else if (notificationPreviewPresenter.notification.appIcon) {
+                            if (notificationPreviewPresenter.notification.appIcon.indexOf("/") == 0)
+                                return "file://" + notificationPreviewPresenter.notification.appIcon
+                            else
+                                return "image://theme/" + notificationPreviewPresenter.notification.appIcon
+                        } else return defaultIcon
                     } else return defaultIcon
                 }
                 onStatusChanged: {
