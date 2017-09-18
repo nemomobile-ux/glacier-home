@@ -60,7 +60,6 @@ Flickable {
                 text: Qt.formatDateTime(wallClock.time, "dddd")
                 color: Theme.textColor
                 font.pixelSize: Theme.fontSizeLarge
-                font.weight: Font.Bold
                 anchors {
                     top: parent.top
                     horizontalCenter: parent.horizontalCenter
@@ -81,22 +80,35 @@ Flickable {
                 }
             }
         }
+        Timer {
+            id: timestampTimer
+            interval: 60000
+            running: true
+            repeat: true
+        }
 
         Column {
             id: notificationColumn
             width: parent.width
             anchors{
                 top: daterow.bottom
-                topMargin: Theme.itemSpacingHuge
+                topMargin: Theme.itemHeightLarge*1.5
             }
-            spacing: Theme.itemSpacingHuge
+            spacing: Theme.itemSpacingExtraSmall
             Repeater {
                 model: NotificationListModel {
                     id: notifmodel
                 }
-                delegate: NotificationItem{}
+                delegate: NotificationItem{
+                    id: notifItem
+                    Connections {
+                        target: timestampTimer
+                        onTriggered: notifItem.refreshTimestamp()
+                        onRunningChanged: if (timestampTimer.running) notifItem.refreshTimestamp()
+                    }
                 }
             }
         }
+    }
 }
 

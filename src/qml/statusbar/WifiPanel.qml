@@ -38,12 +38,12 @@ import MeeGo.Connman 0.2
 Component {
     CommonPanel {
         id: wifiPanel
-        name: "Wifi"
+        name: qsTr("Wifi")
         switcherEnabled: true
         switcherChecked: wifimodel.powered
 
         onSwitcherCheckedChanged: {
-             wifimodel.setPowered(switcherChecked)
+            wifimodel.setPowered(switcherChecked)
         }
 
         property list<QtObject> _data: [
@@ -53,9 +53,12 @@ Component {
             }
         ]
 
-        Repeater {
+        ListView {
             anchors.top: parent.top
             model: wifimodel
+            width: parent.width
+            height: wifiPanel.height
+            clip: true
             delegate: Item {
                 width: wifiPanel.width
                 height: Theme.itemHeightSmall
@@ -76,7 +79,7 @@ Component {
                     spacing: Theme.itemSpacingSmall
                     Image {
                         id: statusImage
-                       source: (getStrengthIndex(modelData.strength) === "0")? "image://theme/icon_wifi_0" : (modelData.state === "online" ? "image://theme/icon_wifi_focused" : "image://theme/icon_wifi_normal")+ getStrengthIndex(modelData.strength)
+                        source: (getStrengthIndex(modelData.strength) === "0")? "image://theme/icon_wifi_0" : (modelData.state === "online" ? "image://theme/icon_wifi_focused" : "image://theme/icon_wifi_normal")+ getStrengthIndex(modelData.strength)
                     }
 
                     Label {

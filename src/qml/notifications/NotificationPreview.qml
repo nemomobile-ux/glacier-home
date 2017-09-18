@@ -22,7 +22,7 @@
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
 
-import QtQuick 2.0
+import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -43,7 +43,7 @@ Item {
 
     MouseArea {
         id: notificationArea
-        property int notificationHeight: Theme.itemHeightExtraLarge
+        property int notificationHeight: Theme.itemHeightLarge
         property int notificationMargin: Theme.itemSpacingExtraSmall
         property int notificationIconSize: Theme.itemHeightMedium
         anchors.top: parent.top
@@ -122,6 +122,7 @@ Item {
 
             Image {
                 id: icon
+                property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -130,21 +131,41 @@ Item {
                 }
                 width: notificationArea.notificationIconSize
                 height: width
-                source: "/usr/share/lipstick-glacier-home-qt5/qml/images/notification-circle.png"
+                source: {
+                    if(notificationPreviewPresenter.notification) {
+                        if (notificationPreviewPresenter.notification.icon) {
+                            if (notificationPreviewPresenter.notification.icon.indexOf("/") == 0)
+                                return "file://" + notificationPreviewPresenter.notification.icon
+                            else
+                                return "image://theme/" + notificationPreviewPresenter.notification.icon
+                        }else if (notificationPreviewPresenter.notification.appIcon) {
+                            if (notificationPreviewPresenter.notification.appIcon.indexOf("/") == 0)
+                                return "file://" + notificationPreviewPresenter.notification.appIcon
+                            else
+                                return "image://theme/" + notificationPreviewPresenter.notification.appIcon
+                        } else return defaultIcon
+                    } else return defaultIcon
+                }
+                onStatusChanged: {
+                    if (icon.status == Image.Error) {
+                        icon.source = defaultIcon
+                    }
+
+                }
             }
 
             Label {
                 id: summary
                 anchors {
-                    top: parent.top
+                    top: icon.top
                     left: icon.right
                     right: parent.right
                     topMargin: notificationArea.notificationMargin
                     leftMargin: notificationArea.notificationMargin*2
                     rightMargin: notificationArea.notificationMargin
-                    //bottomMargin: notificationArea.notificationMargin
                 }
-                font.pixelSize: Theme.fontSizeMedium
+                height: if(!text) 0
+                font.pixelSize: Theme.fontSizeTiny
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
                 color: Theme.textColor
                 clip: true
@@ -158,10 +179,8 @@ Item {
                     left: summary.left
                     right: summary.right
                 }
-                font {
-                    pixelSize: Theme.fontSizeSmall
-                    bold: true
-                }
+                height: if(!text) 0
+                font.pixelSize: Theme.fontSizeSmall
                 text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
                 color: Theme.textColor
                 clip: true

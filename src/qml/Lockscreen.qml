@@ -80,24 +80,28 @@ Image {
             right:parent.right
             rightMargin: Theme.itemSpacingLarge
         }
-        interactive:false
-        spacing: 0
+        interactive:DeviceLock.state !== DeviceLock.Locked
+        spacing: Theme.itemSpacingExtraSmall
 
         model: NotificationListModel {
             id: notifmodel
         }
+        clip:true
         delegate: NotificationItem {
+            height: Theme.itemHeightLarge
             enabled:DeviceLock.state !== DeviceLock.Locked
             scale: notificationColumn.opacity
             transformOrigin: Item.Left
             iconSize: Theme.itemHeightMedium
             appName.font.pixelSize: Theme.fontSizeSmall
             appName.visible: DeviceLock.state !== DeviceLock.Locked
-            appName.anchors.verticalCenter: appIcon.verticalCenter
-            appName.anchors.top: null
+            appName.anchors.verticalCenter: labelColumn.verticalCenter
             appBody.font.pixelSize: Theme.fontSizeTiny
             appBody.visible: false
+            appTimestamp.visible: false
             appSummary.visible: false
+            pressBg.visible: DeviceLock.state !== DeviceLock.Locked
+            pressBg.opacity: 0.3
         }
     }
 }

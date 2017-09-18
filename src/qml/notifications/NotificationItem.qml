@@ -5,31 +5,84 @@ import QtQuick.Controls.Styles.Nemo 1.0
 MouseArea {
     id: notifyArea
 
-    height: childrenRect.height
+    height:  Theme.itemHeightExtraLarge
     width: parent.width
 
     property alias appIcon: appIcon
     property alias appBody: appBody
     property alias appName: appName
     property alias appSummary: appSummary
-    property int iconSize: Theme.itemHeightExtraLarge
+    property alias labelColumn: labelColumn
+    property alias appTimestamp: appTimestamp
+    property alias pressBg: pressBg
+    property int iconSize:Math.min(Theme.iconSizeLauncher, height-Theme.itemSpacingMedium)
+    property string timeAgo
+    property int swipeTreshold: notifyArea.width/3
 
-
-    drag.target: notifyArea
+    drag.target: modelData.userRemovable ? notifyArea : null
     drag.axis: Drag.XAxis
-    drag.minimumX: 0-Theme.itemHeightMedium
+    drag.minimumX: -notifyArea.width
     drag.maximumX: notifyArea.width
     drag.onActiveChanged: {
         if(!drag.active ) {
-            if((notifyArea.x > notifyArea.width/3)) {
+            if((notifyArea.x > swipeTreshold)) {
                 slideAnimation.start()
-            }else slideBackAnimation.start()
+            }else if (notifyArea.x < -swipeTreshold){
+                slideReverseAnimation.start()
+            } else {
+                slideBackAnimation.start()
+            }
+        }
+    }
+
+    function refreshTimestamp() {
+        var seconds = Math.floor((new Date() - modelData.timestamp) / 1000)
+        var years = Math.floor(seconds / (365*24*60*60))
+        var months = Math.floor(seconds / (30*24*60*60))
+        var days = Math.floor(seconds / (24*60*60))
+        var hours = Math.floor(seconds / (60*60))
+        var minutes = Math.floor(seconds / 60)
+
+        if (years >= 1) {
+            if(years > 1) {
+                timeAgo = years + " " + qsTr("years ago")
+            } else {
+                timeAgo = years + " " + qsTr("year ago")
+            }
+        }else if (months >= 1) {
+            if (months > 1) {
+                timeAgo =  months +" " + qsTr("months ago")
+            } else {
+                timeAgo =  months +" " + qsTr("month ago")
+            }
+        }else if (days >= 1) {
+            if (days > 1) {
+                timeAgo =  days + " " + qsTr("days ago")
+            } else {
+                timeAgo =  days + " " + qsTr("day ago")
+            }
+        }else if (hours >= 1) {
+            if (hours > 1) {
+                timeAgo =  hours + " " + qsTr("hours ago")
+            } else {
+                timeAgo =  hours + " " + qsTr("hour ago")
+            }
+        } else if (minutes >= 1) {
+            if (minutes > 1) {
+                timeAgo =  minutes + " " + qsTr("minutes ago")
+            } else {
+                timeAgo =  minutes + " " + qsTr("minute ago")
+            }
+        } else {
+            timeAgo = qsTr("Just now")
         }
     }
 
     onClicked: {
         if (modelData.userRemovable) {
             slideAnimation.start()
+        } else {
+            modelData.actionInvoked("default")
         }
     }
     NumberAnimation {
@@ -43,6 +96,16 @@ MouseArea {
         onStopped: modelData.actionInvoked("default")
     }
     NumberAnimation {
+        id:slideReverseAnimation
+        target: notifyArea
+        property: "x"
+        duration: 200
+        from: notifyArea.x
+        to: -notifyArea.width
+        easing.type: Easing.InOutQuad
+        onStopped: modelData.removeRequested()
+    }
+    NumberAnimation {
         id:slideBackAnimation
         target: notifyArea
         property: "x"
@@ -53,10 +116,12 @@ MouseArea {
     }
 
     Rectangle {
+        id:pressBg
         anchors.fill: parent
-        color: "#11ffffff"
+        color: Theme.fillColor
         visible: notifyArea.pressed
         radius: Theme.itemSpacingMedium
+        opacity: 0.1
     }
 
     Image {
@@ -68,13 +133,21 @@ MouseArea {
         anchors{
             left: parent.left
             leftMargin: Theme.itemSpacingLarge
+            verticalCenter:parent.verticalCenter
         }
 
         source: {
-            if (modelData.icon)
-                return "image://theme/" + modelData.icon
-            else
-                return defaultIcon
+            if (modelData.icon) {
+                if(modelData.icon.indexOf("/") == 0)
+                    return "file://" + modelData.icon
+                else
+                    return "image://theme/" + modelData.icon
+            } else if (modelData.appIcon) {
+                if(modelData.appIcon.indexOf("/") == 0)
+                    return "file://" + modelData.appIcon
+                else
+                    return "image://theme/" + modelData.appIcon
+            } else return defaultIcon
         }
         onStatusChanged: {
             if (appIcon.status == Image.Error) {
@@ -82,48 +155,65 @@ MouseArea {
             }
         }
     }
-    Label {
-        id: appName
-        text: modelData.appName
-        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeMedium
-        font.capitalization: Font.AllUppercase
-        font.bold: true
+    Column {
+        id:labelColumn
         anchors {
-            left: appIcon.right
-            top: parent.top
+            left:appIcon.right
             leftMargin: Theme.itemSpacingLarge
+            verticalCenter: appIcon.verticalCenter
         }
-    }
+        height: parent.height
+        width: parent.width-appIcon.width-Theme.itemSpacingLarge*2
 
-    Label {
-        id: appSummary
-        text: modelData.summary
-        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeSmall
-        //font.bold :true
-        //font.capitalization: Font.AllUppercase
-
-        anchors{
-            left: appName.left
-            top: appName.bottom
-            topMargin: Theme.itemSpacingSmall
+        Label {
+            id: appName
+            text: modelData.appName
+            width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
+            color: Theme.textColor
+            elide: Text.ElideRight
+            font.pixelSize: Theme.fontSizeSmall
+            anchors {
+                left: parent.left
+            }
         }
-        elide: Text.ElideRight
-    }
-
-    Label {
-        id: appBody
-        width: (parent.width-appIcon.width)-Theme.itemSpacingHuge
-        text: modelData.body
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeSmall
-        anchors{
-            left: appName.left
-            top: appSummary.bottom
+        Label {
+            id:appTimestamp
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            text: if(timeAgo) timeAgo
+            horizontalAlignment: Text.AlignRight
+            anchors {
+                verticalCenter: appName.verticalCenter
+                rightMargin: Theme.itemSpacingSmall
+                right:labelColumn.right
+            }
+            Component.onCompleted: refreshTimestamp()
         }
-        elide: Text.ElideRight
+
+        Label {
+            id: appSummary
+            text: modelData.summary || modelData.previewSummary
+            width: parent.width-Theme.itemSpacingHuge
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            anchors{
+                left: parent.left
+            }
+            maximumLineCount: 1
+            elide: Text.ElideRight
+        }
+
+        Label {
+            id: appBody
+            width: parent.width-Theme.itemSpacingHuge
+            text: modelData.body || modelData.previewBody
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            anchors{
+                left: parent.left
+            }
+            maximumLineCount: 1
+            elide: Text.ElideRight
+        }
     }
 }

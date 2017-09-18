@@ -42,7 +42,7 @@ import "statusbar"
 Item {
     id: root
     z: 201
-    height: Theme.itemHeightLarge
+    height: Theme.itemHeightMedium
     width: parent.width
     anchors.bottom: parent.bottom
     enabled: !lockscreenVisible()
@@ -54,6 +54,7 @@ Item {
         opacity: 0.5
         z: 200
     }
+
     MouseArea {
         property int oldX
         property int oldY
@@ -65,7 +66,7 @@ Item {
                 row.currentChild = row.childAt(mouseX, mouseY)
                 row.currentChild.clicked()
             }else {
-                 row.currentChild = null
+                row.currentChild = null
             }
         }
 
@@ -194,10 +195,10 @@ Item {
     RowLayout {
         id:row
         anchors.fill: statusbar
-        spacing: root.height/4
+        spacing: Theme.itemSpacingSmall
         property var currentChild
         StatusbarItem {
-            iconSize: root.height/2
+            iconSize: Theme.itemHeightExtraSmall
             source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
 
             MouseArea{
@@ -213,33 +214,44 @@ Item {
         }
 
         StatusbarItem {
-            iconSize: root.height/2
-            Label {
-                id: tech
-                width: root.height/4
-                height: root.height/4
-                font.pixelSize: root.height/4+root.height/5
-                font.bold: true
-                wrapMode: Text.ElideRight
-                text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
-            }
+            iconSize: root.height
+            Item {
+                anchors.centerIn: parent
+                width: parent.width
+                height: tech.font.pixelSize*2
+                Label {
+                    id: tech
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment:Text.AlignBottom
+                    width: parent.width
+                    height: paintedHeight
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideNone
+                    maximumLineCount: 1
+                    clip:true
+                    text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
+                }
 
-            Label {
-                anchors.top: tech.bottom
-                anchors.topMargin: root.height/8
-                width: root.height/4
-                height: root/height/4
-                font.pixelSize: root.height/4+root.height/5
-                text: {
-                    var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
-                    return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
+                Label {
+                    y: -contentHeight + font.pixelSize*2 + tech.y
+                    horizontalAlignment: Text.AlignHCenter
+                    width: parent.width
+                    height: paintedHeight
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideNone
+                    maximumLineCount: 1
+                    text: {
+                        var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
+                        return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
+                    }
                 }
             }
             panel: SimPanel {}
         }
 
         StatusbarItem {
-            iconSize: root.height/2
+            id:wifiStatus
+            iconSize: Theme.itemHeightExtraSmall
             source: {
                 if (wlan.connected) {
                     if (networkManager.defaultRoute.type !== "wifi")
@@ -265,40 +277,50 @@ Item {
         }
         StatusbarItem {
             id: bluetootIndicator
-            iconSize: root.height/2
+            iconSize: Theme.itemHeightExtraSmall
             source: (bluetoothConnected.value) ? "image://theme/icon_bt_focused" : "image://theme/icon_bt_normal"
             visible: bluetoothEnabled.value
         }
         StatusbarItem {
-            iconSize: root.height/2
+            iconSize: Theme.itemHeightExtraSmall
             source: "image://theme/icon_nfc_normal"
         }
         StatusbarItem {
-            iconSize: root.height/2
+            iconSize: Theme.itemHeightExtraSmall
             source: "image://theme/icon_gps_normal"
         }
         StatusbarItem {
-            iconSize: root.height/2
+            iconSize: Theme.itemHeightExtraSmall
             source: "image://theme/icon_play_pause"
         }
         StatusbarItem {
-            iconSize: root.height/2
-            anchors.verticalCenter: parent.verticalCenter
-            Label {
-                id: hours
-                width: root.height/4
-                height: root.height/4
-                font.pixelSize: root.height/4+root.height/5
-                text: Qt.formatDateTime(wallClock.time, "hh")
-            }
-            Label {
-                id: minutes
-                anchors.top: hours.bottom
-                anchors.topMargin: root.height/8
-                width: root.height/4
-                height: root.height/4
-                font.pixelSize: root.height/4+root.height/5
-                text: Qt.formatDateTime(wallClock.time, "mm")
+            iconSize: root.height
+            Item {
+                anchors.centerIn: parent
+                width: parent.width
+                height: hours.font.pixelSize*2
+                Label {
+                    id: hours
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment:Text.AlignBottom
+                    width: parent.width
+                    height: paintedHeight
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideNone
+                    maximumLineCount: 1
+                    text: Qt.formatDateTime(wallClock.time, "hh")
+                }
+                Label {
+                    id: minutes
+                    y: -contentHeight + font.pixelSize*2 + hours.y
+                    horizontalAlignment: Text.AlignHCenter
+                    width: parent.width
+                    height: paintedHeight
+                    font.pixelSize: Theme.fontSizeSmall
+                    elide:Text.ElideNone
+                    maximumLineCount: 1
+                    text: Qt.formatDateTime(wallClock.time, "mm")
+                }
             }
         }
 
