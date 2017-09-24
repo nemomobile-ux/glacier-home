@@ -80,7 +80,8 @@ statusbar.files = qml/statusbar/BatteryPanel.qml\
                 qml/statusbar/SimPanel.qml\
                 qml/statusbar/WifiPanel.qml\
                 qml/statusbar/StatusbarItem.qml\
-                qml/statusbar/NumButton.qml
+                qml/statusbar/NumButton.qml \
+                qml/statusbar/MediaController.qml
 
 INSTALLS += styles \
             images \

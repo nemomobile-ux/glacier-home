@@ -21,6 +21,7 @@ Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
 Requires:   nemo-theme-glacier
 Requires:   google-opensans-fonts
+Requires:   mpris-qt5-qml-plugin
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)

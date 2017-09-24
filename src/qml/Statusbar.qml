@@ -35,7 +35,9 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.freedesktop.contextkit 1.0
 import MeeGo.Connman 0.2
+
 import org.nemomobile.lipstick 0.1
+import org.nemomobile.mpris 1.0
 
 import "statusbar"
 
@@ -289,9 +291,18 @@ Item {
             iconSize: Theme.itemHeightExtraSmall
             source: "image://theme/icon_gps_normal"
         }
+
         StatusbarItem {
             iconSize: Theme.itemHeightExtraSmall
-            source: "image://theme/icon_play_pause"
+            source: (mprisManager.currentService && mprisManager.playbackStatus == Mpris.Playing) ?
+                        "/usr/share/themes/glacier/fontawesome/icons/pause.png"
+                      : "/usr/share/themes/glacier/fontawesome/icons/play.png"
+
+            MprisManager {
+                id: mprisManager
+            }
+
+            panel: MediaController{}
         }
         StatusbarItem {
             iconSize: root.height
