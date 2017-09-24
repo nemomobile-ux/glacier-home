@@ -85,6 +85,7 @@ Compositor {
 
     onSensorOrientationChanged: {
         screenOrientation = sensorOrientation
+        contentOrientation = screenOrientation
     }
 
     Component.onCompleted: {

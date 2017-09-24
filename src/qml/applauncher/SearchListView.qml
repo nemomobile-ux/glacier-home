@@ -58,6 +58,12 @@ Item {
             searchListView.visible = false;
         }
     }
+    onVisibleChanged: {
+        if( visible){
+            searchField.forceActiveFocus()
+        } else searchField.focus = false
+        oldHeight=height
+    }
 
     function calculateHeight()
     {
@@ -126,7 +132,11 @@ Item {
                 value: searchField.text.toLowerCase().trim()
             }
             onTextChanged: {
+<<<<<<< HEAD:src/qml/applauncher/SearchListView.qml
                 if(searchField.lenght>0) {
+=======
+                if(text.lenght>0) {
+>>>>>>> 2aeaeb0... [Keyboard] Make keyboard to rotate when homescreen rotates.:src/qml/SearchListView.qml
                     searchField.forceActiveFocus()
                 }
             }
