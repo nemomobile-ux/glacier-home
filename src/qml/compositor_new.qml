@@ -25,9 +25,16 @@ import org.nemomobile.devicelock 1.0
 import "compositor"
 import "scripts/desktop.js" as Desktop
 
+
 Item {
     id: root
     property bool isShaderUsed: false
+    property bool isAlarmWindow: false
+    property alias wrapperMystic: mysticWrapper
+    // Qt::WindowType enum has no option for an Input Method window type. This is a magic value
+    // used by ubuntumirclient QPA for special clients to request input method windows from Mir.
+
+    property int inputMethodWindowType: 2;
     Connections {
         target: comp.quickWindow
         onActiveFocusItemChanged: {
@@ -267,6 +274,7 @@ Item {
     Component {
         id: mysticWrapper
         WindowWrapperMystic {
+            id: innerMystic
         }
     }
     Compositor {
@@ -288,21 +296,12 @@ Item {
             var window = null
             var wi = null
             if (o)
-                window = o.userData
+                window = o
             if (window == null)
                 window = homeWindow
 
             setCurrentWindow(window)
-            if (isAlarmWindow){
-                comp.topmostAlarmWindow = window
-                wi = mysticWrapper.createObject(parent, {window: window})
-                window.userData = wi
-                setCurrentWindow(wi)
-            } else {
-                if (!comp.topmostAlarmWindow) {
-                    wi = mysticWrapper.createObject(parent, {window: window})
-                }
-            }
+
         }
 
         function setCurrentWindow(w, skipAnimation) {
@@ -318,9 +317,7 @@ Item {
                     topmostApplicationWindow.visible = false
                 topmostApplicationWindow = topmostWindow
                 topmostApplicationWindow.visible = true
-                if (!skipAnimation)
-                    topmostApplicationWindow.animateIn()
-                w.window.takeFocus()
+                if (w.window) w.window.takeFocus()
             }
         }
         onSensorOrientationChanged: {
@@ -332,14 +329,14 @@ Item {
 
         onWindowAdded: {
             console.log("Compositor: Window added \"" + window.title + "\""
-                        + " category: " + window.category)
+                        + " category: " + window.category + " flags " + window.windowFlags)
 
             var isHomeWindow = window.isInProcess && comp.homeWindow == null
                     && window.title === "Home"
             var isDialogWindow = window.category === "dialog"
             var isNotificationWindow = window.category == "notification"
-            var isOverlayWindow = window.category == "overlay"
-            var isAlarmWindow = window.category == "alarm"
+            var isOverlayWindow = window.category == "overlay" || window.windowFlags === inputMethodWindowType
+            isAlarmWindow = window.category == "alarm"
             var parent = null
             if (window.category == "cover" || window.title == "_CoverWindow") {
                 window.visible = false
@@ -358,10 +355,12 @@ Item {
             }
 
             var w
-            if (isOverlayWindow)
+            if (isOverlayWindow) {
+                console.debug("Have overlay")
                 w = alphaWrapper.createObject(parent, {
                                                   window: window
                                               })
+            }
             else
                 w = windowWrapper.createObject(parent, {
                                                    window: window
