@@ -296,7 +296,7 @@ Item {
             var window = null
             var wi = null
             if (o)
-                window = o
+                window = o.userData
             if (window == null)
                 window = homeWindow
 
@@ -371,8 +371,9 @@ Item {
             if (isHomeWindow) {
                 comp.homeWindow = w
                 setCurrentWindow(homeWindow)
-            } else if (isNotificationWindow || isOverlayWindow) {
-
+            } else if (isNotificationWindow) {
+            } else if (isOverlayWindow) {
+                setCurrentWindow(window)
             } else if (isDialogWindow) {
                 setCurrentWindow(window)
             } else if (isAlarmWindow) {
