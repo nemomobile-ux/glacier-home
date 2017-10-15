@@ -26,6 +26,7 @@
 
 import QtQuick 2.6
 
+import QtQuick.VirtualKeyboard 2.1
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.configuration 1.0
 
@@ -159,6 +160,25 @@ Flickable{
                 timer.running = true;
             }
         }*/
+        InputPanel {
+            id: inputPanel
+            visible: Qt.inputMethod.visible
+            y: Qt.inputMethod.visible ? parent.height - inputPanel.height - statusBarHeight : parent.height
+            anchors.left: parent.left
+            anchors.right: parent.right
+            transitions: Transition {
+                from: ""; // default initial state
+                to: "visible";
+                reversible: true; // toggle visibility with reversible: true;
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "y";
+                        duration: 250;
+                        easing.type: Easing.InOutQuad;
+                    }
+                }
+            }
+        }
 
         footer: Item {
             height: Math.min(parent.width,parent.height)/10
