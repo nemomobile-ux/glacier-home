@@ -106,8 +106,16 @@ Image {
         property bool fingerDown
         property bool ignoreEvents
         anchors.fill: parent
+        property bool gestureStarted: false
+        property string gesture: ""
+        property int startX
+        property int threshold: Theme.itemHeightHuge * 2
+        property int swipeDistance
+        property string action: ""
+        anchors.fill: parent
 
         onPressed: {
+            startX = mouseX;
             fingerDown = true
             cancelSnap()
             pressY = mouseY
@@ -131,9 +139,78 @@ Image {
 
             lockScreen.snapPosition()
         }
+        onMouseXChanged: {
+            // Checks which swipe
+            if(mouseX > (startX+threshold)) {
+                gesture = "right"
+                gestureStarted = true;
+            }
+            else if(mouseX < (startX+threshold)) {
+                gesture = "left"
+                gestureStarted = true;
+            }
+            // Makes codepad follow the swipe
+            if(codePad.inView) {
+                if(gesture == "right") {
+                    swipeDistance = mouseX - startX
+                    codePad.x = swipeDistance
+                }
+                if(gesture == "left") {
+                    swipeDistance = startX - mouseX
+                    codePad.x = -swipeDistance
+                }
+            }else {
+                if(gesture == "right") {
+                    swipeDistance = mouseX - startX
+                    codePad.x = swipeDistance - parent.width
+                }
+                else if(gesture == "left") {
+                    swipeDistance = startX - mouseX
+                    codePad.x = parent.width - swipeDistance
+                }
 
+            }
+
+        }
+
+        // Animation to sna codepad into view or out of view
+        onReleased: {
+            if(codePad.inView) {
+                if(gesture == "right") {
+                    if(swipeDistance > threshold) {
+                        startCodePadAnimation(parent.width)
+                        codePad.inView = false
+                    }else {
+                        startCodePadAnimation(0)
+                        codePad.inView = true
+                    }
+                }else if(gesture == "left") {
+                    if(swipeDistance > threshold) {
+                        startCodePadAnimation(-parent.width)
+                        codePad.inView = false
+                    }else {
+                        startCodePadAnimation(0)
+                        codePad.inView = true
+                    }
+                }
+            }else {
+                if(swipeDistance > threshold) {
+                    startCodePadAnimation(0)
+                    codePad.inView = true
+                }else {
+                    if(gesture == "right") {
+                        startCodePadAnimation(-parent.width)
+                        codePad.inView = false
+                    }
+                    else {
+                        startCodePadAnimation(parent.width)
+                        codePad.inView = false
+                    }
+                }
+            }
+            snapBack()
+        }
         onCanceled: snapBack()
-        onReleased: snapBack()
     }
 
     LockscreenClock {
@@ -148,14 +225,59 @@ Image {
     DeviceLockUI {
         id: codePad
         visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
-        width: lockScreen.width
-        height: visible ? lockScreen.height / 2 : 0
         anchors {
             top: lockscreenClock.bottom
             topMargin: Theme.itemSpacingHuge
         }
+        property bool inView: false
+        property bool gestureStarted: mouseArea.gestureStarted
+        x: width * 2
+        width: lockScreen.width
+        height: visible ? lockScreen.height / 2 : 0
+        onCodeEntered: {
+            console.log("Security code entered: "+authenticationInput.minimumCodeLength)
+        }
 
-        z: 200
+        authenticationInput: DeviceLockAuthenticationInput {
+
+            readonly property bool unlocking: registered
+                        && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
+
+            registered: true
+            active: true
+            onStatusChanged: {
+                console.log("Status changed")
+            }
+            onUnlockingChanged: {
+                 console.log("Unlock")
+                if (unlocking) {
+                    DeviceLock.unlock()
+                } else {
+                    DeviceLock.cancel()
+                }
+            }
+            onAuthenticationUnavailable: {
+                console.log("Authentication unavailable: "+error)
+            }
+
+            onFeedback: {
+                console.log("Feedback: "+feedback)
+            }
+
+            onAuthenticationStarted: {
+                console.log("Authentication started")
+            }
+            onAuthenticationEnded: {
+                console.log("Ended "+confirmed)
+            }
+        }
+        onGestureStartedChanged: {
+            if(gestureStarted) {
+                mouseArea.z = 2
+            }else {
+                mouseArea.z = 0
+            }
+        }
     }
 
     Column {

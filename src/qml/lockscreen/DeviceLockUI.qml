@@ -15,6 +15,16 @@ Item {
     property bool shouldAuthenticate: Lipstick.compositor.visible
     property int remainingAttempts
     property AuthenticationInput authenticationInput
+    signal codeEntered(string code)
+
+    onShouldAuthenticateChanged: {
+        if (shouldAuthenticate) {
+            console.log("Requesting security code "+JSON.stringify(authenticationInput))
+        } else {
+            authenticator.cancel()
+            DeviceLock.authorization.relinquishChallenge()
+        }
+    }
 
     Column {
         anchors.fill: parent
@@ -131,9 +141,12 @@ Item {
                             feedbackLabel.text = " "
                             attemptsRemainingLabel.text = " "
                             if (numLabel.text !== "<" && numLabel.text !== "OK") {
+                                console.log(authenticationInput.Status)
                                 lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
+                                authenticationInput.requestSecurityCode()
                             } else {
                                 if (numLabel.text === "OK") {
+                                    console.log("DeviceLockUI: "+JSON.stringify(authenticationInput))
                                     authenticationInput.enterSecurityCode(lockCodeField.text)
                                     lockCodeField.text = ""
                                 } else if (numLabel.text === "<"){
@@ -153,7 +166,6 @@ Item {
         }
     }
     function displayFeedback(feedback, data) {
-
         switch(feedback) {
 
         case AuthenticationInput.EnterSecurityCode:

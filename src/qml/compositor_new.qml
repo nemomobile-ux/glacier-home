@@ -166,11 +166,11 @@ Item {
             },
             State {
                 name: "lock"
-                when: DeviceLock.state == DeviceLock.Locked
-                PropertyChanges {
+                when: Desktop.instance.state === "locked"
+                /*PropertyChanges {
                     target: Desktop.instance.lockscreen
                     visible: true
-                }
+                }*/
                 PropertyChanges {
                     target: gestureArea
                     delayReset: true
@@ -199,7 +199,7 @@ Item {
             // pullCodepad is when you are pulling codepad into view to enter security code
             State {
                 name: "pullCodepad"
-                when: Desktop.instance.codepadVisible
+                when: Desktop.instance.state === "locked" && !Desktop.instance.codepadVisible
                 PropertyChanges {
                     target: Desktop.instance
                     codepadVisible: true
@@ -230,7 +230,7 @@ Item {
             // pushCodepad is when you are pushing the codepad away without entering a security code
             State {
                 name: "pushCodepad"
-                when: Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && Desktop.instance.codepadVisible
+                when: Desktop.instance.state === "locked" && Desktop.instance.codepadVisible
 
                 PropertyChanges {
                     target: gestureArea
