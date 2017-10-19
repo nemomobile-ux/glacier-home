@@ -4,6 +4,7 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtQuick.Layouts 1.0
 
+import org.nemomobile.glacierauthentication 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 
@@ -12,50 +13,51 @@ import "scripts/desktop.js" as Desktop
 Item {
     id: root
 
-    property bool shouldAuthenticate: Lipstick.compositor.visible
-                                      && authenticator.availableMethods !== 0
+    property bool shouldAuthenticate: Lipstick.compositor.visible //&& asd.availableMethods !== 0
     property int remainingAttempts
+    property AuthenticationInput authenticationInput
+    signal codeEntered(string code)
 
     onShouldAuthenticateChanged: {
         if (shouldAuthenticate) {
-            DeviceLock.authorization.requestChallenge()
+            //console.log("Requesting security code "+ authenticationInput.status)
+            //authenticationInput.requestSecurityCode()
+            //DeviceLock.authorization.requestChallenge()
         } else {
-            authenticator.cancel()
-            DeviceLock.authorization.relinquishChallenge()
+            //authenticator.cancel()
+            //DeviceLock.authorization.relinquishChallenge()
         }
     }
 
-    Component.onCompleted: {
-        DeviceLock.authorization.requestChallenge()
-    }
+    /*Component.onCompleted: {
+        console.log("Requesting security code "+ authenticationInput.Status)
+        authenticationInput.requestSecurityCode()
+    }*/
 
-    Connections {
+    /*Connections {
         target: DeviceLock.authorization
         onChallengeIssued: {
             authenticator.authenticate(
                         DeviceLock.authorization.challengeCode,
                         DeviceLock.authorization.allowedMethods)
         }
-    }
+    }*/
 
     Authenticator {
-        id: authenticator
-        onAuthenticated: {
-            DeviceLock.unlock(authenticationToken)
-            Desktop.instance.setLockScreen(false)
-            Desktop.instance.codepadVisible = false
-            remainingAttempts = 0
+        id: auth
+        Component.onCompleted: {
+            console.log("Requesting challenge")
+            Authorization.requestChallege()
         }
-        onFeedback: {
-            console.log('### still locked', feedback, attemptsRemaining)
-            remainingAttempts = attemptsRemaining
-            animation.start()
+
+        onAuthenticated: {
+            console.log("Authenticated: "+DeviceLock.state)
         }
     }
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: Theme.itemSpacingExtraSmall
+        spacing: Theme.itemSpacingLarge
 
         SequentialAnimation  {
             id: animation;
@@ -91,18 +93,29 @@ Item {
                 delegate:
                     Button {
                     id:button
+                    opacity: 1
                     Layout.maximumWidth: Theme.itemWidthSmall
                     Layout.maximumHeight: Theme.itemHeightHuge * 2
                     Layout.minimumHeight: Theme.itemHeightHuge * 1.5
-                    text: modelData
+                    Text {
+                        id: numLabel
+                        text: modelData
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.centerIn: parent
+                        color: "white"
+                    }
                     onClicked: {
-                        if (button.text !== "Ca" && button.text !== "OK") {
-                            lockCodeField.insert(lockCodeField.cursorPosition, button.text)
+                        if (numLabel.text !== "Ca" && numLabel.text !== "OK") {
+                            //console.log(authenticationInput.Status)
+                            lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
                         } else {
-                            if (button.text === "OK") {
-                                authenticator.enterLockCode(lockCodeField.text)
+                            if (numLabel.text === "OK") {
+                                console.log("DeviceLockUI: "+auth.availableMethods)
+                                auth.authenticate(Authorization.challengeCode, auth.availableMethods)
+                                //authenticationInput.enterSecurityCode(lockCodeField.text)
+                                //codeEntered(lockCodeField.text)
                                 lockCodeField.text = ""
-                            } else if (button.text === "Ca"){
+                            } else if (numLabel.text === "Ca"){
                                 lockCodeField.text = ""
                             }
                         }
@@ -111,4 +124,18 @@ Item {
             }
         }
     }
+    function displayFeedback(feedback, data) {
+        console.log("DisplayFeedBack "+feedback+" "+data)
+    }
+    function displayError(error) {
+        console.log("displayError "+error)
+    }
+
+    Connections {
+            target: root.authenticationInput
+
+            onFeedback: root.displayFeedback(feedback, data)
+            onError: root.displayError(error)
+        }
+
 }

@@ -66,9 +66,10 @@ Page {
     id: desktop
     property alias lockscreen: lockScreen
     property alias switcher: switcher
-    property alias codepad: codePad
+    //property alias codepad: codePad
     property int statusBarHeight: statusbar.height
     property bool codepadVisible: false
+    property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
 
     // Implements back key navigation
 
@@ -80,7 +81,6 @@ Page {
             } else { Qt.quit(); }
         }
     }
-
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
@@ -165,7 +165,7 @@ Page {
     }
     Lockscreen {
         id: lockScreen
-        visible: lockscreenVisible()//DeviceLock.state == DeviceLock.Locked
+        visible: lockscreenVisible()
         width: parent.width
         height: parent.height
         z: 200

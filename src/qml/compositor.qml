@@ -137,7 +137,7 @@ Compositor {
         property real lockThreshold: 0.25
         property int lockscreenX
         property int lockscreenY
-        enabled: true//!Desktop.instance.codepadVisible//DeviceLock.state != DeviceLock.Locked
+        enabled: DeviceLock.state != DeviceLock.Locked
 
         onGestureStarted: {
             swipeAnimation.stop()
@@ -148,13 +148,13 @@ Compositor {
                 state = "swipe"
             }
             else if (!root.appActive && DeviceLock.state !== DeviceLock.Locked) {
-                state = "lock"
+                state = "cover"
             }
             else if (Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && !Desktop.instance.codepadVisible) {
-                state = "pullCodepad"
+                //state = "pullCodepad"
             }
             else if (Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && Desktop.instance.codepadVisible) {
-                state = "pushCodepad"
+                //state = "pushCodepad"
             }
         }
 
@@ -182,7 +182,7 @@ Compositor {
                             if(gesture == "down") {
                                 setDisplayOff()
                             }
-                        }
+                        }/*
                         // Brings up codepad, only left and right swipes allowed for it for now
                         else if (Desktop.instance.lockscreenVisible() && !Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked && (gesture !== "down" && gesture !== "up")) {
                             Desktop.instance.codepadVisible = true
@@ -190,7 +190,7 @@ Compositor {
                         // Hides codepad but does not unlock the code, only left and right swipes allowed for now
                         else if (Desktop.instance.lockscreenVisible() && Desktop.instance.codepad.visible && DeviceLock.state == DeviceLock.Locked && gesture !== "down" && gesture !== "up") {
                             Desktop.instance.codepadVisible = false
-                        }
+                        }*/
                         // Unlocks if no security code required
                         else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(false)
@@ -218,9 +218,9 @@ Compositor {
                     y: gestureArea.horizontal ? 0 : gestureArea.value
                 }
             },
-            // Lock state is for when screen is locked but no security code required, can be swiped from any edge
+            // Cover state is for when screen is covered but no security code required, can be swiped from any edge
             State {
-                name: "lock"
+                name: "cover"
                 when: Desktop.instance.lockscreenVisible()
                 PropertyChanges {
                     target: Desktop.instance.lockscreen
@@ -249,11 +249,11 @@ Compositor {
                                                                                             Desktop.instance.lockscreen.height :
                                                                                             Desktop.instance.lockscreen.width)+gestureArea.value) ) )
                 }
-            },
+            }/*
             // pullCodepad is when you are pulling codepad into view to enter security code
             State {
                 name: "pullCodepad"
-                when: Desktop.instance.codepadVisible
+                when: DeviceLock.state >= DeviceLock.Locked//Desktop.instance.codepadVisible
                 PropertyChanges {
                     target: Desktop.instance
                     codepadVisible: true
@@ -306,7 +306,7 @@ Compositor {
                     opacity: 1 - (gestureArea.horizontal ? (gestureArea.value < 0 ? (gestureArea.value / -Desktop.instance.lockscreen.width) :
                                                                                gestureArea.value / Desktop.instance.lockscreen.width) : 0)
                 }
-            }
+            }*/
 
         ]
 
