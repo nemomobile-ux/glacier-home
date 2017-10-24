@@ -29,7 +29,6 @@
 #include <QQmlContext>
 #include "glacierwindowmodel.h"
 #include <QScreen>
-#include "glacierauthenticationinput.h"
 
 
 int main(int argc, char **argv)
@@ -62,7 +61,6 @@ int main(int argc, char **argv)
         nativeOrientation = app.primaryScreen()->primaryOrientation();
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
-    qmlRegisterType<GlacierAuthenticationInput>("org.nemomobile.glacierauthentication", 1, 0, "GlacierAuthenticationInput");
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser

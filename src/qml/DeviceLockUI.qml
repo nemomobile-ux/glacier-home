@@ -4,9 +4,9 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtQuick.Layouts 1.0
 
-import org.nemomobile.glacierauthentication 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.dbus 1.0
 
 import "scripts/desktop.js" as Desktop
 
@@ -20,7 +20,7 @@ Item {
 
     onShouldAuthenticateChanged: {
         if (shouldAuthenticate) {
-            //console.log("Requesting security code "+ authenticationInput.status)
+            console.log("Requesting security code "+JSON.stringify(authenticationInput))//+ authenticationInput.status)
             //authenticationInput.requestSecurityCode()
             //DeviceLock.authorization.requestChallenge()
         } else {
@@ -42,18 +42,20 @@ Item {
                         DeviceLock.authorization.allowedMethods)
         }
     }*/
-
-    Authenticator {
-        id: auth
-        Component.onCompleted: {
-            console.log("Requesting challenge")
-            Authorization.requestChallege()
-        }
-
-        onAuthenticated: {
-            console.log("Authenticated: "+DeviceLock.state)
-        }
+    /*authenticationInput.onAuthenticationUnavailable: {
+        console.log("Authentication unavailable: "+error)
     }
+    authenticationInput.onFeedback: {
+        console.log("Feedback: "+feedback)
+    }
+
+    authenticationInput.onAuthenticationStarted: {
+        console.log("Authentication started")
+    }
+    authenticationInput.onAuthenticationEnded: {
+        console.log("Ended "+confirmed)
+    }*/
+
 
     ColumnLayout {
         anchors.fill: parent
@@ -108,11 +110,12 @@ Item {
                         if (numLabel.text !== "Ca" && numLabel.text !== "OK") {
                             //console.log(authenticationInput.Status)
                             lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
+                            authenticationInput.requestSecurityCode()
                         } else {
                             if (numLabel.text === "OK") {
-                                console.log("DeviceLockUI: "+auth.availableMethods)
-                                auth.authenticate(Authorization.challengeCode, auth.availableMethods)
-                                //authenticationInput.enterSecurityCode(lockCodeField.text)
+                                console.log("DeviceLockUI: "+JSON.stringify(authenticationInput))
+                                //auth.authenticate(Authorization.challengeCode, auth.availableMethods)
+                                authenticationInput.enterSecurityCode(lockCodeField.text)
                                 //codeEntered(lockCodeField.text)
                                 lockCodeField.text = ""
                             } else if (numLabel.text === "Ca"){

@@ -99,17 +99,14 @@ CONFIG += qt link_pkgconfig
 QT += quick compositor
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
-    glacierwindowmodel.h \
-    glacierauthenticationinput.h
+    glacierwindowmodel.h
 QT += dbus
 LIBS += -lnemodevicelock
 MOC_DIR = .moc
 
 SOURCES += \
     main.cpp \
-    glacierwindowmodel.cpp \
-    glacierauthenticationinput.cpp
-
+    glacierwindowmodel.cpp
 PKGCONFIG += lipstick-qt5 \
     nemodevicelock
 

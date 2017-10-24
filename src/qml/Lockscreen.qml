@@ -3,7 +3,6 @@ import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.configuration 1.0
-import org.nemomobile.glacierauthentication 1.0
 import "notifications"
 
 
@@ -185,14 +184,26 @@ Image {
             console.log("Security code entered: "+authenticationInput.minimumCodeLength)
         }
 
-        authenticationInput: GlacierAuthenticationInput {
-            property bool unlocked: DeviceLock.state >= DeviceLock.Locked
+        authenticationInput: DeviceLockAuthenticationInput {
+            //property bool unlocked: DeviceLock.state >= DeviceLock.Locked
+
+            readonly property bool unlocking: registered
+                        && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
             registered: true
+            active: true
             //active: lockscreenVisible()
-            onUnlockedChanged: console.log("Unlock")
+           // onUnlockedChanged: console.log("Unlock")
             onStatusChanged: {
                 console.log("Status changed")
+            }
+            onUnlockingChanged: {
+                 console.log("Unlock")
+                if (unlocking) {
+                    DeviceLock.unlock()
+                } else {
+                    DeviceLock.cancel()
+                }
             }
             onAuthenticationUnavailable: {
                 console.log("Authentication unavailable: "+error)
