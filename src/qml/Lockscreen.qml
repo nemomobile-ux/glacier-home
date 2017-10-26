@@ -140,7 +140,7 @@ Image {
             lockScreen.snapPosition()
         }
         onMouseXChanged: {
-            // Checks which swipe
+            // Checks which was it left or right swipe
             if(mouseX > (startX+threshold)) {
                 gesture = "right"
                 gestureStarted = true;
@@ -172,9 +172,9 @@ Image {
             }
 
         }
-
-        // Animation to sna codepad into view or out of view
+        // Animation to snap codepad into view or out of view
         onReleased: {
+            displayOffTimer.restart()
             if(codePad.inView) {
                 if(gesture == "right") {
                     if(swipeDistance > threshold) {
@@ -212,6 +212,36 @@ Image {
         }
         onCanceled: snapBack()
     }
+    SequentialAnimation {
+        id: unlockAnimation
+        property alias valueTo: unlockNumAnimation.to
+        property alias setProperty: unlockNumAnimation.property
+
+        NumberAnimation {
+            id: unlockNumAnimation
+            target: lockScreen
+            property: "y"
+            to: -height
+            duration: 250
+            easing.type: Easing.OutQuint
+        }
+        onStopped: {
+            setLockScreen(false)
+        }
+    }
+    Connections {
+        target:Lipstick.compositor
+        onDisplayOff: {
+            displayOn = false
+            displayOffTimer.stop()
+            codePad.x = -parent.width
+            codePad.inView = false
+        }
+        onDisplayOn:{
+            displayOn = true
+            displayOffTimer.stop()
+        }
+    }
 
     LockscreenClock {
         id: lockscreenClock
@@ -234,43 +264,44 @@ Image {
         x: width * 2
         width: lockScreen.width
         height: visible ? lockScreen.height / 2 : 0
-        onCodeEntered: {
-            console.log("Security code entered: "+authenticationInput.minimumCodeLength)
-        }
-
+        opacity: (1-Math.abs((1 - (-1)) * (x - (-parent.width)) / (parent.width - (-parent.width)) + (-1)))
         authenticationInput: DeviceLockAuthenticationInput {
 
             readonly property bool unlocking: registered
                         && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
-            registered: true
-            active: true
-            onStatusChanged: {
-                console.log("Status changed")
-            }
+            registered: lockscreenVisible()
+            active: lockscreenVisible()
+
             onUnlockingChanged: {
-                 console.log("Unlock")
                 if (unlocking) {
                     DeviceLock.unlock()
                 } else {
                     DeviceLock.cancel()
                 }
             }
-            onAuthenticationUnavailable: {
-                console.log("Authentication unavailable: "+error)
-            }
-
-            onFeedback: {
-                console.log("Feedback: "+feedback)
-            }
-
-            onAuthenticationStarted: {
-                console.log("Authentication started")
-            }
             onAuthenticationEnded: {
-                console.log("Ended "+confirmed)
+                if(confirmed) {
+                    unlockAnimationHelper(mouseArea.gesture)
+                }else {
+
+                }
+
+            }
+            function unlockAnimationHelper(gesture) {
+                if(gesture == "left") {
+                    unlockAnimation.setProperty = "x"
+                    unlockAnimation.valueTo = -width
+                    unlockAnimation.start()
+                }
+                if(gesture == "right") {
+                    unlockAnimation.setProperty = "x"
+                    unlockAnimation.valueTo = width
+                    unlockAnimation.start()
+                }
             }
         }
+
         onGestureStartedChanged: {
             if(gestureStarted) {
                 mouseArea.z = 2

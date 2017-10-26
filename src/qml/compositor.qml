@@ -198,10 +198,7 @@ Compositor {
                     /*show statusbar when gesture down*/
                     console.log("Show statusarea")
                 }
-
-                /*if(gesture == "up" && !diagonal) {
-                    state = "cover"
-                }*/
+                state = "cover"
             }
         }
 
@@ -240,13 +237,13 @@ Compositor {
                             setDisplayOff()
                         }
                     }
-                    // Unlocks if no security code required
+                        // Unlocks if no security code required
                     else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
                         Desktop.instance.setLockScreen(false)
                     }
-                } else {
+                 } else {
                     cancelAnimation.start()
-                }
+                 }
             }
             gestureOnGoing = false
         }
