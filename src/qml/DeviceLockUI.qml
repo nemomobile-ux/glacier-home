@@ -13,49 +13,9 @@ import "scripts/desktop.js" as Desktop
 Item {
     id: root
 
-    property bool shouldAuthenticate: Lipstick.compositor.visible //&& asd.availableMethods !== 0
+    property bool shouldAuthenticate: Lipstick.compositor.visible
     property int remainingAttempts
     property AuthenticationInput authenticationInput
-    signal codeEntered(string code)
-
-    onShouldAuthenticateChanged: {
-        if (shouldAuthenticate) {
-            console.log("Requesting security code "+JSON.stringify(authenticationInput))//+ authenticationInput.status)
-            //authenticationInput.requestSecurityCode()
-            //DeviceLock.authorization.requestChallenge()
-        } else {
-            //authenticator.cancel()
-            //DeviceLock.authorization.relinquishChallenge()
-        }
-    }
-
-    /*Component.onCompleted: {
-        console.log("Requesting security code "+ authenticationInput.Status)
-        authenticationInput.requestSecurityCode()
-    }*/
-
-    /*Connections {
-        target: DeviceLock.authorization
-        onChallengeIssued: {
-            authenticator.authenticate(
-                        DeviceLock.authorization.challengeCode,
-                        DeviceLock.authorization.allowedMethods)
-        }
-    }*/
-    /*authenticationInput.onAuthenticationUnavailable: {
-        console.log("Authentication unavailable: "+error)
-    }
-    authenticationInput.onFeedback: {
-        console.log("Feedback: "+feedback)
-    }
-
-    authenticationInput.onAuthenticationStarted: {
-        console.log("Authentication started")
-    }
-    authenticationInput.onAuthenticationEnded: {
-        console.log("Ended "+confirmed)
-    }*/
-
 
     ColumnLayout {
         anchors.fill: parent
@@ -70,14 +30,23 @@ Item {
             }
             NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 0; duration: 100 }
         }
-        Label {
-            font.pixelSize: Theme.fontSizeMedium
-            width: parent.width
-            text:  remainingAttempts > 0 ? qsTr("Attempts remaining:") + " " + remainingAttempts : ""
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
+            Label {
+                id: feedbackLabel
+                font.pixelSize: Theme.fontSizeMedium
+                text: " "
+            }
+            Label {
+                id: attemptsRemainingLabel
+                font.pixelSize: Theme.fontSizeMedium
+                text: " "
+            }
         }
         TextField {
             id: lockCodeField
+            anchors.topMargin: Theme.itemSpacingMedium
             anchors.horizontalCenter: parent.horizontalCenter
             readOnly: true
             echoMode: TextInput.PasswordEchoOnEdit
@@ -107,16 +76,14 @@ Item {
                         color: "white"
                     }
                     onClicked: {
+                        displayOffTimer.restart()
+                        feedbackLabel.text = " "
+                        attemptsRemainingLabel.text = " "
                         if (numLabel.text !== "Ca" && numLabel.text !== "OK") {
-                            //console.log(authenticationInput.Status)
                             lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
-                            authenticationInput.requestSecurityCode()
                         } else {
                             if (numLabel.text === "OK") {
-                                console.log("DeviceLockUI: "+JSON.stringify(authenticationInput))
-                                //auth.authenticate(Authorization.challengeCode, auth.availableMethods)
                                 authenticationInput.enterSecurityCode(lockCodeField.text)
-                                //codeEntered(lockCodeField.text)
                                 lockCodeField.text = ""
                             } else if (numLabel.text === "Ca"){
                                 lockCodeField.text = ""
@@ -128,17 +95,34 @@ Item {
         }
     }
     function displayFeedback(feedback, data) {
-        console.log("DisplayFeedBack "+feedback+" "+data)
+
+        switch(feedback) {
+
+        case AuthenticationInput.EnterSecurityCode:
+            feedbackLabel.text = qsTr("Enter security code")
+            break
+
+        case AuthenticationInput.IncorrectSecurityCode:
+            feedbackLabel.text = qsTr("Incorrect code")
+            if(authenticationInput.maximumAttempts !== -1) {
+                attemptsRemainingLabel.text = qsTr("("+(authenticationInput.maximumAttempts-data.attemptsRemaining)+
+                                                   "/"+authenticationInput.maximumAttempts+")")
+            }
+            animation.start()
+            break
+        case AuthenticationInput.TemporarilyLocked:
+            feedbackLabel.text = qsTr("Temporarily locked")
+        }
     }
     function displayError(error) {
         console.log("displayError "+error)
     }
 
     Connections {
-            target: root.authenticationInput
+        target: root.authenticationInput
 
-            onFeedback: root.displayFeedback(feedback, data)
-            onError: root.displayError(error)
-        }
+        onFeedback: root.displayFeedback(feedback, data)
+        onError: root.displayError(error)
+    }
 
 }

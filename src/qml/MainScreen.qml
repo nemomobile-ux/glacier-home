@@ -66,7 +66,6 @@ Page {
     id: desktop
     property alias lockscreen: lockScreen
     property alias switcher: switcher
-    //property alias codepad: codePad
     property int statusBarHeight: statusbar.height
     property bool codepadVisible: false
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
