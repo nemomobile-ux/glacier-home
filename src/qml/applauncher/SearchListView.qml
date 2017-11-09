@@ -458,13 +458,13 @@ Item {
                         var winId
                         if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
                             winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 || !searchLauncherModel.get(model.id).isLaunching)
+                            if (winId == 0 && !searchLauncherModel.get(model.id).isLaunching)
                                 searchLauncherModel.get(model.id).launchApplication()
                             else
                                 Lipstick.compositor.windowToFront(winId)
                         } else  if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
                             winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 || !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
+                            if (winId == 0 && !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
                                 searchLauncherModel.get(model.id).get(model.folderId).launchApplication()
                             else
                                 Lipstick.compositor.windowToFront(winId)

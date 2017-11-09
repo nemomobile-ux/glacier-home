@@ -66,7 +66,7 @@ MouseArea {
         // TODO: disallow if close mode enabled
         if (modelData.object.type !== LauncherModel.Folder) {
             var winId = switcher.switchModel.getWindowIdForTitle(modelData.object.title)
-            if (winId == 0 || !modelData.object.isLaunching)
+            if (winId == 0 && !modelData.object.isLaunching)
                 modelData.object.launchApplication()
             else
                 Lipstick.compositor.windowToFront(winId)
