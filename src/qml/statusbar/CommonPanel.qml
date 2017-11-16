@@ -40,6 +40,8 @@ Rectangle {
     id: commonPanel
 
     property alias switcherEnabled: columnCheckBox.enabled
+    property bool settingsIconEnabled: true
+
     property alias switcherChecked: columnCheckBox.checked
     property string name: ""
     signal click
@@ -120,7 +122,7 @@ Rectangle {
         id:settingsIcon
         fillMode: Image.PreserveAspectFit
         height: Theme.itemHeightMedium
-        visible: parent.height > Theme.itemSpacingMedium
+        visible: settingsIconEnabled && parent.height > Theme.itemSpacingMedium
         source: "image://theme/icon-app-settings" //maybe better icon? settings.png from statusbar spec
         anchors{
             right: parent.right
