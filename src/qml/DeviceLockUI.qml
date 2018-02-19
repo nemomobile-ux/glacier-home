@@ -46,7 +46,7 @@ Item {
             Desktop.instance.codepadVisible = false
             remainingAttempts = 0
         }
-        onFeedback: {
+        onAborted: {
             console.log('### still locked', feedback, attemptsRemaining)
             remainingAttempts = attemptsRemaining
             animation.start()

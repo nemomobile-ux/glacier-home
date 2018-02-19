@@ -1,7 +1,7 @@
 Name:       lipstick-glacier-home-qt5
 Summary:    A nice homescreen for Glacier experience
 Version:    0.27
-Release:    2
+Release:    3
 Group:      System/GUI/Other
 License:    BSD
 URL:        https://github.com/locusf/glacier-home
@@ -17,6 +17,7 @@ Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-contextkit-qt5
+Requires:   nemo-qml-plugin-devicelock >= 0.2.1
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
 Requires:   nemo-theme-glacier
