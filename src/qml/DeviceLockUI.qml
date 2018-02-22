@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.dbus 1.0
 
 import "scripts/desktop.js" as Desktop
 
@@ -13,49 +14,12 @@ Item {
     id: root
 
     property bool shouldAuthenticate: Lipstick.compositor.visible
-                                      && authenticator.availableMethods !== 0
     property int remainingAttempts
-
-    onShouldAuthenticateChanged: {
-        if (shouldAuthenticate) {
-            DeviceLock.authorization.requestChallenge()
-        } else {
-            authenticator.cancel()
-            DeviceLock.authorization.relinquishChallenge()
-        }
-    }
-
-    Component.onCompleted: {
-        DeviceLock.authorization.requestChallenge()
-    }
-
-    Connections {
-        target: DeviceLock.authorization
-        onChallengeIssued: {
-            authenticator.authenticate(
-                        DeviceLock.authorization.challengeCode,
-                        DeviceLock.authorization.allowedMethods)
-        }
-    }
-
-    Authenticator {
-        id: authenticator
-        onAuthenticated: {
-            DeviceLock.unlock(authenticationToken)
-            Desktop.instance.setLockScreen(false)
-            Desktop.instance.codepadVisible = false
-            remainingAttempts = 0
-        }
-        onFeedback: {
-            console.log('### still locked', feedback, attemptsRemaining)
-            remainingAttempts = attemptsRemaining
-            animation.start()
-        }
-    }
+    property AuthenticationInput authenticationInput
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: Theme.itemSpacingExtraSmall
+        spacing: Theme.itemSpacingLarge
 
         SequentialAnimation  {
             id: animation;
@@ -66,14 +30,23 @@ Item {
             }
             NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 0; duration: 100 }
         }
-        Label {
-            font.pixelSize: Theme.fontSizeMedium
-            width: parent.width
-            text:  remainingAttempts > 0 ? qsTr("Attempts remaining:") + " " + remainingAttempts : ""
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
+            Label {
+                id: feedbackLabel
+                font.pixelSize: Theme.fontSizeMedium
+                text: " "
+            }
+            Label {
+                id: attemptsRemainingLabel
+                font.pixelSize: Theme.fontSizeMedium
+                text: " "
+            }
         }
         TextField {
             id: lockCodeField
+            anchors.topMargin: Theme.itemSpacingMedium
             anchors.horizontalCenter: parent.horizontalCenter
             readOnly: true
             echoMode: TextInput.PasswordEchoOnEdit
@@ -91,18 +64,28 @@ Item {
                 delegate:
                     Button {
                     id:button
+                    opacity: 1
                     Layout.maximumWidth: Theme.itemWidthSmall
                     Layout.maximumHeight: Theme.itemHeightHuge * 2
                     Layout.minimumHeight: Theme.itemHeightHuge * 1.5
-                    text: modelData
+                    Text {
+                        id: numLabel
+                        text: modelData
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.centerIn: parent
+                        color: "white"
+                    }
                     onClicked: {
-                        if (button.text !== "Ca" && button.text !== "OK") {
-                            lockCodeField.insert(lockCodeField.cursorPosition, button.text)
+                        displayOffTimer.restart()
+                        feedbackLabel.text = " "
+                        attemptsRemainingLabel.text = " "
+                        if (numLabel.text !== "Ca" && numLabel.text !== "OK") {
+                            lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
                         } else {
-                            if (button.text === "OK") {
-                                authenticator.enterLockCode(lockCodeField.text)
+                            if (numLabel.text === "OK") {
+                                authenticationInput.enterSecurityCode(lockCodeField.text)
                                 lockCodeField.text = ""
-                            } else if (button.text === "Ca"){
+                            } else if (numLabel.text === "Ca"){
                                 lockCodeField.text = ""
                             }
                         }
@@ -111,4 +94,35 @@ Item {
             }
         }
     }
+    function displayFeedback(feedback, data) {
+
+        switch(feedback) {
+
+        case AuthenticationInput.EnterSecurityCode:
+            feedbackLabel.text = qsTr("Enter security code")
+            break
+
+        case AuthenticationInput.IncorrectSecurityCode:
+            feedbackLabel.text = qsTr("Incorrect code")
+            if(authenticationInput.maximumAttempts !== -1) {
+                attemptsRemainingLabel.text = qsTr("("+(authenticationInput.maximumAttempts-data.attemptsRemaining)+
+                                                   "/"+authenticationInput.maximumAttempts+")")
+            }
+            animation.start()
+            break
+        case AuthenticationInput.TemporarilyLocked:
+            feedbackLabel.text = qsTr("Temporarily locked")
+        }
+    }
+    function displayError(error) {
+        console.log("displayError "+error)
+    }
+
+    Connections {
+        target: root.authenticationInput
+
+        onFeedback: root.displayFeedback(feedback, data)
+        onError: root.displayError(error)
+    }
+
 }

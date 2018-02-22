@@ -100,14 +100,15 @@ QT += quick compositor
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
     glacierwindowmodel.h
-
+QT += dbus
+LIBS += -lnemodevicelock
 MOC_DIR = .moc
 
 SOURCES += \
     main.cpp \
     glacierwindowmodel.cpp
-
-PKGCONFIG += lipstick-qt5
+PKGCONFIG += lipstick-qt5 \
+    nemodevicelock
 
 OTHER_FILES += qml/*.qml \
     qml/MainScreen.qml \
