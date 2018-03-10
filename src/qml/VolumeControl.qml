@@ -42,6 +42,8 @@ ProgressBar {
     maximumValue: volumeControl.maximumVolume
     property bool shouldbevisible
 
+    property int pressedKey
+
     opacity: volumeSlider.shouldbevisible ? 1 : 0
     Behavior on opacity {
         NumberAnimation {
@@ -49,6 +51,7 @@ ProgressBar {
             onRunningChanged: if (!running && volumeSlider.opacity == 0) volumeControl.windowVisible = false
         }
     }
+
     Timer {
         id: voltimer
         interval: 2000
@@ -58,35 +61,85 @@ ProgressBar {
     Connections {
         target: volumeControl
         onVolumeKeyPressed: {
-            if(key == Qt.Key_VolumeUp)
-            {
-            //up volume
-                if(volumeControl.volume < maximumValue)
-                {
-                    volumeControl.volume = volumeControl.volume+1
-                }
-            }
-            else
-            {
-            //down volume
-                if(volumeControl.volume > 0)
-                {
-                    volumeControl.volume = volumeControl.volume-1
-                }
-            }
+            volumeSlider.pressedKey = key;
 
             volumeControl.windowVisible = true
 
-            volumeSlider.value = volumeControl.volume
+            volumeChange()
+            keyPressTimer.start()
+            maxMinTimer.start()
+
             if (volumeControl.windowVisible) {
-                voltimer.restart()
+               voltimer.restart()
             }
         }
+
+        onVolumeKeyReleased: {
+            keyPressTimer.stop()
+            maxMinTimer.stop()
+            volumeSlider.pressedKey = ""
+        }
+
         onWindowVisibleChanged: {
             if (volumeControl.windowVisible) {
                 volumeSlider.shouldbevisible = true
                 voltimer.restart()
             }
         }
+    }
+
+    PropertyAnimation {
+        id: volumeChangeAinmation
+        target: volumeSlider
+        property: "value"
+        to: volumeControl.volume
+        duration: 100
+    }
+
+    Timer{
+        id: keyPressTimer
+        interval: 500
+        onTriggered: {
+            volumeChange()
+            voltimer.restart()
+        }
+        repeat: true
+    }
+
+    Timer{
+        id: maxMinTimer
+        interval: 1900
+        onTriggered: {
+            if(volumeSlider.pressedKey == Qt.Key_VolumeUp)
+            {
+                volumeControl.volume = volumeSlider.maximumValue
+            }
+            else if(volumeSlider.pressedKey == Qt.Key_VolumeDown)
+            {
+                volumeControl.volume = 0
+            }
+            volumeChangeAinmation.start()
+        }
+    }
+
+    function volumeChange()
+    {
+        if(volumeSlider.pressedKey == Qt.Key_VolumeUp)
+        {
+        //up volume
+            if(volumeControl.volume < maximumValue)
+            {
+                volumeControl.volume = volumeControl.volume+1
+            }
+        }
+        else if(volumeSlider.pressedKey == Qt.Key_VolumeDown)
+        {
+        //down volume
+            if(volumeControl.volume > 0)
+            {
+                volumeControl.volume = volumeControl.volume-1
+            }
+        }
+        volumeChangeAinmation.start()
     }
 }
