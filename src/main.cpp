@@ -30,7 +30,6 @@
 #include "glacierwindowmodel.h"
 #include <QScreen>
 
-
 int main(int argc, char **argv)
 {
     HomeApplication app(argc, argv, QString());

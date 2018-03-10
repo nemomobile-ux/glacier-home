@@ -22,6 +22,8 @@ Requires:   libqofono-qt5-declarative
 Requires:   nemo-theme-glacier
 Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
+Requires:   glacier-settings
+Requires:   glacier-gallery-qmlplugin
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
@@ -63,6 +65,7 @@ ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.targe
 %{_libdir}/systemd/user/user-session.target.wants/lipstick.service
 %{_datadir}/lipstick-glacier-home-qt5/nemovars.conf
 %{_datadir}/lipstick-glacier-home-qt5/qml
+%{_datadir}/glacier-settings/
 
 %post
 systemctl-user --no-block restart lipstick.service
