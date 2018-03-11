@@ -83,6 +83,15 @@ statusbar.files = qml/statusbar/BatteryPanel.qml\
                 qml/statusbar/NumButton.qml \
                 qml/statusbar/MediaController.qml
 
+settingsplugin.files = settings-plugins/wallpaper/wallpaper.qml \
+                       settings-plugins/wallpaper/selectImage.qml \
+                       settings-plugins/wallpaper/wallpaper.svg
+
+settingsplugin.path = /usr/share/glacier-settings/qml/plugins/wallpaper
+
+settingspluginconfig.files = settings-plugins/wallpaper/wallpaper.json
+settingspluginconfig.path = /usr/share/glacier-settings/plugins
+
 INSTALLS += styles \
             images \
             theme \
@@ -93,7 +102,9 @@ INSTALLS += styles \
             volumecontrol\
             connectivity\
             notifications\
-            statusbar
+            statusbar\
+            settingsplugin\
+            settingspluginconfig
 
 CONFIG += qt link_pkgconfig
 QT += quick compositor
@@ -146,4 +157,5 @@ TRANSLATIONS += i18n/glacer-home.ts
 DISTFILES += \
     i18n/glacer-home.ts \
     qml/connectivity/ConnectionSelector.qml \
-    qml/statusbar/BatteryIndicator.qml
+    qml/statusbar/BatteryIndicator.qml \
+    settings-plugins/wallpaper/selectImage.qml

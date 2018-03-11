@@ -5,7 +5,6 @@ import org.nemomobile.devicelock 1.0
 import org.nemomobile.configuration 1.0
 import "notifications"
 
-
 Image {
     id: lockScreen
     source: lockScreenWallpaper.value
@@ -13,11 +12,18 @@ Image {
 
     property bool displayOn
 
+    ConfigurationValue {
+        id: differentWallpaper
+        key: "/home/glacier/differentWallpaper"
+        defaultValue: true
+    }
+
     ConfigurationValue{
         id: lockScreenWallpaper
-        key: "/home/glacier/lockScreen/wallpaperImage"
+        key: (differentWallpaper.value == true) ? "/home/glacier/lockScreen/wallpaperImage" : "/home/glacier/homeScreen/wallpaperImage"
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
+
     LockscreenClock {
         id: clock
         anchors {
