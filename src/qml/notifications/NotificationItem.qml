@@ -2,35 +2,52 @@ import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-MouseArea {
+Item {
     id: notifyArea
 
-    height:  Theme.itemHeightExtraLarge
-    width: parent.width
+    height: Theme.itemHeightExtraLarge
+    width: parent.width-Theme.itemSpacingSmall*2
+    anchors{
+        left: parent.left
+        leftMargin: Theme.itemSpacingSmall
+    }
 
     property alias appIcon: appIcon
     property alias appBody: appBody
     property alias appName: appName
     property alias appSummary: appSummary
-    property alias labelColumn: labelColumn
+
     property alias appTimestamp: appTimestamp
     property alias pressBg: pressBg
     property int iconSize:Math.min(Theme.iconSizeLauncher, height-Theme.itemSpacingMedium)
     property string timeAgo
     property int swipeTreshold: notifyArea.width/3
 
-    drag.target: modelData.userRemovable ? notifyArea : null
-    drag.axis: Drag.XAxis
-    drag.minimumX: -notifyArea.width
-    drag.maximumX: notifyArea.width
-    drag.onActiveChanged: {
-        if(!drag.active ) {
-            if((notifyArea.x > swipeTreshold)) {
+    MouseArea{
+        id: notifyMouseArea
+        anchors.fill: parent
+
+        drag.target: modelData.userRemovable ? notifyArea : null
+        drag.axis: Drag.XAxis
+        drag.minimumX: -notifyArea.width
+        drag.maximumX: notifyArea.width
+        drag.onActiveChanged: {
+            if(!drag.active ) {
+                if((notifyArea.x > swipeTreshold)) {
+                    slideAnimation.start()
+                }else if (notifyArea.x < -swipeTreshold){
+                    slideReverseAnimation.start()
+                } else {
+                    slideBackAnimation.start()
+                }
+            }
+        }
+
+        onClicked: {
+            if (modelData.userRemovable) {
                 slideAnimation.start()
-            }else if (notifyArea.x < -swipeTreshold){
-                slideReverseAnimation.start()
             } else {
-                slideBackAnimation.start()
+                modelData.actionInvoked("default")
             }
         }
     }
@@ -78,13 +95,6 @@ MouseArea {
         }
     }
 
-    onClicked: {
-        if (modelData.userRemovable) {
-            slideAnimation.start()
-        } else {
-            modelData.actionInvoked("default")
-        }
-    }
     NumberAnimation {
         id:slideAnimation
         target: notifyArea
@@ -119,9 +129,23 @@ MouseArea {
         id:pressBg
         anchors.fill: parent
         color: Theme.fillColor
-        visible: notifyArea.pressed
+        visible: notifyMouseArea.pressed
         radius: Theme.itemSpacingMedium
-        opacity: 0.1
+        opacity: 0.5
+    }
+
+    Rectangle{
+        id: progressBar
+        width: parent.width*modelData.progress
+        height: parent.height
+        color: Theme.accentColor
+        radius: Theme.itemSpacingMedium
+        opacity: 0.75
+        anchors{
+            top: parent.top
+            left: parent.left
+        }
+        visible: modelData.hasProgress
     }
 
     Image {
@@ -155,65 +179,67 @@ MouseArea {
             }
         }
     }
-    Column {
-        id:labelColumn
+
+    Label {
+        id: appName
+        text: modelData.appName
+        width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
+        color: Theme.textColor
+        elide: Text.ElideRight
+        font.pixelSize: Theme.fontSizeSmall
         anchors {
-            left:appIcon.right
-            leftMargin: Theme.itemSpacingLarge
-            verticalCenter: appIcon.verticalCenter
+            left: appIcon.right
+            leftMargin: Theme.itemSpacingSmall
+            top: parent.top
+            topMargin: Theme.itemSpacingSmall
         }
-        height: parent.height
-        width: parent.width-appIcon.width-Theme.itemSpacingLarge*2
+    }
 
-        Label {
-            id: appName
-            text: modelData.appName
-            width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
-            color: Theme.textColor
-            elide: Text.ElideRight
-            font.pixelSize: Theme.fontSizeSmall
-            anchors {
-                left: parent.left
-            }
-        }
-        Label {
-            id:appTimestamp
-            color: Theme.textColor
-            font.pixelSize: Theme.fontSizeTiny
-            text: if(timeAgo) timeAgo
-            horizontalAlignment: Text.AlignRight
-            anchors {
-                verticalCenter: appName.verticalCenter
-                rightMargin: Theme.itemSpacingSmall
-                right:labelColumn.right
-            }
-            Component.onCompleted: refreshTimestamp()
-        }
+    Label {
+        id:appTimestamp
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeTiny
+        text: if(timeAgo) timeAgo
+        horizontalAlignment: Text.AlignRight
+        anchors {
+            top: parent.top
+            topMargin: Theme.itemSpacingSmall
+            right:parent.right
+            rightMargin: Theme.itemSpacingSmall
 
-        Label {
-            id: appSummary
-            text: modelData.summary || modelData.previewSummary
-            width: parent.width-Theme.itemSpacingHuge
-            color: Theme.textColor
-            font.pixelSize: Theme.fontSizeTiny
-            anchors{
-                left: parent.left
-            }
-            maximumLineCount: 1
-            elide: Text.ElideRight
         }
+        Component.onCompleted: refreshTimestamp()
+    }
 
-        Label {
-            id: appBody
-            width: parent.width-Theme.itemSpacingHuge
-            text: modelData.body || modelData.previewBody
-            color: Theme.textColor
-            font.pixelSize: Theme.fontSizeTiny
-            anchors{
-                left: parent.left
-            }
-            maximumLineCount: 1
-            elide: Text.ElideRight
+    Label {
+        id: appSummary
+        text: modelData.summary || modelData.previewSummary
+        width: parent.width-Theme.itemSpacingHuge
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeTiny
+        anchors{
+            left: appIcon.right
+            leftMargin: Theme.itemSpacingSmall
+            top: appName.bottom
+            topMargin: Theme.itemSpacingSmall
         }
+        maximumLineCount: 1
+        elide: Text.ElideRight
+    }
+
+    Label {
+        id: appBody
+        width: parent.width-Theme.itemSpacingHuge
+        text: modelData.body || modelData.previewBody
+        color: Theme.textColor
+        font.pixelSize: Theme.fontSizeTiny
+        anchors{
+            left: appIcon.right
+            leftMargin: Theme.itemSpacingSmall
+            top: appSummary.bottom
+            topMargin: Theme.itemSpacingSmall
+        }
+        maximumLineCount: 1
+        elide: Text.ElideRight
     }
 }

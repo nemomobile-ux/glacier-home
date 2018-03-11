@@ -24,6 +24,12 @@ Image {
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
 
+    ConfigurationValue{
+        id: showNotifiBody
+        key: "/home/glacier/lockScreen/showNotifiBody"
+        defaultValue: false
+    }
+
     LockscreenClock {
         id: clock
         anchors {
@@ -276,20 +282,19 @@ Image {
         }
         clip:true
         delegate: NotificationItem {
-            height: Theme.itemHeightLarge
+            height: (showNotifiBody.value) ? Theme.itemHeightExtraLarge : Theme.itemHeightLarge
             enabled:DeviceLock.state !== DeviceLock.Locked
             scale: notificationColumn.opacity
             transformOrigin: Item.Left
-            iconSize: Theme.itemHeightMedium
             appName.font.pixelSize: Theme.fontSizeSmall
             appName.visible: DeviceLock.state !== DeviceLock.Locked
-            appName.anchors.verticalCenter: labelColumn.verticalCenter
+            appName.anchors.verticalCenter: parent.verticalCenter
             appBody.font.pixelSize: Theme.fontSizeTiny
-            appBody.visible: false
+            appBody.visible: showNotifiBody.value
             appTimestamp.visible: false
-            appSummary.visible: false
+            appSummary.visible: showNotifiBody.value
             pressBg.visible: DeviceLock.state !== DeviceLock.Locked
-            pressBg.opacity: 0.3
+            pressBg.opacity: 0.5
         }
     }
 }
