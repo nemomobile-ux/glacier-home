@@ -36,6 +36,23 @@ Flickable {
     clip: true
     contentHeight: rootitem.height
     contentWidth: parent.width
+
+    Rectangle{
+        id: bg
+        width: desktop.width
+        height: desktop.height-statusbar.height
+        color: "black"
+        opacity: 0.6
+    }
+
+    onXChanged: {
+        if(x < 0){
+            bg.opacity = 0.6*(desktop.width+x)/desktop.width
+        }else{
+            bg.opacity = 0.6*(desktop.width-x)/desktop.width
+        }
+    }
+
     Item {
         id: rootitem
         width: parent.width
