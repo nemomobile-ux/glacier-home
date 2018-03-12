@@ -83,13 +83,20 @@ statusbar.files = qml/statusbar/BatteryPanel.qml\
                 qml/statusbar/NumButton.qml \
                 qml/statusbar/MediaController.qml
 
-settingsplugin.files = settings-plugins/wallpaper/wallpaper.qml \
+settingswallpaperplugin.files = settings-plugins/wallpaper/wallpaper.qml \
                        settings-plugins/wallpaper/selectImage.qml \
                        settings-plugins/wallpaper/wallpaper.svg
 
-settingsplugin.path = /usr/share/glacier-settings/qml/plugins/wallpaper
+settingswallpaperplugin.path = /usr/share/glacier-settings/qml/plugins/wallpaper
 
-settingspluginconfig.files = settings-plugins/wallpaper/wallpaper.json
+settingsnotificationsplugin.files = settings-plugins/notifications/notifications.qml \
+                       settings-plugins/notifications/notifications.svg
+
+settingsnotificationsplugin.path = /usr/share/glacier-settings/qml/plugins/notifications
+
+settingspluginconfig.files = settings-plugins/wallpaper/wallpaper.json \
+                             settings-plugins/notifications/notifications.json
+
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
 INSTALLS += styles \
@@ -103,7 +110,8 @@ INSTALLS += styles \
             connectivity\
             notifications\
             statusbar\
-            settingsplugin\
+            settingswallpaperplugin\
+            settingsnotificationsplugin\
             settingspluginconfig
 
 CONFIG += qt link_pkgconfig
@@ -158,4 +166,7 @@ DISTFILES += \
     i18n/glacer-home.ts \
     qml/connectivity/ConnectionSelector.qml \
     qml/statusbar/BatteryIndicator.qml \
-    settings-plugins/wallpaper/selectImage.qml
+    settings-plugins/wallpaper/selectImage.qml \
+    settings-plugins/notifications/notifications.json \
+    settings-plugins/notifications/notifications.svg \
+    settings-plugins/notifications/notifications.qml
