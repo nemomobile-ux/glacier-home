@@ -21,7 +21,7 @@
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 
-import QtQuick 2.0
+import QtQuick 2.6
 
 Image {
     id: closeButton
