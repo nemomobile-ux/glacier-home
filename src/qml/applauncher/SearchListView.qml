@@ -30,23 +30,18 @@
 **
 ****************************************************************************************/
 import QtQuick 2.6
-import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+
+import org.nemomobile.lipstick 0.1
 import org.nemomobile.contacts 1.0
 
 Item {
     id:rootItem
-    height: (searchField.text.length > 0 ?  listView.height+searchField.height : searchField.height) + (visible ? Theme.itemSpacingHuge + margin.height : 0)
-    visible: false
+    height: calculateHeight()
     anchors.bottomMargin:Theme.itemSpacingHuge
     property alias searchField: searchField
     property int oldHeight
-
-    Behavior on height {
-        enabled:!visible
-        NumberAnimation{ duration: 300 }
-    }
 
     InverseMouseArea {
         anchors.fill: parent
@@ -59,28 +54,44 @@ Item {
         appLauncher.searchString = ""
         searchField.text = ""
 
-        if(!alwaysShowSearch)
+        if(!alwaysShowSearch.value == true)
         {
             searchListView.visible = false;
         }
     }
 
-    onVisibleChanged: {
-        if( visible){
-            searchField.focus = true
-            searchField.forceActiveFocus()
-        } else searchField.focus = false
-        oldHeight=height
+    function calculateHeight()
+    {
+        if(rootItem.visible){
+            if(searchField.text.length > 0){
+               return  parent.height
+            }
+            return searchRow.height+Theme.itemSpacingHuge
+        }
+        else
+        {
+            return 0;
+        }
     }
 
-    Item {
-        id:margin
-        height: Theme.itemSpacingSmall
+    onVisibleChanged: {
+        if(alwaysShowSearch.value == false)
+        {
+            if(visible){
+                rootItem.height = calculateHeight()
+                searchField.focus = true
+                searchField.forceActiveFocus()
+            } else {
+                searchField.focus = false
+            }
+            oldHeight=height
+        }
     }
+
     Row {
         id:searchRow
         anchors {
-            top:margin.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
             topMargin: Theme.itemSpacingHuge
@@ -95,6 +106,15 @@ Item {
             height: searchField.height
             fillMode: Image.PreserveAspectFit
             source: "image://theme/search"
+
+            MouseArea{
+                id: hideShowMouseArea
+                anchors.fill: parent
+                onPressAndHold: {
+                    hideShowRow.visible = true
+                    rootItem.height = rootItem.height+hideShowRow.height
+                }
+            }
         }
 
         TextField {
@@ -112,15 +132,54 @@ Item {
                 }
             }
         }
-
     }
+
+    Row{
+        id: hideShowRow
+        visible: false
+        width: parent.width-Theme.itemSpacingMedium*2
+        height: visible ? hideShowButton.height+Theme.itemSpacingMedium : 0
+        anchors{
+            top: searchRow.bottom
+            topMargin: visible ? Theme.itemSpacingMedium : 0
+        }
+
+        Button{
+            id: hideShowButton
+            text: alwaysShowSearch.value == true ? qsTr("Hide search panel") : qsTr("Pinup search panel")
+            width: parent.width
+            onClicked: {
+                rootItem.height = rootItem.height-hideShowRow.height
+                hideShowRow.visible = false
+                if(alwaysShowSearch.value == true)
+                {
+                    alwaysShowSearch.value = false
+                }
+                else
+                {
+                    alwaysShowSearch.value = true
+                }
+            }
+        }
+
+        InverseMouseArea {
+            anchors.fill: parent
+            onPressed: {
+                rootItem.height = rootItem.height-hideShowRow.height
+                hideShowRow.visible = false
+            }
+        }
+    }
+
     ListView {
         id:listView
         clip: true
         width: parent.width
         height:contentHeight
-        anchors.top: searchRow.bottom
-        anchors.topMargin: Theme.itemSpacingSmall
+        anchors{
+            top: searchRow.bottom
+            topMargin: listModel.count > 0 ? Theme.itemSpacingSmall : 0
+        }
         visible: searchString.length>0
         section.property: 'category'
         section.delegate: Component{

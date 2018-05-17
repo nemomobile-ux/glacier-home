@@ -54,7 +54,7 @@ Flickable{
     SearchListView {
         id: searchListView
         width: appLauncher.width
-        visible: alwaysShowSearch
+        visible: alwaysShowSearch.value == true
 
         Timer{
             id: searchListViewTimer;
@@ -62,9 +62,9 @@ Flickable{
             interval: 7000;
             repeat: true
             onTriggered: {
-                if(searchString.length < 1 && !alwaysShowSearch)
+                if(searchString.length < 1 && !alwaysShowSearch.value == true)
                 {
-                    headerItem.visible = false
+                    searchListView.visible = false
                 }
             }
         }
@@ -120,6 +120,13 @@ Flickable{
         anchors{
             top: searchListView.bottom
             topMargin: Theme.itemSpacingHuge
+        }
+
+        onContentYChanged: {
+            if( contentY < -Theme.itemHeightHuge*2 && alwaysShowSearch.value == false ) {
+                searchListView.visible = true
+                searchListViewTimer.running = true
+            }
         }
 
         property int folderIndex: -1
