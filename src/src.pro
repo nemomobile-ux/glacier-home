@@ -46,8 +46,7 @@ qml.files = qml/MainScreen.qml \
     qml/GlacierRotation.qml \
     qml/DeviceLockUI.qml \
     qml/LauncherItemWrapper.qml \
-    qml/LauncherItemFolder.qml  \
-    qml/SearchListView.qml
+    qml/LauncherItemFolder.qml
 
 qmlcompositor.path = /usr/share/lipstick-glacier-home-qt5/qml/compositor
 qmlcompositor.files = qml/compositor/WindowWrapperMystic.qml \
@@ -83,6 +82,10 @@ statusbar.files = qml/statusbar/BatteryPanel.qml\
                 qml/statusbar/NumButton.qml \
                 qml/statusbar/MediaController.qml
 
+applauncher.path = /usr/share/lipstick-glacier-home-qt5/qml/applauncher
+applauncher.files = qml/applauncher/SearchListView.qml \
+                qml/applauncher/Deleter.qml
+
 settingswallpaperplugin.files = settings-plugins/wallpaper/wallpaper.qml \
                        settings-plugins/wallpaper/selectImage.qml \
                        settings-plugins/wallpaper/wallpaper.svg
@@ -112,7 +115,8 @@ INSTALLS += styles \
             statusbar\
             settingswallpaperplugin\
             settingsnotificationsplugin\
-            settingspluginconfig
+            settingspluginconfig \
+            applauncher
 
 CONFIG += qt link_pkgconfig
 QT += quick compositor
@@ -130,43 +134,17 @@ PKGCONFIG += lipstick-qt5 \
     nemodevicelock
 
 OTHER_FILES += qml/*.qml \
-    qml/MainScreen.qml \
-    qml/compositor.qml \
-    qml/LauncherItemDelegate.qml \
-    qml/Lockscreen.qml \
-    qml/LockscreenClock.qml \
-    qml/AppSwitcher.qml \
-    qml/AppLauncher.qml \
-    qml/ToolBarLayoutExample.qml \
-    qml/SwitcherItem.qml \
-    qml/CloseButton.qml \
-    qml/compositor/WindowWrapperMystic.qml \
-    qml/compositor/WindowWrapperBase.qml \
-    qml/compositor/WindowWrapperAlpha.qml \
-    qml/compositor/ScreenGestureArea.qml \
-    qml/NotificationPreview.qml \
+    qml/compositor/*.qml \
     qml/scripts/desktop.js \
-    qml/FeedsPage.qml \
-    qml/Statusbar.qml \
-    qml/StatusbarItem.qml \
-    qml/WifiPanel.qml \
-	nemovars.conf \
-    qml/SimPanel.qml \
-    qml/NumButton.qml \
-    qml/USBModeSelector.qml \
-    qml/VolumeControl.qml \
-    qml/BatteryPanel.qml \
-    qml/CommonPanel.qml \
-    qml/ShutdownScreen.qml \
-    qml/GlacierRotation.qml
+    nemovars.conf \
+    qml/connectivity/*.qml
 
 TRANSLATIONS += i18n/glacer-home.ts
 
 DISTFILES += \
     i18n/glacer-home.ts \
-    qml/connectivity/ConnectionSelector.qml \
-    qml/statusbar/BatteryIndicator.qml \
-    settings-plugins/wallpaper/selectImage.qml \
-    settings-plugins/notifications/notifications.json \
-    settings-plugins/notifications/notifications.svg \
-    settings-plugins/notifications/notifications.qml
+    qml/*/*.qml \
+    settings-plugins/*/*.qml \
+    settings-plugins/*/*.json \
+    settings-plugins/*/*.svg
+

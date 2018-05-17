@@ -29,7 +29,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.1
+import QtQuick 2.6
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -43,6 +43,7 @@ import org.nemomobile.devicelock 1.0
 import "scripts/desktop.js" as Desktop
 
 Page {
+    id: desktop
     // This is used in the favorites page and in the lock screen
     WallClock {
         id: wallClock
@@ -63,7 +64,7 @@ Page {
         key: "/home/glacier/homeScreen/wallpaperImage"
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
     }
-    id: desktop
+
     property alias lockscreen: lockScreen
     property alias switcher: switcher
     property int statusBarHeight: statusbar.height

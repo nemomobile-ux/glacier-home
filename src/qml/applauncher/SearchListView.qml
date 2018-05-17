@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
+** Copyright (c) 2018, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,41 +30,68 @@
 **
 ****************************************************************************************/
 import QtQuick 2.6
-import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+
+import org.nemomobile.lipstick 0.1
 import org.nemomobile.contacts 1.0
 
 Item {
     id:rootItem
-    height: (searchField.text.length > 0 ?  listView.height+searchField.height : searchField.height) + (visible ? Theme.itemSpacingHuge + margin.height : 0)
-    visible: false
+    height: calculateHeight()
     anchors.bottomMargin:Theme.itemSpacingHuge
     property alias searchField: searchField
     property int oldHeight
 
-    Behavior on height {
-        enabled:!visible
-        NumberAnimation{ duration: 300 }
+    InverseMouseArea {
+        anchors.fill: parent
+        onPressed: cleanup()
     }
 
+
+    function cleanup(){
+        searchField.focus = false
+        appLauncher.searchString = ""
+        searchField.text = ""
+
+        if(!alwaysShowSearch.value == true)
+        {
+            searchListView.visible = false;
+        }
+    }
+
+    function calculateHeight()
+    {
+        if(rootItem.visible){
+            if(searchField.text.length > 0){
+               return  parent.height
+            }
+            return searchRow.height+Theme.itemSpacingHuge
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     onVisibleChanged: {
-        if( visible){
-            searchField.focus = true
-            searchField.forceActiveFocus()
-        } else searchField.focus = false
-        oldHeight=height
+        if(alwaysShowSearch.value == false)
+        {
+            if(visible){
+                rootItem.height = calculateHeight()
+                searchField.focus = true
+                searchField.forceActiveFocus()
+            } else {
+                searchField.focus = false
+            }
+            oldHeight=height
+        }
     }
 
-    Item {
-        id:margin
-        height: Theme.itemSpacingSmall
-    }
     Row {
         id:searchRow
         anchors {
-            top:margin.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
             topMargin: Theme.itemSpacingHuge
@@ -78,6 +106,15 @@ Item {
             height: searchField.height
             fillMode: Image.PreserveAspectFit
             source: "image://theme/search"
+
+            MouseArea{
+                id: hideShowMouseArea
+                anchors.fill: parent
+                onPressAndHold: {
+                    hideShowRow.visible = true
+                    rootItem.height = rootItem.height+hideShowRow.height
+                }
+            }
         }
 
         TextField {
@@ -85,25 +122,64 @@ Item {
             width:parent.width - searchIcon.width - Theme.itemSpacingMedium
             placeholderText: qsTr("Search")
             Binding {
-                target: gridview
+                target: appLauncher
                 property: "searchString"
                 value: searchField.text.toLowerCase().trim()
             }
             onTextChanged: {
-                if(tex.lenght>0) {
+                if(searchField.lenght>0) {
                     searchField.forceActiveFocus()
                 }
             }
         }
-
     }
+
+    Row{
+        id: hideShowRow
+        visible: false
+        width: parent.width-Theme.itemSpacingMedium*2
+        height: visible ? hideShowButton.height+Theme.itemSpacingMedium : 0
+        anchors{
+            top: searchRow.bottom
+            topMargin: visible ? Theme.itemSpacingMedium : 0
+        }
+
+        Button{
+            id: hideShowButton
+            text: alwaysShowSearch.value == true ? qsTr("Hide search panel") : qsTr("Pinup search panel")
+            width: parent.width
+            onClicked: {
+                rootItem.height = rootItem.height-hideShowRow.height
+                hideShowRow.visible = false
+                if(alwaysShowSearch.value == true)
+                {
+                    alwaysShowSearch.value = false
+                }
+                else
+                {
+                    alwaysShowSearch.value = true
+                }
+            }
+        }
+
+        InverseMouseArea {
+            anchors.fill: parent
+            onPressed: {
+                rootItem.height = rootItem.height-hideShowRow.height
+                hideShowRow.visible = false
+            }
+        }
+    }
+
     ListView {
         id:listView
         clip: true
         width: parent.width
         height:contentHeight
-        anchors.top: searchRow.bottom
-        anchors.topMargin: Theme.itemSpacingSmall
+        anchors{
+            top: searchRow.bottom
+            topMargin: listModel.count > 0 ? Theme.itemSpacingSmall : 0
+        }
         visible: searchString.length>0
         section.property: 'category'
         section.delegate: Component{
@@ -155,7 +231,7 @@ Item {
         }
 
         Connections {
-            target: gridview
+            target: appLauncher
             onSearchStringChanged: listView.update()
         }
 
@@ -190,15 +266,34 @@ Item {
                 for (i = 0; i < searchLauncherModel.itemCount; ++i) {
                     if (searchLauncherModel.get(i).type === LauncherModel.Folder) {
                         for(var j = 0; j< searchLauncherModel.get(i).itemCount; ++j ) {
-                            titles.push({'iconTitle':searchLauncherModel.get(i).get(j).title, 'iconSource':searchLauncherModel.get(i).get(j).iconId, 'id':i, 'folderId':j, 'category':qsTr("Application")})
+                            titles.push({
+                                            'iconTitle':searchLauncherModel.get(i).get(j).title,
+                                            'iconSource':searchLauncherModel.get(i).get(j).iconId,
+                                            'id':i,
+                                            'folderId':j,
+                                            'category':qsTr("Application"),
+                                            'extraCaption': qsTr("installed on you device")
+                                        })
                         }
                     } else {
-                        titles.push({'iconTitle':searchLauncherModel.get(i).title, 'iconSource':searchLauncherModel.get(i).iconId, 'id':i, 'folderId':-1, 'category':qsTr("Application")})
+                        titles.push({
+                                        'iconTitle':searchLauncherModel.get(i).title,
+                                        'iconSource':searchLauncherModel.get(i).iconId,
+                                        'id':i,
+                                        'folderId':-1,
+                                        'category':qsTr("Application"),
+                                        'extraCaption': qsTr("installed on you device")
+                                    })
                     }
                 }
                 for (i = 0; i < peopleModel.count; ++i) {
                     if(peopleModel.get(i).firstName && peopleModel.get(i).lastName) {
-                        contacts.push({'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName), 'iconSource':peopleModel.get(i).avatarUrl.toString(), 'extraCaption':peopleModel.get(i).phoneNumbers, 'category':qsTr("Contact")})
+                        contacts.push({
+                                          'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName),
+                                          'iconSource':peopleModel.get(i).avatarUrl.toString(),
+                                          'extraCaption':peopleModel.get(i).phoneNumbers,
+                                          'category':qsTr("Contact")
+                                      })
                     }
                 }
                 var filteredTitles = titles.filter(function (icon) {
@@ -236,7 +331,7 @@ Item {
                     found = existingTitleObject.hasOwnProperty(iconTitle)
                     if (!found) {
                         // for simplicity, just adding to end instead of corresponding position in original list
-                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category})
+                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category, 'extraCaption': ""})
                     }
                 }
                 for (i = 0; i < contacts.length; ++i) {
