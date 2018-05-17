@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
+** Copyright (c) 2018, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -47,6 +48,22 @@ Item {
         NumberAnimation{ duration: 300 }
     }
 
+    InverseMouseArea {
+        anchors.fill: parent
+        onPressed: cleanup()
+    }
+
+
+    function cleanup(){
+        searchField.focus = false
+        appLauncher.searchString = ""
+        searchField.text = ""
+
+        if(!alwaysShowSearch)
+        {
+            searchListView.visible = false;
+        }
+    }
 
     onVisibleChanged: {
         if( visible){
@@ -85,12 +102,12 @@ Item {
             width:parent.width - searchIcon.width - Theme.itemSpacingMedium
             placeholderText: qsTr("Search")
             Binding {
-                target: gridview
+                target: appLauncher
                 property: "searchString"
                 value: searchField.text.toLowerCase().trim()
             }
             onTextChanged: {
-                if(tex.lenght>0) {
+                if(searchField.lenght>0) {
                     searchField.forceActiveFocus()
                 }
             }
@@ -155,7 +172,7 @@ Item {
         }
 
         Connections {
-            target: gridview
+            target: appLauncher
             onSearchStringChanged: listView.update()
         }
 
@@ -190,15 +207,34 @@ Item {
                 for (i = 0; i < searchLauncherModel.itemCount; ++i) {
                     if (searchLauncherModel.get(i).type === LauncherModel.Folder) {
                         for(var j = 0; j< searchLauncherModel.get(i).itemCount; ++j ) {
-                            titles.push({'iconTitle':searchLauncherModel.get(i).get(j).title, 'iconSource':searchLauncherModel.get(i).get(j).iconId, 'id':i, 'folderId':j, 'category':qsTr("Application")})
+                            titles.push({
+                                            'iconTitle':searchLauncherModel.get(i).get(j).title,
+                                            'iconSource':searchLauncherModel.get(i).get(j).iconId,
+                                            'id':i,
+                                            'folderId':j,
+                                            'category':qsTr("Application"),
+                                            'extraCaption': qsTr("installed on you device")
+                                        })
                         }
                     } else {
-                        titles.push({'iconTitle':searchLauncherModel.get(i).title, 'iconSource':searchLauncherModel.get(i).iconId, 'id':i, 'folderId':-1, 'category':qsTr("Application")})
+                        titles.push({
+                                        'iconTitle':searchLauncherModel.get(i).title,
+                                        'iconSource':searchLauncherModel.get(i).iconId,
+                                        'id':i,
+                                        'folderId':-1,
+                                        'category':qsTr("Application"),
+                                        'extraCaption': qsTr("installed on you device")
+                                    })
                     }
                 }
                 for (i = 0; i < peopleModel.count; ++i) {
                     if(peopleModel.get(i).firstName && peopleModel.get(i).lastName) {
-                        contacts.push({'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName), 'iconSource':peopleModel.get(i).avatarUrl.toString(), 'extraCaption':peopleModel.get(i).phoneNumbers, 'category':qsTr("Contact")})
+                        contacts.push({
+                                          'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName),
+                                          'iconSource':peopleModel.get(i).avatarUrl.toString(),
+                                          'extraCaption':peopleModel.get(i).phoneNumbers,
+                                          'category':qsTr("Contact")
+                                      })
                     }
                 }
                 var filteredTitles = titles.filter(function (icon) {
@@ -236,7 +272,7 @@ Item {
                     found = existingTitleObject.hasOwnProperty(iconTitle)
                     if (!found) {
                         // for simplicity, just adding to end instead of corresponding position in original list
-                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category})
+                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category, 'extraCaption': ""})
                     }
                 }
                 for (i = 0; i < contacts.length; ++i) {
