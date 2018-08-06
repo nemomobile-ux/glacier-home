@@ -7,8 +7,6 @@ License:    BSD
 URL:        https://github.com/locusf/glacier-home
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    lipstick.desktop
-Source2:    lipstick.service
-Source100:  lipstick-glacier-home-qt5.yaml
 
 Requires:   lipstick-qt5 >= 0.17.0
 Requires:   nemo-qml-plugin-configuration-qt5
@@ -51,10 +49,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 
 %qmake5_install
-mkdir -p %{buildroot}%{_libdir}/systemd/user/
-cp -a %{SOURCE2} %{buildroot}%{_libdir}/systemd/user/
 
-install -D -m 644 %{SOURCE1} %{buildroot}/etc/xdg/autostart/lipstick.desktop
 mkdir -p %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/
 ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
 
