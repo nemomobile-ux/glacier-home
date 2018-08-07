@@ -236,7 +236,32 @@ Item {
         StatusbarItem {
             id: cellStatus
             iconSize: statusbar.height
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
+            source: if(cellularSignalBars.value){
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
+                    } else {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+                    }
+        }
+
+        StatusbarItem{
+            id: dataStatus
+            iconSize: statusbar.height
+            visible: cellularDataTechnology.value != "unknown"
+            source: {
+                if(cellularDataTechnology.value == "2") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
+                }else if(cellularDataTechnology.value == "2.5") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
+                }else if(cellularDataTechnology.value == "3") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
+                }else if(cellularDataTechnology.value == "3.5") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
+                }else if(cellularDataTechnology.value == "4") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
+                }else {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
+                }
+            }
         }
 
         StatusbarItem {
@@ -256,10 +281,8 @@ Item {
                     } else {
                         return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
                     }
-                } else if (wifimodel.powered && !wlan.connected) {
+                } else if (wlan.connected) {
                     return "image://theme/icon_wifi_touch"
-                } else {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_"+ cellularDataTechnology.value + ".png"
                 }
             }
         }
