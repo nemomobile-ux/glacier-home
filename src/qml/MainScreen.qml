@@ -39,6 +39,7 @@ import org.nemomobile.time 1.0
 import org.nemomobile.configuration 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.statusnotifier 1.0
 
 import "scripts/desktop.js" as Desktop
 
@@ -63,6 +64,10 @@ Page {
         id: wallpaperSource
         key: "/home/glacier/homeScreen/wallpaperImage"
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
+    }
+
+    StatusNotifierModel {
+        id: statusNotiferModel
     }
 
     property alias lockscreen: lockScreen

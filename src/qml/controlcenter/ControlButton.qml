@@ -5,9 +5,12 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import QtQuick.Layouts 1.0
 
 Item {
+    id: contolButton
     property string image: "image://theme/image"
     property string buttonColor: "#1f1f1f"
     property string textLabel: "Toggle"
+
+    signal clicked();
 
     height: parent.height
     Layout.fillWidth: true
@@ -32,6 +35,10 @@ Item {
             text: textLabel
             color: "white"
             opacity: 0.5
+        }
+
+        onClicked: {
+            contolButton.clicked()
         }
     }
 }

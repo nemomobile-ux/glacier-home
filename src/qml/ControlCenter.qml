@@ -47,40 +47,41 @@ import "controlcenter"
 
 //Area to return
 MouseArea{
-	property bool controlCenterState: false //Is control center enabled or disabled?
+    id: controlCenterArea
+    property bool controlCenterState: false //Is control center enabled or disabled?
 
-	width: Screen.width
+    width: Screen.width
     height: Screen.height
     visible: controlCenterState
     state: "hide"
 
     Rectangle{
-    	id: controlCenterOutAreaDim
+        id: controlCenterOutAreaDim
         anchors.fill: parent
         color: "black"
         opacity:0.5
     }
 
     //Control Center area
-	MouseArea{
-		width: parent.width
-	    height: parent.width
+    MouseArea{
+        width: parent.width
+        height: parent.width
 
-		Rectangle {
-	        id: controlCenter
-	        width: parent.width
-	        height: parent.width
+        Rectangle {
+            id: controlCenter
+            width: parent.width
+            height: parent.width
             color: Theme.backgroundColor
-	        radius:32
-	        x:0
-	        y:0
+            radius:32
+            x:0
+            y:0
 
-	        RowLayout {
-			    id: layout
+            RowLayout {
+                id: layout
 
-			    anchors.top: parent.top
+                anchors.top: parent.top
                 anchors.topMargin: size.dp(40 + 22)
-			    width: parent.width
+                width: parent.width
                 height: size.dp(86)
 
                 ControlButton{
@@ -103,35 +104,55 @@ MouseArea{
                     image: "image://theme/moon"
                     textLabel: qsTr("Quiet")
                 }
-			}
+            }
 
-	        Text {
-		        id: placeHolderText
-		        text: qsTr(":^)")
-		        anchors.centerIn: parent
-		        fontSizeMode: Text.Fit
-                color: Theme.textColor
-		    }
-		}
-	}
+            GridView{
+                id: notifyLayout
 
-	//Close the thing if background is tapped
-	onClicked: {
+                anchors{
+                    top: layout.bottom
+                    topMargin: size.dp(62)
+                    left: controlCenterArea.left
+                    leftMargin: size.dp(31)
+                }
+
+                width: parent.width
+
+                cellWidth: parent.width/5
+                cellHeight: cellWidth
+
+                model: statusNotiferModel
+                delegate: ControlButton{
+                    width: notifyLayout.cellWidth;
+                    height: notifyLayout.cellHeight
+                    image: notifierItem.icon
+                    textLabel: notifierItem.title
+
+                    onClicked: {
+                        notifierItem.activate()
+                    }
+                }
+            }
+        }
+    }
+
+    //Close the thing if background is tapped
+    onClicked: {
         //Do the stuff to show the menu
         setControlCenterState( false )
     }
 
-	function setControlCenterState(enabled) {
-		controlCenterState = true
+    function setControlCenterState(enabled) {
+        controlCenterState = true
         enabled ? state = '' : state = 'hide'
     }
     
     function getControlCenterState(){
-    	return controlCenterState;
+        return controlCenterState;
     }
 
     states: [
-         State { name: "hide"
+        State { name: "hide"
 
             PropertyChanges {
                 target: controlCenter
@@ -146,18 +167,18 @@ MouseArea{
     transitions: [
         Transition {
             SequentialAnimation {
-            	ScriptAction {
-		            script: controlCenterState = true
-		        }
-		        id: closeAnimation
-		        NumberAnimation { 
-	            	properties: "x,y,opacity" 
-	            	easing.type: Easing.InOutQuint
-	            }
-		        ScriptAction {
-		            script: state == 'hide' ? controlCenterState = false : controlCenterState = true
-		        }
-		    }
+                ScriptAction {
+                    script: controlCenterState = true
+                }
+                id: closeAnimation
+                NumberAnimation {
+                    properties: "x,y,opacity"
+                    easing.type: Easing.InOutQuint
+                }
+                ScriptAction {
+                    script: state == 'hide' ? controlCenterState = false : controlCenterState = true
+                }
+            }
         }
     ]
 }

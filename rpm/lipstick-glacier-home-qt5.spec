@@ -12,6 +12,7 @@ Requires:   lipstick-qt5 >= 0.17.0
 Requires:   nemo-qml-plugin-configuration-qt5
 Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
+Requires:   nemo-qml-plugin-statusnotifier
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
