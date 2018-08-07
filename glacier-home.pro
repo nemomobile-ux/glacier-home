@@ -23,8 +23,6 @@ qml.files = src/qml/MainScreen.qml \
     src/qml/compositor.qml \
     src/qml/LauncherItemDelegate.qml \
     src/qml/Lockscreen.qml \
-    src/qml/LockscreenNotificationItem.qml \
-    src/qml/LockscreenClock.qml \
     src/qml/AppSwitcher.qml \
     src/qml/AppLauncher.qml \
     src/qml/ToolBarLayoutExample.qml \
@@ -90,6 +88,10 @@ applauncher.files = src/qml/applauncher/SearchListView.qml \
 controlcenter.path = /usr/share/lipstick-glacier-home-qt5/qml/controlcenter
 controlcenter.files = src/qml/controlcenter/ControlButton.qml
 
+lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
+lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
+                   src/qml/lockscreen/LockscreenNotificationItem.qml
+
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
                        src/settings-plugins/wallpaper/selectImage.qml \
                        src/settings-plugins/wallpaper/wallpaper.svg
@@ -128,6 +130,7 @@ INSTALLS += styles \
             settingsnotificationsplugin\
             settingspluginconfig \
             applauncher \
+            lockscreen \
             systemd \
             desktop
 
@@ -161,5 +164,7 @@ DISTFILES += \
     settings-plugins/*/*.qml \
     settings-plugins/*/*.json \
     settings-plugins/*/*.svg \
-    rpm/*
+    rpm/* \
+    src/qml/lockscreen/LockscreenClock.qml \
+    src/qml/lockscreen/LockscreenNotificationItem.qml
 

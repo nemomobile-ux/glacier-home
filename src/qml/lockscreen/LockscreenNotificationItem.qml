@@ -35,11 +35,13 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
-import org.freedesktop.contextkit 1.0
-import MeeGo.Connman 0.2
-import org.nemomobile.lipstick 0.1
 import QtFeedback 5.0
 import QtMultimedia 5.0
+
+import org.freedesktop.contextkit 1.0
+import org.nemomobile.lipstick 0.1
+
+import MeeGo.Connman 0.2
 
 //Make this sort of a slider
 MouseArea{
