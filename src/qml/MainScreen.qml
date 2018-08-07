@@ -162,7 +162,7 @@ Page {
         }
 
         // Initial view should be the AppLauncher
-        //currentIndex: 0
+        currentIndex: 0
     }
     Image {
         id:wallpaper

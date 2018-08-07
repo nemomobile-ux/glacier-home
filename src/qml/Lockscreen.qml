@@ -9,6 +9,7 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 import "notifications"
+import "lockscreen"
 
 Image {
     id: lockScreen
