@@ -78,8 +78,11 @@ Item {
         id: statusbar
         height: parent.height*0.5
         width:  parent.width*0.5
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
+        anchors{
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: statusbar.height/2
+        }
     }
     Item {
         id: statusbarRight
@@ -201,6 +204,16 @@ Item {
     Row {
         anchors.fill: statusbar
         spacing: statusbar.height / 3
+
+        Repeater{
+            id: statusesRepeater
+            model: statusNotiferModel
+
+            delegate: StatusbarItem{
+                iconSize: statusbar.height
+                source: notifierItem.icon
+            }
+        }
     }
 
     Row {
