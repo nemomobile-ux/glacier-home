@@ -6,6 +6,11 @@ StatusbarItem {
     property int chargeValue: 0
     property alias batteryChargePercentage: batteryChargePercentage
 
+    width: statusbar.height*2
+    iconSize: statusbar.height * 2
+    iconSizeHeight: statusbar.height
+
+
     ContextProperty {
         id: batteryChargePercentage
         key: "Battery.ChargePercentage"
@@ -38,15 +43,11 @@ StatusbarItem {
         }
     }
 
-    width: statusbar.height
-    iconSize: statusbar.height * 2
-    iconSizeHeight: statusbar.height
-    panel: BatteryPanel {}
     source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png"
 
-    StatusbarItem {
-        iconSize: parent.iconSize
-        iconSizeHeight: parent.iconSizeHeight
+    Image {
+        width: parent.width
+        height: parent.height
         anchors.centerIn: parent
         source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery_grid.png"
     }
