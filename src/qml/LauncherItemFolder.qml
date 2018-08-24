@@ -94,7 +94,6 @@ Item {
             Image {
                 width: folderIconStack.iconSize
                 height: folderIconStack.iconSize
-                opacity: folderIconStack.transparency
                 x:toppestIcon.x+Theme.itemSpacingSmall
                 y:toppestIcon.y+Theme.itemSpacingSmall
                 visible: folderIconStack.icons.length > folderIconStack.iconCount-1
@@ -104,7 +103,6 @@ Item {
             Image {
                 width: folderIconStack.iconSize
                 height: folderIconStack.iconSize
-                opacity: folderIconStack.transparency
                 x:toppestIcon.x-Theme.itemSpacingSmall
                 y:toppestIcon.y+Theme.itemSpacingSmall
                 visible: folderIconStack.icons.length > folderIconStack.iconCount-2
@@ -114,7 +112,6 @@ Item {
             Image {
                 width: folderIconStack.iconSize
                 height: folderIconStack.iconSize
-                opacity: folderIconStack.transparency
                 x:toppestIcon.x+Theme.itemSpacingSmall
                 y:toppestIcon.y-Theme.itemSpacingSmall
                 visible: folderIconStack.icons.length > folderIconStack.iconCount-3
@@ -125,11 +122,11 @@ Item {
                 id:toppestIcon
                 width: folderIconStack.iconSize
                 height: folderIconStack.iconSize
-                opacity: folderIconStack.transparency
                 anchors.centerIn: parent
                 visible: folderIconStack.icons.length > 0
                 source: visible ? folderIconStack.icons[0]: ""
             }
+
             Text{
                 id: itemsCount
                 visible: false// launcherItem.isFolder
@@ -162,7 +159,7 @@ Item {
             width: wrapper.height/4
             height: width
             rotation: 45
-            color: "white"
+            color: Theme.textColor
             opacity: 0.85
             visible: folderLoader.visible && folderLoader.count > 0
             anchors.top:launcherItem.bottom
