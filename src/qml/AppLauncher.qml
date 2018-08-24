@@ -50,6 +50,13 @@ Flickable{
         defaultValue: true
     }
 
+    ConfigurationValue {
+        id: columnCount
+        key: "/home/glacier/appLauncher/columnCount"
+        defaultValue: 4
+    }
+
+
     /*top search line*/
     SearchListView {
         id: searchListView
@@ -101,17 +108,19 @@ Flickable{
     /*app grid*/
     GridView {
         id: gridview
-        cellWidth: size.dp(iconSize + 40)
-        cellHeight: size.dp(iconSize + 80)
+        cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
+        cellHeight:  cellWidth
+
         height: parent.height
-        width: cellWidth * Math.floor(parent.width / cellWidth)
+        width: parent.width
+
         cacheBuffer: gridview.contentHeight
 
         property Item reorderItem
         property bool onUninstall
         property alias deleter: deleter
         property var switcher: null
-        property int iconSize: 86
+        property int iconSize: Theme.itemHeightSmall
 
         maximumFlickVelocity: parent.Height * 4
 
