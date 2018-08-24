@@ -135,6 +135,18 @@ Image {
         }
     }
 
+    DeviceLockUI {
+        id: codePad
+        visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
+        width: lockScreen.width
+        height: visible ? lockScreen.height / 2 : 0
+        anchors {
+            verticalCenter: lockScreen.verticalCenter
+        }
+
+        z: 200
+    }
+
     Column {
         id: lockscreenNotificationColumn
         

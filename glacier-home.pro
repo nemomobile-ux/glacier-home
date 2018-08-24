@@ -90,7 +90,7 @@ controlcenter.files = src/qml/controlcenter/ControlButton.qml
 
 lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
 lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
-                   src/qml/lockscreen/LockscreenNotificationItem.qml
+                   src/qml/lockscreen/DeviceLockUI.qml
 
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
                        src/settings-plugins/wallpaper/selectImage.qml \
