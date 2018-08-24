@@ -165,6 +165,5 @@ DISTFILES += \
     settings-plugins/*/*.json \
     settings-plugins/*/*.svg \
     rpm/* \
-    src/qml/lockscreen/LockscreenClock.qml \
-    src/qml/lockscreen/LockscreenNotificationItem.qml
+    src/qml/lockscreen/LockscreenClock.qml
 
