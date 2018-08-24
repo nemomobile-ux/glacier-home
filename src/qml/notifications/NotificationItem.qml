@@ -136,8 +136,8 @@ Item {
 
     Rectangle{
         id: progressBar
-        width: parent.width*modelData.progress
-        height: parent.height
+        width: notifyArea.width * modelData.progress
+        height: notifyArea.height
         color: Theme.accentColor
         radius: Theme.itemSpacingMedium
         opacity: 0.75
@@ -145,7 +145,11 @@ Item {
             top: parent.top
             left: parent.left
         }
-        visible: modelData.hasProgress
+        visible: modelData.progress != 0
+
+        Behavior on width{
+            NumberAnimation { duration: 333 }
+        }
     }
 
     Image {
