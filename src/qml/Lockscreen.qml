@@ -128,6 +128,7 @@ Image {
     }
 
     LockscreenClock {
+        id: lockscreenClock
         anchors {
             top: parent.top
             left: parent.left
@@ -141,7 +142,8 @@ Image {
         width: lockScreen.width
         height: visible ? lockScreen.height / 2 : 0
         anchors {
-            verticalCenter: lockScreen.verticalCenter
+            top: lockscreenClock.bottom
+            topMargin: Theme.itemSpacingHuge
         }
 
         z: 200

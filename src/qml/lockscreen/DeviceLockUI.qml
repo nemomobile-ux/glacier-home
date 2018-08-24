@@ -2,13 +2,12 @@ import QtQuick 2.6
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import QtQuick.Layouts 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.dbus 2.0
 
-import "scripts/desktop.js" as Desktop
+import "../scripts/desktop.js" as Desktop
 
 Item {
     id: root
@@ -17,9 +16,8 @@ Item {
     property int remainingAttempts
     property AuthenticationInput authenticationInput
 
-    ColumnLayout {
+    Column {
         anchors.fill: parent
-        spacing: Theme.itemSpacingLarge
 
         SequentialAnimation  {
             id: animation;
@@ -30,6 +28,7 @@ Item {
             }
             NumberAnimation { target: codePad; property: "anchors.horizontalCenterOffset"; to: 0; duration: 100 }
         }
+
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width
@@ -44,30 +43,79 @@ Item {
                 text: " "
             }
         }
-        TextField {
-            id: lockCodeField
-            anchors.topMargin: Theme.itemSpacingMedium
+
+        Rectangle{
+            id: lockCode
+            width: parent.width*0.85
+            height: Theme.itemHeightExtraLarge
+            radius: Theme.itemSpacingSmall
+
             anchors.horizontalCenter: parent.horizontalCenter
-            readOnly: true
-            echoMode: TextInput.PasswordEchoOnEdit
-            font.pixelSize: Theme.fontSizeMedium
+
+            color: "transparent"
+            clip: true
+
+            Rectangle{
+                anchors.fill: parent
+                color: Theme.backgroundColor
+                opacity: 0.5
+                radius: Theme.itemSpacingSmall
+            }
+
+            TextField {
+                id: lockCodeField
+
+                anchors{
+                    left: parent.left
+                    leftMargin: Theme.itemSpacingSmall
+                    verticalCenter: parent.verticalCenter
+                }
+
+                readOnly: true
+                echoMode: TextInput.PasswordEchoOnEdit
+                font.pixelSize: Theme.fontSizeMedium
+            }
+
+            Image {
+                width: parent.height-Theme.itemSpacingSmall*2
+                height: width
+
+                anchors{
+                    right: parent.right
+                    rightMargin: Theme.itemSpacingSmall*2
+                    verticalCenter: parent.verticalCenter
+                }
+                fillMode: Image.PreserveAspectFit
+                source:  (lockCodeField.echoMode == TextInput.PasswordEchoOnEdit) ? "image://theme/eye-slash" : "image://theme/eye"
+
+                MouseArea{
+                    anchors.fill: parent
+                    onPressAndHold: {
+                        if(lockCodeField.echoMode == TextInput.PasswordEchoOnEdit) {
+                            lockCodeField.echoMode = TextInput.Normal
+                        } else {
+                            lockCodeField.echoMode = TextInput.PasswordEchoOnEdit
+                        }
+                    }
+                }
+            }
         }
 
-        GridLayout {
+        Grid {
             id: codePad
             height: parent.height
-            width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
             columns: 3
             Repeater {
-                model: ["1","2","3","4","5","6","7","8","9","Ca","0","OK"]
+                model: ["1","2","3","4","5","6","7","8","9","<","0","OK"]
                 delegate:
-                    Button {
+                    Rectangle {
                     id:button
-                    opacity: 1
-                    Layout.maximumWidth: Theme.itemWidthSmall
-                    Layout.maximumHeight: Theme.itemHeightHuge * 2
-                    Layout.minimumHeight: Theme.itemHeightHuge * 1.5
+                    width: root.width/3 > root.height/4 ? root.height/4 : root.width/3
+                    height: width
+
+                    color: "transparent"
+
                     Text {
                         id: numLabel
                         text: modelData
@@ -75,17 +123,27 @@ Item {
                         anchors.centerIn: parent
                         color: "white"
                     }
-                    onClicked: {
-                        displayOffTimer.restart()
-                        feedbackLabel.text = " "
-                        attemptsRemainingLabel.text = " "
-                        if (numLabel.text !== "Ca" && numLabel.text !== "OK") {
-                            lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
-                        } else {
-                            if (numLabel.text === "OK") {
-                                authenticationInput.enterSecurityCode(lockCodeField.text)
-                                lockCodeField.text = ""
-                            } else if (numLabel.text === "Ca"){
+
+                    MouseArea{
+                        anchors.fill: parent
+
+                        onClicked: {
+                            feedbackLabel.text = " "
+                            attemptsRemainingLabel.text = " "
+                            if (numLabel.text !== "<" && numLabel.text !== "OK") {
+                                lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
+                            } else {
+                                if (numLabel.text === "OK") {
+                                    authenticationInput.enterSecurityCode(lockCodeField.text)
+                                    lockCodeField.text = ""
+                                } else if (numLabel.text === "<"){
+                                    lockCodeField.text = lockCodeField.text.slice(0, -1)
+                                }
+                            }
+                        }
+
+                        onPressAndHold: {
+                            if (numLabel.text === "<"){
                                 lockCodeField.text = ""
                             }
                         }
@@ -114,6 +172,7 @@ Item {
             feedbackLabel.text = qsTr("Temporarily locked")
         }
     }
+
     function displayError(error) {
         console.log("displayError "+error)
     }
