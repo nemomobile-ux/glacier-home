@@ -48,30 +48,7 @@ Item {
         }
     }
     clip: true
-    // Empty switcher indicator
-    Rectangle {
-        id: topText
-        visible: switcherModel.itemCount === 0
-        width: noAppsLabel.width
-        height: Theme.itemHeightMedium
-        anchors {
-            top: parent.top
-            topMargin:Theme.itemSpacingLarge
-            horizontalCenter: parent.horizontalCenter
-        }
-        color: "transparent"
 
-        Label {
-            id: noAppsLabel
-            text: qsTr("No apps open")
-            anchors {
-                top: parent.top
-                left: parent.left
-            }
-            font.weight: Font.Light
-            font.pixelSize: Theme.fontSizeLarge
-        }
-    }
     Flickable {
         id: flickable
         contentHeight: gridview.height
