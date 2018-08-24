@@ -138,22 +138,30 @@ Image {
     Column {
         id: lockscreenNotificationColumn
         
-        width:parent.width * 0.85
+        width:parent.width
 
         anchors {
             bottom: parent.bottom
-            bottomMargin: 172
-            
+            bottomMargin: Theme.itemSpacingHuge
             horizontalCenter: parent.horizontalCenter
         }
-        spacing: 32
+
+        spacing: Theme.itemSpacingHuge
 
         Repeater {
             model: NotificationListModel{
                 id: notifmodel
             }
 
-            delegate: LockscreenNotificationItem{}
+            delegate: NotificationItem{
+                Rectangle{
+                    anchors.fill: parent
+                    color: Theme.backgroundColor
+                    opacity: 0.5
+                    radius: Theme.itemSpacingSmall
+                    z: -1
+                }
+            }
         }
     }
 }
