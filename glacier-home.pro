@@ -21,30 +21,17 @@ theme.files = src/qml/theme/*.png
 qml.path = /usr/share/lipstick-glacier-home-qt5/qml
 qml.files = src/qml/MainScreen.qml \
     src/qml/compositor.qml \
-    src/qml/LauncherItemDelegate.qml \
     src/qml/Lockscreen.qml \
     src/qml/AppSwitcher.qml \
     src/qml/AppLauncher.qml \
-    src/qml/ToolBarLayoutExample.qml \
     src/qml/SwitcherItem.qml \
     src/qml/CloseButton.qml \
-    src/qml/NotificationPreview.qml \
     src/qml/FeedsPage.qml \
     src/qml/Statusbar.qml \
-    src/qml/StatusbarItem.qml \
-    src/qml/WifiPanel.qml \
-    src/qml/SimPanel.qml \
-    src/qml/NumButton.qml \
-    src/qml/USBModeSelector.qml \
     src/qml/Pager.qml \
     src/qml/VolumeControl.qml \
-    src/qml/BatteryPanel.qml \
-    src/qml/CommonPanel.qml \
     src/qml/ShutdownScreen.qml \
     src/qml/GlacierRotation.qml \
-    src/qml/DeviceLockUI.qml \
-    src/qml/LauncherItemWrapper.qml \
-    src/qml/LauncherItemFolder.qml \
     src/qml/ControlCenter.qml
 
 qmlcompositor.path = /usr/share/lipstick-glacier-home-qt5/qml/compositor
@@ -83,7 +70,10 @@ statusbar.files = src/qml/statusbar/BatteryPanel.qml\
 
 applauncher.path = /usr/share/lipstick-glacier-home-qt5/qml/applauncher
 applauncher.files = src/qml/applauncher/SearchListView.qml \
-                src/qml/applauncher/Deleter.qml
+                src/qml/applauncher/Deleter.qml \
+                src/qml/applauncher/LauncherItemDelegate.qml \
+                src/qml/applauncher/LauncherItemWrapper.qml \
+                src/qml/applauncher/LauncherItemFolder.qml
 
 controlcenter.path = /usr/share/lipstick-glacier-home-qt5/qml/controlcenter
 controlcenter.files = src/qml/controlcenter/ControlButton.qml
