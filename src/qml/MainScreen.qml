@@ -164,6 +164,7 @@ Page {
         // Initial view should be the AppLauncher
         currentIndex: 0
     }
+
     Image {
         id:wallpaper
         source: wallpaperSource.value
@@ -190,17 +191,5 @@ Page {
         width: parent.width
         height: parent.height
         z: 200
-
-        DeviceLockUI {
-            id: codePad
-            visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
-            width: lockScreen.width
-            height:lockScreen.height / 2
-            anchors {
-                verticalCenter: lockScreen.verticalCenter
-            }
-
-            z: 200
-        }
     }
 }
