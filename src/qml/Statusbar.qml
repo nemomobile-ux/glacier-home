@@ -33,60 +33,67 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import org.freedesktop.contextkit 1.0
-import MeeGo.Connman 0.2
+import QtGraphicalEffects 1.0
+import QtFeedback 5.0
+import QtMultimedia 5.0
 
+import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
+
+import MeeGo.Connman 0.2
 
 import "statusbar"
 
 Item {
     id: root
     z: 201
-    height: Theme.itemHeightMedium
+    height: size.dp(40)
     width: parent.width
-    anchors.bottom: parent.bottom
-    enabled: !lockscreenVisible()
+    anchors.top: parent.top
+
+    ControlCenter{ 
+        id: ctrlCenter
+    }
 
     Rectangle {
-        id: statusbar
-        color: Theme.fillDarkColor
+        id: statusbarPadding
         anchors.fill: parent
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.75) }
+            GradientStop { position: 1.0; color: "transparent" }
+        }
+    }
+
+    Rectangle {
+        id: statusbarPressFeedback
+        anchors.fill: parent
+        visible: false
+        color: "black"
         opacity: 0.5
-        z: 200
+        z:202
     }
 
-    MouseArea {
-        property int oldX
-        property int oldY
-        anchors.fill: row
-        z: row.z + 10
-        //enabled: !lockscreenVisible()
-        onClicked: {
-            if(oldX != mouseX && oldY !== mouseY && row.childAt(mouseX, mouseY) && row.currentChild !== row.childAt(mouseX, mouseY)) {
-                row.currentChild = row.childAt(mouseX, mouseY)
-                row.currentChild.clicked()
-            }else {
-                row.currentChild = null
-            }
-        }
-
-        onPositionChanged: {
-            oldX = mouseX
-            oldY = mouseY
-            if(pressed && row.childAt(mouseX, mouseY)) {
-                if(row.currentChild !== row.childAt(mouseX, mouseY)) {
-                    row.currentChild = row.childAt(mouseX, mouseY)
-                    if(panel_loader.visible) panel_loader.visible = false
-                    row.currentChild.clicked()
-                }
-            } else {
-                row.currentChild = null
-            }
+    Item {
+        id: statusbar
+        height: parent.height*0.5
+        width:  parent.width*0.5
+        anchors{
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: statusbar.height/2
         }
     }
-
+    Item {
+        id: statusbarRight
+        height: parent.height*0.5
+        width:  parent.width*0.5
+        anchors{
+            verticalCenter: statusbar.verticalCenter
+            right: parent.right
+            rightMargin: statusbarRight.height/2
+        }
+    }
 
     Connections {
         target: lipstickSettings;
@@ -194,150 +201,164 @@ Item {
         }
     }
 
-    RowLayout {
-        id:row
+    Row {
         anchors.fill: statusbar
-        spacing: Theme.itemSpacingSmall
-        property var currentChild
+        spacing: statusbar.height / 3
+
+        Repeater{
+            id: statusesRepeater
+            model: statusNotiferModel
+
+            delegate: StatusbarItem{
+                iconSize: statusbar.height
+                source: notifierItem.icon
+            }
+        }
+    }
+
+    Row {
+        id: rightStatusBar
+
+        anchors.fill: statusbarRight
+        spacing: statusbar.height / 3
+        layoutDirection: Qt.RightToLeft
+
         StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: (cellularSignalBars.value > 0) ? "image://theme/icon_cell" + cellularSignalBars.value : "image://theme/icon_cell1"
+            id: clock
+            Text {
+                id: hours
+                wrapMode: Text.WrapAnywhere
+                font.pixelSize: statusbar.height
+                color: Theme.textColor
+                height: statusbar.height
+                verticalAlignment: Text.AlignVCenter
 
-            MouseArea{
-                anchors.fill: parent
-                onPressAndHold: {
-                    var screenShotPath = "/home/nemo/Pictures/Screenshots/"
-                    var file = "glacier-screenshot-"+Qt.formatDateTime(new Date, "yyMMdd_hhmmss")+".png"
-
-                    Lipstick.takeScreenshot(screenShotPath + file);
+                text: {
+                    //Todo: Get regional settings
+                    var separator = ":"
+                    return Qt.formatDateTime(wallClock.time, "hh") + separator + Qt.formatDateTime(wallClock.time, "mm")
                 }
             }
-
-        }
-
-        StatusbarItem {
-            iconSize: root.height
-            Item {
-                anchors.centerIn: parent
-                width: parent.width
-                height: tech.font.pixelSize*2
-                Label {
-                    id: tech
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment:Text.AlignBottom
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    clip:true
-                    text: (cellularNetworkName.value !== "") ? cellularNetworkName.value.substring(0,3).toUpperCase() : "NA"
-                }
-
-                Label {
-                    y: -contentHeight + font.pixelSize*2 + tech.y
-                    horizontalAlignment: Text.AlignHCenter
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: {
-                        var techToG = {gprs: "2", egprs: "2.5", umts: "3", hspa: "3.5", lte: "4", unknown: "0"}
-                        return techToG[cellularDataTechnology.value ? cellularDataTechnology.value : "unknown"] + "G"
-                    }
-                }
-            }
-            panel: SimPanel {}
-        }
-
-        StatusbarItem {
-            id:wifiStatus
-            iconSize: Theme.itemHeightExtraSmall
-            source: {
-                if (wlan.connected) {
-                    if (networkManager.defaultRoute.type !== "wifi")
-                        return "image://theme/icon_wifi_0"
-                    if (networkManager.defaultRoute.strength >= 59) {
-                        return "image://theme/icon_wifi_focused4"
-                    } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "image://theme/icon_wifi_focused3"
-                    } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "image://theme/icon_wifi_focused2"
-                    } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "image://theme/icon_wifi_focused1"
-                    } else {
-                        return "image://theme/icon_wifi_0"
-                    }
-                } else if (wifimodel.powered && !wlan.connected) {
-                    return "image://theme/icon_wifi_touch"
-                } else {
-                    return "image://theme/icon_wifi_0"
-                }
-            }
-            panel: WifiPanel {}
-        }
-        StatusbarItem {
-            id: bluetootIndicator
-            iconSize: Theme.itemHeightExtraSmall
-            source: (bluetoothConnected.value) ? "image://theme/icon_bt_focused" : "image://theme/icon_bt_normal"
-            visible: bluetoothEnabled.value
-        }
-        StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: "image://theme/icon_nfc_normal"
-        }
-        StatusbarItem {
-            iconSize: Theme.itemHeightExtraSmall
-            source: "image://theme/icon_gps_normal"
-        }
-
-        StatusbarItem {
-            MprisManager {
-                id: mprisManager
-            }
-            property bool isPlaying: mprisManager.currentService && mprisManager.playbackStatus == Mpris.Playing
-
-            iconSize: Theme.itemHeightExtraSmall
-            source: isPlaying ?
-                        "image://theme/pause"
-                      : "image://theme/play"
-
-            panel: MediaController{}
-        }
-        StatusbarItem {
-            iconSize: root.height
-            Item {
-                anchors.centerIn: parent
-                width: parent.width
-                height: hours.font.pixelSize*2
-                Label {
-                    id: hours
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment:Text.AlignBottom
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: Qt.formatDateTime(wallClock.time, "hh")
-                }
-                Label {
-                    id: minutes
-                    y: -contentHeight + font.pixelSize*2 + hours.y
-                    horizontalAlignment: Text.AlignHCenter
-                    width: parent.width
-                    height: paintedHeight
-                    font.pixelSize: Theme.fontSizeSmall
-                    elide:Text.ElideNone
-                    maximumLineCount: 1
-                    text: Qt.formatDateTime(wallClock.time, "mm")
-                }
-            }
+            iconSize: hours.width
         }
 
         BatteryIndicator{
-            id:batteryIndicator
+            id: batteryIndicator
+        }
+
+        StatusbarItem {
+            id: cellStatus
+            iconSize: statusbar.height
+            source: if(cellularSignalBars.value){
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
+                    } else {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+                    }
+        }
+
+        StatusbarItem{
+            id: dataStatus
+            iconSize: statusbar.height
+            visible: cellularDataTechnology.value != "unknown"
+            source: {
+                if(cellularDataTechnology.value == "2") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
+                }else if(cellularDataTechnology.value == "2.5") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
+                }else if(cellularDataTechnology.value == "3") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
+                }else if(cellularDataTechnology.value == "3.5") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
+                }else if(cellularDataTechnology.value == "4") {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
+                }else {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
+                }
+            }
+        }
+
+        StatusbarItem {
+            id: wifiStatus
+            iconSize: statusbar.height
+            visible: wifimodel.powered
+            source: {
+                if (wlan.connected) {
+                    if (networkManager.defaultRoute.strength >= 59) {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_4.png"
+                    } else if (networkManager.defaultRoute.strength >= 55) {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_3.png"
+                    } else if (networkManager.defaultRoute.strength >= 50) {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_2.png"
+                    } else if (networkManager.defaultRoute.strength >= 40) {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_1.png"
+                    } else {
+                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
+                    }
+                } else if (wlan.connected) {
+                    return "image://theme/icon_wifi_touch"
+                }
+            }
+        }
+
+        StatusbarItem {
+            id: bluetoothIndicator
+            iconSize:       statusbar.height * 0.671875
+            iconSizeHeight: statusbar.height
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_bluetooth.png"
+            visible: bluetoothEnabled.value
+        }
+
+        StatusbarItem {
+            id: nfcIndicator
+            iconSize: statusbar.height
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_nfc.png"
+        }
+
+        StatusbarItem {
+            id: gpsIndicator
+            iconSize: statusbar.height * 0.75
+            iconSizeHeight: statusbar.height
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
+        }
+
+        //Status Bar Click
+        HapticsEffect {
+            id: rumbleEffect
+            attackIntensity: 0.0
+            attackTime: 250
+            intensity: 1.0
+            duration: 1
+            fadeTime: 250
+            fadeIntensity: 0.0
+        }
+
+        MouseArea {
+            width: root.width
+            height: root.height
+            onClicked: {
+                //Do the stuff to show the menu
+                ctrlCenter.setControlCenterState( !ctrlCenter.getControlCenterState() )
+            }
+            onReleased: {
+                rumbleEffect.start();  // plays a rumble effect
+                buttonUp.play();
+                statusbarPressFeedback.visible = false
+            }
+            onPressed: {
+                rumbleEffect.start();  // plays a rumble effect
+                buttonDown.play();
+                statusbarPressFeedback.visible = true
+            }
+        }
+
+        SoundEffect {
+            id: buttonDown
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_down.wav"
+        }
+
+        SoundEffect {
+            id: buttonUp
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_up.wav"
         }
     }
 }

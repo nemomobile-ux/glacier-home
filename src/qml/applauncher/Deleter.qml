@@ -29,6 +29,9 @@ Item {//Doesn't yet uninstall applications
     id: deleter
     property alias remove: remove
     property alias uninstall: uninstall
+
+    property Item delegate: Item{}
+
     function uninstalling(action, caption) {
         state = action
         if (action==="remove") {

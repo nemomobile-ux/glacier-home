@@ -113,14 +113,14 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeTiny
             color: Theme.textColor
+
+            wrapMode: Text.WordWrap
+
             //https://bugreports.qt.io/browse/QTBUG-56052
             y: -contentHeight + font.pixelSize + iconWrapper.y + iconWrapper.height
             anchors {
-                left: parent.left
-                right: parent.right
+                bottom: parent.bottom
             }
         }
     }
-
-
 }

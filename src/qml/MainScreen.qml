@@ -39,6 +39,7 @@ import org.nemomobile.time 1.0
 import org.nemomobile.configuration 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.statusnotifier 1.0
 
 import "scripts/desktop.js" as Desktop
 
@@ -65,6 +66,10 @@ Page {
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
     }
 
+    StatusNotifierModel {
+        id: statusNotiferModel
+    }
+
     property alias lockscreen: lockScreen
     property alias switcher: switcher
     property int statusBarHeight: statusbar.height
@@ -81,6 +86,9 @@ Page {
             } else { Qt.quit(); }
         }
     }
+
+    //Todo: Property to set statusbar on top or bottom
+    //Also todo: Make this a window?
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
@@ -104,8 +112,8 @@ Page {
     }
 
     Component.onCompleted: {
-        Desktop.instance = desktop
         Lipstick.compositor.screenOrientation = nativeOrientation
+        LipstickSettings.lockScreen(true)
     }
 
     Connections {
@@ -126,13 +134,13 @@ Page {
         } else {
             LipstickSettings.lockscreenVisible = false
         }
-
     }
 
     Pager {
         id: pager
-
+        anchors.topMargin: Math.min(parent.width,parent.height)/13.33333333333 //Get statusbar height instead of hardcoding the same value
         anchors.fill: parent
+        scale: 0.9 + 0.1 * lockScreen.openingState
         model: VisualItemModel {
             AppLauncher {
                 id: launcher
@@ -154,33 +162,34 @@ Page {
         }
 
         // Initial view should be the AppLauncher
-        //currentIndex: 0
+        currentIndex: 0
     }
+
     Image {
         id:wallpaper
         source: wallpaperSource.value
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
+        
         z: -100
     }
+
+    //Rectangle for dimming on app swipe close 
+    Rectangle{
+        width: parent.width
+        height: parent.height
+        opacity: 1-lockScreen.openingState
+        visible: lockScreen.openingState === 1? false : true
+        color: "black"
+        z: 199
+    }
+
     Lockscreen {
         id: lockScreen
         visible: lockscreenVisible()
+
         width: parent.width
         height: parent.height
         z: 200
-
-        DeviceLockUI {
-            id: codePad
-            visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
-            width: lockScreen.width
-            height:lockScreen.height / 2
-            anchors {
-                verticalCenter: lockScreen.verticalCenter
-            }
-
-            z: 200
-        }
     }
-
 }
