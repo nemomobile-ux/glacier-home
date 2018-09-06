@@ -1,4 +1,4 @@
-
+/*
 // This file is part of colorful-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,11 +21,13 @@
 //
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
-
-import QtQuick 2.0
-import org.nemomobile.lipstick 0.1
+// Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
+*/
+import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+
+import org.nemomobile.lipstick 0.1
 
 import "../scripts/desktop.js" as Desktop
 
@@ -34,12 +36,24 @@ Item {
     property alias summary: summary.text
     property alias body: body.text
     property alias icon: icon.source
-    width: Desktop.instance.parent.width
-    height: Desktop.instance.parent.height
+    width: Desktop.instance.width
+    height: Desktop.instance.height
     rotation: Desktop.instance.parent.rotation
-    x: Desktop.instance.parent.x
-    y: Desktop.instance.parent.y
+    x: Desktop.instance.x
+    y: Desktop.instance.y
 
+/*Glacier use fontawesome icons but nemo use maemo icons */
+    function formatIcon(icon){
+        if(icon === "") {
+            return "../images/notification-circle.png"
+        }
+
+        if(icon === "icon-system-charging") {
+            return "image://theme/plug"
+        }
+
+        return "image://theme/"+icon;
+    }
 
     MouseArea {
         id: notificationArea
@@ -76,7 +90,7 @@ Item {
                 },
                 State {
                     name: "hide"
-                    PropertyChanges { 
+                    PropertyChanges {
                         target: notificationArea
                         opacity: 0
                         y: -notificationArea.height
@@ -94,8 +108,8 @@ Item {
                 Transition {
                     to: "show"
                     SequentialAnimation {
-                        NumberAnimation { 
-                            properties: "x,y,opacity" 
+                        NumberAnimation {
+                            properties: "x,y,opacity"
                             easing.type: Easing.InOutQuint
                         }
                         ScriptAction { scriptName: "notificationShown" }
@@ -104,8 +118,8 @@ Item {
                 Transition {
                     to: "hide"
                     SequentialAnimation {
-                        NumberAnimation { 
-                            properties: "x,y,opacity" 
+                        NumberAnimation {
+                            properties: "x,y,opacity"
                             easing.type: Easing.InOutQuint
                         }
                         ScriptAction { scriptName: "notificationHidden" }
@@ -120,38 +134,50 @@ Item {
                 onTriggered: notificationPreview.state = "hide"
             }
 
-            Rectangle{
-                width:parent.height
-                height:parent.height
 
-                color: "transparent"
-                id: iconDiv
-                Image {
-                    id: icon
-                    width: notificationArea.notificationIconSize
-                    height: width
-                    anchors.centerIn: parent
-                    source: "../images/notification-circle.png"
+            Image {
+                id: icon
+                width: notificationArea.notificationIconSize
+                height: width
+                anchors{
+                    left: parent.left
+                    leftMargin: (notificationArea.height-width)/2
+                    verticalCenter: parent.verticalCenter
                 }
+
+                source: formatIcon(notificationPreviewPresenter.notification.icon)
             }
+
             Rectangle{
+                id: label
                 color: "transparent"
                 width: parent.width - parent.height
-                height: icon.height
+                height: parent.height
+
+                clip: true
+
                 anchors {
-                    top: icon.top
-                    left: iconDiv.right
-                    verticalCenter: parent.verticalCenter
+                    top: parent.top
+                    left: icon.right
+                    leftMargin: (notificationArea.height-icon.width)/2
                 }
                 Text {
                     id: summary
                     width:  parent.width
+                    height: (text == "") ? 0 : undefined
                     font {
-                        pointSize: 7
+                        pointSize: Theme.fontSizeTiny/4
                         bold: true
                     }
+
+                    anchors{
+                        left: parent.left
+                        top: parent.top
+                        topMargin: (text == "") ? undefined : (notificationArea.height-icon.width)/4
+                    }
+
                     text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
-                    color: "white"
+                    color: Theme.textColor
                     clip: true
                     elide: Text.ElideRight
                 }
@@ -159,12 +185,13 @@ Item {
                 Text {
                     id: body
                     anchors {
-                        top: summary.bottom
-                        left: summary.left
-                        right: summary.right
+                        top: (summary.text == "") ? undefined : summary.bottom
+                        left: (summary.text == "") ? undefined : summary.left
+                        right: (summary.text == "") ? undefined : summary.right
+                        verticalCenter: (summary.text == "") ? parent.verticalCenter : undefined
                     }
                     font {
-                        pointSize: 7
+                        pointSize: (summary.text == "") ? Theme.fontSizeTiny/4 : Theme.fontSizeTiny/6
                         bold: false
                     }
                     width:  parent.width
@@ -177,7 +204,9 @@ Item {
 
             Connections {
                 target: notificationPreviewPresenter;
-                onNotificationChanged: notificationPreview.state = (notificationPreviewPresenter.notification != null) ? "show" : "hide"
+                onNotificationChanged: {
+                    notificationPreview.state = (notificationPreviewPresenter.notification != null) ? "show" : "hide"
+                }
             }
 
             //Hack to only have border radius on the bottom corner, qml doesn't allow per corner radius
