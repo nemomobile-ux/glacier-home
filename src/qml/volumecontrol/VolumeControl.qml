@@ -50,7 +50,7 @@ Rectangle{
 
     property int pressedKey
 
-    visible: false
+    visible: volumeControl.windowVisible
 
     Slider {
         id: volumeSlider
