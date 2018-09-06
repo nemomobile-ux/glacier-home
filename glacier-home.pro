@@ -48,7 +48,7 @@ system.path = /usr/share/lipstick-glacier-home-qt5/qml/system
 system.files = src/qml/ShutdownScreen.qml
 
 volumecontrol.path = /usr/share/lipstick-glacier-home-qt5/qml/volumecontrol
-volumecontrol.files = src/qml/VolumeControl.qml
+volumecontrol.files = src/qml/volumecontrol/VolumeControl.qml
 
 connectivity.path = /usr/share/lipstick-glacier-home-qt5/qml/connectivity
 connectivity.files = src/qml/connectivity/USBModeSelector.qml \

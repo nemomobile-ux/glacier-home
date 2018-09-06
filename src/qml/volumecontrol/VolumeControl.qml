@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -35,33 +36,50 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 
-ProgressBar {
-    id: volumeSlider
-    width: parent.width
-    minimumValue: 0
-    maximumValue: volumeControl.maximumVolume
-    property bool shouldbevisible
+
+import "../scripts/desktop.js" as Desktop
+
+
+Rectangle{
+    id: volumeControlWindow
+
+    width: Desktop.instance.width
+    height: Theme.itemHeightHuge
+
+    color: Theme.backgroundColor
 
     property int pressedKey
 
-    opacity: volumeSlider.shouldbevisible ? 1 : 0
-    Behavior on opacity {
-        NumberAnimation {
-            duration: 300
-            onRunningChanged: if (!running && volumeSlider.opacity == 0) volumeControl.windowVisible = false
+    visible: false
+
+    Slider {
+        id: volumeSlider
+        width: parent.width*0.8
+
+        anchors.centerIn: parent
+
+        minimumValue: 0
+        value: volumeControl.volume
+        maximumValue: volumeControl.maximumVolume
+
+        onValueChanged:{
+            volumeControlWindow.visible = true
+            voltimer.restart()
+
+            volumeControl.volume = volumeSlider.value
         }
     }
 
     Timer {
         id: voltimer
         interval: 2000
-        onTriggered: volumeSlider.shouldbevisible = false
+        onTriggered: volumeControlWindow.visible = false
     }
 
     Connections {
         target: volumeControl
         onVolumeKeyPressed: {
-            volumeSlider.pressedKey = key;
+            volumeControlWindow.pressedKey = key;
 
             volumeControl.windowVisible = true
 
@@ -70,30 +88,22 @@ ProgressBar {
             maxMinTimer.start()
 
             if (volumeControl.windowVisible) {
-               voltimer.restart()
+                voltimer.restart()
             }
         }
 
         onVolumeKeyReleased: {
             keyPressTimer.stop()
             maxMinTimer.stop()
-            volumeSlider.pressedKey = ""
+            volumeControlWindow.pressedKey = ""
         }
 
         onWindowVisibleChanged: {
             if (volumeControl.windowVisible) {
-                volumeSlider.shouldbevisible = true
+                volumeControlWindow.visible = true
                 voltimer.restart()
             }
         }
-    }
-
-    PropertyAnimation {
-        id: volumeChangeAinmation
-        target: volumeSlider
-        property: "value"
-        to: volumeControl.volume
-        duration: 100
     }
 
     Timer{
@@ -110,36 +120,26 @@ ProgressBar {
         id: maxMinTimer
         interval: 1900
         onTriggered: {
-            if(volumeSlider.pressedKey == Qt.Key_VolumeUp)
-            {
+            if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
                 volumeControl.volume = volumeSlider.maximumValue
-            }
-            else if(volumeSlider.pressedKey == Qt.Key_VolumeDown)
-            {
+            } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
                 volumeControl.volume = 0
             }
-            volumeChangeAinmation.start()
         }
     }
 
     function volumeChange()
     {
-        if(volumeSlider.pressedKey == Qt.Key_VolumeUp)
-        {
-        //up volume
-            if(volumeControl.volume < maximumValue)
-            {
+        if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
+            //up volume
+            if(volumeControl.volume < volumeSlider.maximumValue) {
                 volumeControl.volume = volumeControl.volume+1
             }
-        }
-        else if(volumeSlider.pressedKey == Qt.Key_VolumeDown)
-        {
-        //down volume
-            if(volumeControl.volume > 0)
-            {
+        } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
+            //down volume
+            if(volumeControl.volume > 0) {
                 volumeControl.volume = volumeControl.volume-1
             }
         }
-        volumeChangeAinmation.start()
     }
 }
