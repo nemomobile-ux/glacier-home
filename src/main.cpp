@@ -1,5 +1,5 @@
 
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for NemoMobile.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,29 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
 
-#include <homeapplication.h>
 #include <QFont>
-#include <homewindow.h>
-#include <lipstickqmlpath.h>
 #include <QQmlEngine>
 #include <QQmlContext>
-#include "glacierwindowmodel.h"
 #include <QScreen>
+#include <QTranslator>
+
+#include <homewindow.h>
+#include <homeapplication.h>
+#include <lipstickqmlpath.h>
+
+#include "glacierwindowmodel.h"
+
 
 int main(int argc, char **argv)
 {
     HomeApplication app(argc, argv, QString());
+
+    QTranslator myappTranslator;
+    myappTranslator.load(QStringLiteral("/usr/share/lipstick-glacier-home-qt5/translations/glacer-home_%1.qm").arg(QLocale::system().name()));
+    app.installTranslator(&myappTranslator);
+
     QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
     app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
