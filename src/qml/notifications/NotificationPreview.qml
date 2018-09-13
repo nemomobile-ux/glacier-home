@@ -52,6 +52,10 @@ Item {
             return "image://theme/plug"
         }
 
+        if(icon === "icon-system-usb") {
+            return "image://theme/bug"
+        }
+
         return "image://theme/"+icon;
     }
 
