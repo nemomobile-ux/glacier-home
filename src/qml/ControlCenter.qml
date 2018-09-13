@@ -71,6 +71,12 @@ Item{
         }
     }
 
+    onActivatedChanged: {
+        if(!activated) {
+            down()
+        }
+    }
+
     Timer{
         id: hiderTimer
         repeat: false
