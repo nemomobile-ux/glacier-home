@@ -46,139 +46,146 @@ import org.nemomobile.lipstick 0.1
 import "controlcenter"
 
 //Area to return
-MouseArea{
+Item{
     id: controlCenterArea
-    property bool controlCenterState: false //Is control center enabled or disabled?
+
+    property bool activated: false
 
     width: Screen.width
-    height: Screen.height
-    visible: controlCenterState
-    state: "hide"
+    height: 0
+    visible: height > 0
+
+    clip: true
+
+    function down() {
+        controlCenterArea.height = 0
+        controlCenterArea.activated = false
+    }
+
+
+    onHeightChanged: {
+        if(height != Screen.height) {
+            hiderTimer.restart()
+        } else {
+            hiderTimer.stop()
+        }
+    }
+
+    Timer{
+        id: hiderTimer
+        repeat: false
+        running: false
+        interval: 5000
+        onTriggered: {
+            down()
+        }
+    }
 
     Rectangle{
         id: controlCenterOutAreaDim
         anchors.fill: parent
-        color: "black"
-        opacity:0.5
+        color: Theme.backgroundColor
     }
 
-    //Control Center area
-    MouseArea{
+    InverseMouseArea{
+        anchors.fill: parent
+        enabled: parent.activated
+        parent: controlCenterArea
+
+        onPressed: {
+            controlCenterArea.height = 0
+            controlCenterArea.activated = false
+        }
+    }
+
+    Rectangle {
+        id: controlCenter
         width: parent.width
         height: parent.width
+        color: "transparent"
 
-        Rectangle {
-            id: controlCenter
+        RowLayout {
+            id: layout
+
+            anchors.top: parent.top
+            anchors.topMargin: size.dp(40 + 22)
             width: parent.width
-            height: parent.width
-            color: Theme.backgroundColor
-            radius:32
-            x:0
-            y:0
+            height: size.dp(86)
 
-            RowLayout {
-                id: layout
+            NetworkControlButton{
+                image: "image://theme/wifi"
+                textLabel: qsTr("Wi-Fi")
+                networkingModel: "wifi"
+            }
+            NetworkControlButton{
+                image: "image://theme/bluetooth"
+                textLabel: qsTr("Bluetooth")
+                networkingModel: "bluetooth"
+            }
+            NetworkControlButton{
+                image: "image://theme/exchange-alt"
+                textLabel: qsTr("Data")
+                networkingModel: "cellular"
+            }
+            NetworkControlButton{
+                image: "image://theme/map-marker-alt"
+                textLabel: qsTr("Location")
+                networkingModel: "gps"
+            }
+            ControlButton{
+                image: "image://theme/moon"
+                textLabel: qsTr("Quiet")
+            }
+        }
 
-                anchors.top: parent.top
-                anchors.topMargin: size.dp(40 + 22)
-                width: parent.width
-                height: size.dp(86)
+        GridView{
+            id: notifyLayout
 
-                ControlButton{
-                    image: "image://theme/wifi"
-                    textLabel: qsTr("Wi-Fi")
-                }
-                ControlButton{
-                    image: "image://theme/bluetooth"
-                    textLabel: qsTr("Bluetooth")
-                }
-                ControlButton{
-                    image: "image://theme/exchange-alt"
-                    textLabel: qsTr("Data")
-                }
-                ControlButton{
-                    image: "image://theme/map-marker-alt"
-                    textLabel: qsTr("Location")
-                }
-                ControlButton{
-                    image: "image://theme/moon"
-                    textLabel: qsTr("Quiet")
-                }
+            anchors{
+                top: layout.bottom
+                topMargin: size.dp(62)
+                left: controlCenterArea.left
+                leftMargin: size.dp(31)
             }
 
-            GridView{
-                id: notifyLayout
+            width: parent.width
 
-                anchors{
-                    top: layout.bottom
-                    topMargin: size.dp(62)
-                    left: controlCenterArea.left
-                    leftMargin: size.dp(31)
-                }
+            cellWidth: parent.width/5
+            cellHeight: cellWidth
 
-                width: parent.width
+            model: statusNotiferModel
+            delegate: ControlButton{
+                width: notifyLayout.cellWidth;
+                height: notifyLayout.cellHeight
+                image: notifierItem.icon
+                textLabel: notifierItem.title
 
-                cellWidth: parent.width/5
-                cellHeight: cellWidth
-
-                model: statusNotiferModel
-                delegate: ControlButton{
-                    width: notifyLayout.cellWidth;
-                    height: notifyLayout.cellHeight
-                    image: notifierItem.icon
-                    textLabel: notifierItem.title
-
-                    onClicked: {
-                        notifierItem.activate()
-                    }
+                onClicked: {
+                    notifierItem.activate()
                 }
             }
         }
     }
+/*Little hack for hide control center*/
+    MouseArea{
+        id: backgroundMouseArea
+        anchors.fill: parent
 
-    //Close the thing if background is tapped
-    onClicked: {
-        //Do the stuff to show the menu
-        setControlCenterState( false )
-    }
+        property int pMouse: 0
 
-    function setControlCenterState(enabled) {
-        controlCenterState = true
-        enabled ? state = '' : state = 'hide'
-    }
-    
-    function getControlCenterState(){
-        return controlCenterState;
-    }
-
-    states: [
-        State { name: "hide"
-
-            PropertyChanges {
-                target: controlCenter
-                y: -controlCenter.height
-            }
-            PropertyChanges {
-                target: controlCenterOutAreaDim
-                opacity: 0
-            }
+        onPressed: {
+            backgroundMouseArea.pMouse = backgroundMouseArea.mouseY
         }
-    ]
-    transitions: [
-        Transition {
-            SequentialAnimation {
-                ScriptAction {
-                    script: controlCenterState = true
-                }
-                id: closeAnimation
-                NumberAnimation {
-                    properties: "x,y,opacity"
-                    easing.type: Easing.InOutQuint
-                }
-                ScriptAction {
-                    script: state == 'hide' ? controlCenterState = false : controlCenterState = true
-                }
+        onReleased: {
+            if(pMouse-backgroundMouseArea.mouseY >= Screen.height/4){
+                controlCenterArea.down()
             }
+            pMouse = 0;
         }
-    ]
+    }
+
+    Behavior on height {
+        NumberAnimation { duration: 100 }
+    }
 }
+

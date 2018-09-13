@@ -72,7 +72,8 @@ Page {
 
     property alias lockscreen: lockScreen
     property alias switcher: switcher
-    property int statusBarHeight: statusbar.height
+    property alias statusbar: statusbar
+
     property bool codepadVisible: false
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
 
