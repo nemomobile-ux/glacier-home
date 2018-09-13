@@ -52,6 +52,8 @@ Item {
     width: parent.width
     anchors.top: parent.top
 
+    property alias ctrlCenter: ctrlCenter
+
     ControlCenter{ 
         id: ctrlCenter
     }
@@ -294,9 +296,8 @@ Item {
                     } else {
                         return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
                     }
-                } else if (wlan.connected) {
-                    return "image://theme/icon_wifi_touch"
                 }
+                return "image://theme/icon_wifi_touch"
             }
         }
 
@@ -319,46 +320,6 @@ Item {
             iconSize: statusbar.height * 0.75
             iconSizeHeight: statusbar.height
             source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
-        }
-
-        //Status Bar Click
-        HapticsEffect {
-            id: rumbleEffect
-            attackIntensity: 0.0
-            attackTime: 250
-            intensity: 1.0
-            duration: 1
-            fadeTime: 250
-            fadeIntensity: 0.0
-        }
-
-        MouseArea {
-            width: root.width
-            height: root.height
-            onClicked: {
-                //Do the stuff to show the menu
-                ctrlCenter.setControlCenterState( !ctrlCenter.getControlCenterState() )
-            }
-            onReleased: {
-                rumbleEffect.start();  // plays a rumble effect
-                buttonUp.play();
-                statusbarPressFeedback.visible = false
-            }
-            onPressed: {
-                rumbleEffect.start();  // plays a rumble effect
-                buttonDown.play();
-                statusbarPressFeedback.visible = true
-            }
-        }
-
-        SoundEffect {
-            id: buttonDown
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_down.wav"
-        }
-
-        SoundEffect {
-            id: buttonUp
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/button_up.wav"
         }
     }
 }

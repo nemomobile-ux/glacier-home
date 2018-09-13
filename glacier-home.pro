@@ -76,7 +76,8 @@ applauncher.files = src/qml/applauncher/SearchListView.qml \
                 src/qml/applauncher/LauncherItemFolder.qml
 
 controlcenter.path = /usr/share/lipstick-glacier-home-qt5/qml/controlcenter
-controlcenter.files = src/qml/controlcenter/ControlButton.qml
+controlcenter.files = src/qml/controlcenter/ControlButton.qml \
+                      src/qml/controlcenter/NetworkControlButton.qml
 
 lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
 lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
@@ -154,6 +155,5 @@ DISTFILES += \
     settings-plugins/*/*.qml \
     settings-plugins/*/*.json \
     settings-plugins/*/*.svg \
-    rpm/* \
-    src/qml/lockscreen/LockscreenClock.qml
+    rpm/*
 
