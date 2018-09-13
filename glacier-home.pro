@@ -147,10 +147,16 @@ OTHER_FILES += src/qml/*.qml \
     src/nemovars.conf \
     src/qml/connectivity/*.qml
 
-TRANSLATIONS += i18n/glacer-home.ts
+TRANSLATIONS += translations/glacer-home.ts \
+                translations/glacer-home_ru.ts
+
+i18n_files.files = translations
+i18n_files.path = /usr/share/lipstick-glacier-home-qt5/
+
+INSTALLS += i18n_files
 
 DISTFILES += \
-    i18n/glacer-home.ts \
+    translations/*.ts \
     qml/*/*.qml \
     settings-plugins/*/*.qml \
     settings-plugins/*/*.json \
