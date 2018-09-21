@@ -24,6 +24,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.0
 import org.nemomobile.lipstick 0.1
 
+import org.nemomobile.configuration 1.0
+
 MouseArea {
     id: root
 
@@ -41,6 +43,7 @@ MouseArea {
     property real progress: Math.abs(value) / max
     property bool horizontal: gesture === "left" || gesture === "right"
     property bool inverted: gesture === "left" || gesture === "up"
+    property string diagonal: ""
 
     // Internal
     property int _mouseStart
@@ -65,18 +68,33 @@ MouseArea {
         return _gestures[shiftedGestures.indexOf(g)]
     }
 
+    ConfigurationValue {
+        id: windowedMode
+        key: "/home/glacier/windowedMode"
+        defaultValue: false
+    }
+
+
     onPressed: {
         var mouseReal = mouseToMouseReal(mouse)
 
-        if (mouseReal.x < boundary) {
+        if (mouseReal.y < boundary) {
+            /* If enabled windowed mode check diagonal moving */
+            if(windowedMode.value) {
+                if (mouseReal.x < boundary) {
+                    diagonal = "left"
+                } else if (_mapTo.width - mouseReal.x < boundary) {
+                    diagonal = "right"
+                }
+            }
+            gesture = "down"
+            max = _mapTo.height - mouseReal.y
+        } else if (mouseReal.x < boundary) {
             gesture = "right"
             max = _mapTo.width - mouseReal.x
         } else if (_mapTo.width - mouseReal.x < boundary) {
             gesture = "left"
             max = mouseReal.x
-        } else if (mouseReal.y < boundary) {
-            gesture = "down"
-            max = _mapTo.height - mouseReal.y
         } else if (_mapTo.height - mouseReal.y < boundary) {
             gesture = "up"
             max = mouseReal.y
@@ -102,6 +120,7 @@ MouseArea {
 
     function reset() {
         gesture = ""
+        diagonal = ""
         value = max = 0
         _mouseStart = 0
     }

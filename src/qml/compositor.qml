@@ -31,6 +31,8 @@ import "scripts/desktop.js" as Desktop
 Compositor {
     id: root
 
+    property alias applicationLayer: appLayer
+
     property Item homeWindow
 
     // Set to the item of the current topmost window
@@ -109,10 +111,25 @@ Compositor {
             visible: root.appActive
         }
 
+        Rectangle {
+            id: resizeBorder
+            color: "transparent"
+            border.width: 2
+            border.color: Theme.accentColor
+            visible: false
+            z: 3
+        }
+
+        Item {
+            id: windowedLayer
+            z: 4
+            property Item activeWindow: null
+            visible: !Desktop.instance.lockscreen.visible
+        }
+
         Item {
             id: overlayLayer
             z: 5
-
         }
 
         Item {
@@ -138,7 +155,21 @@ Compositor {
         enabled: DeviceLock.state != DeviceLock.Locked
 
         onPositionChanged: {
-            if(gesture == "down") {
+            if (root.appActive && diagonal && gestureArea.progress >= swipeThreshold) {
+                if (diagonal == "left") {
+                    resizeBorder.x = mouseX
+                    resizeBorder.y = mouseY
+                    resizeBorder.width = width - mouseX
+                    resizeBorder.height = height - mouseY
+                } else {
+                    resizeBorder.x = 0
+                    resizeBorder.y = mouseY
+                    resizeBorder.width = mouseX
+                    resizeBorder.height = height - mouseY
+                }
+                resizeBorder.visible = true
+//                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
+            } else if (gesture == "down" && !diagonal) {
                 Desktop.instance.statusbar.ctrlCenter.height = gestureArea.mouseY
             }
         }
@@ -148,11 +179,11 @@ Compositor {
             cancelAnimation.stop()
             lockAnimation.stop()
             gestureOnGoing = true
-            if (root.appActive) {
+            if (root.appActive && !diagonal) {
                 state = "swipe"
             }
             else if (!root.appActive && DeviceLock.state !== DeviceLock.Locked) {
-                if(gesture == "down") {
+                if(gesture == "down" && !diagonal) {
                     /*show statusbar when gesture down*/
                     Desktop.instance.statusbar.ctrlCenter.activated = true
                 } else if (!Desktop.instance.statusbar.ctrlCenter.activated) {
@@ -162,8 +193,18 @@ Compositor {
         }
 
         onGestureFinished: {
+            resizeBorder.visible = false
             if (root.appActive) {
-                if (gestureArea.progress >= swipeThreshold) {
+                if (diagonal && gestureArea.progress >= swipeThreshold) {
+//                    console.log("finished diagonal gesture:", mouseX, mouseY)
+                    topmostWindow.window.userData.x = resizeBorder.x
+                    topmostWindow.window.userData.y = resizeBorder.y
+                    requestWindowSize(topmostWindow.window, Qt.size(resizeBorder.width, resizeBorder.height))
+                    topmostWindow.parent = windowedLayer
+                    topmostWindow = root.homeWindow
+                    topmostApplicationWindow = null
+                    clearKeyboardFocus()
+                } else if (gestureArea.progress >= swipeThreshold) {
                     swipeAnimation.valueTo = inverted ? -max : max
                     swipeAnimation.start()
                     if (gesture == "up") {
@@ -396,7 +437,7 @@ Compositor {
             setCurrentWindow(w)
         } else {
             if (!root.topmostAlarmWindow) {
-                w = mysticWrapper.createObject(parent, {window: window})
+                w = mysticWrapper.createObject(appLayer, {window: window})
                 window.userData = w
                 setCurrentWindow(w)
             }
