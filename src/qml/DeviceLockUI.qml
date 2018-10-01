@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.dbus 1.0
+import org.nemomobile.dbus 2.0
 
 import "scripts/desktop.js" as Desktop
 
