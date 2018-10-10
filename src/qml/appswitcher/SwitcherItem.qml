@@ -21,17 +21,19 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2018, Sergey Chupligin <neochapay@gmail.com>
 
 import QtQuick 2.6
-import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
-MouseArea {
+import org.nemomobile.lipstick 0.1
+
+Item {
     id: switcherItemRoot
 
-    property bool rotateWindowContent: desktop.isPortrait
+    property bool rotateWindowContent: !desktop.isPortrait
     property int desktopAngle: {
         switch(desktop.orientation) {
         case Qt.PortraitOrientation:
@@ -45,57 +47,77 @@ MouseArea {
         }
     }
 
-    //Cheap shadow
-    //Todo: Add a bitmap shadow
-    /*Rectangle {
-        width: parent.width
-        height: parent.height
-        color: "red"
-    }*/
-
-    Rectangle {
-        id: switcherPixmapCard
-        width: rotateWindowContent ? parent.width : parent.height
-        height: rotateWindowContent ? parent.height : parent.width
-        color: Theme.backgroundColor
-        radius: size.dp(8)
-
-        transform: Scale { origin.x: width/2; origin.y: height/2; xScale: 0.9; yScale: 0.9}
-
-        WindowPixmapItem {
-            id: windowPixmap
-            width: parent.width
-            height: parent.height
-            windowId: model.window
-            transform: Rotation {
-                angle: rotateWindowContent ? 0 : 90
-                origin.x: windowPixmap.height / 2
-                origin.y: windowPixmap.height / 2
-            }
-            smooth: true
-            radius: size.dp(8)
-            opacity: switcherRoot.closeMode ? .6 : 1
-            Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
-
+    property int originX: {
+        switch(desktop.orientation) {
+        case Qt.PortraitOrientation:
+            return 0
+        case Qt.InvertedPortraitOrientation:
+            return windowPixmap.width / 2
+        case Qt.LandscapeOrientation:
+            return windowPixmap.width / 2
+        case Qt.InvertedLandscapeOrientation:
+            return windowPixmap.height / 2
         }
     }
-    
+    property int originY: {
+        switch(desktop.orientation) {
+        case Qt.PortraitOrientation:
+            return 0
+        case Qt.InvertedPortraitOrientation:
+            return windowPixmap.height / 2
+        case Qt.LandscapeOrientation:
+            return windowPixmap.width / 2
+        case Qt.InvertedLandscapeOrientation:
+            return windowPixmap.height / 2
+        }
+    }
+
+    WindowPixmapItem {
+        id: windowPixmap
+        width: rotateWindowContent ? parent.height : parent.width
+        height: rotateWindowContent ? parent.width : parent.height
+        windowId: model.window
+        smooth: true
+
+        transform: Rotation {
+            angle: desktopAngle
+            origin.x: originX
+            origin.y: originY
+        }
+
+        radius: size.dp(8)
+        opacity: switcherRoot.closeMode ? .6 : 1
+        Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
+
+        Rectangle {
+            color: "white"
+            width: 4
+            height: 4
+            radius: 2
+            x: originX
+            y: originY
+        }
+    }
+
     function close() {
         Lipstick.compositor.closeClientForWindowId(model.window)
     }
 
-    onClicked: {
-        if (!switcherRoot.closeMode) {
-            Lipstick.compositor.windowToFront(model.window);
-        } else {
-            switcherRoot.closeMode = false
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if (!switcherRoot.closeMode) {
+                Lipstick.compositor.windowToFront(model.window);
+            } else {
+                switcherRoot.closeMode = false
+            }
         }
-    }
 
-    onPressAndHold: {
-        switcherRoot.closeMode = true;
-    }
+        onPressAndHold: {
+            switcherRoot.closeMode = true;
+        }
 
+    }
     SequentialAnimation {
         id: closeAnimation
         ParallelAnimation {
@@ -120,7 +142,7 @@ MouseArea {
 
     CloseButton {
         id: closeButton
-        width: rotateWindowContent ? parent.width/4 :parent.height/4
+        width: (rotateWindowContent ? parent.height : parent.width) / 4
         height: width
         Behavior on scale { PropertyAnimation { duration: 300; easing.type: Easing.OutBack } }
         scale: switcherRoot.closeMode ? 1 : 0

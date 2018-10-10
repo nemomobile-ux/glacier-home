@@ -27,7 +27,7 @@ Image {
     id: closeButton
     signal clicked()
 
-    source: 'images/closeapp.svg'
+    source: '/usr/share/lipstick-glacier-home-qt5/qml/images/closeapp.svg'
     sourceSize.width: width
     sourceSize.height: height
 
