@@ -92,8 +92,8 @@ Item {
                 }
 
                 delegate: Item {
-                    width: (desktop.width-(gridview.spacing * gridview.columns)) / gridview.columns
-                    height: (desktop.height-(gridview.spacing * gridview.columns)) / gridview.columns
+                    width: (desktop.width - (gridview.spacing * gridview.columns)) / gridview.columns
+                    height: (desktop.height - (gridview.spacing * gridview.columns)) / gridview.columns
 
                     // The outer Item is necessary because of animations in SwitcherItem changing
                     // its size, which would break the Grid.
