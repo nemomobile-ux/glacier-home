@@ -1,7 +1,7 @@
 # Main project file for Glacier home
 
 TEMPLATE = app
-TARGET = lipstick
+TARGET = glacier-home
 VERSION = 0.1
 
 INSTALLS = target
@@ -99,10 +99,10 @@ settingspluginconfig.files = src/settings-plugins/wallpaper/wallpaper.json \
 
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
-systemd.files = rpm/lipstick.service
+systemd.files = rpm/glacier.service
 systemd.path = /usr/lib/systemd/user
 
-desktop.files = rpm/lipstick.desktop
+desktop.files = rpm/glacier.desktop
 desktop.path = /etc/xdg/autostart
 
 INSTALLS += styles \

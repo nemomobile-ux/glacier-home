@@ -6,7 +6,7 @@ Group:      System/GUI/Other
 License:    BSD
 URL:        https://github.com/locusf/glacier-home
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    lipstick.service
+Source1:    glacier.service
 
 Requires:   lipstick-qt5 >= 0.17.0
 Requires:   nemo-qml-plugin-configuration-qt5
@@ -55,17 +55,17 @@ mkdir -p %{buildroot}%{_libdir}/systemd/user
 cp %{SOURCE1} %{buildroot}%{_libdir}/systemd/user
 
 mkdir -p %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/
-ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
+ln -s ../glacier.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/glacier.service
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/lipstick
-%{_libdir}/systemd/user/lipstick.service
-%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
+%{_bindir}/glacier-home
+%{_libdir}/systemd/user/glacier.service
+%{_libdir}/systemd/user/user-session.target.wants/glacier.service
 %{_datadir}/lipstick-glacier-home-qt5/nemovars.conf
 %{_datadir}/lipstick-glacier-home-qt5/qml
 %{_datadir}/lipstick-glacier-home-qt5/translations
 %{_datadir}/glacier-settings/
 
 %post
-systemctl-user --no-block restart lipstick.service
+systemctl-user --no-block restart glacier.service

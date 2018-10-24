@@ -1,12 +1,12 @@
 [Unit]
-Description=The lipstick UI
+Description=The Glacier UI
 Requires=dbus.socket pre-user-session.target
 After=pre-user-session.target
 
 [Service]
 EnvironmentFile=-/var/lib/environment/compositor/*.conf
 EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
-ExecStart=/usr/bin/invoker --type=generic /usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
+ExecStart=/usr/bin/invoker --type=generic /usr/bin/glacier-home $LIPSTICK_OPTIONS --systemd
 Restart=always
 
 [Install]
