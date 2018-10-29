@@ -51,7 +51,8 @@ Item{
 
     property bool activated: false
 
-    width: Screen.width
+    width: desktop.isUiPortrait ? Screen.width : Screen.height
+
     height: 0
     visible: height > 0
 

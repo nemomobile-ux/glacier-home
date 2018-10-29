@@ -30,6 +30,8 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.glacier 1.0
 import QtGraphicalEffects 1.0
 
+import "appswitcher"
+
 // App Switcher page
 // The place for browsing already running apps
 
@@ -90,8 +92,8 @@ Item {
                 }
 
                 delegate: Item {
-                    width: (flickable.width - (gridview.spacing * gridview.columns)) / gridview.columns
-                    height: width * (desktop.height / desktop.width)
+                    width: (desktop.width - (gridview.spacing * gridview.columns)) / gridview.columns
+                    height: (desktop.height - (gridview.spacing * gridview.columns)) / gridview.columns
 
                     // The outer Item is necessary because of animations in SwitcherItem changing
                     // its size, which would break the Grid.
