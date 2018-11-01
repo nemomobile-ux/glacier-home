@@ -107,9 +107,6 @@ settingspluginconfig.path = /usr/share/glacier-settings/plugins
 systemd.files = rpm/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
-desktop.files = rpm/lipstick.desktop
-desktop.path = /etc/xdg/autostart
-
 INSTALLS += styles \
             images \
             theme \
