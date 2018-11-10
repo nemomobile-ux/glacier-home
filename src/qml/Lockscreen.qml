@@ -2,7 +2,7 @@ import QtQuick 2.6
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 import "notifications"
 
 import QtQuick.Controls.Nemo 1.0
