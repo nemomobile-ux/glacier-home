@@ -99,8 +99,15 @@ settingsnotificationsplugin.files = src/settings-plugins/notifications/notificat
 
 settingsnotificationsplugin.path = /usr/share/glacier-settings/qml/plugins/notifications
 
+
+settingsdesktopplugin.files = src/settings-plugins/desktop/desktop.qml \
+                       src/settings-plugins/desktop/desktop.svg
+
+settingsdesktopplugin.path = /usr/share/glacier-settings/qml/plugins/desktop
+
 settingspluginconfig.files = src/settings-plugins/wallpaper/wallpaper.json \
-                             src/settings-plugins/notifications/notifications.json
+                             src/settings-plugins/notifications/notifications.json \
+                             src/settings-plugins/desktop/desktop.json
 
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
@@ -122,6 +129,7 @@ INSTALLS += styles \
             settingswallpaperplugin\
             settingsnotificationsplugin\
             settingspluginconfig \
+            settingsdesktopplugin \
             applauncher \
             appswitcher \
             lockscreen \
