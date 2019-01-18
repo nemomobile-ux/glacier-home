@@ -42,6 +42,7 @@ import org.nemomobile.devicelock 1.0
 import org.nemomobile.statusnotifier 1.0
 
 import "scripts/desktop.js" as Desktop
+import "mainscreen"
 
 Page {
     id: desktop
@@ -58,12 +59,6 @@ Page {
             wallClock.enabled = false
             wallClock.enabled = true
         }
-    }
-    // This is used in the lock screen
-    ConfigurationValue {
-        id: wallpaperSource
-        key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
     }
 
     StatusNotifierModel {
@@ -168,12 +163,10 @@ Page {
         currentIndex: 0
     }
 
-    Image {
-        id:wallpaper
-        source: wallpaperSource.value
+    Wallpaper{
+        id: wallpaper
         anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
-        
+
         z: -100
     }
 

@@ -70,6 +70,12 @@ Item {
 
         onClicked: if (notificationPreviewPresenter.notification != null) notificationPreviewPresenter.notification.actionInvoked("default")
 
+        Component.onCompleted: {
+            if( notificationPreviewPresenter.notification != null) {
+                icon.source = formatIcon(notificationPreviewPresenter.notification.icon)
+            }
+        }
+
         Rectangle {
             id: notificationPreview
             width: notificationWindow.width
@@ -148,8 +154,6 @@ Item {
                     leftMargin: (notificationArea.height-width)/2
                     verticalCenter: parent.verticalCenter
                 }
-
-                source: formatIcon(notificationPreviewPresenter.notification.icon)
             }
 
             Rectangle{

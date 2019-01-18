@@ -47,10 +47,15 @@ MouseArea {
     transformOrigin: Item.Center
     onXChanged: moved()
     onYChanged: moved()
-    drag.minimumX: parentItem.contentItem.x - width/2
-    drag.maximumX: parentItem.contentItem.width + width/2
-    drag.minimumY: parentItem.contentItem.y -height/2 -height/4
-    drag.maximumY: parentItem.contentItem.height +height/2
+
+    Component.onCompleted:  {
+        if(parentItem.contentItem !== null) {
+            drag.minimumX = parentItem.contentItem.x - width/2
+            drag.maximumX = parentItem.contentItem.width + width/2
+            drag.minimumY = parentItem.contentItem.y -height/2 -height/4
+            drag.maximumY = parentItem.contentItem.height +height/2
+        }
+    }
 
     onClicked: {
         // TODO: disallow if close mode enabled

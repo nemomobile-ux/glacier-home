@@ -88,6 +88,9 @@ appswitcher.path =  /usr/share/lipstick-glacier-home-qt5/qml/appswitcher
 appswitcher.files = src/qml/appswitcher/SwitcherItem.qml \
                     src/qml/appswitcher/CloseButton.qml
 
+mainscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/mainscreen
+mainscreen.files = src/qml/mainscreen/Wallpaper.qml
+
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
                        src/settings-plugins/wallpaper/selectImage.qml \
                        src/settings-plugins/wallpaper/wallpaper.svg
@@ -132,6 +135,7 @@ INSTALLS += styles \
             settingsdesktopplugin \
             applauncher \
             appswitcher \
+            mainscreen \
             lockscreen \
             systemd \
             desktop
