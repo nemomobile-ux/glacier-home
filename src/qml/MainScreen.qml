@@ -30,7 +30,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick 2.9
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -176,10 +176,14 @@ Page {
     }
 
     onParentChanged: {
+        glacierRotation.rotationParent = desktop.parent
         glacierRotation.rotateRotationParent(nativeOrientation)
+        glacierRotation.rotateObject(desktop.parent, nativeOrientation, true)
     }
 
     Component.onCompleted: {
+        glacierRotation.rotationParent = desktop.parent
+        setLockScreen(true)
         Desktop.instance = desktop
         Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation

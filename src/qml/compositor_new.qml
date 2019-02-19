@@ -380,6 +380,7 @@ Item {
         }
         onSensorOrientationChanged: {
             screenOrientation = sensorOrientation
+            contentOrientation = screenOrientation
         }
 
         onDisplayOff: if (comp.topmostAlarmWindow == null)
