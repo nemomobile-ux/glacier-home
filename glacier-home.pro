@@ -52,7 +52,8 @@ volumecontrol.files = src/qml/volumecontrol/VolumeControl.qml
 
 connectivity.path = /usr/share/lipstick-glacier-home-qt5/qml/connectivity
 connectivity.files = src/qml/connectivity/USBModeSelector.qml \
-                     src/qml/connectivity/ConnectionSelector.qml
+                     src/qml/connectivity/ConnectionSelector.qml \
+                     src/qml/connectivity/VpnAgent.qml
 
 notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
 notifications.files = src/qml/notifications/NotificationItem.qml\
