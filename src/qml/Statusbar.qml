@@ -105,13 +105,13 @@ Item {
                 cellularSignalBars.subscribe()
                 cellularRegistrationStatus.subscribe()
                 cellularNetworkName.subscribe()
-                cellularDataTechnology.subscribe()
+                dataStatus.cellularDataTechnology.subscribe()
             } else {
                 batteryIndicator.batteryChargePercentage.unsubscribe()
                 cellularSignalBars.unsubscribe()
                 cellularRegistrationStatus.unsubscribe()
                 cellularNetworkName.unsubscribe()
-                cellularDataTechnology.unsubscribe()
+                dataStatus.cellularDataTechnology.unsubscribe()
             }
         }
     }
@@ -156,11 +156,6 @@ Item {
     ContextProperty {
         id: cellularNetworkName
         key: "Cellular.NetworkName"
-    }
-
-    ContextProperty {
-        id: cellularDataTechnology
-        key: "Cellular.DataTechnology"
     }
 
     TechnologyModel {
@@ -258,25 +253,8 @@ Item {
                     }
         }
 
-        StatusbarItem{
+        DataStatusItem{
             id: dataStatus
-            iconSize: statusbar.height
-            visible: cellularDataTechnology.value != "unknown"
-            source: {
-                if(cellularDataTechnology.value == "2") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
-                }else if(cellularDataTechnology.value == "2.5") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
-                }else if(cellularDataTechnology.value == "3") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
-                }else if(cellularDataTechnology.value == "3.5") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
-                }else if(cellularDataTechnology.value == "4") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
-                }else {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
-                }
-            }
         }
 
         StatusbarItem {

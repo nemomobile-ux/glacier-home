@@ -62,6 +62,7 @@ statusbar.path = /usr/share/lipstick-glacier-home-qt5/qml/statusbar
 statusbar.files = src/qml/statusbar/BatteryPanel.qml\
                 src/qml/statusbar/BatteryIndicator.qml \
                 src/qml/statusbar/CommonPanel.qml\
+                src/qml/statusbar/DataStatusItem.qml \
                 src/qml/statusbar/SimPanel.qml\
                 src/qml/statusbar/WifiPanel.qml\
                 src/qml/statusbar/StatusbarItem.qml\
