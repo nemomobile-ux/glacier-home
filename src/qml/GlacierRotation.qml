@@ -56,6 +56,10 @@ Item {
     }
 
     function rotateObject(obj, o) {
+        if(!obj) {
+            return;
+        }
+
         var r = Screen.angleBetween(o, Screen.primaryOrientation)
         if (obj.rotation !== r)
             rotateObjectToAngle(obj, r)
