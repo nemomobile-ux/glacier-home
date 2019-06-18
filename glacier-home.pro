@@ -65,6 +65,7 @@ statusbar.files = src/qml/statusbar/BatteryPanel.qml\
                 src/qml/statusbar/DataStatusItem.qml \
                 src/qml/statusbar/SimPanel.qml\
                 src/qml/statusbar/WifiPanel.qml\
+                src/qml/statusbar/WifiIndicator.qml \
                 src/qml/statusbar/StatusbarItem.qml\
                 src/qml/statusbar/NumButton.qml \
                 src/qml/statusbar/MediaController.qml

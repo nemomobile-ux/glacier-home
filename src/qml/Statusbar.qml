@@ -41,8 +41,6 @@ import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
 
-import MeeGo.Connman 0.2
-
 import "statusbar"
 
 Item {
@@ -136,35 +134,9 @@ Item {
         key: "Bluetooth.Connected"
     }
 
-    NetworkManager {
-        id: networkManager
-        function updateTechnologies() {
-            if (available && technologiesEnabled) {
-                wlan.path = networkManager.technologyPathForType("wifi")
-            }
-        }
-        onAvailableChanged: updateTechnologies()
-        onTechnologiesEnabledChanged: updateTechnologies()
-        onTechnologiesChanged: updateTechnologies()
-
-    }
-
-    NetworkTechnology {
-        id: wlan
-    }
-
     ContextProperty {
         id: cellularNetworkName
         key: "Cellular.NetworkName"
-    }
-
-    TechnologyModel {
-        id: wifimodel
-        name: "wifi"
-        onPoweredChanged: {
-            if (powered)
-                wifimodel.requestScan()
-        }
     }
 
     Loader {
@@ -257,26 +229,8 @@ Item {
             id: dataStatus
         }
 
-        StatusbarItem {
+        WifiIndicator{
             id: wifiStatus
-            iconSize: statusbar.height
-            visible: wifimodel.powered
-            source: {
-                if (wlan.connected) {
-                    if (networkManager.defaultRoute.strength >= 59) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_4.png"
-                    } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_3.png"
-                    } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_2.png"
-                    } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_1.png"
-                    } else {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
-                    }
-                }
-                return "image://theme/icon_wifi_touch"
-            }
         }
 
         StatusbarItem {
