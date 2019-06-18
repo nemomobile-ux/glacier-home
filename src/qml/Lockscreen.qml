@@ -149,13 +149,6 @@ Image {
         z: 200
     }
 
-    LockScreenIndicators{
-        anchors{
-            right: parent.right
-            verticalCenter: parent.verticalCenter
-        }
-    }
-
     Column {
         id: lockscreenNotificationColumn
         

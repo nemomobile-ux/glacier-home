@@ -82,8 +82,7 @@ controlcenter.files = src/qml/controlcenter/ControlButton.qml \
 
 lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
 lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
-                   src/qml/lockscreen/DeviceLockUI.qml \
-                   src/qml/lockscreen/LockScreenIndicators.qml
+                   src/qml/lockscreen/DeviceLockUI.qml
 
 appswitcher.path =  /usr/share/lipstick-glacier-home-qt5/qml/appswitcher
 appswitcher.files = src/qml/appswitcher/SwitcherItem.qml \
