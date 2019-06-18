@@ -114,7 +114,7 @@ settingspluginconfig.files = src/settings-plugins/wallpaper/wallpaper.json \
 
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
-systemd.files = rpm/lipstick.service
+systemd.files = src/data/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
 INSTALLS += styles \
