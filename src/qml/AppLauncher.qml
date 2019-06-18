@@ -222,8 +222,13 @@ Flickable{
             id: launcherItem
             width: gridview.cellWidth
             height: gridview.cellHeight
-            isFolder: model.object.type == LauncherModel.Folder
-            source: model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+
+            Component.onCompleted: {
+                if(model) {
+                    launcherItem.isFolder = model.object.type == LauncherModel.Folder
+                    launcherItem.source = model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                }
+            }
         }
     }
 }
