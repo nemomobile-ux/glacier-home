@@ -43,13 +43,13 @@ StatusbarItem {
         }
     }
 
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png"
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery"+chargeValue+".png"
 
     Image {
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
-        source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery_grid.png"
+        source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery_grid.png"
     }
 
     Timer{
