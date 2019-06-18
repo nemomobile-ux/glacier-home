@@ -43,12 +43,17 @@ MouseArea {
 
     id: launcherItem
     parent: parentItem.contentItem
-    scale: gridview.newFolder && parentItem.folderIndex == cellIndex && !isFolder ? 0.5 : (reordering || parentItem.folderIndex == cellIndex ? 1.3 : 1)
     transformOrigin: Item.Center
     onXChanged: moved()
     onYChanged: moved()
 
     Component.onCompleted:  {
+        if(parentItem) {
+            launcherItem.scale = gridview.newFolder && parentItem.folderIndex == cellIndex && !isFolder ? 0.5 : (reordering || parentItem.folderIndex == cellIndex ? 1.3 : 1)
+        } else {
+            return;
+        }
+
         if(parentItem.contentItem !== null) {
             drag.minimumX = parentItem.contentItem.x - width/2
             drag.maximumX = parentItem.contentItem.width + width/2
@@ -123,6 +128,11 @@ MouseArea {
             var delPos = deleter.remove.mapFromItem(launcherItem, width/2, height/2)
             var isdel = deleter.childAt(delPos.x, delPos.y-height/4)
             var isdel2 = deleter.childAt(delPos.x, delPos.y+height/4)//hjelp?
+
+            if(!item) {
+                return;
+            }
+
             if(!isFolder) {
                 if (isdel === deleter.remove || isdel2 ===  deleter.remove) {
                     deleteState="remove"
@@ -167,6 +177,10 @@ MouseArea {
     }
 
     function reorderEnded() {
+        if(!modelData){
+            return;
+        }
+
         //called when icon is released and reordering is true
         if (parentItem.folderIndex >= 0) {
             if (folderModel.get(parentItem.folderIndex).type == LauncherModel.Application) {
