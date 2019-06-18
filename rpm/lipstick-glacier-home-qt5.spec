@@ -13,6 +13,7 @@ Requires:   nemo-qml-plugin-configuration-qt5
 Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-statusnotifier
+Requires:   qt5-qtfeedback
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtdeclarative-import-sensors
 Requires:   qt5-qtquickcontrols >= 5.3.1
@@ -25,6 +26,9 @@ Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
+
+#provide services for startup user session
+Requires:   systemd-config-mer
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
