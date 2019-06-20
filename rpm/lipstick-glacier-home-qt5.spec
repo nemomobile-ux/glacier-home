@@ -29,6 +29,7 @@ Requires:   glacier-gallery-qmlplugin
 
 #provide services for startup user session
 Requires:   systemd-config-mer
+Requires:   nemo-mobile-session-common
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
@@ -55,9 +56,6 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 
 %qmake5_install
-
-mkdir -p %{buildroot}%{_libdir}/systemd/user
-cp %{SOURCE1} %{buildroot}%{_libdir}/systemd/user
 
 mkdir -p %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/
 ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/lipstick.service

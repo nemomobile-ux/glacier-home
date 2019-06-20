@@ -52,7 +52,8 @@ volumecontrol.files = src/qml/volumecontrol/VolumeControl.qml
 
 connectivity.path = /usr/share/lipstick-glacier-home-qt5/qml/connectivity
 connectivity.files = src/qml/connectivity/USBModeSelector.qml \
-                     src/qml/connectivity/ConnectionSelector.qml
+                     src/qml/connectivity/ConnectionSelector.qml \
+                     src/qml/connectivity/VpnAgent.qml
 
 notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
 notifications.files = src/qml/notifications/NotificationItem.qml\
@@ -62,8 +63,10 @@ statusbar.path = /usr/share/lipstick-glacier-home-qt5/qml/statusbar
 statusbar.files = src/qml/statusbar/BatteryPanel.qml\
                 src/qml/statusbar/BatteryIndicator.qml \
                 src/qml/statusbar/CommonPanel.qml\
+                src/qml/statusbar/DataStatusItem.qml \
                 src/qml/statusbar/SimPanel.qml\
                 src/qml/statusbar/WifiPanel.qml\
+                src/qml/statusbar/WifiIndicator.qml \
                 src/qml/statusbar/StatusbarItem.qml\
                 src/qml/statusbar/NumButton.qml \
                 src/qml/statusbar/MediaController.qml
@@ -81,8 +84,7 @@ controlcenter.files = src/qml/controlcenter/ControlButton.qml \
 
 lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
 lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
-                   src/qml/lockscreen/DeviceLockUI.qml \
-                   src/qml/lockscreen/LockScreenIndicators.qml
+                   src/qml/lockscreen/DeviceLockUI.qml
 
 appswitcher.path =  /usr/share/lipstick-glacier-home-qt5/qml/appswitcher
 appswitcher.files = src/qml/appswitcher/SwitcherItem.qml \
@@ -114,7 +116,7 @@ settingspluginconfig.files = src/settings-plugins/wallpaper/wallpaper.json \
 
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
-systemd.files = rpm/lipstick.service
+systemd.files = src/data/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
 INSTALLS += styles \

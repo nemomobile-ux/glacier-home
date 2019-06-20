@@ -41,8 +41,6 @@ import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
 
-import MeeGo.Connman 0.2
-
 import "statusbar"
 
 Item {
@@ -105,13 +103,13 @@ Item {
                 cellularSignalBars.subscribe()
                 cellularRegistrationStatus.subscribe()
                 cellularNetworkName.subscribe()
-                cellularDataTechnology.subscribe()
+                dataStatus.cellularDataTechnology.subscribe()
             } else {
                 batteryIndicator.batteryChargePercentage.unsubscribe()
                 cellularSignalBars.unsubscribe()
                 cellularRegistrationStatus.unsubscribe()
                 cellularNetworkName.unsubscribe()
-                cellularDataTechnology.unsubscribe()
+                dataStatus.cellularDataTechnology.unsubscribe()
             }
         }
     }
@@ -136,40 +134,9 @@ Item {
         key: "Bluetooth.Connected"
     }
 
-    NetworkManager {
-        id: networkManager
-        function updateTechnologies() {
-            if (available && technologiesEnabled) {
-                wlan.path = networkManager.technologyPathForType("wifi")
-            }
-        }
-        onAvailableChanged: updateTechnologies()
-        onTechnologiesEnabledChanged: updateTechnologies()
-        onTechnologiesChanged: updateTechnologies()
-
-    }
-
-    NetworkTechnology {
-        id: wlan
-    }
-
     ContextProperty {
         id: cellularNetworkName
         key: "Cellular.NetworkName"
-    }
-
-    ContextProperty {
-        id: cellularDataTechnology
-        key: "Cellular.DataTechnology"
-    }
-
-    TechnologyModel {
-        id: wifimodel
-        name: "wifi"
-        onPoweredChanged: {
-            if (powered)
-                wifimodel.requestScan()
-        }
     }
 
     Loader {
@@ -258,47 +225,12 @@ Item {
                     }
         }
 
-        StatusbarItem{
+        DataStatusItem{
             id: dataStatus
-            iconSize: statusbar.height
-            visible: cellularDataTechnology.value != "unknown"
-            source: {
-                if(cellularDataTechnology.value == "2") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
-                }else if(cellularDataTechnology.value == "2.5") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
-                }else if(cellularDataTechnology.value == "3") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
-                }else if(cellularDataTechnology.value == "3.5") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
-                }else if(cellularDataTechnology.value == "4") {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
-                }else {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
-                }
-            }
         }
 
-        StatusbarItem {
+        WifiIndicator{
             id: wifiStatus
-            iconSize: statusbar.height
-            visible: wifimodel.powered
-            source: {
-                if (wlan.connected) {
-                    if (networkManager.defaultRoute.strength >= 59) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_4.png"
-                    } else if (networkManager.defaultRoute.strength >= 55) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_3.png"
-                    } else if (networkManager.defaultRoute.strength >= 50) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_2.png"
-                    } else if (networkManager.defaultRoute.strength >= 40) {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_1.png"
-                    } else {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
-                    }
-                }
-                return "image://theme/icon_wifi_touch"
-            }
         }
 
         StatusbarItem {

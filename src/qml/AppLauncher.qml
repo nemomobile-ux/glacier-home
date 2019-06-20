@@ -184,11 +184,16 @@ Flickable{
                 parent: gridview
                 parentItem: gridview
                 iconCaption.color:Theme.textColor
-                iconCaption.text: modelData.object.title
-                isFolder: modelData.object.type == LauncherModel.Folder
-                source: modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
-                notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
                 folderModel:launcherModel
+
+                Component.onCompleted: {
+                    if(modelData) {
+                        launcherItem.iconCaption.text = modelData.object.title
+                        launcherItem.isFolder = modelData.object.type == LauncherModel.Folder
+                        launcherItem.source = modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+                        launcherItem.notNemoIcon = isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+                    }
+                }
             }
         }
         Component {
@@ -217,8 +222,13 @@ Flickable{
             id: launcherItem
             width: gridview.cellWidth
             height: gridview.cellHeight
-            isFolder: model.object.type == LauncherModel.Folder
-            source: model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+
+            Component.onCompleted: {
+                if(model) {
+                    launcherItem.isFolder = model.object.type == LauncherModel.Folder
+                    launcherItem.source = model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                }
+            }
         }
     }
 }

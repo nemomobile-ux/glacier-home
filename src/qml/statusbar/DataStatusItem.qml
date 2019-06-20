@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2019 Sergey Chupligin <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -28,24 +28,45 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
-
 import QtQuick 2.6
+import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-Rectangle {
-    width: Theme.itemWidthExtraSmall
-    height: Theme.itemHeightHuge
+import org.freedesktop.contextkit 1.0
 
-    color: "transparent"
+StatusbarItem{
+    id: dataStatus
+    iconSize: statusbar.height
+    visible: cellularDataTechnology.value != "unknown"
 
-    Rectangle{
-        id: background
-        anchors.fill: parent
-        color: "white"
+    property alias cellularDataTechnology: cellularDataTechnology
 
-        opacity: 0.3
+    Component.onCompleted: {
+        formatValue()
     }
 
+    ContextProperty {
+        id: cellularDataTechnology
+        key: "Cellular.DataTechnology"
+        onValueChanged: {
+            dataStatus.formatValue()
+        }
+    }
 
+   function formatValue() {
+       if(cellularDataTechnology.value == "2") {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
+       }else if(cellularDataTechnology.value == "2.5" || cellularDataTechnology.value == "gprs") {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
+       }else if(cellularDataTechnology.value == "3" || cellularDataTechnology.value == "umts") {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
+       }else if(cellularDataTechnology.value == "3.5" || cellularDataTechnology.value == "hspa") {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
+       }else if(cellularDataTechnology.value == "4" || cellularDataTechnology.value == "lte") {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
+       }else {
+           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
+       }
+   }
 }
