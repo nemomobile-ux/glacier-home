@@ -125,16 +125,6 @@ Item {
     }
 
     ContextProperty {
-        id: bluetoothEnabled
-        key: "Bluetooth.Enabled"
-    }
-
-    ContextProperty {
-        id: bluetoothConnected
-        key: "Bluetooth.Connected"
-    }
-
-    ContextProperty {
         id: cellularNetworkName
         key: "Cellular.NetworkName"
     }
@@ -233,12 +223,8 @@ Item {
             id: wifiStatus
         }
 
-        StatusbarItem {
+        BluetoothIndicator{
             id: bluetoothIndicator
-            iconSize:       statusbar.height * 0.671875
-            iconSizeHeight: statusbar.height
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_bluetooth.png"
-            visible: bluetoothEnabled.value
         }
 
         StatusbarItem {

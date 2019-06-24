@@ -33,12 +33,16 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import MeeGo.Connman 0.2
+
 import org.freedesktop.contextkit 1.0
 
 StatusbarItem{
     id: dataStatus
     iconSize: statusbar.height
     visible: cellularDataTechnology.value != "unknown"
+    transparent: !cellularNetworkTechnology.connected
+
 
     property alias cellularDataTechnology: cellularDataTechnology
 
@@ -52,6 +56,11 @@ StatusbarItem{
         onValueChanged: {
             dataStatus.formatValue()
         }
+    }
+
+    NetworkTechnology {
+        id: cellularNetworkTechnology
+        path: "/net/connman/technology/cellular"
     }
 
    function formatValue() {
