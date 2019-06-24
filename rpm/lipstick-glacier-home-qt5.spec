@@ -69,6 +69,7 @@ ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.targe
 %{_datadir}/lipstick-glacier-home-qt5/qml
 %{_datadir}/lipstick-glacier-home-qt5/translations
 %{_datadir}/glacier-settings/
+%{_datadir}/mapplauncherd/privileges.d/glacier-home.privileges
 
 %post
 systemctl-user --no-block restart lipstick.service

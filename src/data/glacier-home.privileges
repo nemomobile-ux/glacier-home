@@ -1,0 +1,2 @@
+# Tells invoker to run glacier-home as nemo:privileged
+/usr/bin/lipstick,lmnpsu

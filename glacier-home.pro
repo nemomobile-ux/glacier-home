@@ -62,6 +62,7 @@ notifications.files = src/qml/notifications/NotificationItem.qml\
 statusbar.path = /usr/share/lipstick-glacier-home-qt5/qml/statusbar
 statusbar.files = src/qml/statusbar/BatteryPanel.qml\
                 src/qml/statusbar/BatteryIndicator.qml \
+                src/qml/statusbar/BluetoothIndicator.qml \
                 src/qml/statusbar/CommonPanel.qml\
                 src/qml/statusbar/DataStatusItem.qml \
                 src/qml/statusbar/SimPanel.qml\
@@ -119,6 +120,10 @@ settingspluginconfig.path = /usr/share/glacier-settings/plugins
 systemd.files = src/data/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
+privileges.files = src/data/glacier-home.privileges
+privileges.path = /usr/share/mapplauncherd/privileges.d/
+
+
 INSTALLS += styles \
             images \
             theme \
@@ -140,6 +145,7 @@ INSTALLS += styles \
             mainscreen \
             lockscreen \
             systemd \
+            privileges \
             desktop
 
 CONFIG += qt link_pkgconfig
