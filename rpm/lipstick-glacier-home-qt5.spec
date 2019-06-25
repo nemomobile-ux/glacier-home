@@ -6,7 +6,6 @@ Group:      System/GUI/Other
 License:    BSD
 URL:        https://github.com/locusf/glacier-home
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    lipstick.service
 
 Requires:   lipstick-qt5 >= 0.17.0
 Requires:   nemo-qml-plugin-configuration-qt5
