@@ -4,7 +4,7 @@ Version:    0.27
 Release:    2
 Group:      System/GUI/Other
 License:    BSD
-URL:        https://github.com/locusf/glacier-home
+URL:        https://github.com/nemomobile-ux/glacier-home
 Source0:    %{name}-%{version}.tar.bz2
 
 Requires:   lipstick-qt5 >= 0.17.0
@@ -29,6 +29,9 @@ Requires:   glacier-gallery-qmlplugin
 #provide services for startup user session
 Requires:   systemd-config-mer
 Requires:   nemo-mobile-session-common
+
+#provide keyboard
+Requires:   maliit-plugins
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
