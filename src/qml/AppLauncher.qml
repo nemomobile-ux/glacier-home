@@ -28,7 +28,7 @@ import QtQuick 2.6
 
 import QtQuick.VirtualKeyboard 2.1
 import org.nemomobile.lipstick 0.1
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
