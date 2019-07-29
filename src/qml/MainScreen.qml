@@ -137,7 +137,7 @@ Page {
 
     Pager {
         id: pager
-        anchors.topMargin: Math.min(parent.width,parent.height)/13.33333333333 //Get statusbar height instead of hardcoding the same value
+        anchors.topMargin: statusbar.height
         anchors.fill: parent
         model: VisualItemModel {
             AppLauncher {
@@ -177,5 +177,27 @@ Page {
         width: parent.width
         height: parent.height
         z: 200
+    }
+
+    Connections{
+        target: feeds
+        onXChanged: {
+            var opacityCalc
+            if(feeds.x < 0){
+                 opacityCalc = (desktop.width+feeds.x)/desktop.width
+            }else{
+                opacityCalc = (desktop.width-feeds.x)/desktop.width
+            }
+
+            if(opacityCalc < 0) {
+                opacityCalc = 0
+            }
+
+            if(opacityCalc > 1) {
+                opacityCalc = 1
+            }
+
+            statusbar.opacityStart = opacityCalc
+        }
     }
 }

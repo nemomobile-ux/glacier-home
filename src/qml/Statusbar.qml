@@ -45,23 +45,22 @@ import "statusbar"
 
 Item {
     id: root
-    z: 201
+    z: 198
     height: size.dp(40)
     width: parent.width
     anchors.top: parent.top
 
-    property alias ctrlCenter: ctrlCenter
-
-    ControlCenter{ 
-        id: ctrlCenter
-    }
+    property real opacityStart: 0.0
 
     Rectangle {
         id: statusbarPadding
         anchors.fill: parent
         gradient: Gradient {
-            GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.75) }
             GradientStop { position: 1.0; color: "transparent" }
+            GradientStop {
+                position: opacityStart;
+                color: Qt.rgba(0,0,0,0.6)
+            }
         }
     }
 
