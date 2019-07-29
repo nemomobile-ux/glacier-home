@@ -63,7 +63,6 @@ Item{
         controlCenterArea.activated = false
     }
 
-
     onHeightChanged: {
         if(height != Screen.height) {
             hiderTimer.restart()
@@ -176,7 +175,9 @@ Item{
 /*Little hack for hide control center*/
     MouseArea{
         id: backgroundMouseArea
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height-controlCenter.height
+        anchors.top: controlCenter.height
 
         property int pMouse: 0
 

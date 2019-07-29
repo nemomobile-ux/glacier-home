@@ -171,7 +171,7 @@ Compositor {
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
-                Desktop.instance.statusbar.ctrlCenter.height = gestureArea.mouseY
+                //Down gesture now not used yeat
             }
         }
 
@@ -186,7 +186,6 @@ Compositor {
             else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
                 if(gesture == "down") {
                     /*show statusbar when gesture down*/
-                    Desktop.instance.statusbar.ctrlCenter.activated = true
                 }
 
                 if(gesture == "up" && !diagonal) {
@@ -226,20 +225,8 @@ Compositor {
                     // Locks
                     if (!Desktop.instance.lockscreenVisible()) {
                         if (gesture == "down") {
-                            /*remove control center if move is little*/
-                            if(gestureArea.mouseY < Theme.itemHeightHuge*3) {
-                                Desktop.instance.statusbar.ctrlCenter.height = 0
-                                Desktop.instance.statusbar.ctrlCenter.activated = false
-                            } else {
-                                Desktop.instance.statusbar.ctrlCenter.height = Desktop.instance.height
-                            }
-                        } else if(gesture == "up") {
-                            if(Desktop.instance.statusbar.ctrlCenter.activated) {
-                                Desktop.instance.statusbar.ctrlCenter.activated = false
-                            } else {
-                                Desktop.instance.setLockScreen(true)
-                                setDisplayOff()
-                            }
+                            Desktop.instance.setLockScreen(true)
+                            setDisplayOff()
                         }
                     }
                     // Unlocks if no security code required

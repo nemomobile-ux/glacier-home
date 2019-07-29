@@ -13,15 +13,15 @@ Item {
 
     signal clicked();
 
-    height: size.dp(86)
-    width: size.dp(86)
+    width: icon.width
+    height: icon.height+label.height+size.dp(8)
 
     Image {
         id: icon
         anchors.centerIn: parent
 
-        sourceSize.width: width
-        sourceSize.height: height
+        sourceSize.width: size.dp(86)
+        sourceSize.height: size.dp(86)
 
 
         layer.effect: ShaderEffect {
@@ -49,7 +49,7 @@ Item {
     Text{
         id: label
         anchors{
-            top: parent.bottom
+            top: icon.bottom
             topMargin: size.dp(8)
         }
         width: parent.width
