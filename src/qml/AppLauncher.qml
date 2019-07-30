@@ -48,6 +48,11 @@ Flickable{
         id: alwaysShowSearch
         key: "/home/glacier/appLauncher/alwaysShowSearch"
         defaultValue: true
+
+        onValueChanged: {
+            searchListView.visible =  alwaysShowSearch.value
+            searchListView.calculateHeight()
+        }
     }
 
     ConfigurationValue {
@@ -61,7 +66,7 @@ Flickable{
     SearchListView {
         id: searchListView
         width: appLauncher.width
-        visible: alwaysShowSearch.value == true
+        visible: alwaysShowSearch.value
 
         Timer{
             id: searchListViewTimer;
@@ -131,7 +136,7 @@ Flickable{
         property int columns:  Math.floor(parent.width / minCellSize)
 
         anchors{
-            top: searchListView.bottom
+            top: searchListView.visible ? searchListView.bottom : parent.top
             topMargin: Theme.itemSpacingHuge
         }
 
