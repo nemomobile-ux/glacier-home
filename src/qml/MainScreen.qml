@@ -41,8 +41,11 @@ import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.statusnotifier 1.0
 
+import org.nemomobile.systemsettings 1.0
+
 import "scripts/desktop.js" as Desktop
 import "mainscreen"
+import "dialogs"
 
 Page {
     id: desktop
@@ -63,6 +66,27 @@ Page {
 
     StatusNotifierModel {
         id: statusNotiferModel
+    }
+
+
+    USBSettings{
+        id: usbModeSettings
+
+        onCurrentModeChanged: {
+            if(currentMode == "ask") {
+                usbModedDialog.visible = true
+                usbModedDialog.inModel = usbModeSettings.availableModes
+            }
+        }
+    }
+
+    UsbModeDialog{
+        id: usbModedDialog
+
+        onSelectedIndexChanged: {
+            usbModeSettings.configMode = usbModeSettings.availableModes[usbModedDialog.selectedIndex]
+            usbModedDialog.close()
+        }
     }
 
     property alias lockscreen: lockScreen

@@ -117,6 +117,10 @@ settingspluginconfig.files = src/settings-plugins/wallpaper/wallpaper.json \
 
 settingspluginconfig.path = /usr/share/glacier-settings/plugins
 
+
+dialogs.files = src/qml/dialogs/UsbModeDialog.qml
+dialogs.path = /usr/share/lipstick-glacier-home-qt5/qml/dialogs
+
 systemd.files = src/data/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
@@ -144,6 +148,7 @@ INSTALLS += styles \
             appswitcher \
             mainscreen \
             lockscreen \
+            dialogs \
             systemd \
             privileges \
             desktop
