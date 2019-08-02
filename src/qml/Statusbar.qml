@@ -238,5 +238,9 @@ Item {
             iconSizeHeight: statusbar.height
             source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
         }
+
+        UsbModeIndicator{
+            id: usbModedIndicator
+        }
     }
 }

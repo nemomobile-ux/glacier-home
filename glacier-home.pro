@@ -70,7 +70,8 @@ statusbar.files = src/qml/statusbar/BatteryPanel.qml\
                 src/qml/statusbar/WifiIndicator.qml \
                 src/qml/statusbar/StatusbarItem.qml\
                 src/qml/statusbar/NumButton.qml \
-                src/qml/statusbar/MediaController.qml
+                src/qml/statusbar/MediaController.qml \
+                src/qml/statusbar/UsbModeIndicator.qml
 
 applauncher.path = /usr/share/lipstick-glacier-home-qt5/qml/applauncher
 applauncher.files = src/qml/applauncher/SearchListView.qml \
