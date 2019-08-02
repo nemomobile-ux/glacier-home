@@ -12,6 +12,8 @@ Item {
         leftMargin: Theme.itemSpacingSmall
     }
 
+    clip: true
+
     property alias appIcon: appIcon
     property alias appBody: appBody
     property alias appName: appName
