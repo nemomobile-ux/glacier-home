@@ -41,7 +41,7 @@ Flickable {
         id: bg
         width: desktop.width
         height: desktop.height-statusbar.height
-        color: "black"
+        color: Theme.backgroundColor
         opacity: 0.6
     }
 

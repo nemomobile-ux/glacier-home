@@ -4,7 +4,7 @@ import MeeGo.Connman 0.2
 StatusbarItem {
     id: wifiStatus
     iconSize: statusbar.height
-    visible: wifimodel.powered
+    visible: wlan.powered
     source: {
         if (wlan.connected) {
             if (networkManager.defaultRoute.strength >= 59) {
@@ -24,15 +24,7 @@ StatusbarItem {
 
     NetworkTechnology {
         id: wlan
-    }
-
-    TechnologyModel {
-        id: wifimodel
-        name: "wifi"
-        onPoweredChanged: {
-            if (powered)
-                wifimodel.requestScan()
-        }
+        path: "/net/connman/technology/wifi"
     }
 
     NetworkManager {

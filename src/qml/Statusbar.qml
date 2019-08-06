@@ -45,23 +45,22 @@ import "statusbar"
 
 Item {
     id: root
-    z: 201
+    z: 198
     height: size.dp(40)
     width: parent.width
     anchors.top: parent.top
 
-    property alias ctrlCenter: ctrlCenter
-
-    ControlCenter{ 
-        id: ctrlCenter
-    }
+    property real opacityStart: 0.0
 
     Rectangle {
         id: statusbarPadding
         anchors.fill: parent
         gradient: Gradient {
-            GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.75) }
             GradientStop { position: 1.0; color: "transparent" }
+            GradientStop {
+                position: opacityStart;
+                color: Qt.rgba(0,0,0,0.6)
+            }
         }
     }
 
@@ -122,16 +121,6 @@ Item {
     ContextProperty {
         id: cellularRegistrationStatus
         key: "Cellular.RegistrationStatus"
-    }
-
-    ContextProperty {
-        id: bluetoothEnabled
-        key: "Bluetooth.Enabled"
-    }
-
-    ContextProperty {
-        id: bluetoothConnected
-        key: "Bluetooth.Connected"
     }
 
     ContextProperty {
@@ -233,12 +222,8 @@ Item {
             id: wifiStatus
         }
 
-        StatusbarItem {
+        BluetoothIndicator{
             id: bluetoothIndicator
-            iconSize:       statusbar.height * 0.671875
-            iconSizeHeight: statusbar.height
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_bluetooth.png"
-            visible: bluetoothEnabled.value
         }
 
         StatusbarItem {
@@ -252,6 +237,10 @@ Item {
             iconSize: statusbar.height * 0.75
             iconSizeHeight: statusbar.height
             source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
+        }
+
+        UsbModeIndicator{
+            id: usbModedIndicator
         }
     }
 }

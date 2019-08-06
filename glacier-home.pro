@@ -10,88 +10,8 @@ target.path = /usr/bin
 styles.path = /usr/share/lipstick-glacier-home-qt5
 styles.files = src/nemovars.conf
 
-images.path = /usr/share/lipstick-glacier-home-qt5/qml/images
-images.files = src/qml/images/*.png \
-               src/qml/images/*.jpg \
-               src/qml/images/*.svg
-
-theme.path = /usr/share/lipstick-glacier-home-qt5/qml/theme
-theme.files = src/qml/theme/*.png
-
 qml.path = /usr/share/lipstick-glacier-home-qt5/qml
-qml.files = src/qml/MainScreen.qml \
-    src/qml/compositor.qml \
-    src/qml/Lockscreen.qml \
-    src/qml/AppSwitcher.qml \
-    src/qml/AppLauncher.qml \
-    src/qml/SwitcherItem.qml \
-    src/qml/CloseButton.qml \
-    src/qml/FeedsPage.qml \
-    src/qml/Statusbar.qml \
-    src/qml/Pager.qml \
-    src/qml/VolumeControl.qml \
-    src/qml/ShutdownScreen.qml \
-    src/qml/GlacierRotation.qml \
-    src/qml/ControlCenter.qml
-
-qmlcompositor.path = /usr/share/lipstick-glacier-home-qt5/qml/compositor
-qmlcompositor.files = src/qml/compositor/WindowWrapperMystic.qml \
-    src/qml/compositor/WindowWrapperBase.qml \
-    src/qml/compositor/WindowWrapperAlpha.qml \
-    src/qml/compositor/ScreenGestureArea.qml
-
-scripts.path = /usr/share/lipstick-glacier-home-qt5/qml/scripts
-scripts.files =  src/qml/scripts/desktop.js \
-                src/qml/scripts/rotation.js
-
-system.path = /usr/share/lipstick-glacier-home-qt5/qml/system
-system.files = src/qml/ShutdownScreen.qml
-
-volumecontrol.path = /usr/share/lipstick-glacier-home-qt5/qml/volumecontrol
-volumecontrol.files = src/qml/volumecontrol/VolumeControl.qml
-
-connectivity.path = /usr/share/lipstick-glacier-home-qt5/qml/connectivity
-connectivity.files = src/qml/connectivity/USBModeSelector.qml \
-                     src/qml/connectivity/ConnectionSelector.qml \
-                     src/qml/connectivity/VpnAgent.qml
-
-notifications.path = /usr/share/lipstick-glacier-home-qt5/qml/notifications
-notifications.files = src/qml/notifications/NotificationItem.qml\
-                      src/qml/notifications/NotificationPreview.qml
-
-statusbar.path = /usr/share/lipstick-glacier-home-qt5/qml/statusbar
-statusbar.files = src/qml/statusbar/BatteryPanel.qml\
-                src/qml/statusbar/BatteryIndicator.qml \
-                src/qml/statusbar/CommonPanel.qml\
-                src/qml/statusbar/DataStatusItem.qml \
-                src/qml/statusbar/SimPanel.qml\
-                src/qml/statusbar/WifiPanel.qml\
-                src/qml/statusbar/WifiIndicator.qml \
-                src/qml/statusbar/StatusbarItem.qml\
-                src/qml/statusbar/NumButton.qml \
-                src/qml/statusbar/MediaController.qml
-
-applauncher.path = /usr/share/lipstick-glacier-home-qt5/qml/applauncher
-applauncher.files = src/qml/applauncher/SearchListView.qml \
-                src/qml/applauncher/Deleter.qml \
-                src/qml/applauncher/LauncherItemDelegate.qml \
-                src/qml/applauncher/LauncherItemWrapper.qml \
-                src/qml/applauncher/LauncherItemFolder.qml
-
-controlcenter.path = /usr/share/lipstick-glacier-home-qt5/qml/controlcenter
-controlcenter.files = src/qml/controlcenter/ControlButton.qml \
-                      src/qml/controlcenter/NetworkControlButton.qml
-
-lockscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/lockscreen
-lockscreen.files = src/qml/lockscreen/LockscreenClock.qml \
-                   src/qml/lockscreen/DeviceLockUI.qml
-
-appswitcher.path =  /usr/share/lipstick-glacier-home-qt5/qml/appswitcher
-appswitcher.files = src/qml/appswitcher/SwitcherItem.qml \
-                    src/qml/appswitcher/CloseButton.qml
-
-mainscreen.path = /usr/share/lipstick-glacier-home-qt5/qml/mainscreen
-mainscreen.files = src/qml/mainscreen/Wallpaper.qml
+qml.files = src/qml/
 
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
                        src/settings-plugins/wallpaper/selectImage.qml \
@@ -119,35 +39,24 @@ settingspluginconfig.path = /usr/share/glacier-settings/plugins
 systemd.files = src/data/lipstick.service
 systemd.path = /usr/lib/systemd/user
 
+privileges.files = src/data/glacier-home.privileges
+privileges.path = /usr/share/mapplauncherd/privileges.d/
+
 INSTALLS += styles \
-            images \
-            theme \
             qml \
-            qmlcompositor\
-            scripts\
-            system\
-            volumecontrol\
-            connectivity\
-            notifications\
-            statusbar\
-            controlcenter \
             settingswallpaperplugin\
             settingsnotificationsplugin\
             settingspluginconfig \
             settingsdesktopplugin \
-            applauncher \
-            appswitcher \
-            mainscreen \
-            lockscreen \
             systemd \
-            desktop
+            privileges
 
 CONFIG += qt link_pkgconfig
-QT += quick compositor
+QT += quick compositor dbus
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
     src/glacierwindowmodel.h
-QT += dbus
+
 LIBS += -lnemodevicelock
 MOC_DIR = .moc
 
@@ -158,11 +67,7 @@ SOURCES += \
 PKGCONFIG += lipstick-qt5 \
     nemodevicelock
 
-OTHER_FILES += src/qml/*.qml \
-    src/qml/compositor/*.qml \
-    src/qml/scripts/desktop.js \
-    src/nemovars.conf \
-    src/qml/connectivity/*.qml
+OTHER_FILES += src/nemovars.conf
 
 TRANSLATIONS += translations/glacer-home.ts \
                 translations/glacer-home_ru.ts
@@ -174,9 +79,7 @@ INSTALLS += i18n_files
 
 DISTFILES += \
     translations/*.ts \
-    qml/*/*.qml \
     settings-plugins/*/*.qml \
     settings-plugins/*/*.json \
     settings-plugins/*/*.svg \
     rpm/*
-

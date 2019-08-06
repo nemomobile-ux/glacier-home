@@ -49,8 +49,43 @@ Page {
         defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
     }
 
+    ConfigurationValue {
+        id: enableParalax
+        key: "/home/glacier/homeScreen/enableParalax"
+        defaultValue: true
+    }
+
     SettingsColumn{
-        id: differentImagesSettings
+        id: wallpaperSettings
+
+        Rectangle{
+            id: paralaxWallpaper
+            width: parent.width
+            height: childrenRect.height
+
+            color: "transparent"
+
+            Label{
+                id: paralaxWallpaperLabel
+                text: qsTr("Use paralax effect for wallpaper");
+                anchors{
+                    left: parent.left
+                    top: parent.top
+                }
+                width: parent.width-paralaxWallpaperCheck.width
+                wrapMode: Text.WordWrap
+            }
+
+            CheckBox{
+                id: paralaxWallpaperCheck
+                checked: enableParalax.value
+                anchors{
+                    right: parent.right
+                    verticalCenter: paralaxWallpaperLabel.verticalCenter
+                }
+                onClicked: enableParalax.value = checked
+            }
+        }
 
         Rectangle{
             id: differentImages

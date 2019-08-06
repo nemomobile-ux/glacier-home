@@ -171,7 +171,7 @@ Compositor {
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
-                Desktop.instance.statusbar.ctrlCenter.height = gestureArea.mouseY
+                //Down gesture now not used yeat
             }
         }
 
@@ -183,11 +183,12 @@ Compositor {
             if (root.appActive && !diagonal) {
                 state = "swipe"
             }
-            else if (!root.appActive && DeviceLock.state !== DeviceLock.Locked) {
-                if(gesture == "down" && !diagonal) {
+            else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
+                if(gesture == "down") {
                     /*show statusbar when gesture down*/
-                    Desktop.instance.statusbar.ctrlCenter.activated = true
-                } else if (!Desktop.instance.statusbar.ctrlCenter.activated) {
+                }
+
+                if(gesture == "up" && !diagonal) {
                     state = "cover"
                 }
             }
@@ -224,20 +225,8 @@ Compositor {
                     // Locks
                     if (!Desktop.instance.lockscreenVisible()) {
                         if (gesture == "down") {
-                            /*remove control center if move is little*/
-                            if(gestureArea.mouseY < Theme.itemHeightHuge*3) {
-                                Desktop.instance.statusbar.ctrlCenter.height = 0
-                                Desktop.instance.statusbar.ctrlCenter.activated = false
-                            } else {
-                                Desktop.instance.statusbar.ctrlCenter.height = Desktop.instance.height
-                            }
-                        } else if(gesture == "up") {
-                            if(Desktop.instance.statusbar.ctrlCenter.activated) {
-                                Desktop.instance.statusbar.ctrlCenter.activated = false
-                            } else {
-                                Desktop.instance.setLockScreen(true)
-                                setDisplayOff()
-                            }
+                            Desktop.instance.setLockScreen(true)
+                            setDisplayOff()
                         }
                     }
                     // Unlocks if no security code required
@@ -281,14 +270,6 @@ Compositor {
                 }
                 PropertyChanges {
                     target: Desktop.instance.lockscreen
-                    x: gestureArea.lockscreenX + ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
-                                                                                                                    (gestureArea.gesture == "right" ?
-                                                                                                                         ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
-                                                                                                                              -Desktop.instance.lockscreen.width :
-                                                                                                                              -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
-                                                                                                                         ((Desktop.instance.lockscreen.width === topmostWindow.width) ?
-                                                                                                                              Desktop.instance.lockscreen.width :
-                                                                                                                              Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
                     y: gestureArea.lockscreenY + ((gestureArea.horizontal) ? 0 : (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
                                                                                                                         (gestureArea.gesture == "down" ?
                                                                                                                              ((Desktop.instance.lockscreen.width === topmostWindow.width) ?

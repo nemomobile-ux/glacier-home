@@ -48,13 +48,12 @@ Item {
         onPressed: cleanup()
     }
 
-
     function cleanup(){
         searchField.focus = false
         appLauncher.searchString = ""
         searchField.text = ""
 
-        if(!alwaysShowSearch.value == true)
+        if(!alwaysShowSearch.value)
         {
             searchListView.visible = false;
         }
@@ -75,7 +74,7 @@ Item {
     }
 
     onVisibleChanged: {
-        if(alwaysShowSearch.value == false)
+        if(!alwaysShowSearch.value)
         {
             if(visible){
                 rootItem.height = calculateHeight()

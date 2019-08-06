@@ -37,6 +37,12 @@ Page {
         defaultValue: false
     }
 
+    ConfigurationValue {
+        id: alwaysShowSearch
+        key: "/home/glacier/appLauncher/alwaysShowSearch"
+        defaultValue: true
+    }
+
     SettingsColumn{
         id: windowedModeSettings
 
@@ -66,6 +72,35 @@ Page {
                     verticalCenter: differentImagesLabel.verticalCenter
                 }
                 onClicked: windowedMode.value = checked
+            }
+        }
+
+        Rectangle{
+            id: alwaysShowSearchColumn
+            width: parent.width
+            height: childrenRect.height
+
+            color: "transparent"
+
+            Label{
+                id: alwaysShowSearchLabel
+                text: qsTr("Always show search panel");
+                anchors{
+                    left: parent.left
+                    top: parent.top
+                }
+                width: parent.width-windowedModeCheck.width
+                wrapMode: Text.WordWrap
+            }
+
+            CheckBox{
+                id: alwaysShowSearchCheck
+                checked: alwaysShowSearch.value
+                anchors{
+                    right: parent.right
+                    verticalCenter: alwaysShowSearchLabel.verticalCenter
+                }
+                onClicked: alwaysShowSearch.value = checked
             }
         }
     }

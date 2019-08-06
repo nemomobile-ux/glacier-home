@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019 Sergey Chupligin <neochapay@gmail.com>
+** Copyright (C) 2019 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -28,54 +28,56 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
+
 import QtQuick 2.6
-import QtQuick.Layouts 1.0
+import QtQuick.Controls 1.0 //needed for the Stack attached property
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-import MeeGo.Connman 0.2
-
-import org.freedesktop.contextkit 1.0
-
-StatusbarItem{
-    id: dataStatus
-    iconSize: statusbar.height
-    visible: cellularDataTechnology.value != "unknown"
-    transparent: !cellularNetworkTechnology.connected
+import Nemo.Dialogs 1.0
 
 
-    property alias cellularDataTechnology: cellularDataTechnology
+SelectionDialog{
+    id: selectionDialog
+    visible: false
 
-    Component.onCompleted: {
-        formatValue()
+    property var inModel
+
+    ListModel{
+        id: exModel
     }
 
-    ContextProperty {
-        id: cellularDataTechnology
-        key: "Cellular.DataTechnology"
-        onValueChanged: {
-            dataStatus.formatValue()
+    cancelText: qsTr("Cancel")
+    acceptText: qsTr("Ok")
+    headingText: qsTr("Select USB mode")
+
+    model: exModel
+
+    onInModelChanged: {
+        for(var i=0; i <= inModel.length; i++) {
+            exModel.append({
+                               "name": formatMode(inModel[i]),
+                               "mode": inModel[i]
+                           })
         }
     }
 
-    NetworkTechnology {
-        id: cellularNetworkTechnology
-        path: "/net/connman/technology/cellular"
+    function formatMode(mode) {
+        switch(mode) {
+        case "ask":
+            return qsTr("Always ask")
+        case "mtp_mode":
+            return qsTr("MTP")
+        case "charging_only":
+            return qsTr("Chagring only")
+        case "connection_sharing":
+            return qsTr("Connection sharing")
+        case "developer_mode":
+            return qsTr("Developer mode")
+        case "busy":
+            return qsTr("Busy")
+        default:
+            return mode
+        }
     }
-
-   function formatValue() {
-       if(cellularDataTechnology.value == "2") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
-       }else if(cellularDataTechnology.value == "2.5" || cellularDataTechnology.value == "gprs") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
-       }else if(cellularDataTechnology.value == "3" || cellularDataTechnology.value == "umts") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
-       }else if(cellularDataTechnology.value == "3.5" || cellularDataTechnology.value == "hspa") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
-       }else if(cellularDataTechnology.value == "4" || cellularDataTechnology.value == "lte") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
-       }else {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
-       }
-   }
 }
