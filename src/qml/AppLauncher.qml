@@ -58,7 +58,7 @@ Flickable{
     ConfigurationValue {
         id: columnCount
         key: "/home/glacier/appLauncher/columnCount"
-        defaultValue: 4
+        defaultValue: Math.round(Math.min(appLauncher.width, appLauncher.height)/Theme.itemHeightLarge)/2
     }
 
 

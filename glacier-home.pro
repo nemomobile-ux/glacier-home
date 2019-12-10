@@ -10,7 +10,7 @@ target.path = /usr/bin
 styles.path = /usr/share/lipstick-glacier-home-qt5
 styles.files = src/nemovars.conf
 
-qml.path = /usr/share/lipstick-glacier-home-qt5/qml
+qml.path = /usr/share/lipstick-glacier-home-qt5/
 qml.files = src/qml/
 
 settingswallpaperplugin.files = src/settings-plugins/wallpaper/wallpaper.qml \
