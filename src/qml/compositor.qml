@@ -149,8 +149,8 @@ Compositor {
         anchors.fill: parent
 
 
-        property real swipeThreshold: 0.15
-        property real lockThreshold: 0.25
+        property real swipeThreshold: size.mm(20)
+        property real lockThreshold: size.mm(25)
         property int lockscreenX
         property int lockscreenY
         enabled: DeviceLock.state != DeviceLock.Locked
