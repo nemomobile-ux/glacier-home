@@ -26,10 +26,6 @@ Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
 
-#provide services for startup user session
-Requires:   systemd-config-mer
-Requires:   nemo-mobile-session-common
-
 #provide keyboard
 Requires:   maliit-plugins
 
