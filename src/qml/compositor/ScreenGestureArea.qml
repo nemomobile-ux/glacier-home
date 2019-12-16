@@ -29,7 +29,7 @@ import org.nemomobile.configuration 1.0
 MouseArea {
     id: root
 
-    property int boundary: 20
+    property int boundary: size.mm(20)
     property bool delayReset
 
     signal gestureStarted(string gesture)
@@ -40,7 +40,7 @@ MouseArea {
     property string gesture
     property int value
     property int max
-    property real progress: Math.abs(value) / max
+    property real progress: Math.abs(value) / max*(Math.min(Screen.width, Screen.height))
     property bool horizontal: gesture === "left" || gesture === "right"
     property bool inverted: gesture === "left" || gesture === "up"
     property string diagonal: ""
