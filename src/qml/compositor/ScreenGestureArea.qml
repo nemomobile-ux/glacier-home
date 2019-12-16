@@ -40,7 +40,7 @@ MouseArea {
     property string gesture
     property int value
     property int max
-    property real progress: Math.abs(value) / max
+    property real progress: Math.abs(value) / max*(Math.min(Screen.width, Screen.height))
     property bool horizontal: gesture === "left" || gesture === "right"
     property bool inverted: gesture === "left" || gesture === "up"
     property string diagonal: ""
