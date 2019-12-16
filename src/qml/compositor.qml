@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 import QtQuick 2.6
+import QtQuick.Window 2.0
 import QtQuick.Controls.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
@@ -149,8 +150,8 @@ Compositor {
         anchors.fill: parent
 
 
-        property real swipeThreshold: size.mm(20)
-        property real lockThreshold: size.mm(25)
+        property real swipeThreshold: 0.15*Math.min(Screen.width, Screen.height)
+        property real lockThreshold: 0.25*Math.min(Screen.width, Screen.height)
         property int lockscreenX
         property int lockscreenY
         enabled: DeviceLock.state != DeviceLock.Locked
