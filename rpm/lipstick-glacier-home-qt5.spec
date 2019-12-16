@@ -26,9 +26,6 @@ Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
 
-#provide keyboard
-Requires:   maliit-plugins
-
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
