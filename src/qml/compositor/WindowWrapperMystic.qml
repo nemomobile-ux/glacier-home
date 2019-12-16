@@ -57,10 +57,10 @@ WindowWrapperBase {
 
     MouseArea{
         id: windowHeader
-        width: parent.width + 8
-        height: parent.height - y + 8
-        y: -84
-        x: -4
+        width: parent.width + size.dp(8)
+        height: parent.height - y + size.dp(8)
+        y: -size.dp(84)
+        x: -size.dp(4)
         z: window.z - 1
         visible: window.width != Screen.width || window.height != Screen.height
 
@@ -88,7 +88,7 @@ WindowWrapperBase {
             id: closeWindow
             source: "image://theme/times"
 
-            height: 84
+            height: size.dp(84)
             width: height
 
             anchors{

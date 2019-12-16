@@ -29,7 +29,7 @@ import org.nemomobile.configuration 1.0
 MouseArea {
     id: root
 
-    property int boundary: size.mm(20)
+    property int boundary: size.dp(20)
     property bool delayReset
 
     signal gestureStarted(string gesture)
