@@ -226,10 +226,8 @@ Item {
             id: bluetoothIndicator
         }
 
-        StatusbarItem {
+        NfcIndicator {
             id: nfcIndicator
-            iconSize: statusbar.height
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_nfc.png"
         }
 
         StatusbarItem {
