@@ -49,6 +49,8 @@ Rectangle{
     color: Theme.backgroundColor
 
     property int pressedKey
+    property bool upPress
+    property bool downPress
 
     visible: volumeControl.windowVisible
 
@@ -109,16 +111,34 @@ Rectangle{
             volumeChange()
             keyPressTimer.start()
             maxMinTimer.start()
+            screenShotTimer.start()
 
             if (volumeControl.windowVisible) {
                 voltimer.restart()
+            }
+
+            if(key == Qt.Key_VolumeUp) {
+                upPress = true;
+            }
+
+            if(key == Qt.Key_VolumeDown) {
+                downPress = true;
             }
         }
 
         onVolumeKeyReleased: {
             keyPressTimer.stop()
             maxMinTimer.stop()
+            screenShotTimer.stop()
             volumeControlWindow.pressedKey = ""
+
+            if(key == Qt.Key_VolumeUp) {
+                upPress = false;
+            }
+
+            if(key == Qt.Key_VolumeDown) {
+                downPress = false;
+            }
         }
 
         onWindowVisibleChanged: {
@@ -128,13 +148,25 @@ Rectangle{
             }
         }
     }
+    Timer{
+        id: screenShotTimer
+        interval: 2000
+        onTriggered: {
+            if(upPress && downPress) {
+                volumeControlWindow.visible = false
+                Desktop.instance.makeScreenshot();
+            }
+        }
+    }
 
     Timer{
         id: keyPressTimer
         interval: 500
         onTriggered: {
-            volumeChange()
-            voltimer.restart()
+            if(!upPress || !downPress) {
+                volumeChange()
+                voltimer.restart()
+            }
         }
         repeat: true
     }
@@ -143,10 +175,12 @@ Rectangle{
         id: maxMinTimer
         interval: 1900
         onTriggered: {
-            if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
-                volumeControl.volume = volumeSlider.maximumValue
-            } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
-                volumeControl.volume = 0
+            if(!upPress || !downPress) {
+                if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
+                    volumeControl.volume = volumeSlider.maximumValue
+                } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
+                    volumeControl.volume = 0
+                }
             }
         }
     }

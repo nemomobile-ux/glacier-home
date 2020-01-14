@@ -55,12 +55,14 @@ CONFIG += qt link_pkgconfig
 QT += quick compositor dbus
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
+    src/fileutils.h \
     src/glacierwindowmodel.h
 
 LIBS += -lnemodevicelock
 MOC_DIR = .moc
 
 SOURCES += \
+    src/fileutils.cpp \
     src/main.cpp \
     src/glacierwindowmodel.cpp
 

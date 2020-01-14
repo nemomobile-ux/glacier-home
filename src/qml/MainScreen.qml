@@ -47,6 +47,7 @@ import "scripts/desktop.js" as Desktop
 import "mainscreen"
 import "dialogs"
 import "volumecontrol"
+import "system"
 
 Page {
     id: desktop
@@ -160,6 +161,10 @@ Page {
         }
     }
 
+    function makeScreenshot() {
+        screenshot.capture()
+    }
+
     Pager {
         id: pager
         anchors.topMargin: statusbar.height
@@ -206,6 +211,10 @@ Page {
 
     AudioWarningDialog{
         id: audioWarnigDialog
+    }
+
+    Screenshot{
+        id: screenshot
     }
 
     Connections{

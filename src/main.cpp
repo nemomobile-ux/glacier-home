@@ -33,6 +33,7 @@
 #include <lipstickqmlpath.h>
 
 #include "glacierwindowmodel.h"
+#include "fileutils.h"
 
 
 int main(int argc, char **argv)
@@ -45,6 +46,9 @@ int main(int argc, char **argv)
 
     QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
+
+    FileUtils *fileUtils = new FileUtils();
+
     app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
@@ -69,6 +73,8 @@ int main(int argc, char **argv)
     if (nativeOrientation == Qt::PrimaryOrientation)
         nativeOrientation = app.primaryScreen()->primaryOrientation();
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
+    app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
+
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
     // Give these to the environment inside the lipstick homescreen

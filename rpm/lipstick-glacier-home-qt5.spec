@@ -21,6 +21,7 @@ Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-contextkit-qt5
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
+Requires:   libngf-qt5-declarative
 Requires:   nemo-theme-glacier
 Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
