@@ -52,11 +52,34 @@ Rectangle{
 
     visible: volumeControl.windowVisible
 
+    Image{
+        id: soundIcon
+        height: Theme.itemHeightMedium
+        width: height
+
+        anchors{
+            left: parent.left
+            leftMargin: (parent.height-soundIcon.height)/2
+            verticalCenter: parent.verticalCenter
+        }
+        source: if(volumeControl.volume == volumeControl.maximumVolume) {
+                    "image://theme/volume-up"
+                } else if(volumeControl.volume == 0) {
+                    "image://theme/volume-off"
+                } else {
+                    "image://theme/volume-down"
+                }
+    }
+
     Slider {
         id: volumeSlider
-        width: parent.width*0.8
+        width: parent.width-parent.height*1.2
 
-        anchors.centerIn: parent
+        anchors{
+            left: soundIcon.right
+            leftMargin: parent.height*0.2
+            verticalCenter: parent.verticalCenter
+        }
 
         minimumValue: 0
         value: volumeControl.volume
@@ -132,14 +155,10 @@ Rectangle{
     {
         if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
             //up volume
-            if(volumeControl.volume < volumeSlider.maximumValue) {
-                volumeControl.volume = volumeControl.volume+1
-            }
+            volumeControl.volume = volumeControl.volume+1
+
         } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
-            //down volume
-            if(volumeControl.volume > 0) {
-                volumeControl.volume = volumeControl.volume-1
-            }
+            volumeControl.volume = volumeControl.volume-1
         }
     }
 }

@@ -46,6 +46,7 @@ import org.nemomobile.systemsettings 1.0
 import "scripts/desktop.js" as Desktop
 import "mainscreen"
 import "dialogs"
+import "volumecontrol"
 
 Page {
     id: desktop
@@ -203,6 +204,10 @@ Page {
         z: 200
     }
 
+    AudioWarningDialog{
+        id: audioWarnigDialog
+    }
+
     Connections{
         target: feeds
         onXChanged: {
@@ -222,6 +227,13 @@ Page {
             }
 
             statusbar.opacityStart = opacityCalc
+        }
+    }
+
+    Connections {
+        target: volumeControl
+        onShowAudioWarning: {
+            audioWarnigDialog.open();
         }
     }
 }
