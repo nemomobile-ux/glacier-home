@@ -27,6 +27,14 @@ Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
+Requires:   statefs-provider-ofono
+Requires:   statefs-provider-connman
+Requires:   statefs-provider-profile
+Requires:   statefs-provider-power-udev
+Requires:   statefs-provider-mce
+Requires:   pulseaudio-modules-nemo-parameters
+Requires:   libqofonoext-declarative
+Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
