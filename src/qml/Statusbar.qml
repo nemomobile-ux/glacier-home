@@ -46,7 +46,7 @@ import "statusbar"
 Item {
     id: root
     z: 198
-    height: size.dp(40)
+    height: Theme.itemHeightSmall
     width: parent.width
     anchors.top: parent.top
 
