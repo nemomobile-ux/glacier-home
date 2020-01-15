@@ -99,33 +99,12 @@ Item {
         onLockscreenVisibleChanged: {
             if(lipstickSettings.lockscreenVisible) {
                 batteryIndicator.batteryChargePercentage.subscribe()
-                cellularSignalBars.subscribe()
-                cellularRegistrationStatus.subscribe()
-                cellularNetworkName.subscribe()
                 dataStatus.cellularDataTechnology.subscribe()
             } else {
                 batteryIndicator.batteryChargePercentage.unsubscribe()
-                cellularSignalBars.unsubscribe()
-                cellularRegistrationStatus.unsubscribe()
-                cellularNetworkName.unsubscribe()
                 dataStatus.cellularDataTechnology.unsubscribe()
             }
         }
-    }
-
-    ContextProperty {
-        id: cellularSignalBars
-        key: "Cellular.SignalBars"
-    }
-
-    ContextProperty {
-        id: cellularRegistrationStatus
-        key: "Cellular.RegistrationStatus"
-    }
-
-    ContextProperty {
-        id: cellularNetworkName
-        key: "Cellular.NetworkName"
     }
 
     Loader {
@@ -204,14 +183,8 @@ Item {
             id: batteryIndicator
         }
 
-        StatusbarItem {
-            id: cellStatus
-            iconSize: statusbar.height
-            source: if(cellularSignalBars.value){
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
-                    } else {
-                        return "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-                    }
+        SimIndicator{
+            id: simIndicator
         }
 
         DataStatusItem{

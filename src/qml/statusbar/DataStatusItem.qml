@@ -55,6 +55,7 @@ StatusbarItem{
         key: "Cellular.DataTechnology"
         onValueChanged: {
             dataStatus.formatValue()
+            dataStatus.visible = (value != "unknown")
         }
     }
 
