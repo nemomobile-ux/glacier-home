@@ -202,7 +202,7 @@ Compositor {
 //                    console.log("finished diagonal gesture:", mouseX, mouseY)
                     topmostWindow.window.userData.x = resizeBorder.x
                     topmostWindow.window.userData.y = resizeBorder.y
-                    requestWindowSize(topmostWindow.window, Qt.size(resizeBorder.width, resizeBorder.height))
+                    topmostWindow.window.resize(Qt.size(resizeBorder.width, resizeBorder.height))
                     topmostWindow.parent = windowedLayer
                     topmostWindow = root.homeWindow
                     topmostApplicationWindow = null
