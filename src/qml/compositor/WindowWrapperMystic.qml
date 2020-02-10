@@ -59,7 +59,7 @@ WindowWrapperBase {
         id: windowHeader
         width: parent.width + size.dp(8)
         height: parent.height - y + size.dp(8)
-        y: -size.dp(84)
+        y: -Theme.itemHeightMedium
         x: -size.dp(4)
         z: window.z - 1
         visible: window.width != Screen.width || window.height != Screen.height
@@ -88,7 +88,7 @@ WindowWrapperBase {
             id: closeWindow
             source: "image://theme/times"
 
-            height: size.dp(84)
+            height: Theme.itemHeightMedium
             width: height
 
             anchors{
