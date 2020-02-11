@@ -80,6 +80,7 @@ i18n_files.path = /usr/share/lipstick-glacier-home-qt5/
 INSTALLS += i18n_files
 
 DISTFILES += \
+    src/qml/lockscreen/AngleAnimation.qml \
     translations/*.ts \
     settings-plugins/*/*.qml \
     settings-plugins/*/*.json \

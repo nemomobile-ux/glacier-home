@@ -98,6 +98,7 @@ Page {
     readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
 
     property bool codepadVisible: false
+    property alias displayOn: lockScreen.displayOn
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
 
     // Implements back key navigation

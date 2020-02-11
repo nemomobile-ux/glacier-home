@@ -11,12 +11,15 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import "notifications"
 import "lockscreen"
 
+import "scripts/desktop.js" as Desktop
+
 Image {
     id: lockScreen
     source: lockScreenWallpaper.value
     fillMode: Image.PreserveAspectCrop
 
     property bool displayOn
+    clip: true
 
     ConfigurationValue {
         id: differentWallpaper
@@ -51,6 +54,12 @@ Image {
             snapOpenAnimation.to = -height
         else if (!snapClosedAnimation.running && !LipstickSettings.lockscreenVisible)
             y = -height
+    }
+
+    onDisplayOnChanged: {
+        if(lockScreen.displayOn) {
+            angileAnimation.run()
+        }
     }
 
     function snapPosition() {
@@ -176,6 +185,18 @@ Image {
                     z: -1
                 }
             }
+        }
+    }
+
+    AngleAnimation {
+        id: angileAnimation
+        width: Theme.itemHeightLarge
+        height: Theme.itemHeightLarge/2*3
+
+        anchors{
+            bottom: parent.bottom
+            bottomMargin: Theme.itemSpacingSmall
+            horizontalCenter: parent.horizontalCenter
         }
     }
 }
