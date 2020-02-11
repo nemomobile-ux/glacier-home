@@ -187,11 +187,12 @@ Compositor {
             else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
                 if(gesture == "down") {
                     /*show statusbar when gesture down*/
+                    console.log("Show statusarea")
                 }
 
-                if(gesture == "up" && !diagonal) {
+                /*if(gesture == "up" && !diagonal) {
                     state = "cover"
-                }
+                }*/
             }
         }
 
@@ -222,10 +223,10 @@ Compositor {
                                                  Desktop.instance.lockscreen.width :
                                                  -Desktop.instance.lockscreen.width)
                     lockAnimation.start()
-                    // Locks, unlocks or brings up codepad to enter security code
-                    // Locks
-                    if (!Desktop.instance.lockscreenVisible()) {
-                        if (gesture == "down") {
+
+                    if (gesture == "down") {
+                        // swipe down on lockscreen to turn off display
+                        if (Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(true)
                             setDisplayOff()
                         }
@@ -364,11 +365,17 @@ Compositor {
         WindowWrapperMystic { }
     }
 
-    onDisplayOff:
+    onDisplayOff: {
         if (root.topmostAlarmWindow == null) {
             Desktop.instance.codepadVisible = false
             setCurrentWindow(root.homeWindow)
         }
+        Desktop.instance.displayOn = false
+    }
+
+    onDisplayOn: {
+        Desktop.instance.displayOn = true
+    }
 
     onWindowAdded: {
         console.log("Compositor: Window added \"" + window.title + "\"" + " category: " + window.category)
