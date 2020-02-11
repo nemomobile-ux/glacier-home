@@ -42,6 +42,10 @@ systemd.path = /usr/lib/systemd/user
 privileges.files = src/data/glacier-home.privileges
 privileges.path = /usr/share/mapplauncherd/privileges.d/
 
+mce.files = src/data/90-glacier-powerkey.conf \
+            src/data/90-glacier-devlock.conf
+mce.path = /etc/mce
+
 INSTALLS += styles \
             qml \
             settingswallpaperplugin\
@@ -49,7 +53,8 @@ INSTALLS += styles \
             settingspluginconfig \
             settingsdesktopplugin \
             systemd \
-            privileges
+            privileges \
+            mce
 
 CONFIG += qt link_pkgconfig
 QT += quick compositor dbus
@@ -80,6 +85,7 @@ i18n_files.path = /usr/share/lipstick-glacier-home-qt5/
 INSTALLS += i18n_files
 
 DISTFILES += \
+    src/data/90-glacier-devlock.conf \
     src/qml/lockscreen/AngleAnimation.qml \
     translations/*.ts \
     settings-plugins/*/*.qml \

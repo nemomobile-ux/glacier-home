@@ -67,6 +67,7 @@ ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.targe
 
 %files
 %defattr(-,root,root,-)
+%{_sysconfdir}/mce/90-glacier-*.conf
 %{_bindir}/lipstick
 %{_libdir}/systemd/user/lipstick.service
 %{_libdir}/systemd/user/user-session.target.wants/lipstick.service
