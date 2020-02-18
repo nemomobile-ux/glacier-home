@@ -452,5 +452,7 @@ Compositor {
 
         if (window.userData)
             window.userData.destroy()
+
+        Desktop.instance.focus = true
     }
 }
