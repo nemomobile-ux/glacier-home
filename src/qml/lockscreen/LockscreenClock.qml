@@ -40,7 +40,7 @@ Rectangle {
         Text {
             id: dateDisplay
 
-            font.pointSize: 9
+            font.pixelSize: Theme.fontSizeSmall
             font.capitalization: Font.AllUppercase
             color: Theme.textColor
 
