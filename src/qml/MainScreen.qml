@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -43,6 +44,10 @@ import org.nemomobile.statusnotifier 1.0
 
 import org.nemomobile.systemsettings 1.0
 
+import Nemo.DBus 2.0
+
+import org.nemomobile.glacier 1.0
+
 import "scripts/desktop.js" as Desktop
 import "mainscreen"
 import "dialogs"
@@ -82,6 +87,42 @@ Page {
                 usbModedDialog.inModel = usbModeSettings.availableModes
             }
         }
+    }
+/*Bluetooth section */
+    GlacierBluetoothAgent{
+        id: btAgent
+
+        onAdapterAdded: {
+            btAgent.registerAgent()
+        }
+
+        onShowRequiesDialog: {
+            btRequestConfirmationDialog.deviceCode = code
+            btRequestConfirmationDialog.deviceName = name
+            btRequestConfirmationDialog.open();
+        }
+    }
+
+    BtRequestConfirmationDialog{
+        id: btRequestConfirmationDialog
+    }
+
+    DBusAdaptor {
+        id: btDbusAdapter
+        service: "org.glacier.lipstick"
+        path: "/bluetooth"
+        iface: "org.glacier.lipstick"
+
+        signal pair(string address)
+        signal unPair(string address)
+
+        signal connectDevice(string address)
+
+        signal replyToAgentRequest(int requestId, int error, string passkey)
+
+        onPair: btAgent.pair(address)
+        onUnPair: btAgent.unPair(address)
+        onConnectDevice: btAgent.connectDevice(address)
     }
 
     UsbModeDialog{

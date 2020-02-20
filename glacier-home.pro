@@ -60,6 +60,7 @@ CONFIG += qt link_pkgconfig
 QT += quick compositor dbus
 DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
+    src/bluetooth/bluetoothagent.h \
     src/fileutils.h \
     src/glacierwindowmodel.h
 
@@ -67,12 +68,14 @@ LIBS += -lnemodevicelock
 MOC_DIR = .moc
 
 SOURCES += \
+    src/bluetooth/bluetoothagent.cpp \
     src/fileutils.cpp \
     src/main.cpp \
     src/glacierwindowmodel.cpp
 
 PKGCONFIG += lipstick-qt5 \
-    nemodevicelock
+    nemodevicelock \
+    KF5BluezQt
 
 OTHER_FILES += src/nemovars.conf
 
@@ -86,6 +89,7 @@ INSTALLS += i18n_files
 
 DISTFILES += \
     src/data/90-glacier-devlock.conf \
+    src/qml/dialogs/BtRequestConfirmationDialog.qml \
     src/qml/lockscreen/AngleAnimation.qml \
     translations/*.ts \
     settings-plugins/*/*.qml \
