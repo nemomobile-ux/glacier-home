@@ -38,7 +38,8 @@ Requires:   kf5bluezqt-declarative
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
-BuildRequires:  pkgconfig(Qt5Compositor)
+BuildRequires:  pkgconfig(Qt5WaylandCompositor)
+BuildRequires:  pkgconfig(Qt5WaylandClient)
 BuildRequires:  pkgconfig(nemodevicelock)
 BuildRequires:  pkgconfig(KF5BluezQt)
 
