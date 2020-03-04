@@ -172,7 +172,7 @@ Item {
         property Item reorderItem
         property bool isRootFolder:false
         property int folderIndex: -1
-        cacheBuffer: folderLoader.contentHeight
+        cacheBuffer: (folderLoader.contentHeight > 0) ? folderLoader.contentHeight : 0
         parent: gridview.contentItem
         y: wrapper.y + wrapper.width
         x: 0

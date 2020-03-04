@@ -119,7 +119,7 @@ Flickable{
         height: parent.height
         width: parent.width
 
-        cacheBuffer: gridview.contentHeight
+        cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
 
         property Item reorderItem
         property bool onUninstall
@@ -223,17 +223,5 @@ Flickable{
         }
 
         state: "uninstall"
-        delegate: LauncherItemDelegate {
-            id: launcherItem
-            width: gridview.cellWidth
-            height: gridview.cellHeight
-
-            Component.onCompleted: {
-                if(model) {
-                    launcherItem.isFolder = model.object.type == LauncherModel.Folder
-                    launcherItem.source = model.object.iconId == "" || isFolder ? "theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
-                }
-            }
-        }
     }
 }
