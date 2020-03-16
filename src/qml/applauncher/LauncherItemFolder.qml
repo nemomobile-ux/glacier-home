@@ -64,13 +64,14 @@ Item {
         onClicked: {
             // TODO: disallow if close mode enabled
             if (modelData.object.type === LauncherModel.Folder) {
-                if(folderLoader.count>0 || reopenTimer.running) {
+                if(folderLoader.count > 0 || reopenTimer.running) {
                     folderLoader.model = 0
                 } else {
                     folderLoader.model = modelData.object
                 }
             }
         }
+
         Item {
             id:folderIconStack
             width: parent.width
@@ -167,53 +168,8 @@ Item {
         }
     }
 
-    GridView {
+    FolderView{
         id: folderLoader
-        property Item reorderItem
-        property bool isRootFolder:false
-        property int folderIndex: -1
-        cacheBuffer: (folderLoader.contentHeight > 0) ? folderLoader.contentHeight : 0
-        parent: gridview.contentItem
-        y: wrapper.y + wrapper.width
-        x: 0
-        z: wrapper.z + 100
-        width: gridview.width
-        height: count == 0 ? 0 :  (Math.floor((count*wrapper.width-1)/width) + 1) * wrapper.height
-        cellWidth: wrapper.width
-        cellHeight: wrapper.height
-        onReorderItemChanged: if(reorderItem == null) folderIconStack.icons=folderIconStack.addIcons()
-
-        Rectangle {
-            width: parent.width
-            height: parent.height
-            opacity: 0.85
-            color: triangle.color
-            radius: Theme.itemSpacingMedium
-            z: -1
-        }
-
-        delegate: LauncherItemDelegate {
-            id:folderLauncherItem
-            property QtObject modelData : model
-            property int cellIndex: index
-            parent: folderLoader
-            parentItem: folderLoader
-            width: wrapper.width
-            height: wrapper.height
-            notNemoIcon:  isFolder || model.object.iconId == "" ? false : model.object.iconId.indexOf("harbour") > -1  ||  model.object.iconId.indexOf("apkd_launcher") > -1 ? true : false //Dirty but works most of the times
-            isFolder: model.object.type == LauncherModel.Folder
-            source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
-            iconCaption.text: model.object.title
-            iconCaption.color: Theme.backgroundColor
-            folderModel:folderLoader.model
-        }
-
-        Behavior on height {
-            NumberAnimation {
-                easing.type: Easing.InQuad
-                duration: 100
-            }
-        }
     }
 
     //When display goes off, close the folderloader
@@ -224,20 +180,10 @@ Item {
         }
     }
 
-    InverseMouseArea {
-        anchors.fill: folderLoader
-        enabled: folderLoader.visible && folderLoader.count > 0
-        parent: folderLoader.contentItem
-        onPressed: {
-            folderLoader.model = 0
-            reopenTimer.start()
-        }
-    }
     Timer {
         id: reopenTimer
         interval: 300
         running: false
     }
-
 }
 
