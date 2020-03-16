@@ -77,8 +77,18 @@ Compositor {
         }
     }
 
+    function mainReady() {
+        console.log("============ Main screen ready")
+        windowedLayer.visible = !Desktop.instance.lockscreen.visible
+        valueAnimationLock.target = Desktop.instance.lockscreen
+    }
+
     onSensorOrientationChanged: {
         screenOrientation = sensorOrientation
+    }
+
+    Component.onCompleted: {
+        Desktop.compositor = root;
     }
 
     Connections {
@@ -126,7 +136,6 @@ Compositor {
             id: windowedLayer
             z: 4
             property Item activeWindow: null
-            visible: !Desktop.instance.lockscreen.visible
         }
 
         Item {
@@ -308,7 +317,6 @@ Compositor {
 
             SmoothedAnimation {
                 id: valueAnimationLock
-                target: Desktop.instance.lockscreen
                 property: "x"
                 velocity: 1
                 easing.type: Easing.OutQuint

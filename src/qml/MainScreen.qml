@@ -181,6 +181,7 @@ Page {
 
     Component.onCompleted: {
         Desktop.instance = desktop
+        Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation
         LipstickSettings.lockScreen(true)
     }
