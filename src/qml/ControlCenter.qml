@@ -40,7 +40,6 @@ import QtMultimedia 5.0
 
 import MeeGo.Connman 0.2
 
-import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 
 import "controlcenter"
