@@ -32,6 +32,7 @@ Requires:   statefs-provider-connman
 Requires:   statefs-provider-profile
 Requires:   statefs-provider-power-udev
 Requires:   statefs-provider-mce
+Requires:   libmce-qt5-declarative
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
