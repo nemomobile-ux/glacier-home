@@ -3,7 +3,8 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
-import org.freedesktop.contextkit 1.0
+import MeeGo.QOfono 0.2
+
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.ofono 1.0
 
@@ -69,10 +70,20 @@ Rectangle {
                     color: Theme.textColor
                     horizontalAlignment: Text.AlignHCenter
 
-                    ContextProperty {
-                        id: cellularNetworkName
-                        key: (model.index == 0) ? "Cellular.NetworkName" : "Cellular_"+model.index+".NetworkName"
-                        onValueChanged: (model.index == 0) ? operatorText.text = value : operatorText.text = " | "+value
+                    OfonoNetworkRegistration{
+                        id: cellularRegistration
+                        modemPath: path
+
+                        onCurrentOperatorPathChanged: {
+                            operator.operatorPath = currentOperatorPath
+                        }
+                    }
+
+                    OfonoNetworkOperator{
+                        id: operator
+                        onNameChanged: {
+                            operatorText.text = name
+                        }
                     }
                 }
             }
