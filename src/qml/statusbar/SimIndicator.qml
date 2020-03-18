@@ -26,45 +26,32 @@ Item {
         model: modemModel
         delegate: StatusbarItem {
             id: cellStatus
+            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
             iconSize: statusbar.height
 
-            ContextProperty {
-                id: cellularSignalBars
-                key: (model.index == 0) ? "Cellular.SignalBars" : "Cellular_"+model.index+".SignalBars"
-                //0-5
-                onValueChanged: {
-                    cellStatus.recalcIcon();
-                }
-            }
-
-            ContextProperty {
+            OfonoNetworkRegistration{
                 id: cellularRegistrationStatus
-                key: (model.index == 0) ? "Cellular.RegistrationStatus" : "Cellular_"+model.index+".RegistrationStatus"
-                //no-sim
-                //home
-                //roaming
-                onValueChanged: {
-                    cellStatus.recalcIcon();
+                modemPath: path
+
+                onStatusChanged: {
+                    recalcIcon()
+                }
+
+                onStrengthChanged: {
+                    recalcIcon()
                 }
             }
 
             function recalcIcon() {
                 if(!model.enabled) {
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/disabled-sim.png"
-                } else if(cellularRegistrationStatus.value == "no-sim") {
+                } else if(!cellularRegistrationStatus.status) {
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-                } else if(cellularSignalBars.value){
-                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + cellularSignalBars.value + ".png"
+                } else if(cellularRegistrationStatus.strength > 20){
+                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + Math.ceil(cellularRegistrationStatus.strength/20) + ".png"
                 } else {
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_0.png"
                 }
-            }
-
-            Component.onCompleted: {
-                cellularSignalBars.subscribe()
-                cellularRegistrationStatus.subscribe()
-
-                recalcIcon();
             }
         }
     }

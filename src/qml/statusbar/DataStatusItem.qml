@@ -34,28 +34,24 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 import MeeGo.Connman 0.2
-
-import org.freedesktop.contextkit 1.0
+import MeeGo.QOfono 0.2
+import org.nemomobile.ofono 1.0
 
 StatusbarItem{
     id: dataStatus
     iconSize: statusbar.height
-    visible: cellularDataTechnology.value != "unknown"
+    visible: cellularDataTechnology.technology != "unknown"
     transparent: !cellularNetworkTechnology.connected
 
-
-    property alias cellularDataTechnology: cellularDataTechnology
-
-    Component.onCompleted: {
-        formatValue()
+    OfonoManager {
+        id: manager
     }
 
-    ContextProperty {
+    OfonoNetworkRegistration{
         id: cellularDataTechnology
-        key: "Cellular.DataTechnology"
-        onValueChanged: {
-            dataStatus.formatValue()
-            dataStatus.visible = (value != "unknown")
+        modemPath: manager.defaultModem
+        onTechnologyChanged: {
+            formatValue()
         }
     }
 
@@ -64,19 +60,23 @@ StatusbarItem{
         path: "/net/connman/technology/cellular"
     }
 
-   function formatValue() {
-       if(cellularDataTechnology.value == "2") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
-       }else if(cellularDataTechnology.value == "2.5" || cellularDataTechnology.value == "gprs") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
-       }else if(cellularDataTechnology.value == "3" || cellularDataTechnology.value == "umts") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
-       }else if(cellularDataTechnology.value == "3.5" || cellularDataTechnology.value == "hspa") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
-       }else if(cellularDataTechnology.value == "4" || cellularDataTechnology.value == "lte") {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
-       }else {
-           dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
-       }
-   }
+    function formatValue() {
+        if(cellularDataTechnology.technology == "2") {
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
+        }else if(cellularDataTechnology.technology == "2.5" || cellularDataTechnology.technology == "gprs") {
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
+        }else if(cellularDataTechnology.technology == "3" || cellularDataTechnology.technology == "umts") {
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
+        }else if(cellularDataTechnology.technology == "3.5" || cellularDataTechnology.technology == "hspa") {
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
+        }else if(cellularDataTechnology.technology == "4" || cellularDataTechnology.technology == "lte") {
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
+        }
+
+        if(cellularDataTechnology.technology != "unknown" && cellularDataTechnology.technology != "") {
+            dataStatus.visible = true
+        }else {
+            dataStatus.visible = false
+        }
+    }
 }

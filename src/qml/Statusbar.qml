@@ -93,17 +93,6 @@ Item {
         }
     }
 
-    Connections {
-        target: lipstickSettings;
-        onLockscreenVisibleChanged: {
-            if(lipstickSettings.lockscreenVisible) {
-                dataStatus.cellularDataTechnology.subscribe()
-            } else {
-                dataStatus.cellularDataTechnology.unsubscribe()
-            }
-        }
-    }
-
     Loader {
         id: panel_loader
         anchors.bottom: root.top
