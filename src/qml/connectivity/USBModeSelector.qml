@@ -7,13 +7,6 @@ Item {
     width: initialSize.width
     height: initialSize.height
 
-/*
- TODO
-    ContextProperty {
-        id: orientationAngleContextProperty
-        key: "/Screen/CurrentWindow/OrientationAngle"
-    }
-*/
     QtObject {
         id: orientationAngleContextProperty
         property int value: 0

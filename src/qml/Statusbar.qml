@@ -37,7 +37,6 @@ import QtGraphicalEffects 1.0
 import QtFeedback 5.0
 import QtMultimedia 5.0
 
-import org.freedesktop.contextkit 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
 
@@ -91,19 +90,6 @@ Item {
             verticalCenter: statusbar.verticalCenter
             right: parent.right
             rightMargin: statusbarRight.height/2
-        }
-    }
-
-    Connections {
-        target: lipstickSettings;
-        onLockscreenVisibleChanged: {
-            if(lipstickSettings.lockscreenVisible) {
-                batteryIndicator.batteryChargePercentage.subscribe()
-                dataStatus.cellularDataTechnology.subscribe()
-            } else {
-                batteryIndicator.batteryChargePercentage.unsubscribe()
-                dataStatus.cellularDataTechnology.unsubscribe()
-            }
         }
     }
 

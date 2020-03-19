@@ -18,7 +18,6 @@ Requires:   qt5-qtdeclarative-import-sensors
 Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
-Requires:   nemo-qml-plugin-contextkit-qt5
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
 Requires:   libngf-qt5-declarative
@@ -27,11 +26,7 @@ Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
-Requires:   statefs-provider-ofono
-Requires:   statefs-provider-connman
-Requires:   statefs-provider-profile
-Requires:   statefs-provider-power-udev
-Requires:   statefs-provider-mce
+Requires:   libmce-qt5-declarative
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
