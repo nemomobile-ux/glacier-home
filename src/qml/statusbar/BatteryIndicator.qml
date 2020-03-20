@@ -33,6 +33,8 @@
 import QtQuick 2.6
 import Nemo.Mce 1.0
 
+import org.nemomobile.configuration 1.0
+
 StatusbarItem {
     id: batteryIndicator
     property int chargeValue: 0
@@ -46,7 +48,28 @@ StatusbarItem {
 
         onPercentChanged: {
             chargeIcon();
+            if(percent <= powerSaveLevel.value && !forcePowerSave.value) {
+                powerSaveMode.active = true
+            } else {
+                powerSaveMode.active = false
+            }
         }
+    }
+
+    McePowerSaveMode {
+        id: powerSaveMode
+    }
+
+    ConfigurationValue{
+        id: forcePowerSave
+        key: "/home/glacier/power/forcePowerSave"
+        defaultValue: false
+    }
+
+    ConfigurationValue{
+        id: powerSaveLevel
+        key: "/home/glacier/power/powerSaveLevel"
+        defaultValue: 5
     }
 
     MceBatteryState {
@@ -64,6 +87,14 @@ StatusbarItem {
 
     MceCableState{
         id: cableState
+        onConnectedChanged: {
+            if(connected) {
+                chargingTimer.start()
+            } else {
+                chargingTimer.stop()
+                chargeIcon()
+            }
+        }
     }
 
     MceBatteryStatus{
@@ -129,6 +160,9 @@ StatusbarItem {
 
     Component.onCompleted: {
         chargeIcon();
+        if(forcePowerSave.value == true) {
+            powerSaveMode.active = true
+        }
     }
 
     function chargeIcon()

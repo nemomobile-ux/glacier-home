@@ -169,6 +169,10 @@ Item {
             id: batteryIndicator
         }
 
+        PowerSaveModeIndicator{
+            id: powerSaveModeIndicator
+        }
+
         SimIndicator{
             id: simIndicator
         }
