@@ -48,28 +48,7 @@ StatusbarItem {
 
         onPercentChanged: {
             chargeIcon();
-            if(percent <= powerSaveLevel.value && !forcePowerSave.value) {
-                powerSaveMode.active = true
-            } else {
-                powerSaveMode.active = false
-            }
         }
-    }
-
-    McePowerSaveMode {
-        id: powerSaveMode
-    }
-
-    ConfigurationValue{
-        id: forcePowerSave
-        key: "/home/glacier/power/forcePowerSave"
-        defaultValue: false
-    }
-
-    ConfigurationValue{
-        id: powerSaveLevel
-        key: "/home/glacier/power/powerSaveLevel"
-        defaultValue: 5
     }
 
     MceBatteryState {
@@ -160,9 +139,6 @@ StatusbarItem {
 
     Component.onCompleted: {
         chargeIcon();
-        if(forcePowerSave.value == true) {
-            powerSaveMode.active = true
-        }
     }
 
     function chargeIcon()
