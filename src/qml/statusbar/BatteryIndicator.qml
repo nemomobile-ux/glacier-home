@@ -87,6 +87,14 @@ StatusbarItem {
 
     MceCableState{
         id: cableState
+        onConnectedChanged: {
+            if(connected) {
+                chargingTimer.start()
+            } else {
+                chargingTimer.stop()
+                chargeIcon()
+            }
+        }
     }
 
     MceBatteryStatus{
