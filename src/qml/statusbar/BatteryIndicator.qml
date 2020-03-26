@@ -33,7 +33,7 @@
 import QtQuick 2.6
 import Nemo.Mce 1.0
 
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 StatusbarItem {
     id: batteryIndicator

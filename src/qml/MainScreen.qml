@@ -2,6 +2,7 @@
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
 ** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -165,13 +166,11 @@ Page {
     GlacierRotation {
         id: glacierRotation
         rotationParent: desktop.parent
-        //unrotatedItems: [lockScreen]
     }
 
-    orientation: Lipstick.compositor.screenOrientation //DeviceLock.state == DeviceLock.Locked ? nativeOrientation : Lipstick.compositor.screenOrientation
+    orientation: Lipstick.compositor.screenOrientation
 
     onOrientationChanged: {
-        //if (!lockscreenVisible())
             glacierRotation.rotateRotationParent(orientation)
     }
 
@@ -193,7 +192,6 @@ Page {
     Connections {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
-            //if (!lockscreenVisible())
                 glacierRotation.rotateRotationParent(desktop.orientation)
         }
     }

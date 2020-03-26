@@ -35,8 +35,8 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
-import org.nemomobile.notifications 1.0
-import org.nemomobile.ngf 1.0
+import Nemo.Notifications 1.0
+import Nemo.Ngf 1.0
 
 import org.nemomobile.glacier 1.0
 

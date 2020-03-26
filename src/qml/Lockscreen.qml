@@ -82,6 +82,21 @@ Image {
         onLockscreenVisibleChanged: snapPosition()
     }
 
+    SequentialAnimation {
+        id: snapCodePadAnimation
+
+        property alias valueTo: codePadAnimation.to
+
+        NumberAnimation {
+            id: codePadAnimation
+            target: codePad
+            property: "x"
+            duration: 200
+            easing.type: Easing.OutQuint
+        }
+    }
+
+
     PropertyAnimation {
         id: snapClosedAnimation
         target: lockScreen
@@ -112,7 +127,6 @@ Image {
         property int threshold: Theme.itemHeightHuge * 2
         property int swipeDistance
         property string action: ""
-        anchors.fill: parent
 
         onPressed: {
             startX = mouseX;
@@ -127,6 +141,10 @@ Image {
             if (parent.y - delta > 0)
                 return
             parent.y = parent.y - delta
+        }
+        function startCodePadAnimation(value) {
+            snapCodePadAnimation.valueTo = value
+            snapCodePadAnimation.start()
         }
 
         function snapBack() {
@@ -209,7 +227,9 @@ Image {
                 }
             }
             snapBack()
+            gestureStarted = false
         }
+
         onCanceled: snapBack()
     }
     SequentialAnimation {
@@ -240,6 +260,29 @@ Image {
         onDisplayOn:{
             displayOn = true
             displayOffTimer.stop()
+        }
+    }
+    Connections {
+        target: LipstickSettings
+        onLockscreenVisibleChanged: {
+            if (lockscreenVisible() && displayOn) {
+                displayOffTimer.restart()
+            }
+        }
+    }
+    Timer {
+        id:displayOffTimer
+        interval: 7000
+        onRunningChanged: {
+            if(running && !displayOn) {
+                stop()
+            }
+        }
+        onTriggered: {
+            if(displayOn && lockscreenVisible() && !Lipstick.compositor.gestureOnGoing && !codePad.visible) {
+                setLockScreen(true)
+                Lipstick.compositor.setDisplayOff()
+            }
         }
     }
 

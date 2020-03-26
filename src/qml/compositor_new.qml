@@ -1,6 +1,8 @@
 
 // Copyright (C) 2013 Jolla Ltd.
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
+// Copyright (C) 2017 Aleksi Suomalainen
+// Copyright (C) 2020 Eetu Kahelin
 // This file is part of colorful-home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,10 +34,22 @@ Item {
     property bool isShaderUsed: false
     property bool isAlarmWindow: false
     property alias wrapperMystic: mysticWrapper
+    property alias applicationLayer: appLayer
     // Qt::WindowType enum has no option for an Input Method window type. This is a magic value
     // used by ubuntumirclient QPA for special clients to request input method windows from Mir.
 
     property int inputMethodWindowType: 2;
+
+    function mainReady() {
+        console.log("============ Main screen ready")
+        windowedLayer.visible = !Desktop.instance.lockscreen.visible
+        valueAnimationLock.target = Desktop.instance.lockscreen
+    }
+
+    Component.onCompleted: {
+        Desktop.compositor = root;
+    }
+
     Connections {
         target: comp.quickWindow
         onActiveFocusItemChanged: {
@@ -68,10 +82,24 @@ Item {
             visible: comp.appActive
         }
 
+        Rectangle {
+            id: resizeBorder
+            color: "transparent"
+            border.width: 2
+            border.color: Theme.accentColor
+            visible: false
+            z: 3
+        }
+
+        Item {
+            id: windowedLayer
+            z: 4
+            property Item activeWindow: null
+        }
+
         Item {
             id: overlayLayer
             z: 5
-
             visible: comp.appActive
         }
 
@@ -90,61 +118,96 @@ Item {
         z: 7
         anchors.fill: parent
 
-        property real swipeThreshold: 0.15
-        property real lockThreshold: 0.25
+        property real swipeThreshold: 0.15*Math.min(Screen.width, Screen.height)
+        property real lockThreshold: 0.25*Math.min(Screen.width, Screen.height)
         property int lockscreenX
         property int lockscreenY
-        enabled: true
+        enabled: DeviceLock.state != DeviceLock.Locked
+
+        onPositionChanged: {
+            if (root.appActive && diagonal && gestureArea.progress >= swipeThreshold) {
+                if (diagonal == "left") {
+                    resizeBorder.x = mouseX
+                    resizeBorder.y = mouseY
+                    resizeBorder.width = width - mouseX
+                    resizeBorder.height = height - mouseY
+                } else {
+                    resizeBorder.x = 0
+                    resizeBorder.y = mouseY
+                    resizeBorder.width = mouseX
+                    resizeBorder.height = height - mouseY
+                }
+                resizeBorder.visible = true
+//                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
+            } else if (gesture == "down" && !diagonal) {
+                //Down gesture now not used yeat
+            }
+        }
 
         onGestureStarted: {
             swipeAnimation.stop()
             cancelAnimation.stop()
             lockAnimation.stop()
-            if (comp.appActive) {
             comp.gestureOnGoing = true
+            if (comp.appActive && !diagonal) {
                 state = "swipe"
-            } else if (comp.homeActive) {
-                lockscreenX = Desktop.instance.lockscreen.x
-                lockscreenY = Desktop.instance.lockscreen.y
-                state = "lock"
+            }
+            else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
+                if(gesture == "down") {
+                    /*show statusbar when gesture down*/
+                    console.log("Show statusarea")
+                }
+
+                /*if(gesture == "up" && !diagonal) {
+                    state = "cover"
+                }*/
             }
         }
 
         onGestureFinished: {
+            resizeBorder.visible = false
             if (comp.appActive) {
-                if (gestureArea.progress >= swipeThreshold) {
+                if (diagonal && gestureArea.progress >= swipeThreshold) {
+//                    console.log("finished diagonal gesture:", mouseX, mouseY)
+                    comp.topmostWindow.window.userData.x = resizeBorder.x
+                    comp.topmostWindow.window.userData.y = resizeBorder.y
+                    comp.topmostWindow.window.resize(Qt.size(resizeBorder.width, resizeBorder.height))
+                    comp.topmostWindow.parent = windowedLayer
+                    comp.topmostWindow = comp.homeWindow
+                    comp.topmostApplicationWindow = null
+                    comp.clearKeyboardFocus()
+                } else if (gestureArea.progress >= swipeThreshold) {
                     swipeAnimation.valueTo = inverted ? -max : max
                     swipeAnimation.start()
-                    if (gesture == "down") {
-                        Lipstick.compositor.closeClientForWindowId(
-                                    comp.topmostWindow.window.windowId)
+                    if (gesture == "up") {
+                        Lipstick.compositor.closeClientForWindowId(comp.topmostWindow.window.windowId)
                     }
                 } else {
                     cancelAnimation.start()
                 }
             } else if (comp.homeActive){
-                    if (gestureArea.progress >= lockThreshold) {
-                        lockAnimation.valueTo = (gesture == "left" ?
-                                                     Desktop.instance.lockscreen.width :
-                                                     -Desktop.instance.lockscreen.width)
-                        lockAnimation.start()
-                        // Locks, unlocks or brings up codepad to enter security code
-                        // Locks
-                        if (!Desktop.instance.lockscreenVisible()) {
+                if (gestureArea.progress >= lockThreshold) {
+                    lockAnimation.valueTo = (gesture == "left" ?
+                                                 Desktop.instance.lockscreen.width :
+                                                 -Desktop.instance.lockscreen.width)
+                    lockAnimation.start()
+
+                    if (gesture == "down") {
+                        // swipe down on lockscreen to turn off display
+                        if (Desktop.instance.lockscreenVisible()) {
                             Desktop.instance.setLockScreen(true)
-                            if(gesture == "down") {
-                                comp.setDisplayOff()
-                            }
+                            comp.setDisplayOff()
                         }
-                        // Unlocks if no security code required
-                        else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
-                            Desktop.instance.setLockScreen(false)
-                        }
+                    }
+                    // Unlocks if no security code required
+                    else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
+                        Desktop.instance.setLockScreen(false)
+                    }
                 } else {
                     cancelAnimation.start()
                 }
             }
-           comp.gestureOnGoing = false
+            comp.gestureOnGoing = false
         }
         // States are for the animations that follow your finger during swipes
         states: [
@@ -172,14 +235,6 @@ Item {
                 PropertyChanges {
                     target: Desktop.instance.lockscreen
 
-                    x: gestureArea.lockscreenX + ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
-                                                                                       (gestureArea.gesture == "right" ?
-                                                                                       ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                            -Desktop.instance.lockscreen.width :
-                                                                                            -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
-                                                                                       ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                            Desktop.instance.lockscreen.width :
-                                                                                            Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
                     y: gestureArea.lockscreenY + ((gestureArea.horizontal) ? 0 : (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
                                                                                        (gestureArea.gesture == "down" ?
                                                                                        ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
@@ -273,7 +328,6 @@ Item {
 
             SmoothedAnimation {
                 id: valueAnimationLock
-                target: Desktop.instance.lockscreen
                 property: "x"
                 easing.type: Easing.OutQuint
             }
@@ -369,7 +423,7 @@ Item {
             topmostWindow = w
 
             if (topmostWindow == homeWindow || topmostWindow == null) {
-                clearKeyboardFocus()
+                comp.clearKeyboardFocus()
             } else {
                 if (topmostApplicationWindow)
                     topmostApplicationWindow.visible = false
@@ -382,9 +436,17 @@ Item {
             screenOrientation = sensorOrientation
             contentOrientation = screenOrientation
         }
+        onDisplayOff: {
+            if (root.topmostAlarmWindow == null) {
+                Desktop.instance.codepadVisible = false
+                setCurrentWindow(root.homeWindow)
+            }
+            Desktop.instance.displayOn = false
+        }
 
-        onDisplayOff: if (comp.topmostAlarmWindow == null)
-                          setCurrentWindow(comp.homeWindow)
+        onDisplayOn: {
+            Desktop.instance.displayOn = true
+        }
 
         onWindowAdded: {
             console.log("Compositor: Window added \"" + window.title + "\""
@@ -444,6 +506,7 @@ Item {
                 setCurrentWindow(w)
             } else {
                 if (!comp.topmostAlarmWindow) {
+                    parent=appLayer
                     w = isShaderUsed ? mysticWrapper.createObject(parent, {
                                                                       window: window
                                                                   }) : w
@@ -474,6 +537,7 @@ Item {
 
             if (window.userData)
                 window.userData.destroy()
+            Desktop.instance.focus = true
         }
     }
 }

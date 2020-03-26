@@ -59,7 +59,7 @@ Flickable{
     ConfigurationValue {
         id: columnCount
         key: "/home/glacier/appLauncher/columnCount"
-        defaultValue: Math.round(Math.min(appLauncher.width, appLauncher.height)/Theme.itemHeightLarge)/2
+        defaultValue: gridview.columns
     }
 
 
@@ -115,7 +115,7 @@ Flickable{
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight:  cellWidth
+        cellHeight: Math.round(parent.height / rows)
 
         height: parent.height
         width: parent.width
@@ -153,32 +153,6 @@ Flickable{
         property bool newFolderActive
         property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
         clip: true
-
-        /*onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge ) {
-                headerItem.visible = true;
-                timer.running = true;
-            }
-        }*/
-        InputPanel {
-            id: inputPanel
-            visible: Qt.inputMethod.visible
-            y: Qt.inputMethod.visible ? parent.height - inputPanel.height - statusBarHeight : parent.height
-            anchors.left: parent.left
-            anchors.right: parent.right
-            transitions: Transition {
-                from: ""; // default initial state
-                to: "visible";
-                reversible: true; // toggle visibility with reversible: true;
-                ParallelAnimation {
-                    NumberAnimation {
-                        properties: "y";
-                        duration: 250;
-                        easing.type: Easing.InOutQuad;
-                    }
-                }
-            }
-        }
 
         footer: Item {
             height: Math.min(parent.width,parent.height)/10
