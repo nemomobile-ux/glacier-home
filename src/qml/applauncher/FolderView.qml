@@ -31,16 +31,12 @@ Item{
     x: 0
     z: 9999999999
 
-    property Item reorderItem
-    property bool isRootFolder:false
-    property int folderIndex: -1
-
     property alias model: folderGridView.model
     property alias count: folderGridView.count
+    property alias reorderItem: folderGridView.reorderItem
 
     Rectangle {
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         opacity: 0.85
         color: triangle.color
         radius: Theme.itemSpacingMedium
@@ -53,15 +49,11 @@ Item{
         if(model == 0) {
             width = 0
             height = 0
-            x =  wrapper.x + wrapper.width/2
-            y = wrapper.y + wrapper.width/2
             folderName.visible = false
             folderName.focus = false
         } else {
             width = desktop.width
-            height = desktop.height
-            y = 0
-            x = 0
+            height = folderName.height + folderGridView.height
             folderName.visible = true
         }
     }
@@ -98,10 +90,15 @@ Item{
     GridView {
         // view of apps in folder
         id: folderGridView
+        property Item reorderItem
+        property bool isRootFolder:false
+        property int folderIndex: -1
+        property bool onUninstall: false
+
         cacheBuffer: (folderGridView.contentHeight > 0) ? folderGridView.contentHeight : 0
 
         width: parent.width
-        height: parent.height - folderName.height - Theme.itemSpacingHuge*2
+        height: childrenRect.height
 
         anchors{
             top: folderName.bottom
@@ -135,20 +132,6 @@ Item{
     }
 
     Behavior on width {
-        NumberAnimation {
-            easing.type: Easing.InQuad
-            duration: 400
-        }
-    }
-
-    Behavior on x {
-        NumberAnimation {
-            easing.type: Easing.InQuad
-            duration: 400
-        }
-    }
-
-    Behavior on y {
         NumberAnimation {
             easing.type: Easing.InQuad
             duration: 400
