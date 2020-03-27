@@ -5,7 +5,8 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.dbus 2.0
+import Nemo.DBus 2.0
+
 
 import "../scripts/desktop.js" as Desktop
 
@@ -153,7 +154,6 @@ Item {
         }
     }
     function displayFeedback(feedback, data) {
-
         switch(feedback) {
 
         case AuthenticationInput.EnterSecurityCode:

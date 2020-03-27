@@ -26,8 +26,9 @@
 
 import QtQuick 2.6
 
+import QtQuick.VirtualKeyboard 2.1
 import org.nemomobile.lipstick 0.1
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -58,7 +59,7 @@ Flickable{
     ConfigurationValue {
         id: columnCount
         key: "/home/glacier/appLauncher/columnCount"
-        defaultValue: Math.round(Math.min(appLauncher.width, appLauncher.height)/Theme.itemHeightLarge)/2
+        defaultValue: gridview.columns
     }
 
 
@@ -114,7 +115,7 @@ Flickable{
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight:  cellWidth
+        cellHeight: Math.round(parent.height / rows)
 
         height: parent.height
         width: parent.width
@@ -152,13 +153,6 @@ Flickable{
         property bool newFolderActive
         property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
         clip: true
-
-        /*onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge ) {
-                headerItem.visible = true;
-                timer.running = true;
-            }
-        }*/
 
         footer: Item {
             height: Math.min(parent.width,parent.height)/10

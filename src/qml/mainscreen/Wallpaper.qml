@@ -3,7 +3,7 @@ import QtSensors 5.2
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 import "../scripts/desktop.js" as Desktop
 

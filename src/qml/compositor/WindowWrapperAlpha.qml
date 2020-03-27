@@ -36,7 +36,7 @@ WindowWrapperBase {
                        uniform mediump float qt_Opacity;
                        varying highp vec2 qt_TexCoord0;
                        void main() {
-                           gl_FragColor = qt_Opacity * texture2D(source, qt_TexCoord0);
+                           gl_FragColor = (qt_Opacity * texture2D(source, qt_TexCoord0));
                        }"
     }
     onWindowChanged: {

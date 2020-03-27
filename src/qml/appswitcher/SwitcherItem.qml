@@ -84,8 +84,6 @@ Item {
             origin.x: originX
             origin.y: originY
         }
-
-        radius: size.dp(8)
         opacity: switcherRoot.closeMode ? .6 : 1
         Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
 

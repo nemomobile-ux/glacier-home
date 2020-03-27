@@ -2,6 +2,7 @@
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
 ** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,14 +31,14 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick 2.9
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtQuick.Window 2.1
 
-import org.nemomobile.time 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Time 1.0
+import Nemo.Configuration 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.statusnotifier 1.0
@@ -165,21 +166,23 @@ Page {
     GlacierRotation {
         id: glacierRotation
         rotationParent: desktop.parent
-        //unrotatedItems: [lockScreen]
     }
 
-    orientation: Lipstick.compositor.screenOrientation //DeviceLock.state == DeviceLock.Locked ? nativeOrientation : Lipstick.compositor.screenOrientation
+    orientation: Lipstick.compositor.screenOrientation
 
     onOrientationChanged: {
-        //if (!lockscreenVisible())
             glacierRotation.rotateRotationParent(orientation)
     }
 
     onParentChanged: {
+        glacierRotation.rotationParent = desktop.parent
         glacierRotation.rotateRotationParent(nativeOrientation)
+        glacierRotation.rotateObject(desktop.parent, nativeOrientation, true)
     }
 
     Component.onCompleted: {
+        glacierRotation.rotationParent = desktop.parent
+        setLockScreen(true)
         Desktop.instance = desktop
         Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation
@@ -189,7 +192,6 @@ Page {
     Connections {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
-            //if (!lockscreenVisible())
                 glacierRotation.rotateRotationParent(desktop.orientation)
         }
     }

@@ -51,7 +51,14 @@ int main(int argc, char **argv)
 
     FileUtils *fileUtils = new FileUtils();
 
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
+    if (QT_VERSION_MAJOR == 5 && QT_VERSION_MINOR <= 7) {
+        app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
+    }
+    if (QT_VERSION_MAJOR == 5 && QT_VERSION_MINOR > 7) {
+        app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor_new.qml");
+    }
+
+    //app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
     if (!v.isEmpty()) {
@@ -76,7 +83,7 @@ int main(int argc, char **argv)
         nativeOrientation = app.primaryScreen()->primaryOrientation();
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
-
+    app.engine()->addImportPath("/usr/lib/qml");
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<BluetoothAgent>("org.nemomobile.glacier",1,0, "GlacierBluetoothAgent");
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
@@ -85,6 +92,8 @@ int main(int argc, char **argv)
     setenv("EGL_PLATFORM", "wayland", 1);
     setenv("QT_QPA_PLATFORM", "wayland", 1);
     setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
+    setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
+    setenv("QT_IM_MODULE", "qtvirtualkeyboard", 1);
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }
