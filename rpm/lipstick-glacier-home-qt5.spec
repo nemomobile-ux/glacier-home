@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
 BuildRequires:  pkgconfig(Qt5Compositor)
 BuildRequires:  pkgconfig(nemodevicelock)
+BuildRequires:  pkgconfig(KF5BluezQt)
 
 Provides: lipstick-colorful-home-qt5
 
