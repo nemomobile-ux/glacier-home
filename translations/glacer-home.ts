@@ -327,7 +327,7 @@
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="72"/>
-        <source>Chagring only</source>
+        <source>Charging only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

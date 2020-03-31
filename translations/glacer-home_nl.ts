@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
+<TS version="2.1">
 <context>
     <name>AppSwitcher</name>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="186"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaar</translation>
     </message>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="202"/>
         <source>Close All</source>
-        <translation>Закрыть всё</translation>
+        <translation>Alles sluiten</translation>
     </message>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="212"/>
         <source>Nothing open yet</source>
-        <translation>Нет запущеных приложений</translation>
+        <translation>Nog niks open</translation>
     </message>
 </context>
 <context>
@@ -24,22 +24,22 @@
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="46"/>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="47"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="48"/>
         <source>Dangerous volume level!</source>
-        <translation>Опасный уровень громкости!</translation>
+        <translation>Gevaarlijk geluidsniveau!</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49"/>
         <source>Do you want to continue?</source>
-        <translation>Вы хотите продолжить ?</translation>
+        <translation>Wil je doorgaan?</translation>
     </message>
 </context>
 <context>
@@ -47,22 +47,22 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отменить</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
         <source>Connect</source>
-        <translation type="unfinished">Соединить</translation>
+        <translation>Verbinden</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect to device </source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinden met apparaat</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>code: </source>
-        <translation type="unfinished">код: </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -70,27 +70,27 @@
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="122"/>
         <source>Wi-Fi</source>
-        <translation></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="127"/>
         <source>Bluetooth</source>
-        <translation></translation>
+        <translation>Bluetooth</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="132"/>
         <source>Data</source>
-        <translation>Передача данных</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="137"/>
         <source>Location</source>
-        <translation>Местоположение</translation>
+        <translation>Locatie</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="142"/>
         <source>Quiet</source>
-        <translation>Тихий режим</translation>
+        <translation>Stil</translation>
     </message>
 </context>
 <context>
@@ -98,26 +98,26 @@
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
         <source>Removing</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
         <source>Uninstalling</source>
-        <translation type="unfinished"></translation>
+        <translation>De-installeren</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation>De-installeren</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
 </context>
 <context>
@@ -125,17 +125,17 @@
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
         <source>Enter security code</source>
-        <translation>Введите код</translation>
+        <translation>Voer de veiligheidscode in</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="164"/>
         <source>Incorrect code</source>
-        <translation>Неверный код</translation>
+        <translation>Onjuiste code</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="172"/>
         <source>Temporarily locked</source>
-        <translation>Временно заблокирован</translation>
+        <translation>Tijdelijk vergrendeld</translation>
     </message>
 </context>
 <context>
@@ -143,7 +143,7 @@
     <message>
         <location filename="../src/fileutils.cpp" line="44"/>
         <source>Screenshot</source>
-        <translation>Снимок экрана</translation>
+        <translation>Schermafdruk</translation>
     </message>
 </context>
 <context>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="187"/>
         <source>folder</source>
-        <translation>папка</translation>
+        <translation>map</translation>
     </message>
 </context>
 <context>
@@ -159,7 +159,7 @@
     <message>
         <location filename="../src/qml/statusbar/MediaController.qml" line="67"/>
         <source>No music playing</source>
-        <translation>Музыка не играет</translation>
+        <translation>Er speelt geen muziek</translation>
     </message>
 </context>
 <context>
@@ -167,57 +167,57 @@
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="67"/>
         <source>years ago</source>
-        <translation type="unfinished"></translation>
+        <translation>jaren geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="69"/>
         <source>year ago</source>
-        <translation type="unfinished"></translation>
+        <translation>een jaar geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="73"/>
         <source>months ago</source>
-        <translation type="unfinished"></translation>
+        <translation>maanden geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="75"/>
         <source>month ago</source>
-        <translation type="unfinished"></translation>
+        <translation>een maand geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="79"/>
         <source>days ago</source>
-        <translation type="unfinished"></translation>
+        <translation>dagen geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
         <source>day ago</source>
-        <translation type="unfinished"></translation>
+        <translation>een dag geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="85"/>
         <source>hours ago</source>
-        <translation type="unfinished"></translation>
+        <translation>uren geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="87"/>
         <source>hour ago</source>
-        <translation type="unfinished"></translation>
+        <translation>een uur geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="91"/>
         <source>minutes ago</source>
-        <translation type="unfinished"></translation>
+        <translation>minuten geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="93"/>
         <source>minute ago</source>
-        <translation type="unfinished"></translation>
+        <translation>een minuut geleden</translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="96"/>
         <source>Just now</source>
-        <translation type="unfinished"></translation>
+        <translation>Zojuist</translation>
     </message>
 </context>
 <context>
@@ -225,12 +225,12 @@
     <message>
         <location filename="../src/qml/system/Screenshot.qml" line="67"/>
         <source>Desktop</source>
-        <translation>Рабочий стол</translation>
+        <translation>Desktop</translation>
     </message>
     <message>
         <location filename="../src/qml/system/Screenshot.qml" line="68"/>
         <source>Screenshot saved</source>
-        <translation>Снимок экрана сохранён</translation>
+        <translation>Schermafdruk opgeslagen</translation>
     </message>
 </context>
 <context>
@@ -238,41 +238,41 @@
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="122"/>
         <source>Search</source>
-        <translation>Поиск</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
         <source>Hide search panel</source>
-        <translation>Скрыть панель поиска</translation>
+        <translation>Verberg zoekpaneel</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
         <source>Pinup search panel</source>
-        <translation>Закрепить панель поиска</translation>
+        <translation>Pin zoekpaneel</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="196"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="273"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="283"/>
         <source>Application</source>
-        <translation>Приложение</translation>
+        <translation>Applicatie</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="294"/>
         <source>Contact</source>
-        <translation>Контакт</translation>
+        <translation>Contact</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
         <source>Content</source>
-        <translation>Содержимое</translation>
+        <translation>Inhoud</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="274"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="284"/>
         <source>installed on you device</source>
-        <translation>установлено на устройстве</translation>
+        <translation>geïnstalleerd op jouw apparaat</translation>
     </message>
 </context>
 <context>
@@ -280,22 +280,22 @@
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="75"/>
         <source>Current mode: Charging only</source>
-        <translation>Текущий режим: Только зарядка</translation>
+        <translation>Huidige modus: alleen opladen</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="91"/>
         <source>MTP Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>MTP modus</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="111"/>
         <source>Mass Storage Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Massa opslag</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131"/>
         <source>Developer Mode</source>
-        <translation>Режим разработчика</translation>
+        <translation>Ontwikkelaarsmodus</translation>
     </message>
 </context>
 <context>
@@ -303,47 +303,47 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="50"/>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="51"/>
         <source>Ok</source>
-        <translation></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="52"/>
         <source>Select USB mode</source>
-        <translation>Режим USB</translation>
+        <translation>Selecteer USB modus</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="68"/>
         <source>Always ask</source>
-        <translation>Всегда спрашивать</translation>
+        <translation>Altijd vragen</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="70"/>
         <source>MTP</source>
-        <translation></translation>
+        <translation>MTP</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="72"/>
         <source>Charging only</source>
-        <translation>Только зарядка</translation>
+        <translation>Alleen opladen</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="74"/>
         <source>Connection sharing</source>
-        <translation>Раздача соединения</translation>
+        <translation>Verbinding delen</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="76"/>
         <source>Developer mode</source>
-        <translation>Режим разработчика</translation>
+        <translation>Oantwikkelaarsmodus</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="78"/>
         <source>Busy</source>
-        <translation>Занят</translation>
+        <translation>Bezet</translation>
     </message>
 </context>
 <context>
@@ -351,7 +351,7 @@
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
-        <translation></translation>
+        <translation>Wifi</translation>
     </message>
 </context>
 <context>
@@ -359,17 +359,17 @@
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="32"/>
         <source>Desktop</source>
-        <translation>Рабочий стол</translation>
+        <translation>Desktop</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="58"/>
         <source>Enable windowed mode</source>
-        <translation>Включить мультиоконность</translation>
+        <translation>Activeer venstermodus</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="87"/>
         <source>Always show search panel</source>
-        <translation>Всегда показывать панель поиска</translation>
+        <translation>Toon altijd het zoekpaneel</translation>
     </message>
 </context>
 <context>
@@ -377,12 +377,12 @@
     <message>
         <location filename="../src/settings-plugins/notifications/notifications.qml" line="32"/>
         <source>Notifications</source>
-        <translation>Уведомления</translation>
+        <translation>Notificaties</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/notifications/notifications.qml" line="52"/>
         <source>Show notification body on lockscreen</source>
-        <translation>Показывать содержимое уведомлений при заблокированном экране</translation>
+        <translation>Laat notificatie inhoud zien op het vergrendelscherm</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
         <source>Select wallpaper</source>
-        <translation>Выберите обои</translation>
+        <translation>Selecteer achtergrond</translation>
     </message>
 </context>
 <context>
@@ -398,32 +398,32 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="32"/>
         <source>Wallpapers</source>
-        <translation>Обои</translation>
+        <translation>Achtergronden</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
         <source>Use paralax effect for wallpaper</source>
-        <translation>Использовать эфект паралакс</translation>
+        <translation>Gebruik paralax effect</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="99"/>
         <source>Use different images for lockscreen and home screen</source>
-        <translation>Использовать разные обои для главного экрана и экрана блокировки</translation>
+        <translation>Gebruik een andere achtergrond voor het vergrendelscherm als het hoofdscherm</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
         <source>Homescreen wallpaper</source>
-        <translation>Обои главного экрана</translation>
+        <translation>Hoofdscherm achtergrond</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
         <source>Wallpaper</source>
-        <translation>Обои</translation>
+        <translation>Achtergrond</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="161"/>
         <source>Lockscreen wallpaper</source>
-        <translation>Обои экрана блокировки</translation>
+        <translation>Vergrendelscherm achtergrond</translation>
     </message>
 </context>
 </TS>
