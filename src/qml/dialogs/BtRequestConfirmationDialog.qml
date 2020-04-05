@@ -47,7 +47,7 @@ QueryDialog {
     cancelText: qsTr("Cancel")
     acceptText: qsTr("Connect")
     headingText: qsTr("Connect to device ") + deviceName
-    subLabelText: qsTr("code: ") + code
+    subLabelText: qsTr("code: ") + deviceCode
 
     icon: "image://theme/link"
 
