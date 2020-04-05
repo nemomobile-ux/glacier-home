@@ -154,7 +154,7 @@ Flickable{
         clip: true
 
         footer: Item {
-            height: Math.min(parent.width,parent.height)/10
+            height: Math.min(desktop.width,desktop.height)/10
         }
 
         onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
