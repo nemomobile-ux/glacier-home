@@ -34,6 +34,8 @@ import QtQuick.Controls 1.0 //needed for the Stack attached property
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import org.nemomobile.systemsettings 1.0
+
 import Nemo.Dialogs 1.0
 
 
@@ -41,43 +43,46 @@ SelectionDialog{
     id: selectionDialog
     visible: false
 
-    property var inModel
+    USBSettings{
+        id: usbSettings
+    }
 
     ListModel{
-        id: exModel
+        id: modesModel
+        ListElement{
+            name: qsTr("Ask")
+            mode: "ask"
+        }
+        ListElement {
+            name: qsTr("Connection sharing")
+            mode: "connection_sharing"
+        }
+        ListElement {
+            name: qsTr("MTP")
+            mode: "mtp_mode"
+        }
+        ListElement{
+            name: qsTr("Charging only")
+            mode: "charging_only"
+        }
+        ListElement{
+            name: qsTr("Developer mode")
+            mode: "developer_mode"
+        }
     }
 
     cancelText: qsTr("Cancel")
     acceptText: qsTr("Ok")
     headingText: qsTr("Select USB mode")
 
-    model: exModel
+    model: modesModel
 
-    onInModelChanged: {
-        for(var i=0; i <= inModel.length; i++) {
-            exModel.append({
-                               "name": formatMode(inModel[i]),
-                               "mode": inModel[i]
-                           })
-        }
+    onAccepted:{
+        selectionDialog.close()
     }
 
-    function formatMode(mode) {
-        switch(mode) {
-        case "ask":
-            return qsTr("Always ask")
-        case "mtp_mode":
-            return qsTr("MTP")
-        case "charging_only":
-            return qsTr("Charging only")
-        case "connection_sharing":
-            return qsTr("Connection sharing")
-        case "developer_mode":
-            return qsTr("Developer mode")
-        case "busy":
-            return qsTr("Busy")
-        default:
-            return mode
-        }
+    onSelectedIndexChanged: {
+        usbSettings.currentMode = modesModel.get(selectedIndex).mode
+        selectionDialog.close()
     }
 }

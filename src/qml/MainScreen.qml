@@ -74,22 +74,23 @@ Page {
         }
     }
 
+    //USB mode selector connections
+    Connections{
+        target: usbModeSelector
+        onWindowVisibleChanged: {
+            if(usbModeSelector.windowVisible) {
+                usbModedDialog.visible = true
+            } else {
+                usbModedDialog.visible = false
+            }
+        }
+    }
+
     StatusNotifierModel {
         id: statusNotiferModel
     }
 
-
-    USBSettings{
-        id: usbModeSettings
-
-        onCurrentModeChanged: {
-            if(currentMode == "ask") {
-                usbModedDialog.visible = true
-                usbModedDialog.inModel = usbModeSettings.availableModes
-            }
-        }
-    }
-/*Bluetooth section */
+    /*Bluetooth section */
     GlacierBluetoothAgent{
         id: btAgent
 
@@ -128,11 +129,6 @@ Page {
 
     UsbModeDialog{
         id: usbModedDialog
-
-        onSelectedIndexChanged: {
-            usbModeSettings.configMode = usbModeSettings.availableModes[usbModedDialog.selectedIndex]
-            usbModedDialog.close()
-        }
     }
 
     property alias lockscreen: lockScreen
@@ -171,7 +167,7 @@ Page {
     orientation: Lipstick.compositor.screenOrientation
 
     onOrientationChanged: {
-            glacierRotation.rotateRotationParent(orientation)
+        glacierRotation.rotateRotationParent(orientation)
     }
 
     onParentChanged: {
@@ -192,7 +188,7 @@ Page {
     Connections {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
-                glacierRotation.rotateRotationParent(desktop.orientation)
+            glacierRotation.rotateRotationParent(desktop.orientation)
         }
     }
 
@@ -269,7 +265,7 @@ Page {
         onXChanged: {
             var opacityCalc
             if(feeds.x < 0){
-                 opacityCalc = (desktop.width+feeds.x)/desktop.width
+                opacityCalc = (desktop.width+feeds.x)/desktop.width
             }else{
                 opacityCalc = (desktop.width-feeds.x)/desktop.width
             }
