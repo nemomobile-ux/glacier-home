@@ -61,8 +61,8 @@ WindowWrapperBase {
         height: parent.height - y + size.dp(8)
         y: -Theme.itemHeightMedium
         x: -size.dp(4)
-        z: window.z - 1
-        visible: window.width != Screen.width || window.height != Screen.height
+        z: (window) ? window.z - 1 : 0
+        visible: (window) ? (window.width != Screen.width || window.height != Screen.height) : false
 
         onPressAndHold: {
             drag.target = window.userData
