@@ -35,6 +35,9 @@ find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 find_package(KF5 REQUIRED COMPONENTS BluezQt)
 
+add_definitions(-DBLUEZQT_VERSION_MAJOR=${KF5BluezQt_VERSION_MAJOR})
+add_definitions(-DBLUEZQT_VERSION_MINOR=${KF5BluezQt_VERSION_MINOR})
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 
