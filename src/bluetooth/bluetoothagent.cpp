@@ -19,11 +19,17 @@
 // SOFTWARE.
 //
 // Copyright (c) 2020, Chupligin Sergey <neochapay@gmail.com>
+#include <QDebug>
 
 #include "bluetoothagent.h"
 
-#include <device.h>
-#include <initmanagerjob.h>
+#if BLUEZQT_VERSION_MAJOR == 5 && BLUEZQT_VERSION_MINOR < 68
+# include <device.h>
+# include <initmanagerjob.h>
+#else
+# include <bluezqt/device.h>
+# include <bluezqt/initmanagerjob.h>
+#endif
 
 BluetoothAgent::BluetoothAgent(QObject *parent)
     : BluezQt::Agent(parent)
@@ -71,7 +77,11 @@ void BluetoothAgent::pair(const QString &btMacAddress)
         return;
     }
 
+#if BLUEZQT_VERSION_MAJOR == 5 && BLUEZQT_VERSION_MINOR < 68
     BluezQt::PendingCall *pcall = m_manager->pairWithDevice(btMacAddress);
+#else
+    BluezQt::PendingCall *pcall = device->pair();
+#endif
     pcall->setUserData(btMacAddress);
 
     connect(pcall, &BluezQt::PendingCall::finished,
@@ -119,8 +129,13 @@ void BluetoothAgent::usableAdapterChanged(BluezQt::AdapterPtr adapter)
         emit adapterAdded(adapter);
         m_usableAdapter = adapter;
 
-        connect(m_usableAdapter.data(), &BluezQt::Adapter::connectedChanged,
+#if BLUEZQT_VERSION_MAJOR == 5 && BLUEZQT_VERSION_MINOR < 68
+	connect(m_usableAdapter.data(), &BluezQt::Adapter::connectedChanged,
+		this, &BluetoothAgent::updateConnectedStatus);
+#else
+        connect(m_usableAdapter.data(), &BluezQt::Adapter::deviceChanged,
                 this, &BluetoothAgent::updateConnectedStatus);
+#endif
     }
 }
 
@@ -166,9 +181,23 @@ void BluetoothAgent::requestDefaultAgentFinished(BluezQt::PendingCall *call)
 
 void BluetoothAgent::updateConnectedStatus()
 {
+#if BLUEZQT_VERSION_MAJOR == 5 && BLUEZQT_VERSION_MINOR < 68
     if(m_connected != m_usableAdapter->isConnected())
     {
         m_connected = m_usableAdapter->isConnected();
+#else
+    bool isSomebodyConnected = false;
+    for (const auto &device : m_usableAdapter->devices()) {
+        if (device->isConnected()) {
+            isSomebodyConnected = true;
+            break;
+        }
+    }
+    
+    if(m_connected != isSomebodyConnected)
+    {
+        m_connected = isSomebodyConnected;
+#endif
         emit connectedChanged();
     }
 }
