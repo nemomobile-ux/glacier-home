@@ -31,6 +31,7 @@ Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
 
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(lipstick-qt5) >= 0.12.0
@@ -49,14 +50,17 @@ A homescreen for Nemo Mobile
 %setup -q -n %{name}-%{version}
 
 %build
-%qmake5
-
-make %{?_smp_mflags}
+cmake -B build \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DCMAKE_INSTALL_LIBDIR=%{_lib} \
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
+	.
+cmake --build build
 
 %install
 rm -rf %{buildroot}
-
-%qmake5_install
+DESTDIR=$RPM_BUILD_ROOT cmake --build build --target install
 
 mkdir -p %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/
 ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
