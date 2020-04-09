@@ -15,3 +15,11 @@ Makefile
 installroot/
 RPMS/
 debug*.list
+CMakeCache.txt
+*.qm
+*.cmake
+CMakeFiles
+lipstick
+lipstick_autogen
+prefix.sh
+install_manifest.txt
