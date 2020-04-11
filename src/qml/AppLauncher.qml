@@ -58,7 +58,7 @@ Flickable{
     ConfigurationValue {
         id: columnCount
         key: "/home/glacier/appLauncher/columnCount"
-        defaultValue: gridview.columns
+        defaultValue: 5
     }
 
 
@@ -114,7 +114,7 @@ Flickable{
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight: Math.round(parent.height / rows)
+        cellHeight: cellWidth
 
         height: parent.height
         width: parent.width
