@@ -23,6 +23,13 @@ Item {
         id: enableParalax
         key: "/home/glacier/homeScreen/enableParalax"
         defaultValue: true
+        onValueChanged: {
+            if(!Desktop.instance.lockscreenVisible() && value) {
+                accelerometer.active = true
+            } else {
+                accelerometer.active = false
+            }
+        }
     }
 
     Accelerometer {
