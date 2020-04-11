@@ -26,7 +26,7 @@ Requires:   google-opensans-fonts
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
-Requires:   libmce-qt5-declarative
+Requires:   libmce-qt5-declarative >= 1.3.0
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
