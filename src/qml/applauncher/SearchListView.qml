@@ -43,11 +43,6 @@ Item {
     property alias searchField: searchField
     property int oldHeight
 
-    InverseMouseArea {
-        anchors.fill: parent
-        onPressed: cleanup()
-    }
-
     function cleanup(){
         searchField.focus = false
         appLauncher.searchString = ""

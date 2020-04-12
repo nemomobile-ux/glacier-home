@@ -135,13 +135,14 @@ Flickable{
         property int rows: Math.floor(parent.height / minCellSize)
         property int columns:  Math.floor(parent.width / minCellSize)
 
-        anchors{
-            top: searchListView.visible ? searchListView.bottom : parent.top
-            topMargin: Theme.itemSpacingHuge
+        y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
+
+        Behavior on y {
+            NumberAnimation { duration: 200 }
         }
 
         onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge*2 && alwaysShowSearch.value == false ) {
+            if( contentY < -Theme.itemHeightHuge && alwaysShowSearch.value == false ) {
                 searchListView.visible = true
                 searchListViewTimer.running = true
             }
