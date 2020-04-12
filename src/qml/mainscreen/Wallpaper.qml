@@ -10,8 +10,8 @@ import "../scripts/desktop.js" as Desktop
 Item {
     id: wallpaper
 
-    property double maxX: wallpaper.width*0.1
-    property double maxY: wallpaper.height*0.1
+    property double maxX: desktop.width*0.1
+    property double maxY: desktop.height*0.1
 
     ConfigurationValue {
         id: wallpaperSource
@@ -34,7 +34,7 @@ Item {
 
     Accelerometer {
         id: accelerometer
-        active: (enableParalax && !Desktop.instance.lockscreenVisible())
+        active: (enableParalax.value == true && !Desktop.instance.lockscreenVisible())
         skipDuplicates: true
 
         onReadingChanged: {
@@ -59,8 +59,8 @@ Item {
 
     Image {
         id:wallpaperImage
-        width: wallpaper.width*1.2
-        height: wallpaper.height*1.2
+        width: wallpaper.width+maxX*4
+        height: wallpaper.height+maxY*4
 
         x: -maxX
         y: -maxY
@@ -80,7 +80,7 @@ Item {
     Connections {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
-            if(!Desktop.instance.lockscreenVisible() && enableParalax) {
+            if(!Desktop.instance.lockscreenVisible() && enableParalax.value == true) {
                 accelerometer.active = true
             } else {
                 accelerometer.active = false
