@@ -40,7 +40,7 @@ import org.nemomobile.ofono 1.0
 StatusbarItem{
     id: dataStatus
     iconSize: statusbar.height
-    visible: cellularDataTechnology.technology != "unknown"
+    visible: cellularDataTechnology.technology != "unknown" && cellularDataTechnology.technology != ""
     transparent: !cellularNetworkTechnology.connected
 
     OfonoManager {
