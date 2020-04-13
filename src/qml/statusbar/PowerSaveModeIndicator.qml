@@ -31,25 +31,19 @@
 
 
 import QtQuick 2.6
-import org.nemomobile.systemsettings 1.0
+import Nemo.Mce 1.0
 
 StatusbarItem {
     id: powerSaveModeIndicator
 
-    DisplaySettings {
-        id: displaySettings
-
-        onPowerSaveModeForcedChanged: {
-            if(powerSaveModeForced) {
-                displaySettings.powerSaveModeEnabled = true
-            }
-        }
+    McePowerSaveMode{
+        id: mcePowerSaveMode
     }
 
     iconSize:       parent.height
     iconSizeHeight: parent.height
 
-    visible: displaySettings.powerSaveModeEnabled
+    visible: mcePowerSaveMode.active
 
     source: "image://theme/leaf"
 }
