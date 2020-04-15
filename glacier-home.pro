@@ -68,7 +68,8 @@ DEFINES += QT_COMPOSITOR_QUICK
 HEADERS += \
     src/bluetooth/bluetoothagent.h \
     src/fileutils.h \
-    src/glacierwindowmodel.h
+    src/glacierwindowmodel.h \
+    src/mceconnect.h
 
 LIBS += -lnemodevicelock
 MOC_DIR = .moc
@@ -77,7 +78,8 @@ SOURCES += \
     src/bluetooth/bluetoothagent.cpp \
     src/fileutils.cpp \
     src/main.cpp \
-    src/glacierwindowmodel.cpp
+    src/glacierwindowmodel.cpp \
+    src/mceconnect.cpp
 
 PKGCONFIG += lipstick-qt5 \
     nemodevicelock \
@@ -96,6 +98,7 @@ INSTALLS += i18n_files
 DISTFILES += \
     src/data/90-glacier-devlock.conf \
     src/qml/dialogs/BtRequestConfirmationDialog.qml \
+    src/qml/dialogs/RebootDialog.qml \
     src/qml/lockscreen/AngleAnimation.qml \
     translations/*.ts \
     settings-plugins/*/*.qml \

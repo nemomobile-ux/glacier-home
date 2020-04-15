@@ -65,6 +65,19 @@ Page {
         enabled: true
         updateFrequency: WallClock.Minute
     }
+
+    GlacierMceConnect{
+        id: mceConnect
+
+        onPowerKeyPressed: {
+            if(!rebootDialog.visible) {
+                rebootDialog.visible = true
+            } else {
+                rebootDialog.visible = false
+            }
+        }
+    }
+
     //force refresh
     Connections {
         target: Lipstick.compositor
@@ -254,6 +267,12 @@ Page {
 
     AudioWarningDialog{
         id: audioWarnigDialog
+    }
+
+    RebootDialog{
+        id: rebootDialog
+        focus: true
+        z: 400
     }
 
     Screenshot{
