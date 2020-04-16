@@ -360,7 +360,7 @@ Image {
         width:parent.width
 
         anchors {
-            bottom: parent.bottom
+            bottom: angileAnimation.top
             bottomMargin: Theme.itemSpacingHuge
             horizontalCenter: parent.horizontalCenter
         }
