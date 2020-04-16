@@ -193,11 +193,8 @@ Item {
             id: nfcIndicator
         }
 
-        StatusbarItem {
-            id: gpsIndicator
-            iconSize: statusbar.height * 0.75
-            iconSizeHeight: statusbar.height
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
+        LocationIndicator{
+            id: locationIndicator
         }
 
         UsbModeIndicator{
