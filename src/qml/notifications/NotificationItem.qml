@@ -2,6 +2,8 @@ import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import "../scripts/desktop.js" as Desktop
+
 Item {
     id: notifyArea
 
@@ -46,11 +48,17 @@ Item {
         }
 
         onClicked: {
+            if(Desktop.instance.deviceLocked) {
+                return
+            }
+
             if (modelData.userRemovable) {
                 slideAnimation.start()
             } else {
                 modelData.actionInvoked("default")
             }
+
+            Desktop.instance.setLockScreen(false)
         }
     }
 

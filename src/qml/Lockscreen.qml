@@ -311,7 +311,7 @@ Image {
         authenticationInput: DeviceLockAuthenticationInput {
 
             readonly property bool unlocking: registered
-                        && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
+                                              && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
             registered: lockscreenVisible()
             active: lockscreenVisible()
@@ -365,7 +365,11 @@ Image {
             horizontalCenter: parent.horizontalCenter
         }
 
-        spacing: Theme.itemSpacingHuge
+        move: Transition {
+            NumberAnimation { properties: "y"; duration: 400 }
+        }
+
+        spacing: Theme.itemSpacingLarge
 
         Repeater {
             model: NotificationListModel{
