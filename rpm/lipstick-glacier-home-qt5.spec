@@ -18,6 +18,7 @@ Requires:   qt5-qtdeclarative-import-sensors
 Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
+Requires:   nemo-qml-plugin-systemsettings >= 0.2.30
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
 Requires:   libngf-qt5-declarative
