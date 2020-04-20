@@ -27,6 +27,8 @@ import QtQuick.Controls.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 
+import Nemo.Configuration 1.0
+
 import "compositor"
 import "scripts/desktop.js" as Desktop
 
@@ -83,9 +85,17 @@ Compositor {
         valueAnimationLock.target = Desktop.instance.lockscreen
     }
 
+    ConfigurationValue {
+        id: lockOrientation
+        key: "/home/glacier/lockOrientation"
+        defaultValue: false
+    }
+
     onSensorOrientationChanged: {
-        screenOrientation = sensorOrientation
-        contentOrientation = screenOrientation
+        if(!lockOrientation.value) {
+            screenOrientation = sensorOrientation
+            contentOrientation = screenOrientation
+        }
     }
 
     Component.onCompleted: {
@@ -180,7 +190,7 @@ Compositor {
                     resizeBorder.height = height - mouseY
                 }
                 resizeBorder.visible = true
-//                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
+                //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
                 //Down gesture now not used yeat
             }
@@ -207,7 +217,7 @@ Compositor {
             resizeBorder.visible = false
             if (root.appActive) {
                 if (diagonal && gestureArea.progress >= swipeThreshold) {
-//                    console.log("finished diagonal gesture:", mouseX, mouseY)
+                    //                    console.log("finished diagonal gesture:", mouseX, mouseY)
                     topmostWindow.window.userData.x = resizeBorder.x
                     topmostWindow.window.userData.y = resizeBorder.y
                     topmostWindow.window.resize(Qt.size(resizeBorder.width, resizeBorder.height))
@@ -238,13 +248,13 @@ Compositor {
                             setDisplayOff()
                         }
                     }
-                        // Unlocks if no security code required
+                    // Unlocks if no security code required
                     else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
                         Desktop.instance.setLockScreen(false)
                     }
-                 } else {
+                } else {
                     cancelAnimation.start()
-                 }
+                }
             }
             gestureOnGoing = false
         }
