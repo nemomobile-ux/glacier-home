@@ -266,7 +266,7 @@ Item {
                                             'id':i,
                                             'folderId':j,
                                             'category':qsTr("Application"),
-                                            'extraCaption': qsTr("installed on you device")
+                                            'extraCaption': qsTr("installed on your device")
                                         })
                         }
                     } else {
@@ -276,7 +276,7 @@ Item {
                                         'id':i,
                                         'folderId':-1,
                                         'category':qsTr("Application"),
-                                        'extraCaption': qsTr("installed on you device")
+                                        'extraCaption': qsTr("installed on your device")
                                     })
                     }
                 }

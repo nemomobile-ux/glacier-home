@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="en_US">
+<context>
+    <name></name>
+    <message id="years-ago" numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="67"/>
+        <source>%n year(s) ago</source>
+        <translation type="unfinished">
+            <numerusform>year ago</numerusform>
+            <numerusform>%n years ago</numerusform>
+        </translation>
+    </message>
+    <message id="months-ago" numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="70"/>
+        <source>%n months(s) ago</source>
+        <translation type="unfinished">
+            <numerusform>month ago</numerusform>
+            <numerusform>%n months ago</numerusform>
+        </translation>
+    </message>
+    <message id="days-ago" numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="73"/>
+        <source>%n day(s) ago</source>
+        <oldsource>%n months(s) ago</oldsource>
+        <translation type="unfinished">
+            <numerusform>day ago</numerusform>
+            <numerusform>%n days ago</numerusform>
+        </translation>
+    </message>
+    <message id="hours-ago" numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <source>%n hours(s) ago</source>
+        <translation type="unfinished">
+            <numerusform>hour ago</numerusform>
+            <numerusform>%n hours ago</numerusform>
+        </translation>
+    </message>
+    <message id="minutes-ago" numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="79"/>
+        <source>%n minutes(s) ago</source>
+        <translation type="unfinished">
+            <numerusform>minute ago</numerusform>
+            <numerusform>%n minutes ago</numerusform>
+        </translation>
+    </message>
+</context>
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -165,57 +209,7 @@
 <context>
     <name>NotificationItem</name>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="67"/>
-        <source>years ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="69"/>
-        <source>year ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="73"/>
-        <source>months ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="75"/>
-        <source>month ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="79"/>
-        <source>days ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
-        <source>day ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="85"/>
-        <source>hours ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="87"/>
-        <source>hour ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="91"/>
-        <source>minutes ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="93"/>
-        <source>minute ago</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="96"/>
         <source>Just now</source>
         <translation type="unfinished"></translation>
     </message>
@@ -271,7 +265,7 @@
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="274"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="284"/>
-        <source>installed on you device</source>
+        <source>installed on your device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
