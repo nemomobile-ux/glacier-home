@@ -86,7 +86,8 @@ PKGCONFIG += lipstick-qt5 \
 OTHER_FILES += src/nemovars.conf
 
 TRANSLATIONS += translations/glacer-home.ts \
-                translations/glacer-home_ru.ts
+                translations/glacer-home_ru.ts \
+                translations/glacer-home_cs.ts
 
 i18n_files.files = translations
 i18n_files.path = /usr/share/lipstick-glacier-home-qt5/

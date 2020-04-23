@@ -63,35 +63,20 @@ Item {
         var minutes = Math.floor(seconds / 60)
 
         if (years >= 1) {
-            if(years > 1) {
-                timeAgo = years + " " + qsTr("years ago")
-            } else {
-                timeAgo = years + " " + qsTr("year ago")
-            }
+            //% "%n year(s) ago"
+            timeAgo = qsTrId("years-ago",years)
         }else if (months >= 1) {
-            if (months > 1) {
-                timeAgo =  months +" " + qsTr("months ago")
-            } else {
-                timeAgo =  months +" " + qsTr("month ago")
-            }
+            //% "%n months(s) ago"
+            timeAgo = qsTrId("months-ago",months)
         }else if (days >= 1) {
-            if (days > 1) {
-                timeAgo =  days + " " + qsTr("days ago")
-            } else {
-                timeAgo =  days + " " + qsTr("day ago")
-            }
+            //% "%n day(s) ago"
+            timeAgo = qsTrId("days-ago",days)
         }else if (hours >= 1) {
-            if (hours > 1) {
-                timeAgo =  hours + " " + qsTr("hours ago")
-            } else {
-                timeAgo =  hours + " " + qsTr("hour ago")
-            }
+            //% "%n hours(s) ago"
+            timeAgo = qsTrId("hours-ago",hours)
         } else if (minutes >= 1) {
-            if (minutes > 1) {
-                timeAgo =  minutes + " " + qsTr("minutes ago")
-            } else {
-                timeAgo =  minutes + " " + qsTr("minute ago")
-            }
+            //% "%n minutes(s) ago"
+            timeAgo = qsTrId("minutes-ago",minutes)
         } else {
             timeAgo = qsTr("Just now")
         }

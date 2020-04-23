@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
+<TS version="2.1" language="cs">
 <context>
     <name></name>
     <message id="years-ago" numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="67"/>
         <source>%n year(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>loni</numerusform>
+            <numerusform>Před %n lety</numerusform>
+            <numerusform>Před %n lety</numerusform>
         </translation>
     </message>
     <message id="months-ago" numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="70"/>
         <source>%n months(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Před měsícem</numerusform>
+            <numerusform>Před %n měsíci</numerusform>
+            <numerusform>Před %n měsíci</numerusform>
         </translation>
     </message>
     <message id="days-ago" numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="73"/>
         <source>%n day(s) ago</source>
         <oldsource>%n months(s) ago</oldsource>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>včera</numerusform>
+            <numerusform>před %n dny</numerusform>
+            <numerusform>před %n dny</numerusform>
         </translation>
     </message>
     <message id="hours-ago" numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n hours(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>před hodinou</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+            <numerusform>před %n hodinami</numerusform>
         </translation>
     </message>
     <message id="minutes-ago" numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="79"/>
         <source>%n minutes(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>před minutou</numerusform>
+            <numerusform>před %n minutami</numerusform>
+            <numerusform>před %n minutami</numerusform>
         </translation>
     </message>
 </context>
@@ -55,17 +55,17 @@
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="186"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Hotovo</translation>
     </message>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="202"/>
         <source>Close All</source>
-        <translation>Закрыть всё</translation>
+        <translation>Zavřít vše</translation>
     </message>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="212"/>
         <source>Nothing open yet</source>
-        <translation>Нет запущеных приложений</translation>
+        <translation>Ještě není nic otevřeno</translation>
     </message>
 </context>
 <context>
@@ -73,22 +73,22 @@
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="46"/>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="47"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="48"/>
         <source>Dangerous volume level!</source>
-        <translation>Опасный уровень громкости!</translation>
+        <translation>Nebezpečná úroveň hlasitosti!</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49"/>
         <source>Do you want to continue?</source>
-        <translation>Вы хотите продолжить ?</translation>
+        <translation>Chcete pokračovat?</translation>
     </message>
 </context>
 <context>
@@ -96,22 +96,22 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отменить</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
         <source>Connect</source>
-        <translation type="unfinished">Соединить</translation>
+        <translation>Připojit</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect to device </source>
-        <translation type="unfinished"></translation>
+        <translation>Připojit k zařízení </translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>code: </source>
-        <translation type="unfinished">код: </translation>
+        <translation>kód: </translation>
     </message>
 </context>
 <context>
@@ -119,27 +119,27 @@
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="122"/>
         <source>Wi-Fi</source>
-        <translation></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="127"/>
         <source>Bluetooth</source>
-        <translation></translation>
+        <translation>Bluetooth</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="132"/>
         <source>Data</source>
-        <translation>Передача данных</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="137"/>
         <source>Location</source>
-        <translation>Местоположение</translation>
+        <translation>Poloha</translation>
     </message>
     <message>
         <location filename="../src/qml/ControlCenter.qml" line="142"/>
         <source>Quiet</source>
-        <translation>Тихий режим</translation>
+        <translation>Tichý</translation>
     </message>
 </context>
 <context>
@@ -147,26 +147,26 @@
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
         <source>Removing</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstraňuje se</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
         <source>Uninstalling</source>
-        <translation type="unfinished"></translation>
+        <translation>Odinstalovává se</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation>Odinstalovat</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit</translation>
     </message>
 </context>
 <context>
@@ -174,17 +174,17 @@
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
         <source>Enter security code</source>
-        <translation>Введите код</translation>
+        <translation>Zadejte bezpečnostní kód</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="164"/>
         <source>Incorrect code</source>
-        <translation>Неверный код</translation>
+        <translation>Nesprávný kód</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="172"/>
         <source>Temporarily locked</source>
-        <translation>Временно заблокирован</translation>
+        <translation>Dočasně uzamčeno</translation>
     </message>
 </context>
 <context>
@@ -192,7 +192,7 @@
     <message>
         <location filename="../src/fileutils.cpp" line="44"/>
         <source>Screenshot</source>
-        <translation>Снимок экрана</translation>
+        <translation>Snímek obrazovky</translation>
     </message>
 </context>
 <context>
@@ -200,7 +200,7 @@
     <message>
         <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="187"/>
         <source>folder</source>
-        <translation>папка</translation>
+        <translation>složka</translation>
     </message>
 </context>
 <context>
@@ -208,7 +208,7 @@
     <message>
         <location filename="../src/qml/statusbar/MediaController.qml" line="67"/>
         <source>No music playing</source>
-        <translation>Музыка не играет</translation>
+        <translation>Nehraje hudba</translation>
     </message>
 </context>
 <context>
@@ -216,7 +216,7 @@
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
         <source>Just now</source>
-        <translation type="unfinished"></translation>
+        <translation>Právě teď</translation>
     </message>
 </context>
 <context>
@@ -224,12 +224,12 @@
     <message>
         <location filename="../src/qml/system/Screenshot.qml" line="67"/>
         <source>Desktop</source>
-        <translation>Рабочий стол</translation>
+        <translation>Plocha</translation>
     </message>
     <message>
         <location filename="../src/qml/system/Screenshot.qml" line="68"/>
         <source>Screenshot saved</source>
-        <translation>Снимок экрана сохранён</translation>
+        <translation>Snímek obrazovky byl uložen</translation>
     </message>
 </context>
 <context>
@@ -237,45 +237,45 @@
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="122"/>
         <source>Search</source>
-        <translation>Поиск</translation>
+        <translation>Hledat</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
         <source>Hide search panel</source>
-        <translation>Скрыть панель поиска</translation>
+        <translation>Skrýt panel hledání</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
         <source>Pinup search panel</source>
-        <translation>Закрепить панель поиска</translation>
+        <translation>Připnout na panel hledání</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="196"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="273"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="283"/>
         <source>Application</source>
-        <translation>Приложение</translation>
+        <translation>Aplikace</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="294"/>
         <source>Contact</source>
-        <translation>Контакт</translation>
+        <translation>Kontakt</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
         <source>Content</source>
-        <translation>Содержимое</translation>
+        <translation>Obsah</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="274"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="284"/>
         <source>installed on your device</source>
-        <translation type="unfinished"></translation>
+        <translation>nainstalováno na vaše zařízení</translation>
     </message>
     <message>
         <source>installed on you device</source>
-        <translation type="vanished">установлено на устройстве</translation>
+        <translation type="vanished">nainstalováno na vaše zařízení</translation>
     </message>
 </context>
 <context>
@@ -283,22 +283,22 @@
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="75"/>
         <source>Current mode: Charging only</source>
-        <translation>Текущий режим: Только зарядка</translation>
+        <translation>Vybraný režim: pouze nabíjení</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="91"/>
         <source>MTP Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>MTP režim</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="111"/>
         <source>Mass Storage Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Režim uložiště</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131"/>
         <source>Developer Mode</source>
-        <translation>Режим разработчика</translation>
+        <translation>Režim pro vývojáře</translation>
     </message>
 </context>
 <context>
@@ -306,47 +306,47 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="50"/>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="51"/>
         <source>Ok</source>
-        <translation></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="52"/>
         <source>Select USB mode</source>
-        <translation>Режим USB</translation>
+        <translation>Vybrat režim USB</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="68"/>
         <source>Always ask</source>
-        <translation>Всегда спрашивать</translation>
+        <translation>Vždy se zeptat</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="70"/>
         <source>MTP</source>
-        <translation></translation>
+        <translation>MTP</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="72"/>
         <source>Charging only</source>
-        <translation>Только зарядка</translation>
+        <translation>Pouze nabíjení</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="74"/>
         <source>Connection sharing</source>
-        <translation>Раздача соединения</translation>
+        <translation>Sdílení připojení</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="76"/>
         <source>Developer mode</source>
-        <translation>Режим разработчика</translation>
+        <translation>Režim pro vývojáře</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="78"/>
         <source>Busy</source>
-        <translation>Занят</translation>
+        <translation>Obsazeno</translation>
     </message>
 </context>
 <context>
@@ -354,7 +354,7 @@
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
-        <translation></translation>
+        <translation>Wifi</translation>
     </message>
 </context>
 <context>
@@ -362,17 +362,17 @@
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="32"/>
         <source>Desktop</source>
-        <translation>Рабочий стол</translation>
+        <translation>Plocha</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="58"/>
         <source>Enable windowed mode</source>
-        <translation>Включить мультиоконность</translation>
+        <translation>Povolit režim v okně</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="87"/>
         <source>Always show search panel</source>
-        <translation>Всегда показывать панель поиска</translation>
+        <translation>Vždy zobrazovat panel vyhledávání</translation>
     </message>
 </context>
 <context>
@@ -380,12 +380,12 @@
     <message>
         <location filename="../src/settings-plugins/notifications/notifications.qml" line="32"/>
         <source>Notifications</source>
-        <translation>Уведомления</translation>
+        <translation>Upozornění</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/notifications/notifications.qml" line="52"/>
         <source>Show notification body on lockscreen</source>
-        <translation>Показывать содержимое уведомлений при заблокированном экране</translation>
+        <translation>Zobrazovat upozoronění na zamykací obrazovce</translation>
     </message>
 </context>
 <context>
@@ -393,7 +393,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
         <source>Select wallpaper</source>
-        <translation>Выберите обои</translation>
+        <translation>Zvolit tapetu</translation>
     </message>
 </context>
 <context>
@@ -401,32 +401,32 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="32"/>
         <source>Wallpapers</source>
-        <translation>Обои</translation>
+        <translation>Tapety</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
         <source>Use paralax effect for wallpaper</source>
-        <translation>Использовать эфект паралакс</translation>
+        <translation>Použít efekt paralaxy pro tapetu</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="99"/>
         <source>Use different images for lockscreen and home screen</source>
-        <translation>Использовать разные обои для главного экрана и экрана блокировки</translation>
+        <translation>Použít jiné obrázky pro zamykací a domácí obrazovku</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
         <source>Homescreen wallpaper</source>
-        <translation>Обои главного экрана</translation>
+        <translation>Tapeta domácí obrazovky</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
         <source>Wallpaper</source>
-        <translation>Обои</translation>
+        <translation>Tapeta</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="161"/>
         <source>Lockscreen wallpaper</source>
-        <translation>Обои экрана блокировки</translation>
+        <translation>Tapeta zamykací obrazovky</translation>
     </message>
 </context>
 </TS>
