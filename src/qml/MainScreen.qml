@@ -170,6 +170,7 @@ Page {
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
+        z: 201
     }
 
     GlacierRotation {
