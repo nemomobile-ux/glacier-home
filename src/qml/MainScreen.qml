@@ -261,6 +261,12 @@ Page {
         id: lockScreen
         visible: lockscreenVisible()
 
+        onVisibleChanged: {
+            if(visible) {
+                statusbar.opacityStart = 0.0
+            }
+        }
+
         width: parent.width
         height: parent.height
         z: 200
