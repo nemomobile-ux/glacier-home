@@ -304,6 +304,16 @@ Image {
         }
     }
 
+    MediaControls{
+        id: mediaControls
+
+        anchors{
+            top: operatorLine.bottom
+            bottomMargin: -Theme.itemSpacingHuge
+            horizontalCenter: parent.horizontalCenter
+        }
+    }
+
     DeviceLockUI {
         id: codePad
         visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
