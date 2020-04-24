@@ -1,12 +1,11 @@
 import QtQuick 2.6
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import Nemo.Configuration 1.0
-import "notifications"
 
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Configuration 1.0
 
 import "notifications"
 import "lockscreen"
@@ -292,6 +291,16 @@ Image {
             top: parent.top
             left: parent.left
             right: parent.right
+        }
+    }
+
+    OperatorLine {
+        id: operatorLine
+
+        anchors{
+            top: lockscreenClock.bottom
+            bottomMargin: -Theme.itemSpacingHuge
+            horizontalCenter: parent.horizontalCenter
         }
     }
 

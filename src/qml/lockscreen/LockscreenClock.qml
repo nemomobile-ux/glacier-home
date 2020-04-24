@@ -3,19 +3,12 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
-import MeeGo.QOfono 0.2
-
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.ofono 1.0
 
 Rectangle {
     id: lockscreenClock
-    height: parent.height/3
+    height: dateDisplay.height+timeDisplay.height+Theme.itemSpacingHuge
     width: parent.width
-
-    OfonoModemListModel{
-        id: modemModel
-    }
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: '#b0000000' }
@@ -26,6 +19,7 @@ Rectangle {
         id: clockColumn
 
         anchors.fill: parent
+        anchors.topMargin: Theme.itemSpacingHuge
 
         Text {
             id: timeDisplay
@@ -52,41 +46,6 @@ Rectangle {
             }
 
             text: Qt.formatDateTime(wallClock.time, "<b>ddd</b>, MMM d")
-        }
-        Row{
-            anchors{
-                top: timeDisplay.bottom
-                bottomMargin: -Theme.itemSpacingHuge
-                horizontalCenter: parent.horizontalCenter
-            }
-
-            Repeater{
-                id: simRepeater
-                model: modemModel
-
-                delegate: Text{
-                    id: operatorText
-                    font.pointSize: 9
-                    color: Theme.textColor
-                    horizontalAlignment: Text.AlignHCenter
-
-                    OfonoNetworkRegistration{
-                        id: cellularRegistration
-                        modemPath: path
-
-                        onCurrentOperatorPathChanged: {
-                            operator.operatorPath = currentOperatorPath
-                        }
-                    }
-
-                    OfonoNetworkOperator{
-                        id: operator
-                        onNameChanged: {
-                            operatorText.text = name
-                        }
-                    }
-                }
-            }
         }
     }
 }
