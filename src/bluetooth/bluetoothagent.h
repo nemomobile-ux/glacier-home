@@ -2,9 +2,6 @@
 #define BLUETOOTHAGENT_H
 
 #include <QObject>
-
-#include <QDBusObjectPath>
-#include <agent.h>
 // This file is part of glacier-home, a nice user experience for NemoMobile.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,8 +24,10 @@
 //
 // Copyright (c) 2020, Chupligin Sergey <neochapay@gmail.com>
 
-#include <adapter.h>
+#include <QDBusObjectPath>
 
+#include <agent.h>
+#include <adapter.h>
 #include <request.h>
 #include <manager.h>
 #include <pendingcall.h>
@@ -36,6 +35,7 @@
 class BluetoothAgent : public BluezQt::Agent
 {
     Q_OBJECT
+    Q_PROPERTY(bool connected READ isConnected NOTIFY connectedChanged)
 public:
     BluetoothAgent(QObject *parent = Q_NULLPTR);
     QDBusObjectPath objectPath() const;
@@ -49,10 +49,12 @@ public:
     Q_INVOKABLE void unPair(const QString &btMacAddress);
 
     Q_INVOKABLE void connectDevice(const QString &btMacAddress);
+    bool isConnected();
 
 signals:
     void adapterAdded(const BluezQt::AdapterPtr adapter);
     void showRequiesDialog(const QString btMacAddres, const QString name, const QString code);
+    void connectedChanged();
 
 private:
     void initManagerJobResult(BluezQt::InitManagerJob *job);
@@ -61,9 +63,11 @@ private:
 
     void usableAdapterChanged(BluezQt::AdapterPtr adapter);
     void connectToDevice(BluezQt::PendingCall *call);
+    void updateConnectedStatus();
 
     BluezQt::Manager *m_manager;
     BluezQt::AdapterPtr m_usableAdapter;
+    bool m_connected;
 };
 
 #endif // BLUETOOTHAGENT_H

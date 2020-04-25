@@ -8,11 +8,18 @@ StatusbarItem {
     source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_bluetooth.png"
     visible: bluetoothTechnology.powered
 
-    transparent: !bluetoothTechnology.connected
+    transparent: true
 
 
     NetworkTechnology {
         id: bluetoothTechnology
         path: "/net/connman/technology/bluetooth"
+    }
+
+    Connections{
+        target: btAgent
+        onConnectedChanged: {
+            bluetoothIndicator.transparent = !btAgent.connected
+        }
     }
 }

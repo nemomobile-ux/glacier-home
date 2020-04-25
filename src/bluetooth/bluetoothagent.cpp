@@ -28,6 +28,7 @@
 BluetoothAgent::BluetoothAgent(QObject *parent)
     : BluezQt::Agent(parent)
 {
+    m_connected = false;
     m_manager = new BluezQt::Manager(this);
 
     BluezQt::InitManagerJob *job = m_manager->init();
@@ -117,6 +118,9 @@ void BluetoothAgent::usableAdapterChanged(BluezQt::AdapterPtr adapter)
     {
         emit adapterAdded(adapter);
         m_usableAdapter = adapter;
+
+        connect(m_usableAdapter.data(), &BluezQt::Adapter::connectedChanged,
+                this, &BluetoothAgent::updateConnectedStatus);
     }
 }
 
@@ -160,4 +164,17 @@ void BluetoothAgent::requestDefaultAgentFinished(BluezQt::PendingCall *call)
      qDebug() << "BT: bt agent registring as system" << objectPath().path();
 }
 
+void BluetoothAgent::updateConnectedStatus()
+{
+    if(m_connected != m_usableAdapter->isConnected())
+    {
+        m_connected = m_usableAdapter->isConnected();
+        emit connectedChanged();
+    }
+}
+
+bool BluetoothAgent::isConnected()
+{
+    return m_connected;
+}
 
