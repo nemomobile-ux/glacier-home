@@ -5,8 +5,6 @@ Item {
     id: statusbarItem
 
     property alias source: icon.source
-    property string panel_source
-    property Component panel
     property double iconSize
     property double iconSizeHeight
 
@@ -23,19 +21,5 @@ Item {
         id: icon
         anchors.centerIn: parent
         opacity: statusbarItem.transparent ? 0.5 : 1
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            if (panel_source !== "" && !panel) {
-                panel_loader.source = panel_source
-                panel_loader.visible = !panel_loader.visible
-            }
-            if (panel && panel_source === "") {
-                panel_loader.sourceComponent = panel
-                panel_loader.visible = !panel_loader.visible
-            }
-        }
     }
 }
