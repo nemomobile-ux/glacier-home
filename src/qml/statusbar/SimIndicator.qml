@@ -9,6 +9,7 @@ import org.nemomobile.ofono 1.0
 Row {
     id: simIndicator
     property int modemCount: 0
+    spacing: Theme.itemSpacingExtraSmall
 
     width: childrenRect.width
     height: parent.height
@@ -26,7 +27,8 @@ Row {
         delegate: StatusbarItem {
             id: cellStatus
             source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-            iconSize: statusbar.height
+            iconSize:       parent.height
+            iconSizeHeight: parent.height
 
             OfonoNetworkRegistration{
                 id: cellularRegistrationStatus
