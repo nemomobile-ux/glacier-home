@@ -209,7 +209,6 @@ Compositor {
                     /*show statusbar when gesture down*/
                     console.log("Show statusarea")
                 }
-                state = "cover"
             }
         }
 
