@@ -147,6 +147,7 @@ Page {
     property alias lockscreen: lockScreen
     property alias switcher: switcher
     property alias statusbar: statusbar
+    property alias controlcenter: controlCenter
 
     readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
 
@@ -171,6 +172,11 @@ Page {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
         z: 201
+    }
+
+    ControlCenter{
+        id: controlCenter
+        z: 202
     }
 
     GlacierRotation {
@@ -226,6 +232,7 @@ Page {
         id: pager
         anchors.topMargin: statusbar.height
         anchors.fill: parent
+        enabled: Desktop.compositor.state != "controlCenter"
         model: VisualItemModel {
             AppLauncher {
                 id: launcher

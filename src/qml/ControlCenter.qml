@@ -43,8 +43,8 @@ import MeeGo.Connman 0.2
 import org.nemomobile.lipstick 0.1
 
 import "controlcenter"
+import "scripts/desktop.js" as Desktop
 
-//Area to return
 Item{
     id: controlCenterArea
 
@@ -60,6 +60,7 @@ Item{
     function down() {
         controlCenterArea.height = 0
         controlCenterArea.activated = false
+        Desktop.compositor.state = ""
     }
 
     onHeightChanged: {
@@ -176,7 +177,7 @@ Item{
         id: backgroundMouseArea
         width: parent.width
         height: parent.height-controlCenter.height
-        anchors.top: controlCenter.height
+        anchors.top: controlCenter.top
 
         property int pMouse: 0
 

@@ -36,6 +36,7 @@ Compositor {
     id: root
 
     property alias applicationLayer: appLayer
+    property alias state: gestureArea.state
 
     property Item homeWindow
 
@@ -192,7 +193,8 @@ Compositor {
                 resizeBorder.visible = true
                 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
-                //Down gesture now not used yeat
+                //show ControlCenter
+                Desktop.instance.controlcenter.height = mouseY
             }
         }
 
@@ -204,10 +206,12 @@ Compositor {
             if (root.appActive && !diagonal) {
                 state = "swipe"
             }
-            else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
+            else if (!Desktop.instance.lockscreenVisible() && !diagonal) {
                 if(gesture == "down") {
-                    /*show statusbar when gesture down*/
-                    console.log("Show statusarea")
+                    state = "controlCenter"
+                } else if (gesture == "up" && state == "controlCenter") {
+                    Desktop.instance.controlcenter.height = 0
+                    state = ""
                 }
             }
         }
