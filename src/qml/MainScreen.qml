@@ -209,6 +209,7 @@ Page {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
             glacierRotation.rotateRotationParent(desktop.orientation)
+            controlcenter.down()
         }
     }
 
