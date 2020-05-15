@@ -39,6 +39,8 @@ BluetoothAgent::BluetoothAgent(QObject *parent)
 
     connect(m_manager,&BluezQt::Manager::usableAdapterChanged,
             this, &BluetoothAgent::usableAdapterChanged);
+
+    usableAdapterChanged(m_usableAdapter);
 }
 
 QDBusObjectPath BluetoothAgent::objectPath() const
@@ -114,13 +116,15 @@ void BluetoothAgent::unPair(const QString &btMacAddress)
 
 void BluetoothAgent::usableAdapterChanged(BluezQt::AdapterPtr adapter)
 {
-    if(adapter)
+    if(adapter && m_usableAdapter != adapter)
     {
         emit adapterAdded(adapter);
         m_usableAdapter = adapter;
 
         connect(m_usableAdapter.data(), &BluezQt::Adapter::connectedChanged,
                 this, &BluetoothAgent::updateConnectedStatus);
+
+        updateConnectedStatus();
     }
 }
 
