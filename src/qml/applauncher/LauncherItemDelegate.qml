@@ -19,10 +19,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2020, Chupligin Sergey <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
+
 
 import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
@@ -61,24 +63,26 @@ Item {
     LauncherItemWrapper {
         id: launcherItem
         width: wrapper.width
-        height: wrapper.height
+        height: wrapper.width
         isFolder: wrapper.isFolder
         notNemoIcon: wrapper.notNemoIcon
 
         Item {
             id: iconWrapper
-            height: parent.height - iconText.height
-            width: parent.width
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: Math.round((parent.height - (height + iconText.height)) / 2)
+            height: parent.height-Theme.itemSpacingSmall*2
+            width: parent.width-Theme.itemSpacingSmall*2
+            anchors{
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+                left: parent.left
+                leftMargin: Theme.itemSpacingSmall
+            }
 
             Image {
                 id: iconImage
                 anchors.centerIn: parent
-                sourceSize.width: Theme.iconSizeLauncher
-                sourceSize.height: Theme.iconSizeLauncher
-                height: Theme.iconSizeLauncher
-                width: height
+                height: parent.height
+                width: parent.width
                 asynchronous: true
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
@@ -89,8 +93,8 @@ Item {
             Spinner {
                 id: spinnerr
                 anchors.centerIn:  iconImage
-                width: height
-                height: parent.height - Theme.itemSpacingHuge
+                width: parent.width - Theme.itemSpacingHuge
+                height: width
                 enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
 
                 Connections {
@@ -116,10 +120,10 @@ Item {
 
             wrapMode: Text.WordWrap
 
-            //https://bugreports.qt.io/browse/QTBUG-56052
-            y: -contentHeight + font.pixelSize + iconWrapper.y + iconWrapper.height
             anchors {
-                bottom: parent.bottom
+                top: iconWrapper.bottom
+                topMargin: Theme.itemSpacingSmall
+                horizontalCenter: iconWrapper.horizontalCenter
             }
         }
     }

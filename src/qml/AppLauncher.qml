@@ -21,7 +21,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2020, Chupligin Sergey <neochapay@gmail.com>
 */
 
 import QtQuick 2.6
@@ -114,7 +114,7 @@ Flickable{
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight: cellWidth
+        cellHeight: cellWidth+Theme.itemSpacingMedium*3
 
         height: parent.height
         width: parent.width
@@ -132,8 +132,8 @@ Flickable{
         visible: searchString.length === 0
 
         property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
-        property int rows: Math.floor(parent.height / minCellSize)
-        property int columns:  Math.floor(parent.width / minCellSize)
+        property int rows: Math.floor(parent.height / cellWidth)
+        property int columns:  Math.floor(parent.width / cellHeight)
 
         y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
 
