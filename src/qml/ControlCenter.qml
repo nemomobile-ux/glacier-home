@@ -35,6 +35,8 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
+import Nemo.DBus 2.0
+
 import "controlcenter"
 import "scripts/desktop.js" as Desktop
 
@@ -54,12 +56,27 @@ Item{
         Desktop.compositor.state = ""
     }
 
+    function openSettingsPage(plugin,extended) {
+        settingsInterface.call("openSettingsPage",[plugin, extended])
+    }
+
     onHeightChanged: {
         if(height != (desktop.isUiPortrait ? Desktop.instance.width : Desktop.instance.height)) {
             hiderTimer.restart()
         } else {
             hiderTimer.stop()
         }
+    }
+
+
+    DBusInterface {
+        id: settingsInterface
+
+        service: "org.nemomobile.qmlsettings"
+        path: "/"
+        iface: "org.nemomobile.qmlsettings"
+
+        signalsEnabled: true
     }
 
     Timer{

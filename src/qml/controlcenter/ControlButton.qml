@@ -30,7 +30,12 @@ Item {
     property bool activated: false
     property bool connected: false
 
+//propertys for settings application
+    property string assignedSettingsPage: ""
+    property string assignedSettingsPageParams: ""
+
     signal clicked();
+    signal pressed();
 
     width: height
     height: Theme.itemHeightHuge
@@ -92,6 +97,17 @@ Item {
         anchors.fill: parent
         onClicked: {
             contolButton.clicked()
+        }
+
+        onPressAndHold: {
+            contolButton.pressed()
+
+//if we have assignet settings page close controlCenter
+//and show settings application
+            if(assignedSettingsPage != "") {
+                controlCenterArea.height = 0
+                controlCenterArea.openSettingsPage(assignedSettingsPage,assignedSettingsPageParams)
+            }
         }
     }
 }
