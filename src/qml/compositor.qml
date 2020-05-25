@@ -195,7 +195,7 @@ Compositor {
                 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
                 //show ControlCenter
-                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2)) {
+                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2) && !Desktop.instance.lockscreenVisible()) {
                     Desktop.instance.controlcenter.height = mouseY
                 }
             }
