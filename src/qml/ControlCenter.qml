@@ -127,11 +127,10 @@ Item{
             spacing: Theme.itemSpacingSmall
             leftPadding: (layout.width-Theme.itemSpacingSmall*layout.columns-Theme.itemHeightHuge*layout.columns)/2
 
-            NetworkControlButton{
-                image: "image://theme/wifi"
-                textLabel: qsTr("Wi-Fi")
-                networkingModel: "wifi"
+            WiFiButton{
+                id: wifiButton
             }
+
             NetworkControlButton{
                 image: "image://theme/bluetooth"
                 textLabel: qsTr("Bluetooth")
