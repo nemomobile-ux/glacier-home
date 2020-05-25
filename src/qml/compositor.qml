@@ -1,5 +1,6 @@
 // Copyright (C) 2013 Jolla Ltd.
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
+// Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
 //
 // This file is part of colorful-home, a nice user experience for touchscreens.
 //
@@ -194,7 +195,9 @@ Compositor {
                 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
                 //show ControlCenter
-                Desktop.instance.controlcenter.height = mouseY
+                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2)) {
+                    Desktop.instance.controlcenter.height = mouseY
+                }
             }
         }
 
@@ -209,6 +212,7 @@ Compositor {
             else if (!Desktop.instance.lockscreenVisible() && !diagonal) {
                 if(gesture == "down") {
                     state = "controlCenter"
+                    Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
                 } else if (gesture == "up" && state == "controlCenter") {
                     Desktop.instance.controlcenter.height = 0
                     state = ""

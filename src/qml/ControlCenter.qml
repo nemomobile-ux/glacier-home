@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2017 Samuel Pavlovic <sam@volvosoftware.com>
+** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,18 +30,10 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.1
-import QtQuick.Window 2.1
-import QtQuick.Layouts 1.0
+import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
-import QtFeedback 5.0
-import QtMultimedia 5.0
-
-import MeeGo.Connman 0.2
-
-import org.nemomobile.lipstick 0.1
 
 import "controlcenter"
 import "scripts/desktop.js" as Desktop
@@ -48,9 +41,8 @@ import "scripts/desktop.js" as Desktop
 Item{
     id: controlCenterArea
 
-    property bool activated: false
-
-    width: desktop.isUiPortrait ? Screen.width : Screen.height
+    width: desktop.isUiPortrait ? Desktop.instance.width : Desktop.instance.height
+    anchors.horizontalCenter: parent.horizontalCenter
 
     height: 0
     visible: height > 0
@@ -59,21 +51,14 @@ Item{
 
     function down() {
         controlCenterArea.height = 0
-        controlCenterArea.activated = false
         Desktop.compositor.state = ""
     }
 
     onHeightChanged: {
-        if(height != Screen.height) {
+        if(height != (desktop.isUiPortrait ? Desktop.instance.width : Desktop.instance.height)) {
             hiderTimer.restart()
         } else {
             hiderTimer.stop()
-        }
-    }
-
-    onActivatedChanged: {
-        if(!activated) {
-            down()
         }
     }
 
@@ -95,12 +80,11 @@ Item{
 
     InverseMouseArea{
         anchors.fill: parent
-        enabled: parent.activated
+        enabled: controlCenterArea.height > 0
         parent: controlCenterArea
 
         onPressed: {
             controlCenterArea.height = 0
-            controlCenterArea.activated = false
         }
     }
 
@@ -110,13 +94,21 @@ Item{
         height: parent.width
         color: "transparent"
 
-        RowLayout {
+        Grid {
             id: layout
 
-            anchors.top: parent.top
-            anchors.topMargin: size.dp(40 + 22)
+            columns: 5
+
+            anchors{
+                top: parent.top
+                topMargin: Theme.itemSpacingSmall
+                left: parent.left
+            }
+
             width: parent.width
-            height: size.dp(86)
+            height: Theme.itemHeightHuge
+            spacing: Theme.itemSpacingSmall
+            leftPadding: (layout.width-Theme.itemSpacingSmall*layout.columns-Theme.itemHeightHuge*layout.columns)/2
 
             NetworkControlButton{
                 image: "image://theme/wifi"
@@ -144,40 +136,13 @@ Item{
             }
         }
 
-        GridView{
-            id: notifyLayout
-
-            anchors{
-                top: layout.bottom
-                topMargin: size.dp(62)
-                left: controlCenterArea.left
-                leftMargin: size.dp(31)
-            }
-
-            width: parent.width
-
-            cellWidth: parent.width/5
-            cellHeight: cellWidth
-
-            model: statusNotiferModel
-            delegate: ControlButton{
-                width: notifyLayout.cellWidth;
-                height: notifyLayout.cellHeight
-                image: notifierItem.icon
-                textLabel: notifierItem.title
-
-                onClicked: {
-                    notifierItem.activate()
-                }
-            }
-        }
     }
 /*Little hack for hide control center*/
     MouseArea{
         id: backgroundMouseArea
         width: parent.width
         height: parent.height-controlCenter.height
-        anchors.top: controlCenter.top
+        anchors.top: controlCenter.bottom
 
         property int pMouse: 0
 
@@ -185,7 +150,7 @@ Item{
             backgroundMouseArea.pMouse = backgroundMouseArea.mouseY
         }
         onReleased: {
-            if(pMouse-backgroundMouseArea.mouseY >= Screen.height/4){
+            if(pMouse-backgroundMouseArea.mouseY >= Theme.itemHeightHuge){
                 controlCenterArea.down()
             }
             pMouse = 0;
@@ -193,7 +158,7 @@ Item{
     }
 
     Behavior on height {
-        NumberAnimation { duration: 100 }
+        NumberAnimation { duration: 300 }
     }
 }
 

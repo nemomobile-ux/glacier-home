@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2018-2020 Chupligin Sergey <neochapay@gmail.com>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+
 import QtQuick 2.6
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
@@ -13,24 +32,33 @@ Item {
 
     signal clicked();
 
-    width: icon.width
-    height: icon.height+label.height+size.dp(8)
+    width: height
+    height: Theme.itemHeightHuge
 
-    Image {
-        id: icon
-        anchors.centerIn: parent
+    Rectangle{
+        id: button
+        width: parent.width
+        height: parent.height
+        radius: parent.height*0.5
 
-        sourceSize.width: size.dp(86)
-        sourceSize.height: size.dp(86)
+        color: activated ? Theme.accentColor : Theme.textColor
+
+        Image {
+            id: icon
+            anchors.centerIn: parent
+
+            width: parent.width*0.6
+            height: parent.height*0.6
+
+            sourceSize.width: size.dp(86)
+            sourceSize.height: size.dp(86)
 
 
-        layer.effect: ShaderEffect {
-             id: shaderItem
-             property color color: activated ?
-                                       connected ? Theme.accentColor : Theme.textColor
-                                         : Theme.fillColor
+            layer.effect: ShaderEffect {
+                id: shaderItem
+                property color color: activated ? Theme.textColor : Theme.fillColor
 
-             fragmentShader: "
+                fragmentShader: "
                  varying mediump vec2 qt_TexCoord0;
                  uniform highp float qt_Opacity;
                  uniform lowp sampler2D source;
@@ -40,21 +68,22 @@ Item {
                      gl_FragColor = vec4(mix(pixelColor.rgb/max(pixelColor.a, 0.00390625), color.rgb/max(color.a, 0.00390625), color.a) * pixelColor.a, pixelColor.a) * qt_Opacity;
                  }
              "
-         }
-         layer.enabled: true
-         layer.samplerName: "source"
+            }
+            layer.enabled: true
+            layer.samplerName: "source"
 
+        }
     }
 
     Text{
         id: label
         anchors{
-            top: icon.bottom
-            topMargin: size.dp(8)
+            top: button.bottom
+            topMargin: Theme.itemSpacingSmall
         }
         width: parent.width
         horizontalAlignment: Text.AlignHCenter
-        font.pointSize: 6
+        font.pixelSize: Theme.fontSizeTiny
         text: textLabel
         color: Theme.textColor
     }
