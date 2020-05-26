@@ -131,11 +131,10 @@ Item{
                 id: wifiButton
             }
 
-            NetworkControlButton{
-                image: "image://theme/bluetooth"
-                textLabel: qsTr("Bluetooth")
-                networkingModel: "bluetooth"
+            BluetoothButton{
+                id: bluetoothButton
             }
+
             NetworkControlButton{
                 image: "image://theme/exchange-alt"
                 textLabel: qsTr("Data")
