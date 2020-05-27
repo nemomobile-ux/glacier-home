@@ -12,6 +12,7 @@ Requires:   nemo-qml-plugin-configuration-qt5
 Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-statusnotifier
+Requires:   nemo-qml-plugin-connectivity
 Requires:   qt5-qtfeedback
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtdeclarative-import-sensors
@@ -21,6 +22,7 @@ Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-systemsettings >= 0.2.30
 Requires:   connman-qt5
 Requires:   libqofono-qt5-declarative
+Requires:   libqofonoext-declarative
 Requires:   libngf-qt5-declarative
 Requires:   nemo-theme-glacier
 Requires:   google-opensans-fonts

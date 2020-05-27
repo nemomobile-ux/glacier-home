@@ -135,11 +135,10 @@ Item{
                 id: bluetoothButton
             }
 
-            NetworkControlButton{
-                image: "image://theme/exchange-alt"
-                textLabel: qsTr("Data")
-                networkingModel: "cellular"
+            CellularDataControlButton{
+                id: cellularDataControlButton
             }
+
             NetworkControlButton{
                 image: "image://theme/map-marker-alt"
                 textLabel: qsTr("Location")
