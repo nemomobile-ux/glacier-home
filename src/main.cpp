@@ -1,5 +1,5 @@
 
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for NemoMobile.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,22 +20,46 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
 
-#include <homeapplication.h>
 #include <QFont>
-#include <homewindow.h>
-#include <lipstickqmlpath.h>
 #include <QQmlEngine>
 #include <QQmlContext>
-#include "glacierwindowmodel.h"
 #include <QScreen>
+#include <QTranslator>
+
+#include <homewindow.h>
+#include <homeapplication.h>
+#include <lipstickqmlpath.h>
+
+#include "glacierwindowmodel.h"
+#include "fileutils.h"
+#include "mceconnect.h"
+
+#include "bluetooth/bluetoothagent.h"
+
 
 int main(int argc, char **argv)
 {
     HomeApplication app(argc, argv, QString());
+
+    QTranslator myappTranslator;
+    myappTranslator.load(QStringLiteral("/usr/share/lipstick-glacier-home-qt5/translations/glacer-home_%1.qm").arg(QLocale::system().name()));
+    app.installTranslator(&myappTranslator);
+
     QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
+
+    FileUtils *fileUtils = new FileUtils();
+
+    if (QT_VERSION_MAJOR == 5 && QT_VERSION_MINOR <= 7) {
+        app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
+    }
+    if (QT_VERSION_MAJOR == 5 && QT_VERSION_MINOR > 7) {
+        app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor_new.qml");
+    }
+
+    //app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
     if (!v.isEmpty()) {
@@ -59,13 +83,19 @@ int main(int argc, char **argv)
     if (nativeOrientation == Qt::PrimaryOrientation)
         nativeOrientation = app.primaryScreen()->primaryOrientation();
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
+    app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
+    app.engine()->addImportPath("/usr/lib/qml");
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
+    qmlRegisterType<BluetoothAgent>("org.nemomobile.glacier",1,0, "GlacierBluetoothAgent");
+    qmlRegisterType<MceConnect>("org.nemomobile.glacier",1,0, "GlacierMceConnect");
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser
     setenv("EGL_PLATFORM", "wayland", 1);
     setenv("QT_QPA_PLATFORM", "wayland", 1);
     setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
+    setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
+    setenv("QT_IM_MODULE", "qtvirtualkeyboard", 1);
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }

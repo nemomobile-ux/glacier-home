@@ -1,9 +1,16 @@
 import QtQuick 2.6
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
-import org.nemomobile.configuration 1.0
+
+import Nemo.Configuration 1.0
+
 import "notifications"
+import "lockscreen"
+
+import "scripts/desktop.js" as Desktop
 
 Image {
     id: lockScreen
@@ -11,6 +18,7 @@ Image {
     fillMode: Image.PreserveAspectCrop
 
     property bool displayOn
+    clip: true
 
     ConfigurationValue {
         id: differentWallpaper
@@ -30,19 +38,88 @@ Image {
         defaultValue: false
     }
 
-    LockscreenClock {
-        id: clock
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
+    /**
+     * openingState should be a value between 0 and 1, where 0 means
+     * the lockscreen is "down" (obscures the view) and 1 means the
+     * lockscreen is "up" (not visible).
+     **/
+    property real openingState: y / -height
+    visible: openingState < 1
+    onHeightChanged: {
+        if (mouseArea.fingerDown)
+            return // we'll fix this up on touch release via the animations
+
+        if (snapOpenAnimation.running)
+            snapOpenAnimation.to = -height
+        else if (!snapClosedAnimation.running && !LipstickSettings.lockscreenVisible)
+            y = -height
+    }
+
+    onDisplayOnChanged: {
+        if(lockScreen.displayOn) {
+            angileAnimation.run()
         }
     }
 
-    // Swipes on the lockscreen
-    MouseArea {
-        id:mouseArea
+    function snapPosition() {
+        if (LipstickSettings.lockscreenVisible) {
+            snapOpenAnimation.stop()
+            snapClosedAnimation.start()
+        } else {
+            snapClosedAnimation.stop()
+            snapOpenAnimation.start()
+        }
+    }
 
+    function cancelSnap() {
+        snapClosedAnimation.stop()
+        snapOpenAnimation.stop()
+    }
+
+    Connections {
+        target: LipstickSettings
+        onLockscreenVisibleChanged: snapPosition()
+    }
+
+    SequentialAnimation {
+        id: snapCodePadAnimation
+
+        property alias valueTo: codePadAnimation.to
+
+        NumberAnimation {
+            id: codePadAnimation
+            target: codePad
+            property: "x"
+            duration: 200
+            easing.type: Easing.OutQuint
+        }
+    }
+
+
+    PropertyAnimation {
+        id: snapClosedAnimation
+        target: lockScreen
+        property: "y"
+        to: 0
+        easing.type: Easing.OutBounce
+        duration: 400
+    }
+
+    PropertyAnimation {
+        id: snapOpenAnimation
+        target: lockScreen
+        property: "y"
+        to: -height
+        easing.type: Easing.OutExpo
+        duration: 400
+    }
+
+    MouseArea {
+        id: mouseArea
+        property int pressY: 0
+        property bool fingerDown
+        property bool ignoreEvents
+        anchors.fill: parent
         property bool gestureStarted: false
         property string gesture: ""
         property int startX
@@ -50,10 +127,34 @@ Image {
         property int swipeDistance
         property string action: ""
 
-        anchors.fill: parent
-
         onPressed: {
             startX = mouseX;
+            fingerDown = true
+            cancelSnap()
+            pressY = mouseY
+        }
+
+        onPositionChanged: {
+            var delta = pressY - mouseY
+            pressY = mouseY + delta
+            if (parent.y - delta > 0)
+                return
+            parent.y = parent.y - delta
+        }
+        function startCodePadAnimation(value) {
+            snapCodePadAnimation.valueTo = value
+            snapCodePadAnimation.start()
+        }
+
+        function snapBack() {
+            fingerDown = false
+            if (!LipstickSettings.lockscreenVisible || Math.abs(parent.y) > parent.height / 3) {
+                LipstickSettings.lockscreenVisible = false
+            } else if (LipstickSettings.lockscreenVisible) {
+                LipstickSettings.lockscreenVisible = true
+            }
+
+            lockScreen.snapPosition()
         }
         onMouseXChanged: {
             // Checks which was it left or right swipe
@@ -124,33 +225,16 @@ Image {
                     }
                 }
             }
-
+            snapBack()
             gestureStarted = false
         }
-        function startCodePadAnimation(value) {
-            snapCodePadAnimation.valueTo = value
-            snapCodePadAnimation.start()
-        }
 
-    }
-    SequentialAnimation {
-        id: snapCodePadAnimation
-
-        property alias valueTo: codePadAnimation.to
-
-        NumberAnimation {
-            id: codePadAnimation
-            target: codePad
-            property: "x"
-            duration: 200
-            easing.type: Easing.OutQuint
-        }
+        onCanceled: snapBack()
     }
     SequentialAnimation {
         id: unlockAnimation
         property alias valueTo: unlockNumAnimation.to
         property alias setProperty: unlockNumAnimation.property
-
 
         NumberAnimation {
             id: unlockNumAnimation
@@ -164,7 +248,6 @@ Image {
             setLockScreen(false)
         }
     }
-
     Connections {
         target:Lipstick.compositor
         onDisplayOff: {
@@ -178,7 +261,6 @@ Image {
             displayOffTimer.stop()
         }
     }
-
     Connections {
         target: LipstickSettings
         onLockscreenVisibleChanged: {
@@ -196,27 +278,59 @@ Image {
             }
         }
         onTriggered: {
-            if(displayOn && lockscreenVisible() && !Lipstick.compositor.gestureOnGoing && !codepad.visible) {
+            if(displayOn && lockscreenVisible() && !Lipstick.compositor.gestureOnGoing && !codePad.visible) {
                 setLockScreen(true)
                 Lipstick.compositor.setDisplayOff()
             }
         }
     }
+
+    LockscreenClock {
+        id: lockscreenClock
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+    }
+
+    OperatorLine {
+        id: operatorLine
+
+        anchors{
+            top: lockscreenClock.bottom
+            bottomMargin: -Theme.itemSpacingHuge
+            horizontalCenter: parent.horizontalCenter
+        }
+    }
+
+    MediaControls{
+        id: mediaControls
+
+        anchors{
+            top: operatorLine.bottom
+            bottomMargin: -Theme.itemSpacingHuge
+            horizontalCenter: parent.horizontalCenter
+        }
+    }
+
     DeviceLockUI {
         id: codePad
+        visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
+        anchors {
+            top: lockscreenClock.bottom
+            topMargin: Theme.itemSpacingHuge
+        }
         property bool inView: false
         property bool gestureStarted: mouseArea.gestureStarted
-
         x: width * 2
-        visible: DeviceLock.state == DeviceLock.Locked && lockscreenVisible()
         width: lockScreen.width
-        height: lockScreen.height / 2
+        height: visible ? lockScreen.height / 2 : 0
         opacity: (1-Math.abs((1 - (-1)) * (x - (-parent.width)) / (parent.width - (-parent.width)) + (-1)))
-
         authenticationInput: DeviceLockAuthenticationInput {
 
             readonly property bool unlocking: registered
-                        && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
+                                              && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
             registered: lockscreenVisible()
             active: lockscreenVisible()
@@ -250,9 +364,6 @@ Image {
             }
         }
 
-        anchors {
-            verticalCenter: lockScreen.verticalCenter
-        }
         onGestureStartedChanged: {
             if(gestureStarted) {
                 mouseArea.z = 2
@@ -261,40 +372,50 @@ Image {
             }
         }
     }
-    ListView {
-        id: notificationColumn
-        opacity: codePad.visible ? 1 - codePad.opacity : 1
-        anchors{
-            top: clock.bottom
-            topMargin: Theme.itemSpacingHuge
-            bottom:parent.bottom
-            bottomMargin: Theme.itemSpacingHuge
-            left:parent.left
-            leftMargin: Theme.itemSpacingLarge
-            right:parent.right
-            rightMargin: Theme.itemSpacingLarge
-        }
-        interactive:DeviceLock.state !== DeviceLock.Locked
-        spacing: Theme.itemSpacingExtraSmall
 
-        model: NotificationListModel {
-            id: notifmodel
+    Column {
+        id: lockscreenNotificationColumn
+        
+        width:parent.width
+
+        anchors {
+            bottom: angileAnimation.top
+            bottomMargin: Theme.itemSpacingHuge
+            horizontalCenter: parent.horizontalCenter
         }
-        clip:true
-        delegate: NotificationItem {
-            height: (showNotifiBody.value) ? Theme.itemHeightExtraLarge : Theme.itemHeightLarge
-            enabled:DeviceLock.state !== DeviceLock.Locked
-            scale: notificationColumn.opacity
-            transformOrigin: Item.Left
-            appName.font.pixelSize: Theme.fontSizeSmall
-            appName.visible: DeviceLock.state !== DeviceLock.Locked
-            appName.anchors.verticalCenter: parent.verticalCenter
-            appBody.font.pixelSize: Theme.fontSizeTiny
-            appBody.visible: showNotifiBody.value
-            appTimestamp.visible: false
-            appSummary.visible: showNotifiBody.value
-            pressBg.visible: DeviceLock.state !== DeviceLock.Locked
-            pressBg.opacity: 0.5
+
+        move: Transition {
+            NumberAnimation { properties: "y"; duration: 400 }
+        }
+
+        spacing: Theme.itemSpacingLarge
+
+        Repeater {
+            model: NotificationListModel{
+                id: notifmodel
+            }
+
+            delegate: NotificationItem{
+                Rectangle{
+                    anchors.fill: parent
+                    color: Theme.backgroundColor
+                    opacity: 0.5
+                    radius: Theme.itemSpacingSmall
+                    z: -1
+                }
+            }
+        }
+    }
+
+    AngleAnimation {
+        id: angileAnimation
+        width: Theme.itemHeightLarge
+        height: Theme.itemHeightLarge/2*3
+
+        anchors{
+            bottom: parent.bottom
+            bottomMargin: Theme.itemSpacingSmall
+            horizontalCenter: parent.horizontalCenter
         }
     }
 }

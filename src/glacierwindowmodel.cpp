@@ -13,7 +13,12 @@ int GlacierWindowModel::getWindowIdForTitle(QString title)
 
 bool GlacierWindowModel::approveWindow(LipstickCompositorWindow *window)
 {
-    bool accepted = window->isInProcess() == false && window->category() != QLatin1String("overlay") && window->category() != QLatin1String("cover");
+    bool accepted = window->isInProcess() == false && window->category() != QLatin1String("overlay") && window->category() != QLatin1String("cover")
+#if QT_VERSION >= 0x050700
+            && window->windowFlags() != 2;
+#else
+            ;
+#endif
     if (accepted) {
         m_titles.insert(window->title(), window->windowId());
     }

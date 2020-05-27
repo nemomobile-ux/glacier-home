@@ -8,6 +8,7 @@ moc_*
 qrc_*
 .qmake.stash
 *.spec.*
+*.user*
 documentation.list
 examples/touch/glacier-components
 Makefile

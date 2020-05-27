@@ -43,18 +43,12 @@ Item {
     property alias searchField: searchField
     property int oldHeight
 
-    InverseMouseArea {
-        anchors.fill: parent
-        onPressed: cleanup()
-    }
-
-
     function cleanup(){
         searchField.focus = false
         appLauncher.searchString = ""
         searchField.text = ""
 
-        if(!alwaysShowSearch.value == true)
+        if(!alwaysShowSearch.value)
         {
             searchListView.visible = false;
         }
@@ -75,7 +69,7 @@ Item {
     }
 
     onVisibleChanged: {
-        if(alwaysShowSearch.value == false)
+        if(!alwaysShowSearch.value)
         {
             if(visible){
                 rootItem.height = calculateHeight()
@@ -127,7 +121,7 @@ Item {
                 value: searchField.text.toLowerCase().trim()
             }
             onTextChanged: {
-                if(searchField.lenght>0) {
+                if(text.lenght>0) {
                     searchField.forceActiveFocus()
                 }
             }
@@ -272,7 +266,7 @@ Item {
                                             'id':i,
                                             'folderId':j,
                                             'category':qsTr("Application"),
-                                            'extraCaption': qsTr("installed on you device")
+                                            'extraCaption': qsTr("installed on your device")
                                         })
                         }
                     } else {
@@ -282,7 +276,7 @@ Item {
                                         'id':i,
                                         'folderId':-1,
                                         'category':qsTr("Application"),
-                                        'extraCaption': qsTr("installed on you device")
+                                        'extraCaption': qsTr("installed on your device")
                                     })
                     }
                 }
@@ -449,13 +443,13 @@ Item {
                         var winId
                         if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
                             winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 || !searchLauncherModel.get(model.id).isLaunching)
+                            if (winId == 0 && !searchLauncherModel.get(model.id).isLaunching)
                                 searchLauncherModel.get(model.id).launchApplication()
                             else
                                 Lipstick.compositor.windowToFront(winId)
                         } else  if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
                             winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 || !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
+                            if (winId == 0 && !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
                                 searchLauncherModel.get(model.id).get(model.folderId).launchApplication()
                             else
                                 Lipstick.compositor.windowToFront(winId)

@@ -28,6 +28,9 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.glacier 1.0
+import QtGraphicalEffects 1.0
+
+import "appswitcher"
 
 // App Switcher page
 // The place for browsing already running apps
@@ -47,30 +50,7 @@ Item {
         }
     }
     clip: true
-    // Empty switcher indicator
-    Rectangle {
-        id: topText
-        visible: switcherModel.itemCount === 0
-        width: noAppsLabel.width
-        height: Theme.itemHeightMedium
-        anchors {
-            top: parent.top
-            topMargin:Theme.itemSpacingLarge
-            horizontalCenter: parent.horizontalCenter
-        }
-        color: "transparent"
 
-        Label {
-            id: noAppsLabel
-            text: qsTr("No apps open")
-            anchors {
-                top: parent.top
-                left: parent.left
-            }
-            font.weight: Font.Light
-            font.pixelSize: Theme.fontSizeLarge
-        }
-    }
     Flickable {
         id: flickable
         contentHeight: gridview.height
@@ -112,8 +92,8 @@ Item {
                 }
 
                 delegate: Item {
-                    width: (flickable.width - (gridview.spacing * gridview.columns)) / gridview.columns
-                    height: width * (desktop.height / desktop.width)
+                    width: (desktop.width - (gridview.spacing * (gridview.columns + 1))) / gridview.columns
+                    height: (desktop.height - (gridview.spacing * (gridview.columns + 1))) / gridview.columns
 
                     // The outer Item is necessary because of animations in SwitcherItem changing
                     // its size, which would break the Grid.
@@ -223,5 +203,26 @@ Item {
                 primary: true
             }
         }
+    }
+
+    // Empty switcher indicator
+    Text {
+        id: noAppsOpenText
+        visible: switcherModel.itemCount === 0
+        text: qsTr("Nothing open yet")
+        anchors.centerIn: parent
+        fontSizeMode: Text.Fit
+        color: Theme.textColor
+    }
+
+    DropShadow {
+        anchors.fill: noAppsOpenText
+        horizontalOffset: noAppsOpenText.height/15
+        verticalOffset: noAppsOpenText.height/10
+        radius: noAppsOpenText.height/10
+        samples: 4
+        color: "#80000000"
+        source: noAppsOpenText
+        visible: switcherModel.itemCount === 0
     }
 }
