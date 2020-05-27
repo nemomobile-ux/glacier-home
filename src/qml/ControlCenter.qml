@@ -143,9 +143,8 @@ Item{
                 id: locationControlButton
             }
 
-            ControlButton{
-                image: "image://theme/moon"
-                textLabel: qsTr("Quiet")
+            QuietControlButton{
+                id: quietControlButton
             }
         }
 
