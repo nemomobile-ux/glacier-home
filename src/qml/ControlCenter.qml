@@ -139,11 +139,10 @@ Item{
                 id: cellularDataControlButton
             }
 
-            NetworkControlButton{
-                image: "image://theme/map-marker-alt"
-                textLabel: qsTr("Location")
-                networkingModel: "gps"
+            LocationControlButton{
+                id: locationControlButton
             }
+
             ControlButton{
                 image: "image://theme/moon"
                 textLabel: qsTr("Quiet")
