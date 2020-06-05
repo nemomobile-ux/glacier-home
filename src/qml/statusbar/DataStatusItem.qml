@@ -40,7 +40,7 @@ import org.nemomobile.ofono 1.0
 StatusbarItem{
     id: dataStatus
     iconSize: statusbar.height
-    visible: cellularDataTechnology.technology != "unknown" && cellularDataTechnology.technology != ""
+    visible: false
     transparent: !cellularNetworkTechnology.connected
 
     OfonoManager {
@@ -60,6 +60,10 @@ StatusbarItem{
         path: "/net/connman/technology/cellular"
     }
 
+    Component.onCompleted: {
+        formatValue()
+    }
+
     function formatValue() {
         if(cellularDataTechnology.technology == "2") {
             dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
@@ -73,10 +77,10 @@ StatusbarItem{
             dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
         }
 
-        if(cellularDataTechnology.technology != "unknown" && cellularDataTechnology.technology != "") {
-            dataStatus.visible = true
-        }else {
+        if(cellularDataTechnology.technology == "unknown" || cellularDataTechnology.technology == "") {
             dataStatus.visible = false
+        }else {
+            dataStatus.visible = true
         }
     }
 }
