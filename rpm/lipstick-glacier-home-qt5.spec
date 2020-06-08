@@ -44,6 +44,7 @@ BuildRequires:  pkgconfig(Qt5WaylandCompositor)
 BuildRequires:  pkgconfig(Qt5WaylandClient)
 BuildRequires:  pkgconfig(nemodevicelock)
 BuildRequires:  kf5bluezqt-bluez5-devel >= 5.68.0
+BuildRequires:  qt5-qttools-linguist >= 5.9
 
 Provides: lipstick-colorful-home-qt5
 
