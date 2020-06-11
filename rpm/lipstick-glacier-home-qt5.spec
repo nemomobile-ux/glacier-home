@@ -16,6 +16,7 @@ Requires:   nemo-qml-plugin-connectivity
 Requires:   qt5-qtfeedback
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtdeclarative-import-sensors
+Requires:   qt5-qtdeclarative-plugin-layouts
 Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
@@ -34,6 +35,7 @@ Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
 Requires:   kf5bluezqt-declarative
+Requires:   qt5-qtwayland-plugin-shell-integration
 
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= 5.68.0
