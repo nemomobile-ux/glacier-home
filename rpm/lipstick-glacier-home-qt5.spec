@@ -33,6 +33,7 @@ Requires:   libmce-qt5-declarative >= 1.3.0
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
+Requires:   kf5bluezqt-declarative
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Quick)
