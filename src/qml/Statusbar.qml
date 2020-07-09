@@ -37,19 +37,37 @@ import QtGraphicalEffects 1.0
 import QtFeedback 5.0
 import QtMultimedia 5.0
 
+import Nemo.Configuration 1.0
+
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
 
 import "statusbar"
 
 Item {
-    id: root
+    id: statusbarRoot
     z: 198
     height: Theme.itemHeightSmall
     width: parent.width
     anchors.top: parent.top
 
     property real opacityStart: 0.0
+
+    signal ready();
+
+    Component.onCompleted: {
+        ready();
+    }
+
+    /*Load hw configuration for rounded screen like Volla Phone*/
+    ConfigurationGroup{
+        id: aligin
+        path: "/home/glacier/hw/"
+
+        property int upRight: 0 //25
+        property int upCentral:0 // 200
+        property int upLeft: 0 // 25
+    }
 
     Rectangle {
         id: statusbarPadding
@@ -75,27 +93,29 @@ Item {
     Item {
         id: statusbar
         height: parent.height*0.5
-        width:  parent.width*0.5
+        width:  parent.width*0.5-aligin.upLeft-aligin.upCentral/2
         anchors{
             verticalCenter: parent.verticalCenter
             left: parent.left
-            leftMargin: statusbar.height/2
+            leftMargin: statusbar.height/2+aligin.upLeft
         }
     }
+
     Item {
         id: statusbarRight
         height: parent.height*0.5
-        width:  parent.width*0.5
+        width:  parent.width*0.5-aligin.upRight-aligin.upCentral/2
+        clip: true
         anchors{
             verticalCenter: statusbar.verticalCenter
             right: parent.right
-            rightMargin: statusbarRight.height/2
+            rightMargin: statusbarRight.height/2+aligin.upRight
         }
     }
 
     Loader {
         id: panel_loader
-        anchors.bottom: root.top
+        anchors.bottom: statusbarRoot.top
         height: 0
         width: parent.width
         visible: false
@@ -125,8 +145,11 @@ Item {
     }
 
     Row {
+        id: leftStatusBar
         anchors.fill: statusbar
         spacing: statusbar.height / 3
+
+        layoutDirection: Qt.RightToLeft
 
         Repeater{
             id: statusesRepeater
