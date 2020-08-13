@@ -69,7 +69,8 @@ HEADERS += \
     src/bluetooth/bluetoothagent.h \
     src/fileutils.h \
     src/glacierwindowmodel.h \
-    src/mceconnect.h
+    src/mceconnect.h \
+    src/welcome.h
 
 LIBS += -lnemodevicelock
 MOC_DIR = .moc
@@ -79,7 +80,8 @@ SOURCES += \
     src/fileutils.cpp \
     src/main.cpp \
     src/glacierwindowmodel.cpp \
-    src/mceconnect.cpp
+    src/mceconnect.cpp \
+    src/welcome.cpp
 
 PKGCONFIG += lipstick-qt5 \
     nemodevicelock \
