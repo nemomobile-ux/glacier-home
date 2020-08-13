@@ -197,6 +197,10 @@ Page {
     }
 
     Component.onCompleted: {
+        if(welcomeController.isFirstRun()) {
+            welcomeController.startWelcome()
+        }
+
         glacierRotation.rotationParent = desktop.parent
         setLockScreen(true)
         Desktop.instance = desktop

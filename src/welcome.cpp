@@ -20,11 +20,17 @@ bool Welcome::isFirstRun()
 
 void Welcome::startWelcome()
 {
-
+    m_mceDbus->asyncCall("set_config", QDBusObjectPath("/system/osso/dsm/display/inhibit_blank_mode").path(), QVariant::fromValue(QDBusVariant(3)));
+    m_mceDbus->asyncCall("req_tklock_mode_change", "unlocked");
+    m_mceDbus->asyncCall("set_config", QDBusObjectPath("/system/osso/dsm/locks/tklock_blank_disable").path(), QVariant::fromValue(QDBusVariant(1)));
 }
 
 void Welcome::endWelcome()
 {
+    m_mceDbus->asyncCall("set_config", QDBusObjectPath("/system/osso/dsm/display/inhibit_blank_mode").path(), QVariant::fromValue(QDBusVariant(0)));
+    m_mceDbus->asyncCall("req_tklock_mode_change", "locked");
+    m_mceDbus->asyncCall("set_config", QDBusObjectPath("/system/osso/dsm/locks/tklock_blank_disable").path(), QVariant::fromValue(QDBusVariant(0)));
+
     QFile doneFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/.glacerWelcomeDone");
     doneFile.open(QIODevice::WriteOnly);
     doneFile.close();
