@@ -197,6 +197,10 @@ Page {
     }
 
     Component.onCompleted: {
+        if(welcomeController.isFirstRun()) {
+            welcomeController.startWelcome()
+        }
+
         glacierRotation.rotationParent = desktop.parent
         setLockScreen(true)
         Desktop.instance = desktop
@@ -292,6 +296,17 @@ Page {
 
     Screenshot{
         id: screenshot
+    }
+
+    Loader{
+        id: welcomeDialog
+        z: 399 // one steep down at rebootDialog
+        visible: welcomeController.isFirstRun()
+        Component.onCompleted: {
+            if(visible) {
+                source = "Welcome.qml"
+            }
+        }
     }
 
     Connections{

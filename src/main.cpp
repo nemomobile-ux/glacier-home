@@ -34,6 +34,7 @@
 
 #include "glacierwindowmodel.h"
 #include "fileutils.h"
+#include "welcome.h"
 #include "mceconnect.h"
 
 #include "bluetooth/bluetoothagent.h"
@@ -51,6 +52,7 @@ int main(int argc, char **argv)
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils *fileUtils = new FileUtils();
+    Welcome *welcome = new Welcome();
 
     if (QT_VERSION_MAJOR == 5 && QT_VERSION_MINOR <= 7) {
         app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/compositor.qml");
@@ -84,11 +86,16 @@ int main(int argc, char **argv)
         nativeOrientation = app.primaryScreen()->primaryOrientation();
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
+    app.engine()->rootContext()->setContextProperty("welcomeController", welcome);
+
     app.engine()->addImportPath("/usr/lib/qml");
+
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<BluetoothAgent>("org.nemomobile.glacier",1,0, "GlacierBluetoothAgent");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier",1,0, "GlacierMceConnect");
+
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
+
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser
     setenv("EGL_PLATFORM", "wayland", 1);
