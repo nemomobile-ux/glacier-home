@@ -32,37 +32,89 @@ import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-import "welcome"
+Rectangle {
+    id: welcome
+    width: desktop.width
+    height: desktop.height
 
-Item {
-    id: welcomeItem
-    width: parent.width
-    height: parent.height
+    color: Theme.backgroundColor
 
-    Loader{
-        id: mainWelcomeLoader
-        width: parent.width
-        height: parent.height
+    signal startClicked()
 
-        Component.onCompleted: {
-            source = welcomePage
+    Rectangle{
+        id: accentPoint
+        width: Theme.itemHeightLarge
+        height: Theme.itemHeightLarge
+        color: Theme.accentColor
+        radius: (width > height) ? width : height
+
+        visible: false
+
+        Behavior on width{
+            NumberAnimation { duration: 600 }
+        }
+
+        Behavior on height{
+            NumberAnimation { duration: 600 }
+        }
+
+        Behavior on x{
+            id: xMove
+            enabled: false
+            NumberAnimation { duration: 600 }
+        }
+
+        Behavior on y{
+            id: yMove
+            enabled: false
+            NumberAnimation { duration: 600 }
+        }
+
+        Behavior on radius{
+            NumberAnimation { duration: 1200 }
+        }
+
+        onVisibleChanged: {
+            xMove.enabled = true
+            yMove.enabled = true
+            x = 0
+            y = 0
+            radius = 0
         }
     }
 
-    WelcomePage{
-        id: welcomePage
-        onStartClicked: {
-            endTimer.start();
+    Repeater{
+        id: helloRepeater
+        model: SayMeHello{}
+        delegate: Label {
+            id: hiText
+            text: model.text
+            x: Math.random()*parent.width-hiText.width
+            y: Math.random()*parent.height-hiText.height
+            font.pixelSize: Theme.fontSizeTiny
+            color: Theme.fillColor
         }
     }
 
-    Timer {
-        id: endTimer
-        interval: 2000;
-        running: false;
-        onTriggered: {
-            welcomePage.visible = false
-            welcomeController.endWelcome()
+    Label{
+        id: hi
+        anchors.centerIn: parent
+        text: "NemoMobile"
+        font.pixelSize: Theme.fontSizeExtraLarge
+    }
+
+    MouseArea{
+        id: clickArea
+        anchors.fill: parent
+        onClicked: {
+            accentPoint.x = mouse.x
+            accentPoint.y = mouse.y
+            accentPoint.visible = true
+            accentPoint.width = welcome.width
+            accentPoint.height = welcome.height
+            clickArea.enabled = false
+
+            welcome.startClicked();
         }
     }
 }
