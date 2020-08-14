@@ -36,23 +36,28 @@ import "welcome"
 
 Item {
     id: welcomeItem
-    width: parent.width
-    height: parent.height
+    width: desktop.width
+    height: desktop.height
 
-    Loader{
-        id: mainWelcomeLoader
-        width: parent.width
-        height: parent.height
-
-        Component.onCompleted: {
-            source = welcomePage
-        }
-    }
 
     WelcomePage{
         id: welcomePage
+        width: parent.width
+        height: parent.height
         onStartClicked: {
             endTimer.start();
+        }
+    }
+
+    SelectLang{
+        id: selectLang
+        visible: false
+        width: parent.width
+        height: parent.height
+
+        onLanguageSelect: {
+            welcomeController.endWelcome()
+            selectLang.visible = false;
         }
     }
 
@@ -62,7 +67,7 @@ Item {
         running: false;
         onTriggered: {
             welcomePage.visible = false
-            welcomeController.endWelcome()
+            selectLang.visible = true;
         }
     }
 }

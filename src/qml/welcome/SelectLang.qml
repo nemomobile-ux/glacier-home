@@ -33,6 +33,48 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-Item{
+import org.nemomobile.systemsettings 1.0
+
+Rectangle{
     id: selectLang
+    color: Theme.backgroundColor
+
+    signal languageSelect(string name)
+
+    LanguageModel{
+        id: languageModel
+    }
+
+    ListView{
+        id: languageList
+        width: parent.width
+        height: parent.height
+
+        model: languageModel
+        delegate: Rectangle{
+            width: parent.width
+            height: Theme.itemHeightLarge
+            color: Theme.backgroundColor
+
+            Label {
+                color: Theme.textColor
+                text: name
+                anchors{
+                    left: parent.left
+                    leftMargin: Theme.itemSpacingSmall
+                    verticalCenter: parent.verticalCenter
+                }
+
+                font.pixelSize: Theme.fontSizeMedium
+                clip: true
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    languageSelect(name)
+                }
+            }
+        }
+    }
 }

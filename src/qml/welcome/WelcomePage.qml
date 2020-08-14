@@ -34,8 +34,6 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 Rectangle {
     id: welcome
-    width: desktop.width
-    height: desktop.height
 
     color: Theme.backgroundColor
 
