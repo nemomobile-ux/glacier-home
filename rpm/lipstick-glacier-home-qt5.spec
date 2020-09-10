@@ -35,7 +35,6 @@ Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
 Requires:   kf5bluezqt-declarative
-Requires:   qt5-qtwayland-plugin-shell-integration
 
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= 5.68.0
@@ -46,12 +45,7 @@ BuildRequires:  pkgconfig(Qt5WaylandCompositor)
 BuildRequires:  pkgconfig(Qt5WaylandClient)
 BuildRequires:  pkgconfig(nemodevicelock)
 BuildRequires:  kf5bluezqt-bluez5-devel >= 5.68.0
-
-%if 0%{?fedora}
-BuildRequires:  qt5-linguist
-%else
 BuildRequires:  qt5-qttools-linguist >= 5.9
-%fi
 
 Provides: lipstick-colorful-home-qt5
 
@@ -66,13 +60,7 @@ A homescreen for Nemo Mobile
 %build
 mkdir build
 cd build
-cmake \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-	-DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
-	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	..
+%cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
 cmake --build .
 
 %install
