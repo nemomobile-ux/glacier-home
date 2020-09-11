@@ -17,7 +17,6 @@ Requires:   qt5-qtfeedback
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtdeclarative-import-sensors
 Requires:   qt5-qtdeclarative-plugin-layouts
-Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-systemsettings >= 0.2.30
@@ -26,14 +25,23 @@ Requires:   libqofono-qt5-declarative
 Requires:   libqofonoext-declarative
 Requires:   libngf-qt5-declarative
 Requires:   nemo-theme-glacier
+%if 0%{?fedora}
+Requires:   open-sans-fonts
+%else
 Requires:   google-opensans-fonts
+%endif
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
 Requires:   libmce-qt5-declarative >= 1.3.0
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
+%if 0%{?fedora}
+Requires:   qt5-qtmultimedia
+%else
+Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
+%endif
 Requires:   kf5bluezqt-declarative
 
 BuildRequires:  cmake
