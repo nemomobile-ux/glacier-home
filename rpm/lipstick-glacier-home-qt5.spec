@@ -13,16 +13,14 @@ Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-statusnotifier
 Requires:   nemo-qml-plugin-connectivity
+Requires:   qt5-qtfeedback
 %if 0%{?fedora}
-Requires:   qt-mobility-feedback
 Requires:   qt5-qtdeclarative
 %else
-Requires:   qt5-qtfeedback
 Requires:   qt5-qtdeclarative-import-window2
 Requires:   qt5-qtdeclarative-import-sensors
 Requires:   qt5-qtdeclarative-plugin-layouts
 %endif
-Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtquickcontrols >= 5.3.1
 Requires:   qt5-qtquickcontrols-nemo >= 5.1.1
 Requires:   nemo-qml-plugin-systemsettings >= 0.2.30
@@ -45,6 +43,7 @@ Requires:   libqofonoext-declarative
 %if 0%{?fedora}
 Requires:   qt5-qtmultimedia
 %else
+Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
 %endif
