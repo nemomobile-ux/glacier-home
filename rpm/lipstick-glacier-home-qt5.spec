@@ -31,16 +31,24 @@ Requires:   libqofono-qt5-declarative
 Requires:   libqofonoext-declarative
 Requires:   libngf-qt5-declarative
 Requires:   nemo-theme-glacier
+%if 0%{?fedora}
+Requires:   open-sans-fonts
+%else
 Requires:   google-opensans-fonts
+%endif
 Requires:   mpris-qt5-qml-plugin
 Requires:   glacier-settings
 Requires:   glacier-gallery-qmlplugin
 Requires:   libmce-qt5-declarative >= 1.3.0
 Requires:   pulseaudio-modules-nemo-parameters
 Requires:   libqofonoext-declarative
+%if 0%{?fedora}
+Requires:   qt5-qtmultimedia
+%else
+Requires:   qt5-qtmultimedia-plugin-mediaservice-gstmediaplayer
 Requires:   qt5-qtmultimedia-plugin-audio-pulseaudio
+%endif
 Requires:   kf5bluezqt-declarative
-Requires:   qt5-qtwayland-plugin-shell-integration
 
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= 5.68.0
@@ -51,12 +59,7 @@ BuildRequires:  pkgconfig(Qt5WaylandCompositor)
 BuildRequires:  pkgconfig(Qt5WaylandClient)
 BuildRequires:  pkgconfig(nemodevicelock)
 BuildRequires:  kf5bluezqt-bluez5-devel >= 5.68.0
-
-%if 0%{?fedora}
-BuildRequires:  qt5-linguist
-%else
 BuildRequires:  qt5-qttools-linguist >= 5.9
-%fi
 
 Provides: lipstick-colorful-home-qt5
 
@@ -71,13 +74,7 @@ A homescreen for Nemo Mobile
 %build
 mkdir build
 cd build
-cmake \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-	-DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
-	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	..
+%cmake -DCMAKE_VERBOSE_MAKEFILE=ON ..
 cmake --build .
 
 %install
