@@ -9,6 +9,7 @@ Source0:    %{name}-%{version}.tar.bz2
 
 Requires:   lipstick-qt5 >= 0.17.0
 Requires:   nemo-qml-plugin-configuration-qt5
+Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-statusnotifier
