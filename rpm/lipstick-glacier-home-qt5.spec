@@ -14,6 +14,7 @@ Requires:   nemo-qml-plugin-time-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-statusnotifier
 Requires:   nemo-qml-plugin-connectivity
+Requires    nemo-qml-plugin-contacts-qt5
 Requires:   qt5-qtfeedback
 %if 0%{?fedora}
 Requires:   qt5-qtdeclarative
