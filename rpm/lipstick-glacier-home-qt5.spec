@@ -83,15 +83,15 @@ cd build
 rm -rf %{buildroot}
 DESTDIR=%{buildroot} cmake --build . --target install
 
-mkdir -p %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/
-ln -s ../lipstick.service %{buildroot}%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
+mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants/
+ln -s ../lipstick.service %{buildroot}%{_userunitdir}/user-session.target.wants/lipstick.service
 
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/mce/90-glacier-*.conf
 %{_bindir}/lipstick
-%{_libdir}/systemd/user/lipstick.service
-%{_libdir}/systemd/user/user-session.target.wants/lipstick.service
+%{_userunitdir}/lipstick.service
+%{_userunitdir}/user-session.target.wants/lipstick.service
 %{_datadir}/lipstick-glacier-home-qt5/nemovars.conf
 %{_datadir}/lipstick-glacier-home-qt5/qml
 %{_datadir}/lipstick-glacier-home-qt5/translations

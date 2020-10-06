@@ -45,7 +45,7 @@ add_subdirectory(src)
 
 if(USE_SYSTEMD)
 	install(FILES data/lipstick.service
-		DESTINATION ${CMAKE_INSTALL_LIBDIR}/systemd/user)
+		DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
 endif()
 
 install(FILES data/glacier-home.privileges
