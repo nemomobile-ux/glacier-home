@@ -20,8 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 import QtQuick 2.0
-import org.nemomobile.lipstick 0.1
+import QtQuick.Window 2.1
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
+import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 
 import "compositor"
@@ -140,7 +143,10 @@ Item {
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             } else if (gesture == "down" && !diagonal) {
-                //Down gesture now not used yeat
+                //show ControlCenter
+                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2)) {
+                    Desktop.instance.controlcenter.height = mouseY
+                }
             }
         }
 
@@ -152,15 +158,14 @@ Item {
             if (comp.appActive && !diagonal) {
                 state = "swipe"
             }
-            else if (DeviceLock.state !== DeviceLock.Locked && !diagonal) {
+            else if (!Desktop.instance.lockscreenVisible() && !diagonal) {
                 if(gesture == "down") {
-                    /*show statusbar when gesture down*/
-                    console.log("Show statusarea")
+                    state = "controlCenter"
+                    Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
+                } else if (gesture == "up" && state == "controlCenter") {
+                    Desktop.instance.controlcenter.height = 0
+                    state = ""
                 }
-
-                /*if(gesture == "up" && !diagonal) {
-                    state = "cover"
-                }*/
             }
         }
 
