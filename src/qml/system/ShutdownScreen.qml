@@ -18,7 +18,7 @@ Rectangle {
 
     Connections {
         target: shutdownScreen
-        onWindowVisibleChanged: {
+        function onWindowVisibleChanged(windowVisible) {
             if (shutdownScreen.windowVisible) {
                 glacierRotation.rotateRotationParent(nativeOrientation)
             }

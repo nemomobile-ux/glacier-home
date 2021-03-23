@@ -212,7 +212,7 @@ Item {
 
             Connections {
                 target: notificationPreviewPresenter;
-                onNotificationChanged: {
+                function onNotificationChanged() {
                     notificationPreview.state = (notificationPreviewPresenter.notification != null) ? "show" : "hide"
                 }
             }

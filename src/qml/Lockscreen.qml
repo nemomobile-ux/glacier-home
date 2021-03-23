@@ -78,7 +78,7 @@ Image {
 
     Connections {
         target: LipstickSettings
-        onLockscreenVisibleChanged: snapPosition()
+        function onLockscreenVisibleChanged(visible) { snapPosition() }
     }
 
     SequentialAnimation {
@@ -250,20 +250,20 @@ Image {
     }
     Connections {
         target:Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             displayOn = false
             displayOffTimer.stop()
             codePad.x = -parent.width
             codePad.inView = false
         }
-        onDisplayOn:{
+        function onDisplayOn() {
             displayOn = true
             displayOffTimer.stop()
         }
     }
     Connections {
         target: LipstickSettings
-        onLockscreenVisibleChanged: {
+        function onLockscreenVisibleChanged(visible) {
             if (lockscreenVisible() && displayOn) {
                 displayOffTimer.restart()
             }

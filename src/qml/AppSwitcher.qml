@@ -113,7 +113,7 @@ Item {
 
     Connections {
         target:gridRepeater
-        onCountChanged: {
+        function onCountChanged(count) {
             if(gridRepeater.count < 1) {
                 closeMode = false
             }
@@ -121,13 +121,13 @@ Item {
     }
     Connections {
         target: Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             closeMode = false
         }
     }
     Connections {
         target: lockScreen
-        onVisibleChanged: {
+        function onVisibleChanged() {
             if(lockscreenVisible()) {
                 closeMode = false
             }
@@ -135,7 +135,7 @@ Item {
     }
     Connections {
         target: pager
-        onFlickEnded: {
+        function onFlickEnded() {
             closeMode = false
         }
     }

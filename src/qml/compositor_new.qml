@@ -55,7 +55,7 @@ Item {
 
     Connections {
         target: comp.quickWindow
-        onActiveFocusItemChanged: {
+        function onActiveFocusItemChanged() {
             // Search for the layer of the focus item
             var focusedLayer = comp.activeFocusItem
             while (focusedLayer && focusedLayer.parent !== layersParent)

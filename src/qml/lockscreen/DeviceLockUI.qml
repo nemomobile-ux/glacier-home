@@ -180,8 +180,8 @@ Item {
     Connections {
         target: root.authenticationInput
 
-        onFeedback: root.displayFeedback(feedback, data)
-        onError: root.displayError(error)
+        function onFeedback(feedback, data) { root.displayFeedback(feedback, data) }
+        function onError(error) { root.displayError(error) }
     }
 
 }

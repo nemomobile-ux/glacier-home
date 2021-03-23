@@ -84,7 +84,7 @@ Flickable{
 
     Connections {
         target: lockScreen
-        onVisibleChanged: {
+        function onVisibleChanged() {
             if(lockscreenVisible()) {
                 searchListView.cleanup()
             }
@@ -93,15 +93,15 @@ Flickable{
 
     Connections {
         target: Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             searchListView.cleanup()
         }
-        onWindowAdded: {
+        function onWindowAdded(window) {
             if(window.category === "" && window.title !== "Home"){
                 searchListView.cleanup()
             }
         }
-        onWindowRaised: {
+        function onWindowRaised(window) {
             if(window.category === "" && window.title !== "Home"){
                 searchListView.cleanup()
             }

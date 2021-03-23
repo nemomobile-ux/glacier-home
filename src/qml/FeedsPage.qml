@@ -120,8 +120,8 @@ Flickable {
                     id: notifItem
                     Connections {
                         target: timestampTimer
-                        onTriggered: notifItem.refreshTimestamp()
-                        onRunningChanged: if (timestampTimer.running) notifItem.refreshTimestamp()
+                        function onTriggered() { notifItem.refreshTimestamp() }
+                        function onRunningChanged(running) { if (timestampTimer.running) notifItem.refreshTimestamp() }
                     }
                 }
             }

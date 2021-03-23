@@ -55,7 +55,7 @@ ControlButton {
 
     Connections{
         target: _bluetoothManager
-        onUsableAdapterChanged: {
+        function onUsableAdapterChanged() {
             _adapter = _bluetoothManager.usableAdapter
             bluetoothButton.updateLabel()
         }

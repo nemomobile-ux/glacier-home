@@ -143,7 +143,7 @@ Item {
 
         Connections {
             target: usbModeSelector
-            onWindowVisibleChanged: if (usbModeSelector.windowVisible) usbDialog.shouldBeVisible = true
+            function onWindowVisibleChanged(windowVisible) { if (usbModeSelector.windowVisible) usbDialog.shouldBeVisible = true }
         }
 
         Behavior on opacity {

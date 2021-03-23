@@ -18,7 +18,7 @@ StatusbarItem {
 
     Connections{
         target: btAgent
-        onConnectedChanged: {
+        function onConnectedChanged(connected) {
             bluetoothIndicator.transparent = !btAgent.connected
         }
     }

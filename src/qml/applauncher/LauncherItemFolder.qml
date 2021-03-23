@@ -175,7 +175,7 @@ Item {
     //When display goes off, close the folderloader
     Connections {
         target: Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             folderLoader.model = 0
         }
     }

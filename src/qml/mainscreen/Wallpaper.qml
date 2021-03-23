@@ -79,7 +79,7 @@ Item {
 /*Disable accelerometer when device locked */
     Connections {
         target: LipstickSettings
-        onLockscreenVisibleChanged: {
+        function onLockscreenVisibleChanged() {
             if(!Desktop.instance.lockscreenVisible() && enableParalax.value == true) {
                 accelerometer.active = true
             } else {

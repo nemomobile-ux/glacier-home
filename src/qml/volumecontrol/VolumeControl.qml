@@ -103,7 +103,7 @@ Rectangle{
 
     Connections {
         target: volumeControl
-        onVolumeKeyPressed: {
+        function onVolumeKeyPressed(key) {
             volumeControlWindow.pressedKey = key;
 
             volumeControl.windowVisible = true
@@ -126,7 +126,7 @@ Rectangle{
             }
         }
 
-        onVolumeKeyReleased: {
+        function onVolumeKeyReleased(key) {
             keyPressTimer.stop()
             maxMinTimer.stop()
             screenShotTimer.stop()
@@ -141,13 +141,14 @@ Rectangle{
             }
         }
 
-        onWindowVisibleChanged: {
+        function onWindowVisibleChanged(windowVisible) {
             if (volumeControl.windowVisible) {
                 volumeControlWindow.visible = true
                 voltimer.restart()
             }
         }
     }
+
     Timer{
         id: screenShotTimer
         interval: 2000

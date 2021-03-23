@@ -81,7 +81,7 @@ Page {
     //force refresh
     Connections {
         target: Lipstick.compositor
-        onDisplayAboutToBeOn: {
+        function onDisplayAboutToBeOn() {
             wallClock.enabled = false
             wallClock.enabled = true
         }
@@ -90,7 +90,7 @@ Page {
     //USB mode selector connections
     Connections{
         target: usbModeSelector
-        onWindowVisibleChanged: {
+        function onWindowVisibleChanged(windowVisible) {
             if(usbModeSelector.windowVisible) {
                 usbModedDialog.visible = true
             } else {
@@ -207,7 +207,7 @@ Page {
 
     Connections {
         target: LipstickSettings
-        onLockscreenVisibleChanged: {
+        function onLockscreenVisibleChanged(visible) {
             glacierRotation.rotateRotationParent(desktop.orientation)
             controlcenter.down()
         }
@@ -294,9 +294,9 @@ Page {
         id: screenshot
     }
 
-    Connections{
+    Connections {
         target: feeds
-        onXChanged: {
+        function onXChanged(x) {
             var opacityCalc
             if(feeds.x < 0){
                 opacityCalc = (desktop.width+feeds.x)/desktop.width
@@ -318,7 +318,7 @@ Page {
 
     Connections {
         target: volumeControl
-        onShowAudioWarning: {
+        function onShowAudioWarning() {
             audioWarnigDialog.open();
         }
     }

@@ -226,7 +226,7 @@ Item {
 
         Connections {
             target: appLauncher
-            onSearchStringChanged: listView.update()
+            function onSearchStringChanged() { listView.update() }
         }
 
 
@@ -392,7 +392,7 @@ Item {
                 }
                 Connections {
                     target: Lipstick.compositor
-                    onWindowAdded: {
+                    function onWindowAdded(window) {
                         if(window.category=="" && window.title !== "Home"){
                             spinner.stop()
                         }

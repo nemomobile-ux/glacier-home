@@ -99,7 +99,7 @@ Item {
 
                 Connections {
                     target: Lipstick.compositor
-                    onWindowAdded: {
+                    function onWindowAdded(window) {
                         if(window.category=="" && window.title !== "Home"){
                             spinnerr.stop()
                         }
