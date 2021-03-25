@@ -90,7 +90,7 @@ Page {
     //USB mode selector connections
     Connections{
         target: USBModeSelector
-        function onWindowVisibleChanged(windowVisible) {
+        function onWindowVisibleChanged() {
             if(usbModeSelector.windowVisible) {
                 usbModedDialog.visible = true
             } else {
