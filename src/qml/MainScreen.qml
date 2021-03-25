@@ -104,14 +104,10 @@ Page {
     }
 
     /*Bluetooth section */
-    GlacierBluetoothAgent{
-        id: btAgent
+    Connections{
+        target: BluetoothAgent
 
-        onAdapterAdded: {
-            btAgent.registerAgent()
-        }
-
-        onShowRequiesDialog: {
+        function onWindowVisibleChanged() {
             btRequestConfirmationDialog.deviceCode = code
             btRequestConfirmationDialog.deviceName = name
             btRequestConfirmationDialog.open();
@@ -120,24 +116,6 @@ Page {
 
     BtRequestConfirmationDialog{
         id: btRequestConfirmationDialog
-    }
-
-    DBusAdaptor {
-        id: btDbusAdapter
-        service: "org.glacier.lipstick"
-        path: "/bluetooth"
-        iface: "org.glacier.lipstick"
-
-        signal pair(string address)
-        signal unPair(string address)
-
-        signal connectDevice(string address)
-
-        signal replyToAgentRequest(int requestId, int error, string passkey)
-
-        onPair: btAgent.pair(address)
-        onUnPair: btAgent.unPair(address)
-        onConnectDevice: btAgent.connectDevice(address)
     }
 
     UsbModeDialog{

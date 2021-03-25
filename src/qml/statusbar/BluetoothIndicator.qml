@@ -15,11 +15,4 @@ StatusbarItem {
         id: bluetoothTechnology
         path: "/net/connman/technology/bluetooth"
     }
-
-    Connections{
-        target: btAgent
-        function onConnectedChanged(connected) {
-            bluetoothIndicator.transparent = !btAgent.connected
-        }
-    }
 }
