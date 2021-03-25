@@ -34,7 +34,7 @@ Item {
 
     Accelerometer {
         id: accelerometer
-        active: (enableParalax.value == true && !Desktop.instance.lockscreenVisible())
+        active: (enableParalax.value === true && !LipstickSettings.lockscreenVisible === true)
         skipDuplicates: true
 
         onReadingChanged: {
@@ -80,7 +80,7 @@ Item {
     Connections {
         target: LipstickSettings
         function onLockscreenVisibleChanged() {
-            if(!Desktop.instance.lockscreenVisible() && enableParalax.value == true) {
+            if(!LipstickSettings.lockscreenVisible === true && enableParalax.value == true) {
                 accelerometer.active = true
             } else {
                 accelerometer.active = false
