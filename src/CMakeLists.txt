@@ -5,9 +5,7 @@ set(SRC
 	glacierwindowmodel.cpp
 	glacierwindowmodel.h
 	mceconnect.cpp
-	mceconnect.h
-	bluetooth/bluetoothagent.cpp
-	bluetooth/bluetoothagent.h)
+	mceconnect.h)
 
 #qt5_add_resources(RESOURCES resources-qml.qrc)
 
@@ -18,7 +16,6 @@ target_link_libraries(lipstick PUBLIC
 	Qt5::Qml
 	Qt5::Quick
 	Qt5::DBus
-	KF5::BluezQt
 	PkgConfig::LIPSTICK
 	PkgConfig::NEMODEVICELOCK)
 

@@ -36,9 +36,6 @@
 #include "fileutils.h"
 #include "mceconnect.h"
 
-#include "bluetooth/bluetoothagent.h"
-
-
 int main(int argc, char **argv)
 {
     HomeApplication app(argc, argv, QString());
@@ -86,7 +83,6 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->addImportPath("/usr/lib/qml");
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
-    qmlRegisterType<BluetoothAgent>("org.nemomobile.glacier",1,0, "GlacierBluetoothAgent");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier",1,0, "GlacierMceConnect");
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
     // Give these to the environment inside the lipstick homescreen
