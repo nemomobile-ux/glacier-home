@@ -1,0 +1,16 @@
+[Unit]
+Description=The lipstick UI
+BindsTo=graphical-session.target
+Before=graphical-session.target
+Requires=dbus.socket
+After=dbus.socket
+
+[Service]
+Type=forking
+EnvironmentFile=-/var/lib/environment/compositor/*.conf
+EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
+ExecStart=/usr/bin/invoker --type=generic /usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
+Restart=on-failure
+TimeoutStartSec=120
+
+

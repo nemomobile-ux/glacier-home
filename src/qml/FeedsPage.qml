@@ -41,7 +41,7 @@ Flickable {
         id: bg
         width: desktop.width
         height: desktop.height-statusbar.height
-        color: "black"
+        color: Theme.backgroundColor
         opacity: 0.6
     }
 
@@ -120,8 +120,8 @@ Flickable {
                     id: notifItem
                     Connections {
                         target: timestampTimer
-                        onTriggered: notifItem.refreshTimestamp()
-                        onRunningChanged: if (timestampTimer.running) notifItem.refreshTimestamp()
+                        function onTriggered() { notifItem.refreshTimestamp() }
+                        function onRunningChanged(running) { if (timestampTimer.running) notifItem.refreshTimestamp() }
                     }
                 }
             }

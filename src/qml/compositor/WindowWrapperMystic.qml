@@ -27,6 +27,11 @@ import org.nemomobile.lipstick 0.1
 
 WindowWrapperBase {
     id: wrapper
+    property bool windowed: parent != applicationLayer
+    readonly property bool isActive: windowed && parent.activeWindow == wrapper
+    onIsActiveChanged: console.log("isActive:", isActive)
+    z: isActive ? 1 : 0
+
     ShaderEffect {
         anchors.fill: parent
         z: 2
@@ -46,6 +51,68 @@ WindowWrapperBase {
             // do not paint the QWaylandSurfaceItem, just use it as
             // a texture provider
             window.setPaintEnabled(false)
+        }
+    }
+
+
+    MouseArea{
+        id: windowHeader
+        width: parent.width + size.dp(8)
+        height: parent.height - y + size.dp(8)
+        y: -Theme.itemHeightMedium
+        x: -size.dp(4)
+        z: (window) ? window.z - 1 : 0
+        visible: (window) ? (window.width != Screen.width || window.height != Screen.height) : false
+
+        onPressAndHold: {
+            drag.target = window.userData
+        }
+
+        onReleased: {
+            drag.target = null
+        }
+
+        onClicked: {
+            wrapper.parent.activeWindow = wrapper
+        }
+
+        onDoubleClicked: {
+            window.userData.x = 0
+            window.userData.y = 0
+            requestWindowSize(window,Qt.size(Screen.width, Screen.height))
+            wrapper.parent = root.applicationLayer
+            setCurrentWindow(wrapper)
+        }
+
+        Image {
+            id: closeWindow
+            source: "image://theme/times"
+
+            height: Theme.itemHeightMedium
+            width: height
+
+            anchors{
+                top: parent.top
+                topMargin: 1
+                right: parent.right
+                rightMargin: 1
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    Lipstick.compositor.closeClientForWindowId(window.windowId)
+                }
+            }
+
+            z: windowHeader.z + 2
+        }
+
+        Rectangle{
+            anchors.fill: parent
+            color: parent.drag.target
+                   ? Theme.backgroundAccentColor
+                   : Theme.accentColor
         }
     }
 }

@@ -2,6 +2,8 @@ import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import "../scripts/desktop.js" as Desktop
+
 Item {
     id: notifyArea
 
@@ -11,6 +13,8 @@ Item {
         left: parent.left
         leftMargin: Theme.itemSpacingSmall
     }
+
+    clip: true
 
     property alias appIcon: appIcon
     property alias appBody: appBody
@@ -44,11 +48,17 @@ Item {
         }
 
         onClicked: {
+            if(Desktop.instance.deviceLocked) {
+                return
+            }
+
             if (modelData.userRemovable) {
                 slideAnimation.start()
             } else {
                 modelData.actionInvoked("default")
             }
+
+            Desktop.instance.setLockScreen(false)
         }
     }
 
@@ -61,35 +71,20 @@ Item {
         var minutes = Math.floor(seconds / 60)
 
         if (years >= 1) {
-            if(years > 1) {
-                timeAgo = years + " " + qsTr("years ago")
-            } else {
-                timeAgo = years + " " + qsTr("year ago")
-            }
+            //% "%n year(s) ago"
+            timeAgo = qsTrId("years-ago",years)
         }else if (months >= 1) {
-            if (months > 1) {
-                timeAgo =  months +" " + qsTr("months ago")
-            } else {
-                timeAgo =  months +" " + qsTr("month ago")
-            }
+            //% "%n months(s) ago"
+            timeAgo = qsTrId("months-ago",months)
         }else if (days >= 1) {
-            if (days > 1) {
-                timeAgo =  days + " " + qsTr("days ago")
-            } else {
-                timeAgo =  days + " " + qsTr("day ago")
-            }
+            //% "%n day(s) ago"
+            timeAgo = qsTrId("days-ago",days)
         }else if (hours >= 1) {
-            if (hours > 1) {
-                timeAgo =  hours + " " + qsTr("hours ago")
-            } else {
-                timeAgo =  hours + " " + qsTr("hour ago")
-            }
+            //% "%n hours(s) ago"
+            timeAgo = qsTrId("hours-ago",hours)
         } else if (minutes >= 1) {
-            if (minutes > 1) {
-                timeAgo =  minutes + " " + qsTr("minutes ago")
-            } else {
-                timeAgo =  minutes + " " + qsTr("minute ago")
-            }
+            //% "%n minutes(s) ago"
+            timeAgo = qsTrId("minutes-ago",minutes)
         } else {
             timeAgo = qsTr("Just now")
         }
@@ -136,8 +131,8 @@ Item {
 
     Rectangle{
         id: progressBar
-        width: parent.width*modelData.progress
-        height: parent.height
+        width: notifyArea.width * modelData.progress
+        height: notifyArea.height
         color: Theme.accentColor
         radius: Theme.itemSpacingMedium
         opacity: 0.75
@@ -145,7 +140,11 @@ Item {
             top: parent.top
             left: parent.left
         }
-        visible: modelData.hasProgress
+        visible: modelData.progress != 0
+
+        Behavior on width{
+            NumberAnimation { duration: 333 }
+        }
     }
 
     Image {

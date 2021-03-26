@@ -1,46 +1,124 @@
-import QtQuick 2.0
-import org.freedesktop.contextkit 1.0
+/****************************************************************************************
+**
+** Copyright (C) 2019-2020 Chupligin Sergey <neochapay@gmail.com>
+** All rights reserved.
+**
+** You may use this file under the terms of BSD license as follows:
+**
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are met:
+**     * Redistributions of source code must retain the above copyright
+**       notice, this list of conditions and the following disclaimer.
+**     * Redistributions in binary form must reproduce the above copyright
+**       notice, this list of conditions and the following disclaimer in the
+**       documentation and/or other materials provided with the distribution.
+**     * Neither the name of the author nor the
+**       names of its contributors may be used to endorse or promote products
+**       derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+** ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+** DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
+** ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+** (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+** LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+** ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**
+****************************************************************************************/
+
+
+import QtQuick 2.6
+import Nemo.Mce 1.0
+
+import Nemo.Configuration 1.0
 
 StatusbarItem {
     id: batteryIndicator
     property int chargeValue: 0
-    property alias batteryChargePercentage: batteryChargePercentage
 
-    ContextProperty {
+    width: statusbar.height*2
+    iconSize: statusbar.height * 2
+    iconSizeHeight: statusbar.height
+
+    MceBatteryLevel {
         id: batteryChargePercentage
-        key: "Battery.ChargePercentage"
-        value: "100"
-        onValueChanged: {
-            if(batteryStateContextProperty.value != "charging") {
-                chargeIcon();
-            }
+
+        onPercentChanged: {
+            chargeIcon();
         }
     }
 
-    ContextProperty {
-        id: batteryStateContextProperty
-        key: "Battery.State"
-        onValueChanged: {
-            if(batteryStateContextProperty.value == "charging")
-            {
-                if (batteryChargePercentage.value === 100) {
-                    chargingTimer.stop()
-                    chargeIcon()
-                }else {
-                    chargingTimer.start()
-                }
-            }
-            else
-            {
+    MceBatteryState {
+        id:  batteryChargeState
+
+        onStateChanged: {
+            if(state === MceBatteryState.Charging) {
+                chargingTimer.start()
+            } else {
                 chargingTimer.stop()
                 chargeIcon();
             }
         }
     }
 
-    iconSize: Theme.itemHeightExtraSmall
-    panel: BatteryPanel {}
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/images/battery"+chargeValue+".png" //+ (chargeValue === 0 ? "?red" : "")
+    MceCableState{
+        id: cableState
+        onConnectedChanged: {
+            if(connected) {
+                chargingTimer.start()
+            } else {
+                chargingTimer.stop()
+                chargeIcon()
+            }
+        }
+    }
+
+    MceBatteryStatus{
+        id: batteryStatus
+    }
+
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery"+chargeValue+".png"
+
+    Image {
+        width: parent.width
+        height: parent.height
+        anchors.centerIn: parent
+        source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery_grid.png"
+        layer.effect: ColoredIconEffect{
+            color: if(batteryStatus.status === MceBatteryStatus.Ok) {
+                       Theme.textColor
+                   } else if (batteryStatus.status === MceBatteryStatus.Full) {
+                       Theme.accentColor
+                   } else {
+                       "red"
+                   }
+        }
+
+        layer.enabled: true
+        layer.samplerName: "source"
+    }
+
+    Image {
+        id: pluginIndicator
+        width: parent.width
+        height: parent.height
+        anchors.centerIn: parent
+
+        source: "image://theme/plug"
+        fillMode: Image.PreserveAspectFit
+
+        visible: cableState.connected
+
+        layer.effect: ColoredIconEffect{
+            color:  Theme.backgroundColor
+        }
+
+        layer.enabled: true
+        layer.samplerName: "source"
+    }
 
     Timer{
         id: chargingTimer
@@ -65,22 +143,23 @@ StatusbarItem {
 
     function chargeIcon()
     {
-        if(batteryChargePercentage.value > 85) {
+        if(batteryChargePercentage.percent > 85) {
             batteryIndicator.chargeValue = 6
-        } else if (batteryChargePercentage.value <= 5) {
+        } else if (batteryChargePercentage.percent <= 5) {
             batteryIndicator.chargeValue = 0
-        } else if (batteryChargePercentage.value <= 10) {
+        } else if (batteryChargePercentage.percent <= 10) {
             batteryIndicator.chargeValue = 1
-        } else if (batteryChargePercentage.value <= 25) {
+        } else if (batteryChargePercentage.percent <= 25) {
             batteryIndicator.chargeValue = 2
-        } else if (batteryChargePercentage.value <= 40) {
+        } else if (batteryChargePercentage.percent <= 40) {
             batteryIndicator.chargeValue = 3
-        } else if (batteryChargePercentage.value <= 65) {
+        } else if (batteryChargePercentage.percent <= 65) {
             batteryIndicator.chargeValue = 4
-        } else if (batteryChargePercentage.value <= 80) {
+        } else if (batteryChargePercentage.percent <= 80) {
             batteryIndicator.chargeValue = 5
         } else {
             batteryIndicator.chargeValue = 6
         }
     }
+
 }

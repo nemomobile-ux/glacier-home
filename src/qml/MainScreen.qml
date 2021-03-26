@@ -1,6 +1,8 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -35,40 +37,100 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtQuick.Window 2.1
 
-import org.nemomobile.time 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Time 1.0
+import Nemo.Configuration 1.0
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.statusnotifier 1.0
+
+import org.nemomobile.systemsettings 1.0
+
+import Nemo.DBus 2.0
+
+import org.nemomobile.glacier 1.0
 
 import "scripts/desktop.js" as Desktop
+import "mainscreen"
+import "dialogs"
+import "volumecontrol"
+import "system"
 
 Page {
     id: desktop
+    focus: true
+
     // This is used in the favorites page and in the lock screen
     WallClock {
         id: wallClock
         enabled: true
         updateFrequency: WallClock.Minute
     }
+
+    GlacierMceConnect{
+        id: mceConnect
+
+        onPowerKeyPressed: {
+            if(!rebootDialog.visible) {
+                rebootDialog.visible = true
+            } else {
+                rebootDialog.visible = false
+            }
+        }
+    }
+
     //force refresh
     Connections {
         target: Lipstick.compositor
-        onDisplayAboutToBeOn: {
+        function onDisplayAboutToBeOn() {
             wallClock.enabled = false
             wallClock.enabled = true
         }
     }
-    // This is used in the lock screen
-    ConfigurationValue {
-        id: wallpaperSource
-        key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
+
+    //USB mode selector connections
+    Connections{
+        target: USBModeSelector
+        function onWindowVisibleChanged() {
+            if(usbModeSelector.windowVisible) {
+                usbModedDialog.visible = true
+            } else {
+                usbModedDialog.visible = false
+            }
+        }
+    }
+
+    StatusNotifierModel {
+        id: statusNotiferModel
+    }
+
+    /*Bluetooth section */
+    Connections{
+        target: BluetoothAgent
+
+        function onWindowVisibleChanged() {
+            btRequestConfirmationDialog.deviceCode = code
+            btRequestConfirmationDialog.deviceName = name
+            btRequestConfirmationDialog.open();
+        }
+    }
+
+    BtRequestConfirmationDialog{
+        id: btRequestConfirmationDialog
+    }
+
+    UsbModeDialog{
+        id: usbModedDialog
     }
 
     property alias lockscreen: lockScreen
     property alias switcher: switcher
-    property int statusBarHeight: statusbar.height
+    property alias statusbar: statusbar
+    property alias controlcenter: controlCenter
+
+    readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
+
     property bool codepadVisible: false
+    property alias displayOn: lockScreen.displayOn
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
 
     // Implements back key navigation
@@ -81,38 +143,51 @@ Page {
             } else { Qt.quit(); }
         }
     }
+
+    //Todo: Property to set statusbar on top or bottom
+    //Also todo: Make this a window?
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
+        z: 201
+    }
+
+    ControlCenter{
+        id: controlCenter
+        z: 202
     }
 
     GlacierRotation {
         id: glacierRotation
         rotationParent: desktop.parent
-        unrotatedItems: [lockScreen]
     }
 
-    orientation: DeviceLock.state == DeviceLock.Locked ? nativeOrientation : Lipstick.compositor.screenOrientation
+    orientation: Lipstick.compositor.screenOrientation
 
     onOrientationChanged: {
-        if (!lockscreenVisible())
-            glacierRotation.rotateRotationParent(orientation)
+        glacierRotation.rotateRotationParent(orientation)
     }
 
     onParentChanged: {
+        glacierRotation.rotationParent = desktop.parent
         glacierRotation.rotateRotationParent(nativeOrientation)
+        glacierRotation.rotateObject(desktop.parent, nativeOrientation, true)
     }
 
     Component.onCompleted: {
+        glacierRotation.rotationParent = desktop.parent
+        setLockScreen(true)
         Desktop.instance = desktop
+        Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation
+        LipstickSettings.lockScreen(true)
     }
 
     Connections {
         target: LipstickSettings
-        onLockscreenVisibleChanged: {
-            if (!lockscreenVisible())
-                glacierRotation.rotateRotationParent(desktop.orientation)
+        function onLockscreenVisibleChanged(visible) {
+            glacierRotation.rotateRotationParent(desktop.orientation)
+            controlcenter.down()
         }
     }
 
@@ -126,13 +201,17 @@ Page {
         } else {
             LipstickSettings.lockscreenVisible = false
         }
+    }
 
+    function makeScreenshot() {
+        screenshot.capture()
     }
 
     Pager {
         id: pager
-
+        anchors.topMargin: statusbar.height
         anchors.fill: parent
+        enabled: Desktop.compositor.state != "controlCenter"
         model: VisualItemModel {
             AppLauncher {
                 id: launcher
@@ -154,33 +233,71 @@ Page {
         }
 
         // Initial view should be the AppLauncher
-        //currentIndex: 0
+        currentIndex: 0
     }
-    Image {
-        id:wallpaper
-        source: wallpaperSource.value
+
+    Wallpaper{
+        id: wallpaper
         anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
+
         z: -100
     }
+
     Lockscreen {
         id: lockScreen
         visible: lockscreenVisible()
+
+        onVisibleChanged: {
+            if(visible) {
+                statusbar.opacityStart = 0.0
+            }
+        }
+
         width: parent.width
         height: parent.height
         z: 200
+    }
 
-        DeviceLockUI {
-            id: codePad
-            visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
-            width: lockScreen.width
-            height:lockScreen.height / 2
-            anchors {
-                verticalCenter: lockScreen.verticalCenter
+    AudioWarningDialog{
+        id: audioWarnigDialog
+    }
+
+    RebootDialog{
+        id: rebootDialog
+        focus: true
+        z: 400
+    }
+
+    Screenshot{
+        id: screenshot
+    }
+
+    Connections {
+        target: feeds
+        function onXChanged(x) {
+            var opacityCalc
+            if(feeds.x < 0){
+                opacityCalc = (desktop.width+feeds.x)/desktop.width
+            }else{
+                opacityCalc = (desktop.width-feeds.x)/desktop.width
             }
 
-            z: 200
+            if(opacityCalc < 0) {
+                opacityCalc = 0
+            }
+
+            if(opacityCalc > 1) {
+                opacityCalc = 1
+            }
+
+            statusbar.opacityStart = opacityCalc
         }
     }
 
+    Connections {
+        target: volumeControl
+        function onShowAudioWarning() {
+            audioWarnigDialog.open();
+        }
+    }
 }

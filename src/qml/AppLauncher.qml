@@ -1,4 +1,4 @@
-// This file is part of colorful-home, a nice user experience for touchscreens.
+/* This file is part of colorful-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2020, Chupligin Sergey <neochapay@gmail.com>
+*/
 
 import QtQuick 2.6
 
 import org.nemomobile.lipstick 0.1
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
 
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-
 
 import "applauncher"
 
@@ -48,13 +48,25 @@ Flickable{
         id: alwaysShowSearch
         key: "/home/glacier/appLauncher/alwaysShowSearch"
         defaultValue: true
+
+        onValueChanged: {
+            searchListView.visible =  alwaysShowSearch.value
+            searchListView.calculateHeight()
+        }
     }
+
+    ConfigurationValue {
+        id: columnCount
+        key: "/home/glacier/appLauncher/columnCount"
+        defaultValue: 5
+    }
+
 
     /*top search line*/
     SearchListView {
         id: searchListView
         width: appLauncher.width
-        visible: alwaysShowSearch.value == true
+        visible: alwaysShowSearch.value
 
         Timer{
             id: searchListViewTimer;
@@ -72,7 +84,7 @@ Flickable{
 
     Connections {
         target: lockScreen
-        onVisibleChanged: {
+        function onVisibleChanged() {
             if(lockscreenVisible()) {
                 searchListView.cleanup()
             }
@@ -81,15 +93,15 @@ Flickable{
 
     Connections {
         target: Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             searchListView.cleanup()
         }
-        onWindowAdded: {
+        function onWindowAdded(window) {
             if(window.category === "" && window.title !== "Home"){
                 searchListView.cleanup()
             }
         }
-        onWindowRaised: {
+        function onWindowRaised(window) {
             if(window.category === "" && window.title !== "Home"){
                 searchListView.cleanup()
             }
@@ -101,29 +113,36 @@ Flickable{
     /*app grid*/
     GridView {
         id: gridview
+        cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
+        cellHeight: cellWidth+Theme.itemSpacingMedium*3
+
+        height: parent.height
         width: parent.width
-        height: parent.height-searchListView.height-Theme.itemSpacingHuge
+
+        cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
+
+        property Item reorderItem
+        property bool onUninstall
+        property alias deleter: deleter
+        property var switcher: null
+        property int iconSize: Theme.itemHeightSmall
+
+        maximumFlickVelocity: parent.Height * 4
 
         visible: searchString.length === 0
 
-        cacheBuffer: gridview.contentHeight
-        property Item reorderItem
-        property bool onUninstall
-
         property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
-        property int rows: Math.floor(parent.height / minCellSize)
-        property int columns:  Math.floor(parent.width / minCellSize)
+        property int rows: Math.floor(parent.height / cellWidth)
+        property int columns:  Math.floor(parent.width / cellHeight)
 
-        cellWidth: parent.width / columns
-        cellHeight: Math.round(parent.height / rows)
+        y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
 
-        anchors{
-            top: searchListView.bottom
-            topMargin: Theme.itemSpacingHuge
+        Behavior on y {
+            NumberAnimation { duration: 200 }
         }
 
         onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge*2 && alwaysShowSearch.value == false ) {
+            if( contentY < -Theme.itemHeightHuge && alwaysShowSearch.value == false ) {
                 searchListView.visible = true
                 searchListViewTimer.running = true
             }
@@ -135,15 +154,8 @@ Flickable{
         property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
         clip: true
 
-        /*onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge ) {
-                headerItem.visible = true;
-                timer.running = true;
-            }
-        }*/
-
         footer: Item {
-            height: Theme.itemHeightLarge*1.5
+            height: Math.min(desktop.width,desktop.height)/10
         }
 
         onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
@@ -171,11 +183,16 @@ Flickable{
                 parent: gridview
                 parentItem: gridview
                 iconCaption.color:Theme.textColor
-                iconCaption.text: modelData.object.title
-                isFolder: modelData.object.type == LauncherModel.Folder
-                source: modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
-                notNemoIcon:  isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
                 folderModel:launcherModel
+
+                Component.onCompleted: {
+                    if(modelData) {
+                        launcherItem.iconCaption.text = modelData.object.title
+                        launcherItem.isFolder = modelData.object.type == LauncherModel.Folder
+                        launcherItem.source = modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+                        launcherItem.notNemoIcon = isFolder || modelData.object.iconId == "" ? false : modelData.object.iconId.indexOf("harbour") > -1  ||  modelData.object.iconId.indexOf("apkd_launcher") > -1 ? true : false
+                    }
+                }
             }
         }
         Component {

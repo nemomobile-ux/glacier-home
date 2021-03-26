@@ -137,7 +137,7 @@ Rectangle {
     }
     Connections {
         target: lockScreen
-        onVisibleChanged: {
+        function onVisibleChanged() {
             if(lockscreenVisible()) {
                panel_loader.visible = false
             }
@@ -145,15 +145,15 @@ Rectangle {
     }
     Connections {
         target: Lipstick.compositor
-        onDisplayOff: {
+        function onDisplayOff() {
             panel_loader.visible = false
         }
-        onWindowAdded: {
+        function onWindowAdded(window) {
             if(window.category=="" && window.title !== "Home"){
                 panel_loader.visible = false
             }
         }
-        onWindowRaised: {
+        function onWindowRaised(window) {
             if(window.category=="" && window.title !== "Home"){
                panel_loader.visible = false
             }

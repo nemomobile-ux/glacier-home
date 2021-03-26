@@ -7,13 +7,6 @@ Item {
     width: initialSize.width
     height: initialSize.height
 
-/*
- TODO
-    ContextProperty {
-        id: orientationAngleContextProperty
-        key: "/Screen/CurrentWindow/OrientationAngle"
-    }
-*/
     QtObject {
         id: orientationAngleContextProperty
         property int value: 0
@@ -150,7 +143,7 @@ Item {
 
         Connections {
             target: usbModeSelector
-            onWindowVisibleChanged: if (usbModeSelector.windowVisible) usbDialog.shouldBeVisible = true
+            function onWindowVisibleChanged(windowVisible) { if (usbModeSelector.windowVisible) usbDialog.shouldBeVisible = true }
         }
 
         Behavior on opacity {
