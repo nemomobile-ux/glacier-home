@@ -34,7 +34,6 @@ MouseArea {
     property int newFolderIndex: -1
     property real oldY
     property bool isFolder
-    property bool notNemoIcon
     property Item parentItem
     property alias slideMoveAnim: slideMoveAnim
     property QtObject folderModel

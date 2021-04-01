@@ -115,7 +115,6 @@ Item{
             parentItem: folderGridView
             width: wrapper.width
             height: wrapper.height
-            notNemoIcon:  isFolder || model.object.iconId == "" ? false : model.object.iconId.indexOf("harbour") > -1  ||  model.object.iconId.indexOf("apkd_launcher") > -1 ? true : false //Dirty but works most of the times
             isFolder: model.object.type == LauncherModel.Folder
             source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
             iconCaption.text: model.object.title

@@ -32,7 +32,6 @@ Item {
     property bool reordering: launcherItem.reordering
     property bool isFolder
     property int folderAppsCount
-    property bool notNemoIcon
     property alias folderLoader: folderLoader
     property alias folderModel:launcherItem.folderModel
     onXChanged: moveTimer.start()
@@ -57,7 +56,6 @@ Item {
         width: wrapper.width
         height: wrapper.height
         isFolder: wrapper.isFolder
-        notNemoIcon:wrapper.notNemoIcon
         parentItem: wrapper.parent
 
         clip: true

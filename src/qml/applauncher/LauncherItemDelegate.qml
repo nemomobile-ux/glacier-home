@@ -37,8 +37,6 @@ Item {
     property alias iconCaption: iconText
     property bool reordering: launcherItem.reordering
     property bool isFolder
-    //Sailfish and other app icons are larger than nemo icons. Thats why this property could be used to scale them
-    property bool notNemoIcon
     property alias parentItem: launcherItem.parentItem
     property alias folderModel:launcherItem.folderModel
 
@@ -65,7 +63,6 @@ Item {
         width: wrapper.width
         height: wrapper.width
         isFolder: wrapper.isFolder
-        notNemoIcon: wrapper.notNemoIcon
 
         Item {
             id: iconWrapper
