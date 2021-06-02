@@ -4,7 +4,7 @@
 <context>
     <name></name>
     <message id="years-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="67"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="75"/>
         <source>%n year(s) ago</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -13,7 +13,7 @@
         </translation>
     </message>
     <message id="months-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="70"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -22,7 +22,7 @@
         </translation>
     </message>
     <message id="days-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="73"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
         <source>%n day(s) ago</source>
         <oldsource>%n months(s) ago</oldsource>
         <translation type="unfinished">
@@ -32,7 +32,7 @@
         </translation>
     </message>
     <message id="hours-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n hours(s) ago</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -41,7 +41,7 @@
         </translation>
     </message>
     <message id="minutes-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="79"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="87"/>
         <source>%n minutes(s) ago</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -92,6 +92,15 @@
     </message>
 </context>
 <context>
+    <name>BluetoothButton</name>
+    <message>
+        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
+        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BtRequestConfirmationDialog</name>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
@@ -115,31 +124,26 @@
     </message>
 </context>
 <context>
+    <name>CellularDataControlButton</name>
+    <message>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="35"/>
+        <source>Cellural data</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ControlCenter</name>
     <message>
-        <location filename="../src/qml/ControlCenter.qml" line="122"/>
-        <source>Wi-Fi</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/ControlCenter.qml" line="127"/>
-        <source>Bluetooth</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/ControlCenter.qml" line="132"/>
         <source>Data</source>
-        <translation>Передача данных</translation>
+        <translation type="vanished">Передача данных</translation>
     </message>
     <message>
-        <location filename="../src/qml/ControlCenter.qml" line="137"/>
         <source>Location</source>
-        <translation>Местоположение</translation>
+        <translation type="vanished">Местоположение</translation>
     </message>
     <message>
-        <location filename="../src/qml/ControlCenter.qml" line="142"/>
         <source>Quiet</source>
-        <translation>Тихий режим</translation>
+        <translation type="vanished">Тихий режим</translation>
     </message>
 </context>
 <context>
@@ -204,6 +208,14 @@
     </message>
 </context>
 <context>
+    <name>LocationControlButton</name>
+    <message>
+        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="32"/>
+        <source>Location</source>
+        <translation type="unfinished">Местоположение</translation>
+    </message>
+</context>
+<context>
     <name>MediaController</name>
     <message>
         <location filename="../src/qml/statusbar/MediaController.qml" line="67"/>
@@ -212,11 +224,32 @@
     </message>
 </context>
 <context>
+    <name>MediaControls</name>
+    <message>
+        <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
+        <source>Unknow artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
+        <source>Unknow track</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NotificationItem</name>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="89"/>
         <source>Just now</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QuietControlButton</name>
+    <message>
+        <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
+        <source>Quiet</source>
+        <translation type="unfinished">Тихий режим</translation>
     </message>
 </context>
 <context>
@@ -235,41 +268,41 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="122"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="117"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
         <source>Hide search panel</source>
         <translation>Скрыть панель поиска</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="148"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
         <source>Pinup search panel</source>
         <translation>Закрепить панель поиска</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="196"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="273"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="283"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="191"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="268"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="278"/>
         <source>Application</source>
         <translation>Приложение</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="294"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="193"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="289"/>
         <source>Contact</source>
         <translation>Контакт</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="195"/>
         <source>Content</source>
         <translation>Содержимое</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="274"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="284"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="269"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
         <source>installed on your device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -304,49 +337,60 @@
 <context>
     <name>UsbModeDialog</name>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="50"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="74"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="51"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="75"/>
         <source>Ok</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="52"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="76"/>
         <source>Select USB mode</source>
         <translation>Режим USB</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="68"/>
         <source>Always ask</source>
-        <translation>Всегда спрашивать</translation>
+        <translation type="vanished">Всегда спрашивать</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="70"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="61"/>
         <source>MTP</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="72"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="65"/>
         <source>Charging only</source>
         <translation>Только зарядка</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="74"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="57"/>
         <source>Connection sharing</source>
         <translation>Раздача соединения</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="76"/>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53"/>
+        <source>Ask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69"/>
         <source>Developer mode</source>
         <translation>Режим разработчика</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="78"/>
         <source>Busy</source>
-        <translation>Занят</translation>
+        <translation type="vanished">Занят</translation>
+    </message>
+</context>
+<context>
+    <name>WiFiButton</name>
+    <message>
+        <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
+        <source>Wi-Fi</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -47,18 +47,16 @@ MouseArea {
     onXChanged: moved()
     onYChanged: moved()
 
+    drag.minimumX: (parentItem.contentItem !== null) ? parentItem.contentItem.x - width/2 : 0
+    drag.maximumX: (parentItem.contentItem !== null) ? parentItem.contentItem.childrenRect.width + width/2 : 0
+    drag.minimumY: (parentItem.contentItem !== null) ? parentItem.contentItem.y -height/2 -height/4 : 0
+    drag.maximumY: (parentItem.contentItem !== null) ? parentItem.contentItem.childrenRect.height +height/2 : 0
+
     Component.onCompleted:  {
         if(parentItem) {
             launcherItem.scale = gridview.newFolder && parentItem.folderIndex == cellIndex && !isFolder ? 0.5 : (reordering || parentItem.folderIndex == cellIndex ? 1.3 : 1)
         } else {
             return;
-        }
-
-        if(parentItem.contentItem !== null) {
-            drag.minimumX = parentItem.contentItem.x - width/2
-            drag.maximumX = parentItem.contentItem.width + width/2
-            drag.minimumY = parentItem.contentItem.y -height/2 -height/4
-            drag.maximumY = parentItem.contentItem.height +height/2
         }
     }
 
