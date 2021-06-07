@@ -246,7 +246,7 @@ MouseArea {
     Connections {
         target: modelData.object
         ignoreUnknownSignals: true
-        function onItemRemoved(modelData) {
+        function onItemRemoved(removedModelData) {
             var modelDataObject = modelData.object
             //If there is only one item in folder, remove the folder
             if (modelDataObject.itemCount === 1) {
