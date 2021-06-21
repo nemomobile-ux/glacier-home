@@ -94,7 +94,7 @@ int main(int argc, char **argv)
     setenv("QT_QPA_PLATFORM", "wayland", 1);
     setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
     setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
-    setenv("QT_IM_MODULE", "qtvirtualkeyboard", 1);
+    setenv("QT_IM_MODULE", "maliit", 1);
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }
