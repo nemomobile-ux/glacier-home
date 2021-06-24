@@ -130,6 +130,7 @@ Page {
     readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
 
     property bool codepadVisible: false
+    property bool ready: false
     property alias displayOn: lockScreen.displayOn
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
 
@@ -181,6 +182,8 @@ Page {
         Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation
         LipstickSettings.lockScreen(true)
+
+        ready = true;
     }
 
     Connections {

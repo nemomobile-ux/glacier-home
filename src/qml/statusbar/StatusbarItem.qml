@@ -9,6 +9,7 @@ Item {
     property double iconSizeHeight
 
     property bool transparent: false
+    property bool mainReady: false
 
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -21,5 +22,20 @@ Item {
         id: icon
         anchors.centerIn: parent
         opacity: statusbarItem.transparent ? 0.5 : 1
+    }
+
+    onXChanged: {
+        if(statusbarItem.x < 0 && statusbarItem.mainReady) {
+            statusbarItem.parent = leftStatusBar
+        }
+    }
+
+    Connections{
+        target: desktop
+        onReadyChanged: {
+            if(ready) {
+                mainReady = true;
+            }
+        }
     }
 }
