@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -26,8 +26,6 @@ import MeeGo.Connman 0.2
 import MeeGo.QOfono 0.2
 import Nemo.Connectivity 1.0
 
-import org.nemomobile.ofono 1.0
-
 ControlButton{
     id: cellularDataControlButton
 
@@ -50,12 +48,12 @@ ControlButton{
             console.log("modemPathChanged"+modemPath)
         }
 
-
         Component.onCompleted: {
             if(presentSimCount == 0) {
                 cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
             }
         }
+
         onPresentSimCountChanged: {
             if(presentSimCount == 0) {
                 cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
