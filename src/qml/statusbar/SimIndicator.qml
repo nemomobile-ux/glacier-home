@@ -1,38 +1,92 @@
+/****************************************************************************************
+**
+** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** All rights reserved.
+**
+** You may use this file under the terms of BSD license as follows:
+**
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are met:
+**     * Redistributions of source code must retain the above copyright
+**       notice, this list of conditions and the following disclaimer.
+**     * Redistributions in binary form must reproduce the above copyright
+**       notice, this list of conditions and the following disclaimer in the
+**       documentation and/or other materials provided with the distribution.
+**     * Neither the name of the author nor the
+**       names of its contributors may be used to endorse or promote products
+**       derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+** ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+** DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
+** ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+** (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+** LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+** ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**
+****************************************************************************************/
+
 import QtQuick 2.6
 import QtQuick.Layouts 1.0
 
 import MeeGo.QOfono 0.2
 
 import org.nemomobile.lipstick 0.1
-import org.nemomobile.ofono 1.0
 
 Row {
     id: simIndicator
-    property int modemCount: 0
     spacing: Theme.itemSpacingExtraSmall
+
+    property var modems: []
 
     width: childrenRect.width
     height: parent.height
 
-    OfonoModemListModel{
-        id: modemModel
+    OfonoManager {
+        id: ofonoManager
+        onModemsChanged: {
+            recalcModel()
+        }
+        Component.onCompleted: {
+            recalcModel()
+        }
+
+        function recalcModel() {
+            simIndicator.modems = [];
+            for(var i = 0; i < ofonoManager.modems.length; i++) {
+                simIndicator.modems.push(modems[i]);
+            }
+            simRepeater.model = simIndicator.modems;
+        }
     }
+
 
     Layout.fillWidth: true
     Layout.fillHeight: true
 
     Repeater{
         id: simRepeater
-        model: modemModel
+
+        model: simIndicator.modems
+
+        height: parent.height
+        width: parent.height*ofonoManager.modems.length
+
         delegate: StatusbarItem {
             id: cellStatus
+            width: simIndicator.height
+            height: simIndicator.height
+
             source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-            iconSize:       parent.height
-            iconSizeHeight: parent.height
+            iconSize:       simIndicator.height
+            iconSizeHeight: simIndicator.height
 
             OfonoNetworkRegistration{
                 id: cellularRegistrationStatus
-                modemPath: path
+                modemPath: modelData
 
                 onStatusChanged: {
                     recalcIcon()
@@ -44,9 +98,10 @@ Row {
             }
 
             function recalcIcon() {
-                if(!model.enabled) {
+                // TODO FIXUP enabling/Disabling
+                /*if(!model.enabled) {
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/disabled-sim.png"
-                } else if(!cellularRegistrationStatus.status) {
+                } else */if(!cellularRegistrationStatus.status) {
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
                 } else if(cellularRegistrationStatus.strength > 20){
                     cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + Math.ceil(cellularRegistrationStatus.strength/20) + ".png"

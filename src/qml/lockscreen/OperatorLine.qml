@@ -34,18 +34,32 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 import MeeGo.QOfono 0.2
-import org.nemomobile.ofono 1.0
 
 Row{
     id: operatorLine
+    property var modems: []
 
-    OfonoModemListModel{
-        id: modemModel
+
+    OfonoManager {
+        id: ofonoManager
+        onModemsChanged: {
+            recalcModel()
+        }
+        Component.onCompleted: {
+            recalcModel()
+        }
+
+        function recalcModel() {
+            operatorLine.modems = [];
+            for(var i = 0; i < ofonoManager.modems.length; i++) {
+                operatorLine.modems.push(modems[i]);
+            }
+            operatorLineRepeater.model = operatorLine.modems;
+        }
     }
 
     Repeater{
-        id: simRepeater
-        model: modemModel
+        id: operatorLineRepeater
 
         delegate: Text{
             id: operatorText
@@ -55,15 +69,8 @@ Row{
 
             OfonoNetworkRegistration{
                 id: cellularRegistration
-                modemPath: path
+                modemPath: modelData
 
-                onCurrentOperatorPathChanged: {
-                    operator.operatorPath = currentOperatorPath
-                }
-            }
-
-            OfonoNetworkOperator{
-                id: operator
                 onNameChanged: {
                     operatorText.text = name
                 }
