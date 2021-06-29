@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,8 +22,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-import MeeGo.Connman 0.2
-
+import Nemo.Configuration 1.0
 
 ControlButton {
     id: locationButton
@@ -32,18 +31,20 @@ ControlButton {
     textLabel: qsTr("Location")
     assignedSettingsPage: "gps"
 
-    activated: gpsModel.powered
+    activated: loactionLevel.value != 0
 
-    TechnologyModel {
-        id: gpsModel
-        name: "gps"
+    ConfigurationValue {
+        id: loactionLevel
+        key: "/home/glacier/loaction/enabled"
+        defaultValue: "0"
     }
 
     onClicked: {
-        if(gpsModel.powered) {
-            gpsModel.powered = false
+        if(loactionLevel.value == 0) {
+            loactionLevel.value = 1
         } else {
-            gpsModel.powered = true
+            loactionLevel.value = 0
         }
+        loactionLevel.sync()
     }
 }

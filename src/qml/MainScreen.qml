@@ -78,6 +78,10 @@ Page {
         }
     }
 
+    GlacierGeoAgent{
+        id: geoAgent
+    }
+
     //force refresh
     Connections {
         target: Lipstick.compositor

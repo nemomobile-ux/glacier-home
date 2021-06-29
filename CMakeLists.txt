@@ -5,6 +5,7 @@ project(glacier-home
 	DESCRIPTION "Glacier UX homescreen")
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -30,6 +31,7 @@ endif()
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIPSTICK lipstick-qt5 REQUIRED IMPORTED_TARGET)
 pkg_check_modules(NEMODEVICELOCK nemodevicelock REQUIRED IMPORTED_TARGET)
+pkg_check_modules(MLITE5 mlite5 IMPORTED_TARGET)
 
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
