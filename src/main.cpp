@@ -32,6 +32,7 @@
 #include <homeapplication.h>
 #include <lipstickqmlpath.h>
 
+#include "geoclueagent.h"
 #include "glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
@@ -84,7 +85,8 @@ int main(int argc, char **argv)
     app.engine()->addImportPath("/usr/lib/qt/qml");
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
-    qmlRegisterType<MceConnect>("org.nemomobile.glacier",1,0, "GlacierMceConnect");
+    qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
+    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -28,25 +28,54 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
+#ifndef GEOCLUE_AGENT_H
+#define GEOCLUE_AGENT_H
 
+#include <QObject>
+#include <QDBusMessage>
+#include <QDBusInterface>
+#include <QDBusPendingCall>
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include <QDBusServiceWatcher>
+#include <QDebug>
+#include <QDBusPendingCall>
 
-import QtQuick 2.6
-import org.nemomobile.glacier 1.0
-import Nemo.Configuration 1.0
+class GeoclueAgent : public QObject
+{
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.freedesktop.GeoClue2.Agent")
+    Q_PROPERTY(bool inUse READ inUse NOTIFY inUseChanged)
+    Q_SCRIPTABLE Q_PROPERTY(uint MaxAccuracyLevel READ MaxAccuracyLevel)
 
-StatusbarItem {
-    id: gpsIndicator
-    iconSize: statusbar.height * 0.75
-    iconSizeHeight: statusbar.height
+public:
+    explicit GeoclueAgent (QObject *parent = nullptr);
+    uint MaxAccuracyLevel();
+    bool inUse() {return  m_inUse;}
 
-    visible: loactionLevel.value != 0
-    transparent: !geoAgent.inUse
+signals:
+    void inUseChanged(bool inUse);
 
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
+public slots:
+    Q_SCRIPTABLE bool AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint &allowed_accuracy_level);
+    bool requiresAuthorization();
 
-    ConfigurationValue {
-        id: loactionLevel
-        key: "/home/glacier/loaction/enabled"
-        defaultValue: "0"
-    }
-}
+    void locationEnabledItemChanded();
+    void loactionLevelItemChanged();
+
+private slots:
+    void onServiceRegistred(const QString &service);
+    void onServiceUnregistred(const QString &service);
+    void authorizationRequestAnswer(QDBusPendingCallWatcher *call);
+    void propertiesChanged(QString interface, QVariantMap properties);
+private:
+    void authorizationRequest();
+    void deleteClient();
+
+    bool m_inUse;
+    bool m_authRequest;
+
+    bool m_locationEnabled;
+    uint m_locationLevel;
+};
+#endif
