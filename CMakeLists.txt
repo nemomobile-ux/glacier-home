@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6.0)
 
 project(glacier-home
-	VERSION 0.27.8
+	VERSION 0.33.0
 	DESCRIPTION "Glacier UX homescreen")
 
 set(CMAKE_AUTOMOC ON)
