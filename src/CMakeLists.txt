@@ -7,7 +7,11 @@ set(SRC
     glacierwindowmodel.cpp
     glacierwindowmodel.h
     mceconnect.cpp
-    mceconnect.h)
+    mceconnect.h
+    polkitinterface.cpp
+    polkitinterface.h
+    polkitagent.cpp
+    polkitagent.h)
 
 #add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
 #    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
@@ -31,7 +35,8 @@ target_link_libraries(lipstick PUBLIC
     Qt5::DBus
     PkgConfig::LIPSTICK
     PkgConfig::MLITE5
-    PkgConfig::NEMODEVICELOCK)
+    PkgConfig::NEMODEVICELOCK
+    PkgConfig::POLKITQT5)
 
 if(QT_VERSION EQUAL "5.6.0")
     target_link_libraries(lipstick PUBLIC
