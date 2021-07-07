@@ -36,6 +36,7 @@
 #include "glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
+#include "polkitinterface.h"
 
 int main(int argc, char **argv)
 {
@@ -87,6 +88,7 @@ int main(int argc, char **argv)
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
     qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
+    qmlRegisterType<PolkitInterface>("org.nemomobile.glacier", 1, 0, "GlacierPolkitInterface");
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 

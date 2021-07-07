@@ -82,6 +82,10 @@ Page {
         id: geoAgent
     }
 
+    GlacierPolkitInterface{
+        id: authAgent
+    }
+
     //force refresh
     Connections {
         target: Lipstick.compositor
