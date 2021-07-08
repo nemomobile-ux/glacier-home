@@ -50,8 +50,6 @@ if(USE_SYSTEMD)
 		DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
 endif()
 
-install(FILES data/glacier-home.privileges
-	DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/mapplauncherd/privileges.d)
 install(FILES data/nemovars.conf
 	DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt5)
 install(FILES
