@@ -2,55 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="cs">
 <context>
-    <name></name>
-    <message id="years-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="75"/>
-        <source>%n year(s) ago</source>
-        <translation>
-            <numerusform>loni</numerusform>
-            <numerusform>Před %n lety</numerusform>
-            <numerusform>Před %n lety</numerusform>
-        </translation>
-    </message>
-    <message id="months-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
-        <source>%n months(s) ago</source>
-        <translation>
-            <numerusform>Před měsícem</numerusform>
-            <numerusform>Před %n měsíci</numerusform>
-            <numerusform>Před %n měsíci</numerusform>
-        </translation>
-    </message>
-    <message id="days-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
-        <source>%n day(s) ago</source>
-        <oldsource>%n months(s) ago</oldsource>
-        <translation>
-            <numerusform>včera</numerusform>
-            <numerusform>před %n dny</numerusform>
-            <numerusform>před %n dny</numerusform>
-        </translation>
-    </message>
-    <message id="hours-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
-        <source>%n hours(s) ago</source>
-        <translation>
-            <numerusform>před hodinou</numerusform>
-            <numerusform>před %n hodinami</numerusform>
-            <numerusform>před %n hodinami</numerusform>
-        </translation>
-    </message>
-    <message id="minutes-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="87"/>
-        <source>%n minutes(s) ago</source>
-        <translation>
-            <numerusform>před minutou</numerusform>
-            <numerusform>před %n minutami</numerusform>
-            <numerusform>před %n minutami</numerusform>
-        </translation>
-    </message>
-</context>
-<context>
     <name>AppSwitcher</name>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="186"/>
@@ -97,7 +48,7 @@
         <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
         <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
         <source>Bluetooth</source>
-        <translation type="unfinished">Bluetooth</translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
@@ -126,32 +77,9 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="35"/>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ControlCenter</name>
-    <message>
-        <source>Wi-Fi</source>
-        <translation type="vanished">Wi-Fi</translation>
-    </message>
-    <message>
-        <source>Bluetooth</source>
-        <translation type="vanished">Bluetooth</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation type="vanished">Data</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation type="vanished">Poloha</translation>
-    </message>
-    <message>
-        <source>Quiet</source>
-        <translation type="vanished">Tichý</translation>
+        <translation>Mobilní data</translation>
     </message>
 </context>
 <context>
@@ -210,7 +138,7 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="187"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="184"/>
         <source>folder</source>
         <translation>složka</translation>
     </message>
@@ -218,9 +146,9 @@
 <context>
     <name>LocationControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="32"/>
+        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
         <source>Location</source>
-        <translation type="unfinished">Poloha</translation>
+        <translation>Poloha</translation>
     </message>
 </context>
 <context>
@@ -236,18 +164,68 @@
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknow artist</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámý umělec</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
         <source>Unknow track</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámá skladba</translation>
     </message>
 </context>
 <context>
     <name>NotificationItem</name>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="74"/>
+        <source>%n year(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>loni</numerusform>
+            <numerusform>Před %n lety</numerusform>
+            <numerusform>Před %n lety</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <source>%n months(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>Před měsícem</numerusform>
+            <numerusform>Před %n měsíci</numerusform>
+            <numerusform>Před %n měsíci</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <source>%n day(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>včera</numerusform>
+            <numerusform>před %n dny</numerusform>
+            <numerusform>před %n dny</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <source>%n hours(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>před hodinou</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <source>%n minutes(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>před minutou</numerusform>
+            <numerusform>před %n minutami</numerusform>
+            <numerusform>před %n minutami</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="89"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>Just now</source>
         <translation>Právě teď</translation>
     </message>
@@ -257,7 +235,7 @@
     <message>
         <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
         <source>Quiet</source>
-        <translation type="unfinished">Tichý</translation>
+        <translation>Tichý</translation>
     </message>
 </context>
 <context>
@@ -314,10 +292,6 @@
         <source>installed on your device</source>
         <translation>nainstalováno na vaše zařízení</translation>
     </message>
-    <message>
-        <source>installed on you device</source>
-        <translation type="vanished">nainstalováno na vaše zařízení</translation>
-    </message>
 </context>
 <context>
     <name>USBModeSelector</name>
@@ -360,10 +334,6 @@
         <translation>Vybrat režim USB</translation>
     </message>
     <message>
-        <source>Always ask</source>
-        <translation type="vanished">Vždy se zeptat</translation>
-    </message>
-    <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="61"/>
         <source>MTP</source>
         <translation>MTP</translation>
@@ -381,16 +351,12 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeptat se</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69"/>
         <source>Developer mode</source>
         <translation>Režim pro vývojáře</translation>
-    </message>
-    <message>
-        <source>Busy</source>
-        <translation type="vanished">Obsazeno</translation>
     </message>
 </context>
 <context>
@@ -398,7 +364,7 @@
     <message>
         <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
 </context>
 <context>

@@ -2,50 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name></name>
-    <message id="years-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="75"/>
-        <source>%n year(s) ago</source>
-        <translation type="unfinished">
-            <numerusform>year ago</numerusform>
-            <numerusform>%n years ago</numerusform>
-        </translation>
-    </message>
-    <message id="months-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
-        <source>%n months(s) ago</source>
-        <translation type="unfinished">
-            <numerusform>month ago</numerusform>
-            <numerusform>%n months ago</numerusform>
-        </translation>
-    </message>
-    <message id="days-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="81"/>
-        <source>%n day(s) ago</source>
-        <oldsource>%n months(s) ago</oldsource>
-        <translation type="unfinished">
-            <numerusform>day ago</numerusform>
-            <numerusform>%n days ago</numerusform>
-        </translation>
-    </message>
-    <message id="hours-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
-        <source>%n hours(s) ago</source>
-        <translation type="unfinished">
-            <numerusform>hour ago</numerusform>
-            <numerusform>%n hours ago</numerusform>
-        </translation>
-    </message>
-    <message id="minutes-ago" numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="87"/>
-        <source>%n minutes(s) ago</source>
-        <translation type="unfinished">
-            <numerusform>minute ago</numerusform>
-            <numerusform>%n minutes ago</numerusform>
-        </translation>
-    </message>
-</context>
-<context>
     <name>AppSwitcher</name>
     <message>
         <location filename="../src/qml/AppSwitcher.qml" line="186"/>
@@ -121,7 +77,7 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="35"/>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -182,7 +138,7 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="187"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="184"/>
         <source>folder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -190,7 +146,7 @@
 <context>
     <name>LocationControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="32"/>
+        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
@@ -218,8 +174,53 @@
 </context>
 <context>
     <name>NotificationItem</name>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="74"/>
+        <source>%n year(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>year ago</numerusform>
+            <numerusform>%n years ago</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <source>%n months(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>month ago</numerusform>
+            <numerusform>%n months ago</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <source>%n day(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>day ago</numerusform>
+            <numerusform>%n days ago</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <source>%n hours(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>hour ago</numerusform>
+            <numerusform>%n hours ago</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <source>%n minutes(s) ago</source>
+        <comment>notifications</comment>
+        <translation>
+            <numerusform>minute ago</numerusform>
+            <numerusform>%n minutes ago</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="89"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>Just now</source>
         <translation type="unfinished"></translation>
     </message>

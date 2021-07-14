@@ -71,20 +71,15 @@ Item {
         var minutes = Math.floor(seconds / 60)
 
         if (years >= 1) {
-            //% "%n year(s) ago"
-            timeAgo = qsTrId("years-ago",years)
+            timeAgo = qsTr("%n year(s) ago", "notifications", years)
         }else if (months >= 1) {
-            //% "%n months(s) ago"
-            timeAgo = qsTrId("months-ago",months)
+            timeAgo = qsTr("%n months(s) ago", "notifications", months)
         }else if (days >= 1) {
-            //% "%n day(s) ago"
-            timeAgo = qsTrId("days-ago",days)
+            timeAgo = qsTr("%n day(s) ago", "notifications", days)
         }else if (hours >= 1) {
-            //% "%n hours(s) ago"
-            timeAgo = qsTrId("hours-ago",hours)
+            timeAgo = qsTr("%n hours(s) ago", "notifications", hours)
         } else if (minutes >= 1) {
-            //% "%n minutes(s) ago"
-            timeAgo = qsTrId("minutes-ago",minutes)
+            timeAgo = qsTr("%n minutes(s) ago", "notifications", minutes)
         } else {
             timeAgo = qsTr("Just now")
         }
