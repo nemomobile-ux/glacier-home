@@ -2,6 +2,8 @@ import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
+import org.nemomobile.lipstick 0.1
+
 import "../scripts/desktop.js" as Desktop
 
 Item {
@@ -235,5 +237,29 @@ Item {
         }
         maximumLineCount: 1
         elide: Text.ElideRight
+    }
+
+    Connections {
+        target: Lipstick.compositor
+        function onDisplayOn() {
+            updateTimeTimer.start()
+        }
+
+        function onDisplayOff() {
+            updateTimeTimer.stop();
+        }
+    }
+
+    Timer{
+        id: updateTimeTimer
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            refreshTimestamp()
+        }
+    }
+
+    Component.onCompleted: {
+        refreshTimestamp()
     }
 }
