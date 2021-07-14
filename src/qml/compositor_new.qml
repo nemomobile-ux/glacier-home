@@ -382,7 +382,7 @@ Item {
 
     Component {
         id: alphaWrapper
-        WindowWrapperAlpha {
+        Item {
         }
     }
 
@@ -427,7 +427,7 @@ Item {
 
             topmostWindow = w
 
-            if (topmostWindow == homeWindow || topmostWindow == null) {
+            if (topmostWindow == homeWindow || topmostWindow == null || w.window.title === "maliit-server") {
                 comp.clearKeyboardFocus()
             } else {
                 if (topmostApplicationWindow)
@@ -461,7 +461,7 @@ Item {
                     && window.title === "Home"
             var isDialogWindow = window.category === "dialog"
             var isNotificationWindow = window.category == "notification"
-            var isOverlayWindow = window.category == "overlay" || window.windowFlags === inputMethodWindowType
+            var isOverlayWindow = window.category == "overlay" || window.windowFlags === inputMethodWindowType || window.title === "maliit-server"
             isAlarmWindow = window.category == "alarm"
             var parent = null
             if (window.category == "cover" || window.title == "_CoverWindow") {
