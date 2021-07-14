@@ -50,7 +50,7 @@ Item {
         }
 
         onClicked: {
-            if(Desktop.instance.deviceLocked) {
+            if (Desktop.instance.lockscreenVisible()) {
                 return
             }
 
