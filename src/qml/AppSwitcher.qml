@@ -21,6 +21,7 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2021, Chupligin Sergey <neochapay@gmail.com>
 
 import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
@@ -51,6 +52,15 @@ Item {
     }
     clip: true
 
+    GlacierWindowModel {
+        id:switcherModel
+    }
+
+    ScrollDecorator{
+        id: decorator
+        flickable: flickable
+    }
+
     Flickable {
         id: flickable
         contentHeight: gridview.height
@@ -77,7 +87,7 @@ Item {
 
         Grid {
             id: gridview
-            columns: 2
+            columns: switcherModel.itemCount > 4  ? 3 : 2
             spacing: closeMode ? Theme.itemSpacingLarge : Theme.itemSpacingSmall
             move: Transition {
                 NumberAnimation {
@@ -87,9 +97,7 @@ Item {
 
             Repeater {
                 id: gridRepeater
-                model: GlacierWindowModel {
-                    id:switcherModel
-                }
+                model: switcherModel
 
                 delegate: Item {
                     width: (desktop.width - (gridview.spacing * (gridview.columns + 1))) / gridview.columns
