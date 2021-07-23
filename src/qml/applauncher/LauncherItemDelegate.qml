@@ -61,12 +61,12 @@ Item {
     LauncherItemWrapper {
         id: launcherItem
         width: wrapper.width
-        height: wrapper.width
+        height: iconWrapper.height+Theme.itemSpacingSmall+Theme.fontSizeTiny*3
         isFolder: wrapper.isFolder
 
         Item {
             id: iconWrapper
-            height: parent.height-Theme.itemSpacingSmall*2
+            height: width
             width: parent.width-Theme.itemSpacingSmall*2
             anchors{
                 top: parent.top

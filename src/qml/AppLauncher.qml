@@ -114,7 +114,7 @@ Flickable{
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight: cellWidth+Theme.itemSpacingMedium*3
+        cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
 
         height: parent.height
         width: parent.width
