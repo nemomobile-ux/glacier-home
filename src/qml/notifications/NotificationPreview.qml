@@ -81,7 +81,7 @@ Item {
             width: notificationWindow.width
             height: notificationArea.notificationHeight
             radius: 32
-            color: "black"
+            color: Theme.backgroundColor
 
             states: [
                 State {
