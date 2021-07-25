@@ -220,6 +220,7 @@ Item {
         text: qsTr("Nothing open yet")
         anchors.centerIn: parent
         fontSizeMode: Text.Fit
+        font.pixelSize: Theme.fontSizeMedium
         color: Theme.textColor
     }
 
