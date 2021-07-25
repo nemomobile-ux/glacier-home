@@ -52,7 +52,7 @@ Page {
         delegate: GalleryDelegate {
             MouseArea {
                 anchors.fill: parent
-                onPressAndHold: {
+                onClicked: {
                     wallpaper.value = url
                     pageStack.pop();
                 }
