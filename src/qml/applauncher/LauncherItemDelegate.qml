@@ -110,6 +110,7 @@ Item {
             id: iconText
             // elide only works if an explicit width is set
             width: iconWrapper.width
+            height: Theme.fontSizeTiny*3
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeTiny

@@ -141,6 +141,8 @@ Item {
             id: iconText
             // elide only works if an explicit width is set
             width: launcherItem.width
+            height: Theme.fontSizeTiny*3
+
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeTiny
