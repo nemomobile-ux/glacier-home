@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2017 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2017-2021 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,16 +29,15 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
+
 import QtQuick 2.6
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-import QtGraphicalEffects 1.0
-import QtFeedback 5.0
-import QtMultimedia 5.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.mpris 1.0
+import org.nemomobile.statusnotifier 1.0
 
 import "statusbar"
 
@@ -73,23 +72,107 @@ Item {
     }
 
     Item {
-        id: statusbar
+        id: statusbarLeft
         height: parent.height*0.5
         width:  parent.width*0.5
         anchors{
             verticalCenter: parent.verticalCenter
             left: parent.left
-            leftMargin: statusbar.height/2
+            leftMargin: statusbarLeft.height/2
+        }
+
+        Row {
+            id: notifyIconArea
+            anchors.fill: statusbarLeft
+            spacing: statusbarLeft.height / 3
+
+            Repeater{
+                id: statusesRepeater
+                model: statusNotiferModel
+
+                delegate: StatusbarItem{
+                    iconSize: statusbarLeft.height
+                    source: notifierItem.icon
+                    visible: notifierItem.status !== StatusNotifierItem.PassiveStatus
+                }
+            }
         }
     }
+
+
     Item {
         id: statusbarRight
         height: parent.height*0.5
         width:  parent.width*0.5
         anchors{
-            verticalCenter: statusbar.verticalCenter
+            verticalCenter: statusbarLeft.verticalCenter
             right: parent.right
             rightMargin: statusbarRight.height/2
+        }
+
+        Row {
+            id: rightStatusBar
+            width: parent.width
+            height: parent.height
+
+            spacing: statusbarRight.height / 3
+            layoutDirection: Qt.RightToLeft
+
+            StatusbarItem {
+                id: clock
+                width: hours.width
+
+                Text {
+                    id: hours
+                    wrapMode: Text.WrapAnywhere
+                    font.pixelSize: statusbarRight.height
+                    color: Theme.textColor
+                    height: statusbarLeft.height
+                    verticalAlignment: Text.AlignVCenter
+
+                    text: {
+                        //Todo: Get regional settings
+                        var separator = ":"
+                        return Qt.formatDateTime(wallClock.time, "hh") + separator + Qt.formatDateTime(wallClock.time, "mm")
+                    }
+                }
+            }
+
+            BatteryIndicator{
+                id: batteryIndicator
+            }
+
+            PowerSaveModeIndicator{
+                id: powerSaveModeIndicator
+            }
+
+            SimIndicator{
+                id: simIndicator
+            }
+
+            DataStatusItem{
+                id: dataStatus
+            }
+
+            WifiIndicator{
+                id: wifiStatus
+            }
+
+            BluetoothIndicator{
+                id: bluetoothIndicator
+            }
+
+            NfcIndicator {
+                id: nfcIndicator
+            }
+
+            LocationIndicator{
+                id: locationIndicator
+            }
+
+            UsbModeIndicator{
+                id: usbModedIndicator
+            }
         }
     }
 
@@ -121,84 +204,6 @@ Item {
             from: panel_loader.height
             to: 0
             easing.type: Easing.InOutQuad
-        }
-    }
-
-    Row {
-        anchors.fill: statusbar
-        spacing: statusbar.height / 3
-
-        Repeater{
-            id: statusesRepeater
-            model: statusNotiferModel
-
-            delegate: StatusbarItem{
-                iconSize: statusbar.height
-                source: notifierItem.icon
-            }
-        }
-    }
-
-    Row {
-        id: rightStatusBar
-
-        anchors.fill: statusbarRight
-        spacing: statusbar.height / 3
-        layoutDirection: Qt.RightToLeft
-
-        StatusbarItem {
-            id: clock
-            Text {
-                id: hours
-                wrapMode: Text.WrapAnywhere
-                font.pixelSize: statusbar.height
-                color: Theme.textColor
-                height: statusbar.height
-                verticalAlignment: Text.AlignVCenter
-
-                text: {
-                    //Todo: Get regional settings
-                    var separator = ":"
-                    return Qt.formatDateTime(wallClock.time, "hh") + separator + Qt.formatDateTime(wallClock.time, "mm")
-                }
-            }
-            iconSize: hours.width
-        }
-
-        BatteryIndicator{
-            id: batteryIndicator
-        }
-
-        PowerSaveModeIndicator{
-            id: powerSaveModeIndicator
-        }
-
-        SimIndicator{
-            id: simIndicator
-        }
-
-        DataStatusItem{
-            id: dataStatus
-        }
-
-        WifiIndicator{
-            id: wifiStatus
-        }
-
-        BluetoothIndicator{
-            id: bluetoothIndicator
-        }
-
-        NfcIndicator {
-            id: nfcIndicator
-        }
-
-        LocationIndicator{
-            id: locationIndicator
-        }
-
-        UsbModeIndicator{
-            id: usbModedIndicator
         }
     }
 }
