@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019 Sergey Chupligin <neochapay@gmail.com>
+** Copyright (C) 2019-2021 Sergey Chupligin <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -39,7 +39,7 @@ import org.nemomobile.ofono 1.0
 
 StatusbarItem{
     id: dataStatus
-    iconSize: statusbar.height
+    iconSize: statusbarRight.height
     visible: false
     transparent: !cellularNetworkTechnology.connected
 

@@ -29,15 +29,14 @@
 **
 ****************************************************************************************/
 
-
 import QtQuick 2.6
 import org.nemomobile.glacier 1.0
 import Nemo.Configuration 1.0
 
 StatusbarItem {
     id: gpsIndicator
-    iconSize: statusbar.height * 0.75
-    iconSizeHeight: statusbar.height
+    iconSize: statusbarRight.height * 0.75
+    iconSizeHeight: statusbarRight.height
 
     visible: loactionLevel.value != 0
     transparent: !geoAgent.inUse

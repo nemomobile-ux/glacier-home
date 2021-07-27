@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2020-2021 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,13 +29,12 @@
 **
 ****************************************************************************************/
 
-
 import QtQuick 2.6
 import org.nemomobile.systemsettings 1.0
 
 StatusbarItem {
     id: wifiStatus
-    iconSize: statusbar.height
+    iconSize: statusbarRight.height
 
     visible: usbModeSettings.currentMode == "developer_mode"
 
