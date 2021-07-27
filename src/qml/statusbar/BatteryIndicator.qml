@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2019-2021 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -39,9 +39,9 @@ StatusbarItem {
     id: batteryIndicator
     property int chargeValue: 0
 
-    width: statusbar.height*2
-    iconSize: statusbar.height * 2
-    iconSizeHeight: statusbar.height
+    width: statusbarRight.height*2
+    iconSize: statusbarRight.height*2
+    iconSizeHeight: statusbarRight.height
 
     MceBatteryLevel {
         id: batteryChargePercentage
@@ -66,14 +66,6 @@ StatusbarItem {
 
     MceCableState{
         id: cableState
-        onConnectedChanged: {
-            if(connected) {
-                chargingTimer.start()
-            } else {
-                chargingTimer.stop()
-                chargeIcon()
-            }
-        }
     }
 
     MceBatteryStatus{
