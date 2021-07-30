@@ -118,9 +118,10 @@ Item {
             spacing: statusbarRight.height / 3
             layoutDirection: Qt.RightToLeft
 
-            StatusbarItem {
+            Item {
                 id: clock
                 width: hours.width
+                height: statusbarLeft.height
 
                 Text {
                     id: hours
@@ -128,6 +129,7 @@ Item {
                     font.pixelSize: statusbarRight.height
                     color: Theme.textColor
                     height: statusbarLeft.height
+
                     verticalAlignment: Text.AlignVCenter
 
                     text: {
