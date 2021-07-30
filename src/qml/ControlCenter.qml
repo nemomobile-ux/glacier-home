@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2017 Samuel Pavlovic <sam@volvosoftware.com>
-** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -35,9 +35,13 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
+import org.nemomobile.statusnotifier 1.0
+
 import Nemo.DBus 2.0
 
 import "controlcenter"
+import "statusbar"
+
 import "scripts/desktop.js" as Desktop
 
 Item{
@@ -112,9 +116,10 @@ Item{
         color: "transparent"
 
         Grid {
-            id: layout
+            id: fastActions
 
             columns: 5
+            clip: true
 
             anchors{
                 top: parent.top
@@ -123,9 +128,9 @@ Item{
             }
 
             width: parent.width
-            height: Theme.itemHeightHuge
+            height: Theme.itemHeightHuge + Theme.fontSizeTiny + Theme.itemSpacingSmall*2
             spacing: Theme.itemSpacingSmall
-            leftPadding: (layout.width-Theme.itemSpacingSmall*layout.columns-Theme.itemHeightHuge*layout.columns)/2
+            leftPadding: (fastActions.width-Theme.itemSpacingSmall*fastActions.columns-Theme.itemHeightHuge*fastActions.columns)/2
 
             WiFiButton{
                 id: wifiButton
@@ -148,6 +153,33 @@ Item{
             }
         }
 
+        Grid{
+            id: statusIcons
+
+            columns: Math.round(parent.width/Theme.itemHeightSmall)
+            width: parent.width
+            height: Theme.itemHeightSmall-Theme.itemSpacingSmall*2
+
+            spacing: Theme.itemSpacingSmall
+            clip: true
+
+            anchors{
+                top: fastActions.bottom
+                topMargin: Theme.itemSpacingSmall
+                left: parent.left
+                leftMargin: Theme.itemSpacingSmall
+            }
+
+            Repeater{
+                id: statusIconsRepeator
+                model: statusNotiferModel
+
+                delegate: StatusbarItem{
+                    iconSize: statusIcons.height
+                    source: notifierItem.icon
+                }
+            }
+        }
     }
 /*Little hack for hide control center*/
     MouseArea{
