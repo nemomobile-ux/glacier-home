@@ -111,6 +111,11 @@ Flickable{
     onSearchStringChanged: searchListViewTimer.restart()
 
     /*app grid*/
+    ScrollDecorator{
+        id: decorator
+        flickable: gridview
+    }
+
     GridView {
         id: gridview
         cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
