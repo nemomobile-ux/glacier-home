@@ -57,6 +57,7 @@ Page {
 
     SettingsColumn{
         id: wallpaperSettings
+        spacing: Theme.itemSpacingLarge
 
         Rectangle{
             id: paralaxWallpaper
