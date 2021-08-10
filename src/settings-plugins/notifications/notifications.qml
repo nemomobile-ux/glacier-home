@@ -39,6 +39,7 @@ Page {
 
     SettingsColumn{
         id: showNotifiBodySettings
+        spacing: Theme.itemSpacingLarge
 
         Rectangle{
             id: showNotifiBodyArea

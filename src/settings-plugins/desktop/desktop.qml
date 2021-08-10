@@ -45,6 +45,7 @@ Page {
 
     SettingsColumn{
         id: windowedModeSettings
+        spacing: Theme.itemSpacingLarge
 
         Rectangle{
             id: windowedModeColumn
@@ -69,7 +70,7 @@ Page {
                 checked: windowedMode.value
                 anchors{
                     right: parent.right
-                    verticalCenter: differentImagesLabel.verticalCenter
+                    verticalCenter: windowedModeLabel.verticalCenter
                 }
                 onClicked: windowedMode.value = checked
             }
