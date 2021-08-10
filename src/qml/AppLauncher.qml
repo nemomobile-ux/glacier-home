@@ -111,10 +111,6 @@ Flickable{
     onSearchStringChanged: searchListViewTimer.restart()
 
     /*app grid*/
-    ScrollDecorator{
-        id: decorator
-        flickable: gridview
-    }
 
     GridView {
         id: gridview
