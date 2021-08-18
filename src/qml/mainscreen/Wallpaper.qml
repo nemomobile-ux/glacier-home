@@ -20,8 +20,8 @@ Item {
     }
 
     ConfigurationValue {
-        id: enableParalax
-        key: "/home/glacier/homeScreen/enableParalax"
+        id: enableParallax
+        key: "/home/glacier/homeScreen/enableParallax"
         defaultValue: true
         onValueChanged: {
             if(!Desktop.instance.lockscreenVisible() && value) {
@@ -34,7 +34,7 @@ Item {
 
     Accelerometer {
         id: accelerometer
-        active: (enableParalax.value === true && !LipstickSettings.lockscreenVisible === true)
+        active: (enableParallax.value === true && !LipstickSettings.lockscreenVisible === true)
         skipDuplicates: true
 
         onReadingChanged: {
@@ -80,7 +80,7 @@ Item {
     Connections {
         target: LipstickSettings
         function onLockscreenVisibleChanged() {
-            if(!LipstickSettings.lockscreenVisible === true && enableParalax.value == true) {
+            if(!LipstickSettings.lockscreenVisible === true && enableParallax.value == true) {
                 accelerometer.active = true
             } else {
                 accelerometer.active = false
