@@ -4,17 +4,17 @@
 <context>
     <name>AppSwitcher</name>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="186"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="194"/>
         <source>Done</source>
         <translation>Hotovo</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="202"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="210"/>
         <source>Close All</source>
         <translation>Zavřít vše</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="212"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="220"/>
         <source>Nothing open yet</source>
         <translation>Ještě není nic otevřeno</translation>
     </message>
@@ -130,7 +130,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="44"/>
+        <location filename="../src/fileutils.cpp" line="48"/>
         <source>Screenshot</source>
         <translation>Snímek obrazovky</translation>
     </message>
@@ -175,7 +175,7 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="74"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -185,7 +185,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -195,7 +195,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -205,7 +205,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -215,7 +215,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -225,7 +225,7 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
         <source>Just now</source>
         <translation>Právě teď</translation>
     </message>
@@ -383,12 +383,12 @@
         <translation>Plocha</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="58"/>
+        <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
         <source>Enable windowed mode</source>
         <translation>Povolit režim v okně</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="87"/>
+        <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
         <source>Always show search panel</source>
         <translation>Vždy zobrazovat panel vyhledávání</translation>
     </message>
@@ -401,7 +401,7 @@
         <translation>Upozornění</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="52"/>
+        <location filename="../src/settings-plugins/notifications/notifications.qml" line="53"/>
         <source>Show notification body on lockscreen</source>
         <translation>Zobrazovat upozoronění na zamykací obrazovce</translation>
     </message>
@@ -422,27 +422,27 @@
         <translation>Tapety</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="71"/>
         <source>Use parallax effect for wallpaper</source>
         <translation>Použít efekt parallaxy pro tapetu</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="99"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="100"/>
         <source>Use different images for lockscreen and home screen</source>
         <translation>Použít jiné obrázky pro zamykací a domácí obrazovku</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Homescreen wallpaper</source>
         <translation>Tapeta domácí obrazovky</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Wallpaper</source>
         <translation>Tapeta</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="161"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
         <source>Lockscreen wallpaper</source>
         <translation>Tapeta zamykací obrazovky</translation>
     </message>

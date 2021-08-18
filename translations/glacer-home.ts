@@ -4,17 +4,17 @@
 <context>
     <name>AppSwitcher</name>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="186"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="194"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="202"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="210"/>
         <source>Close All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="212"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="220"/>
         <source>Nothing open yet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -130,7 +130,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="44"/>
+        <location filename="../src/fileutils.cpp" line="48"/>
         <source>Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -175,7 +175,7 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="74"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -184,7 +184,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -193,7 +193,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -202,7 +202,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -211,7 +211,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -220,7 +220,7 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
         <source>Just now</source>
         <translation type="unfinished"></translation>
     </message>
@@ -378,12 +378,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="58"/>
+        <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
         <source>Enable windowed mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="87"/>
+        <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
         <source>Always show search panel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -396,7 +396,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="52"/>
+        <location filename="../src/settings-plugins/notifications/notifications.qml" line="53"/>
         <source>Show notification body on lockscreen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -417,27 +417,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="71"/>
         <source>Use parallax effect for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="99"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="100"/>
         <source>Use different images for lockscreen and home screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Homescreen wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="132"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="161"/>
+        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
         <source>Lockscreen wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
