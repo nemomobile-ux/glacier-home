@@ -50,8 +50,8 @@ Page {
     }
 
     ConfigurationValue {
-        id: enableParalax
-        key: "/home/glacier/homeScreen/enableParalax"
+        id: enableParallax
+        key: "/home/glacier/homeScreen/enableParallax"
         defaultValue: true
     }
 
@@ -60,31 +60,31 @@ Page {
         spacing: Theme.itemSpacingLarge
 
         Rectangle{
-            id: paralaxWallpaper
+            id: parallaxWallpaper
             width: parent.width
             height: childrenRect.height
 
             color: "transparent"
 
             Label{
-                id: paralaxWallpaperLabel
-                text: qsTr("Use paralax effect for wallpaper");
+                id: parallaxWallpaperLabel
+                text: qsTr("Use parallax effect for wallpaper");
                 anchors{
                     left: parent.left
                     top: parent.top
                 }
-                width: parent.width-paralaxWallpaperCheck.width
+                width: parent.width-parallaxWallpaperCheck.width
                 wrapMode: Text.WordWrap
             }
 
             CheckBox{
-                id: paralaxWallpaperCheck
-                checked: enableParalax.value
+                id: parallaxWallpaperCheck
+                checked: enableParallax.value
                 anchors{
                     right: parent.right
-                    verticalCenter: paralaxWallpaperLabel.verticalCenter
+                    verticalCenter: parallaxWallpaperLabel.verticalCenter
                 }
-                onClicked: enableParalax.value = checked
+                onClicked: enableParallax.value = checked
             }
         }
 

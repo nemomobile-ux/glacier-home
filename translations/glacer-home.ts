@@ -418,7 +418,7 @@
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
-        <source>Use paralax effect for wallpaper</source>
+        <source>Use parallax effect for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

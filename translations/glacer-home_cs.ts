@@ -423,8 +423,8 @@
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="70"/>
-        <source>Use paralax effect for wallpaper</source>
-        <translation>Použít efekt paralaxy pro tapetu</translation>
+        <source>Use parallax effect for wallpaper</source>
+        <translation>Použít efekt parallaxy pro tapetu</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="99"/>
