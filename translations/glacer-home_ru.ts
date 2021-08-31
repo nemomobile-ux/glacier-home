@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="47"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="48"/>
@@ -48,7 +48,7 @@
         <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
         <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
         <source>Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -56,22 +56,22 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отменить</translation>
+        <translation>Отменить</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
         <source>Connect</source>
-        <translation type="unfinished">Соединить</translation>
+        <translation>Соединить</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect to device </source>
-        <translation type="unfinished"></translation>
+        <translation>Соединение с устройством </translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>code: </source>
-        <translation type="unfinished">код: </translation>
+        <translation>код: </translation>
     </message>
 </context>
 <context>
@@ -79,7 +79,7 @@
     <message>
         <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
-        <translation type="unfinished"></translation>
+        <translation>Мобильные данные</translation>
     </message>
 </context>
 <context>
@@ -87,26 +87,26 @@
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
         <source>Removing</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаляется</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
         <source>Uninstalling</source>
-        <translation type="unfinished"></translation>
+        <translation>Деинсталируется</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation>Деинсталировать</translation>
     </message>
     <message>
         <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
         <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
 </context>
 <context>
@@ -148,7 +148,7 @@
     <message>
         <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
         <source>Location</source>
-        <translation type="unfinished">Местоположение</translation>
+        <translation>Местоположение</translation>
     </message>
 </context>
 <context>
@@ -164,12 +164,12 @@
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknow artist</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестный артист</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
         <source>Unknow track</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестный трек</translation>
     </message>
 </context>
 <context>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
         <source>Just now</source>
-        <translation type="unfinished"></translation>
+        <translation>Сейчас</translation>
     </message>
 </context>
 <context>
@@ -235,7 +235,7 @@
     <message>
         <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
         <source>Quiet</source>
-        <translation type="unfinished">Тихий режим</translation>
+        <translation>Тихий режим</translation>
     </message>
 </context>
 <context>
@@ -290,7 +290,7 @@
         <location filename="../src/qml/applauncher/SearchListView.qml" line="269"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
         <source>installed on your device</source>
-        <translation type="unfinished"></translation>
+        <translation>установлен на вашем устройстве</translation>
     </message>
 </context>
 <context>
@@ -308,7 +308,7 @@
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="111"/>
         <source>Mass Storage Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Хранилище данных</translation>
     </message>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131"/>
@@ -351,7 +351,7 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Спрашивать</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69"/>
@@ -364,7 +364,7 @@
     <message>
         <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
