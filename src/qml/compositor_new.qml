@@ -1,9 +1,9 @@
-
 // Copyright (C) 2013 Jolla Ltd.
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
 // Copyright (C) 2017 Aleksi Suomalainen
 // Copyright (C) 2020 Eetu Kahelin
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// Copyright (C) 2021 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+// This file is part of Glacier Home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -44,7 +44,6 @@ Item {
     property int inputMethodWindowType: 2;
 
     function mainReady() {
-        console.log("============ Main screen ready")
         windowedLayer.visible = !Desktop.instance.lockscreen.visible
         valueAnimationLock.target = Desktop.instance.lockscreen
     }
@@ -437,10 +436,10 @@ Item {
                 if (w.window) w.window.takeFocus()
             }
         }
-        onSensorOrientationChanged: {
-            screenOrientation = sensorOrientation
-            contentOrientation = screenOrientation
-        }
+
+        onSensorOrientationChanged: recalcOrientation()
+        onOrientationLockChanged: recalcOrientation()
+
         onDisplayOff: {
             if (root.topmostAlarmWindow == null) {
                 Desktop.instance.codepadVisible = false
@@ -543,6 +542,26 @@ Item {
             if (window.userData)
                 window.userData.destroy()
             Desktop.instance.focus = true
+        }
+
+        screenOrientation: {
+            if (orientationLock == "portrait") {
+                return Qt.PortraitOrientation
+            } else if (orientationLock == "landscape") {
+                return Qt.LandscapeOrientation
+            }
+            return QtQuick.Screen.primaryOrientation
+        }
+
+
+        function recalcOrientation() {
+            if (orientationLock == "portrait") {
+                screenOrientation = (sensorOrientation & Qt.PortraitOrientation)|| Qt.PortraitOrientation
+            } else if (orientationLock == "landscape") {
+                screenOrientation = (sensorOrientation & Qt.LandscapeOrientation) || Qt.LandscapeOrientation
+            } else {
+                screenOrientation = sensorOrientation
+            }
         }
     }
 }
