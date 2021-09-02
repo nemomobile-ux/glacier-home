@@ -62,6 +62,14 @@ Flickable{
     }
 
 
+    LauncherFolderModel{
+        id: launcherModel
+
+        Component.onCompleted: {
+            blacklistedApplications = fileUtils.getBlacklistedApplications();
+        }
+    }
+
     /*top search line*/
     SearchListView {
         id: searchListView
@@ -161,21 +169,19 @@ Flickable{
 
         onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
 
-        model: LauncherFolderModel{
-            id: launcherModel
-        }
+        model: launcherModel
 
-        //Using loader that in the future we can also have widgets as delegate
-        delegate: Loader {
-            id:loader
-            width: gridview.cellWidth
-            height: gridview.cellHeight
-            onXChanged: item.x = x
-            onYChanged: item.y = y
-            property QtObject modelData : model
-            property int cellIndex: index
-            sourceComponent: object.type == LauncherModel.Folder ? folder : app
-        }
+            //Using loader that in the future we can also have widgets as delegate
+            delegate: Loader {
+                id:loader
+                width: gridview.cellWidth
+                height: gridview.cellHeight
+                onXChanged: item.x = x
+                onYChanged: item.y = y
+                property QtObject modelData : model
+                property int cellIndex: index
+                sourceComponent: object.type == LauncherModel.Folder ? folder : app
+            }
 
         Component {
             id:app

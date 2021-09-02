@@ -50,6 +50,29 @@ QString FileUtils::getScreenshotPath()
     return path;
 }
 
+QStringList FileUtils::getBlacklistedApplications()
+{
+    QStringList blackListedApplications;
+    QFile systemBlackListedFile("/etc/glacier/blacklistapp");
+    if(systemBlackListedFile.exists()) {
+        if(systemBlackListedFile.open(QIODevice::ReadOnly)) {
+            while(!systemBlackListedFile.atEnd()) {
+                QString line = systemBlackListedFile.readLine();
+
+                if(line.isEmpty()) {
+                    continue;
+                }
+
+                if(QFile::exists(line) && line.contains(".desktop")) {
+                    blackListedApplications.append(line);
+                }
+            }
+        }
+    }
+
+    return blackListedApplications;
+}
+
 void FileUtils::makeDefaultMenu()
 {
     QDir lipctickConfigDir(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick");
