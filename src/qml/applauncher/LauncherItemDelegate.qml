@@ -78,8 +78,8 @@ Item {
             Image {
                 id: iconImage
                 anchors.centerIn: parent
-                height: parent.height
-                width: parent.width
+                height: launcherItem.reordering ? parent.height*1.2 : parent.height
+                width: launcherItem.reordering ? parent.width*1.2 : parent.width
                 asynchronous: true
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
