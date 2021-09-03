@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="cs">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="cs" version="2.1">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -178,51 +176,31 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>loni</numerusform>
-            <numerusform>Před %n lety</numerusform>
-            <numerusform>Před %n lety</numerusform>
-        </translation>
+        <translation><numerusform>loni</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Před měsícem</numerusform>
-            <numerusform>Před %n měsíci</numerusform>
-            <numerusform>Před %n měsíci</numerusform>
-        </translation>
+        <translation><numerusform>před měsícem</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>včera</numerusform>
-            <numerusform>před %n dny</numerusform>
-            <numerusform>před %n dny</numerusform>
-        </translation>
+        <translation><numerusform>včera</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>před hodinou</numerusform>
-            <numerusform>před %n hodinami</numerusform>
-            <numerusform>před %n hodinami</numerusform>
-        </translation>
+        <translation><numerusform>před hodinou</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>před minutou</numerusform>
-            <numerusform>před %n minutami</numerusform>
-            <numerusform>před %n minutami</numerusform>
-        </translation>
+        <translation><numerusform>před minutou</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
