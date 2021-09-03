@@ -78,7 +78,7 @@ Item {
             y: Math.round((parent.height - (height + iconText.height)) / 2)
             property int iconSize: Theme.iconSizeLauncher * 0.9
             property real transparency: 0.6
-            property int iconCount: 4
+            property int iconCount: 9
             property var icons: addIcons()
 
             function addIcons() {
@@ -90,50 +90,38 @@ Item {
                 return iconsList
             }
 
-            Image {
-                width: folderIconStack.iconSize
-                height: folderIconStack.iconSize
-                x:toppestIcon.x+Theme.itemSpacingSmall
-                y:toppestIcon.y+Theme.itemSpacingSmall
-                visible: folderIconStack.icons.length > folderIconStack.iconCount-1
-                source: visible ? folderIconStack.icons[folderIconStack.iconCount-1] : ""
-            }
+            Grid{
+                id: iconFolderViwe
+                width: folderIconStack.width
+                height: width
 
-            Image {
-                width: folderIconStack.iconSize
-                height: folderIconStack.iconSize
-                x:toppestIcon.x-Theme.itemSpacingSmall
-                y:toppestIcon.y+Theme.itemSpacingSmall
-                visible: folderIconStack.icons.length > folderIconStack.iconCount-2
-                source: visible ? folderIconStack.icons[folderIconStack.iconCount-2] : ""
-            }
+                columns: folderIconStack.icons.length > 4 ? 3 : 2
+                rows: folderIconStack.icons.length > 4 ? 3 : 2
 
-            Image {
-                width: folderIconStack.iconSize
-                height: folderIconStack.iconSize
-                x:toppestIcon.x+Theme.itemSpacingSmall
-                y:toppestIcon.y-Theme.itemSpacingSmall
-                visible: folderIconStack.icons.length > folderIconStack.iconCount-3
-                source: visible ? folderIconStack.icons[folderIconStack.iconCount-3] : ""
-            }
+                Repeater{
+                    id: iconRepeater
+                    model: folderIconStack.icons
 
-            Image {
-                id:toppestIcon
-                width: folderIconStack.iconSize
-                height: folderIconStack.iconSize
-                anchors.centerIn: parent
-                visible: folderIconStack.icons.length > 0
-                source: visible ? folderIconStack.icons[0]: ""
-            }
+                    Item{
+                        id: iconWrapper
+                        width: iconFolderViwe.width/iconFolderViwe.columns
+                        height: width
 
-            Text{
-                id: itemsCount
-                visible: false// launcherItem.isFolder
-                text: wrapper.folderAppsCount
-                anchors.centerIn: parent
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: folderIconStack.iconSize.width/4
-                color: "white"
+                        Image{
+                            id: iconImage
+                            width: iconWrapper.width-Theme.itemSpacingExtraSmall
+                            height: width
+                            anchors.centerIn: parent
+                            source: model.modelData
+
+                            onStatusChanged: {
+                                if (iconImage.status == Image.Error) {
+                                    iconImage.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         // Caption for the icon
