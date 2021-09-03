@@ -7,8 +7,8 @@ After=dbus.socket
 
 [Service]
 Type=simple
-EnvironmentFile=-/var/lib/environment/compositor/*.conf
 EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
+EnvironmentFile=-/var/lib/environment/compositor/*.conf
 ExecStart=/usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
 Restart=on-failure
 TimeoutStartSec=240
