@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2020, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2020-2021, Chupligin Sergey <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
@@ -87,8 +87,9 @@ Item {
                     }
                 }
             }
+
             Spinner {
-                id: spinnerr
+                id: startSpinner
                 anchors.centerIn:  iconImage
                 width: parent.width - Theme.itemSpacingHuge
                 height: width
@@ -97,9 +98,25 @@ Item {
                 Connections {
                     target: Lipstick.compositor
                     function onWindowAdded(window) {
-                        if(window.category=="" && window.title !== "Home"){
-                            spinnerr.stop()
+                        if(window.title == modelData.object.title){
+                            startSpinner.stop()
                         }
+                    }
+                }
+
+                onEnabledChanged: {
+                    if(enabled) {
+                        idleTimer.start()
+                    } else {
+                        idleTimer.stop();
+                    }
+                }
+
+                Timer {
+                    id: idleTimer
+                    interval: 500
+                    onTriggered: {
+                        startSpinner.stop()
                     }
                 }
             }
