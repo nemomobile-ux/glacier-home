@@ -212,7 +212,14 @@ MouseArea {
             enabled = true
         }
     }
-    NumberAnimation { id:deleteAnimation; target: typeof iconWrapper !== 'undefined' ? iconWrapper : parent; property: "opacity"; to: 0.2; duration: 3000;}//Just placeholder to get visual feedback
+
+    NumberAnimation {//Just placeholder to get visual feedback
+        id:deleteAnimation;
+        target: typeof iconWrapper !== 'undefined' ? iconWrapper : parent;
+        property: "opacity";
+        to: 0.2;
+        duration: 3000;
+    }
 
     Timer {
         id: reorderTimer
@@ -233,13 +240,29 @@ MouseArea {
     }
 
     Behavior on scale {
-        NumberAnimation { easing.type: Easing.InOutQuad; duration: 150 }
+        NumberAnimation {
+            easing.type: Easing.InOutQuad;
+            duration: 150
+        }
     }
 
     ParallelAnimation {
         id: slideMoveAnim
-        NumberAnimation { target: launcherItem; property: "x"; to: wrapper.x; duration: 130; easing.type: Easing.OutQuint }
-        NumberAnimation { target: launcherItem; property: "y"; to: wrapper.y; duration: 130; easing.type: Easing.OutQuint }
+        NumberAnimation {
+            target: launcherItem;
+            property: "x";
+            to: wrapper.x;
+            duration: 130;
+            easing.type: Easing.OutQuint
+        }
+
+        NumberAnimation {
+            target: launcherItem;
+            property: "y";
+            to: wrapper.y;
+            duration: 130;
+            easing.type: Easing.OutQuint
+        }
     }
 
     Connections {
