@@ -24,6 +24,7 @@
 
 #include <QStandardPaths>
 #include <QDir>
+#include <QDebug>
 #include <QFile>
 #include <QDateTime>
 #include <QTextStream>
@@ -53,11 +54,18 @@ QString FileUtils::getScreenshotPath()
 QStringList FileUtils::getBlacklistedApplications()
 {
     QStringList blackListedApplications;
-    QFile systemBlackListedFile("/etc/glacier/blacklistapp");
+
+    QByteArray blackListFilePath = qgetenv("GLACIER_BLACKLISTAPP_FILE");
+    if(blackListFilePath.isEmpty()) {
+        qDebug() << "GLACIER_BLACKLISTAPP_FILE env is empty - use default file";
+        blackListFilePath = "/etc/glacier/blacklistapp";
+    }
+
+    QFile systemBlackListedFile(blackListFilePath);
     if(systemBlackListedFile.exists()) {
         if(systemBlackListedFile.open(QIODevice::ReadOnly)) {
             while(!systemBlackListedFile.atEnd()) {
-                QString line = systemBlackListedFile.readLine();
+                QString line = systemBlackListedFile.readLine().replace("\n","");
 
                 if(line.isEmpty()) {
                     continue;
@@ -65,9 +73,15 @@ QStringList FileUtils::getBlacklistedApplications()
 
                 if(QFile::exists(line) && line.contains(".desktop")) {
                     blackListedApplications.append(line);
+                } else {
+                    qWarning() << "Wrong line" << line;
                 }
             }
+        } else {
+            qWarning() << "Can't open blacklist app file" << blackListFilePath;
         }
+    } else {
+        qDebug() << "Blacklist app file" << blackListFilePath << "not exist";
     }
 
     return blackListedApplications;
