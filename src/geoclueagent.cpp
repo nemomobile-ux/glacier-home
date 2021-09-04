@@ -92,25 +92,20 @@ uint GeoclueAgent::MaxAccuracyLevel()
 
 bool GeoclueAgent::AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint &allowed_accuracy_level)
 {
-    qDebug() << Q_FUNC_INFO;
     allowed_accuracy_level = req_accuracy_level;
     return true;
 }
 
 bool GeoclueAgent::requiresAuthorization()
 {
-    qDebug() << Q_FUNC_INFO;
     return m_authRequest;
 }
 
 void GeoclueAgent::propertiesChanged(QString interface, QVariantMap properties)
 {
-    qDebug() << Q_FUNC_INFO << interface << properties;
-
     if (interface == "org.freedesktop.GeoClue2.Manager") {
         if (properties.contains("InUse")) {
             bool currentInUse = std::find(properties.cbegin(), properties.cend(), "InUse")->toBool();
-            qDebug() << ">>>>>>>>>>>>> IN USE " << currentInUse << m_inUse;
 
             if(currentInUse != m_inUse) {
                 m_inUse = currentInUse;
@@ -134,15 +129,12 @@ void GeoclueAgent::loactionLevelItemChanged()
 
 void GeoclueAgent::onServiceRegistred(const QString &service)
 {
-    qDebug() << Q_FUNC_INFO << service;
-
     m_authRequest = true;
     authorizationRequest();
 }
 
 void GeoclueAgent::onServiceUnregistred(const QString &service)
 {
-    qDebug() << Q_FUNC_INFO << service;
     if(!m_authRequest) {
         qDebug() << "Trying restart geoclue";
         QDBusConnection::systemBus().interface()->startService("org.freedesktop.GeoClue2");
@@ -151,7 +143,6 @@ void GeoclueAgent::onServiceUnregistred(const QString &service)
 
 void GeoclueAgent::authorizationRequestAnswer(QDBusPendingCallWatcher *call)
 {
-    qDebug() << Q_FUNC_INFO;
     QDBusPendingReply<void> reply = *call;
 
     if(reply.isError()) {
@@ -173,8 +164,6 @@ void GeoclueAgent::authorizationRequestAnswer(QDBusPendingCallWatcher *call)
 
 void GeoclueAgent::authorizationRequest()
 {
-    qDebug() << Q_FUNC_INFO;
-
     QDBusMessage agentMessage = QDBusMessage::createMethodCall(
                 "org.freedesktop.GeoClue2",
                 "/org/freedesktop/GeoClue2/Manager",
