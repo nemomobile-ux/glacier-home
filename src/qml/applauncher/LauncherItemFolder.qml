@@ -16,6 +16,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2021, Sergey Chupligin <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
@@ -32,7 +33,6 @@ Item {
     property bool reordering: launcherItem.reordering
     property bool isFolder
     property int folderAppsCount
-    property alias folderLoader: folderLoader
     property alias folderModel:launcherItem.folderModel
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
@@ -50,6 +50,7 @@ Item {
             }
         }
     }
+
     // Application icon for the launcher
     LauncherItemWrapper {
         id: launcherItem
@@ -62,7 +63,7 @@ Item {
         onClicked: {
             // TODO: disallow if close mode enabled
             if (modelData.object.type === LauncherModel.Folder) {
-                if(folderLoader.count > 0 || reopenTimer.running) {
+                if(folderLoader.count > 0) {
                     folderLoader.model = 0
                 } else {
                     folderLoader.model = modelData.object
@@ -142,36 +143,6 @@ Item {
                 right: parent.right
             }
         }
-
-        Rectangle {
-            id:triangle
-            width: wrapper.height/4
-            height: width
-            rotation: 45
-            color: Theme.textColor
-            opacity: 0.85
-            visible: folderLoader.visible && folderLoader.count > 0
-            anchors.top:launcherItem.bottom
-            anchors.horizontalCenter: launcherItem.horizontalCenter
-        }
-    }
-
-    FolderView{
-        id: folderLoader
-    }
-
-    //When display goes off, close the folderloader
-    Connections {
-        target: Lipstick.compositor
-        function onDisplayOff() {
-            folderLoader.model = 0
-        }
-    }
-
-    Timer {
-        id: reopenTimer
-        interval: 300
-        running: false
     }
 }
 

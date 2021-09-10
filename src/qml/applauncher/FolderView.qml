@@ -16,7 +16,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2020, Chupigin Sergey <neochapay@gmail.com>
+// Copyright (c) 2020-2021, Chupigin Sergey <neochapay@gmail.com>
 
 import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
@@ -26,20 +26,24 @@ import org.nemomobile.lipstick 0.1
 
 Item{
     id: folderLoader
-    parent: gridview.contentItem
-    y: wrapper.y + wrapper.width
-    x: 0
+    parent: desktop
     z: 9999999999
+
+    width: desktop.width
+    height: desktop.height
+
+    opacity: 0
 
     property alias model: folderGridView.model
     property alias count: folderGridView.count
     property alias reorderItem: folderGridView.reorderItem
 
     Rectangle {
-        anchors.fill: parent
+        width: folderLoader.width
+        height: folderLoader.height
+
         opacity: 0.85
-        color: triangle.color
-        radius: Theme.itemSpacingMedium
+        color: Theme.backgroundColor
         z: -1
     }
 
@@ -47,103 +51,121 @@ Item{
 
     onModelChanged: {
         if(model == 0) {
-            width = 0
-            height = 0
-            folderName.visible = false
             folderName.focus = false
+            opacity = 0
         } else {
-            width = desktop.width
-            height = folderName.height + folderGridView.height
-            folderName.visible = true
+            opacity = 1
         }
     }
-//Show/Edit folder name
-    TextField {
-        id: folderName
-        width: parent.width - Theme.itemSpacingHuge*2
-        visible: false //folderLoader.model != 0
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            topMargin: Theme.itemSpacingHuge
-            leftMargin: Theme.itemSpacingMedium
-            rightMargin: Theme.itemSpacingMedium
-            bottomMargin:Theme.itemSpacingHuge
+    Item {
+        id: mainFolderItem
+        width: parent.width
+        height: childrenRect.height
+
+        IconButton {
+            id: closeButton
+            width: height
+            height: Theme.itemHeightMedium
+            source: "image://theme/times-circle"
+
+            anchors {
+                top: parent.top
+                topMargin: Theme.itemSpacingSmall
+                right: parent.right
+                rightMargin: Theme.itemSpacingSmall
+            }
+
+            onClicked: {
+                closeFolder()
+            }
         }
 
-        text: modelData.object.title
-        textColor : Theme.backgroundColor
+        //Show/Edit folder name
+        TextField {
+            id: folderName
+            width: parent.width - Theme.itemSpacingHuge*2
+            visible: folderLoader.model != 0
 
-        onAccepted: {
-            modelData.object.title = folderName.text
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                topMargin: Theme.itemSpacingHuge
+                leftMargin: Theme.itemSpacingMedium
+                rightMargin: Theme.itemSpacingMedium
+                bottomMargin:Theme.itemSpacingHuge
+            }
+
+            text: model == 0 ? "" : model.title
+            textColor : Theme.textColor
+
+            onAccepted: {
+                model.title = folderName.text
+            }
+
+            onFocusChanged: {
+                if(focus == false && model.title != folderName.text) {
+                    model.title = folderName.text
+                }
+            }
         }
 
-        onFocusChanged: {
-            if(focus == false && modelData.object.title != folderName.text) {
-                modelData.object.title = folderName.text
+        GridView {
+            // view of apps in folder
+            id: folderGridView
+            property Item reorderItem
+            property bool isRootFolder:false
+            property int folderIndex: -1
+            property bool onUninstall: false
+
+            cacheBuffer: (folderGridView.contentHeight > 0) ? folderGridView.contentHeight : 0
+
+            width: parent.width
+            height: childrenRect.height
+
+            anchors{
+                top: folderName.bottom
+                topMargin: Theme.itemSpacingMedium
+            }
+
+            cellWidth:  Math.min(folderLoader.width, folderLoader.height)/(columnCount.value-1)
+            cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
+
+            delegate: LauncherItemDelegate {
+                id:folderLauncherItem
+                property QtObject modelData : model
+                property int cellIndex: index
+                parent: folderGridView
+                parentItem: folderGridView
+                width: folderGridView.cellWidth
+                height: folderGridView.cellHeight
+                isFolder: model.object.type == LauncherModel.Folder
+                source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                iconCaption.text: model.object.title
+                iconCaption.color: Theme.textColor
+                folderModel:folderGridView.model
+            }
+        }
+
+        InverseMouseArea {
+            anchors.fill: parent
+            enabled: folderLoader.width == desktop.width
+
+            onPressed: {
+                closeFolder();
             }
         }
     }
 
-    GridView {
-        // view of apps in folder
-        id: folderGridView
-        property Item reorderItem
-        property bool isRootFolder:false
-        property int folderIndex: -1
-        property bool onUninstall: false
-
-        cacheBuffer: (folderGridView.contentHeight > 0) ? folderGridView.contentHeight : 0
-
-        width: parent.width
-        height: childrenRect.height
-
-        anchors{
-            top: folderName.bottom
-        }
-
-        cellWidth: wrapper.width
-        cellHeight: wrapper.height
-
-        delegate: LauncherItemDelegate {
-            id:folderLauncherItem
-            property QtObject modelData : model
-            property int cellIndex: index
-            parent: folderGridView
-            parentItem: folderGridView
-            width: wrapper.width
-            height: wrapper.height
-            isFolder: model.object.type == LauncherModel.Folder
-            source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
-            iconCaption.text: model.object.title
-            iconCaption.color: Theme.backgroundColor
-            folderModel:folderGridView.model
-        }
-    }
-
-    Behavior on height {
+    Behavior on opacity {
         NumberAnimation {
             easing.type: Easing.InQuad
             duration: 400
         }
     }
 
-    Behavior on width {
-        NumberAnimation {
-            easing.type: Easing.InQuad
-            duration: 400
-        }
-    }
-
-    InverseMouseArea {
-        anchors.fill: parent
-        enabled: count > 0
-
-        onPressed: {
-            folderLoader.model = 0
-            reopenTimer.start()
-        }
+    function closeFolder() {
+        folderLoader.model = 0
     }
 }

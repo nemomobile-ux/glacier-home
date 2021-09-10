@@ -21,7 +21,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018-2020, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2021, Chupligin Sergey <neochapay@gmail.com>
 */
 
 import QtQuick 2.6
@@ -211,6 +211,18 @@ Flickable{
                 folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
                 folderModel:launcherModel
             }
+        }
+    }
+
+    FolderView{
+        id: folderLoader
+    }
+
+    //When display goes off, close the folderloader
+    Connections {
+        target: Lipstick.compositor
+        function onDisplayOff() {
+            folderLoader.model = 0
         }
     }
 }
