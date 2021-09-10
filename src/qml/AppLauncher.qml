@@ -132,7 +132,6 @@ Flickable{
 
         property Item reorderItem
         property bool onUninstall
-        property alias deleter: deleter
         property var switcher: null
         property int iconSize: Theme.itemHeightSmall
 
@@ -213,14 +212,5 @@ Flickable{
                 folderModel:launcherModel
             }
         }
-    }
-
-    Deleter{
-        id: deleter
-        anchors{
-            bottom: parent.bottom
-        }
-
-        state: "uninstall"
     }
 }

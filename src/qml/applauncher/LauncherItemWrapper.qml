@@ -99,7 +99,6 @@ MouseArea {
             if(parentItem.onUninstall){
                 parentItem.onUninstall = false
                 deleteState="basic"
-                deleter.uninstalling(deleteState)
             }
             parentItem.folderIndex = -1
             reparent(parentItem.contentItem)
@@ -122,26 +121,11 @@ MouseArea {
             var item = parentItem.itemAt(gridViewPos.x, gridViewPos.y)
             var idx = -1
             var folderIdx = -1
-            var delPos = deleter.remove.mapFromItem(launcherItem, width/2, height/2)
-            var isdel = deleter.childAt(delPos.x, delPos.y-height/4)
-            var isdel2 = deleter.childAt(delPos.x, delPos.y+height/4)//hjelp?
 
             if(!item) {
                 return;
             }
 
-            if(!isFolder) {
-                if (isdel === deleter.remove || isdel2 ===  deleter.remove) {
-                    deleteState="remove"
-                    deleter.uninstalling(deleteState, iconCaption.text)
-                } else if (isdel === deleter.uninstall || isdel2 ===  deleter.uninstall) {
-                    deleteState="uninstall"
-                    deleter.uninstalling(deleteState, iconCaption.text)
-                } else{
-                    deleteState="basic"
-                    deleter.uninstalling(deleteState)
-                }
-            }
             //When adding new icon to folder or creating new folder
             var offset = gridViewPos.x - item.x
             var folderThreshold = !isFolder ? item.width / 4 : item.width / 2
