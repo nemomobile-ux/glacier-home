@@ -550,7 +550,7 @@ Item {
             } else if (orientationLock == "landscape") {
                 return Qt.LandscapeOrientation
             }
-            return QtQuick.Screen.primaryOrientation
+            return nativeOrientation
         }
 
 
