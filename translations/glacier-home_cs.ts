@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="cs" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="cs">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -75,36 +77,32 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
-        <translation>Mobilní data</translation>
+        <translation type="vanished">Mobilní data</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
+        <source>Cellular data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Deleter</name>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
         <source>Removing</source>
-        <translation>Odstraňuje se</translation>
+        <translation type="vanished">Odstraňuje se</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
         <source>Uninstalling</source>
-        <translation>Odinstalovává se</translation>
+        <translation type="vanished">Odinstalovává se</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
         <source>Uninstall</source>
-        <translation>Odinstalovat</translation>
+        <translation type="vanished">Odinstalovat</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
         <source>Remove</source>
-        <translation>Odstranit</translation>
+        <translation type="vanished">Odstranit</translation>
     </message>
 </context>
 <context>
@@ -128,7 +126,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="48"/>
+        <location filename="../src/fileutils.cpp" line="49"/>
         <source>Screenshot</source>
         <translation>Snímek obrazovky</translation>
     </message>
@@ -136,7 +134,7 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="184"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
         <source>folder</source>
         <translation>složka</translation>
     </message>
@@ -160,14 +158,22 @@
 <context>
     <name>MediaControls</name>
     <message>
-        <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknow artist</source>
-        <translation>Neznámý umělec</translation>
+        <translation type="vanished">Neznámý umělec</translation>
+    </message>
+    <message>
+        <source>Unknow track</source>
+        <translation type="vanished">Neznámá skladba</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
+        <source>Unknown artist</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
-        <source>Unknow track</source>
-        <translation>Neznámá skladba</translation>
+        <source>Unknown track</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -176,31 +182,51 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>loni</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform></translation>
+        <translation>
+            <numerusform>loni</numerusform>
+            <numerusform>před %n lety</numerusform>
+            <numerusform>před %n lety</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před měsícem</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform></translation>
+        <translation>
+            <numerusform>před měsícem</numerusform>
+            <numerusform>před %n měsíci</numerusform>
+            <numerusform>před %n měsíci</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>včera</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform></translation>
+        <translation>
+            <numerusform>včera</numerusform>
+            <numerusform>před %n dny</numerusform>
+            <numerusform>před %n dny</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před hodinou</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform></translation>
+        <translation>
+            <numerusform>před hodinou</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před minutou</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform></translation>
+        <translation>
+            <numerusform>před minutou</numerusform>
+            <numerusform>před %n minutami</numerusform>
+            <numerusform>před %n minutami</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>

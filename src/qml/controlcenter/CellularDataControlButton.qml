@@ -30,7 +30,7 @@ ControlButton{
     id: cellularDataControlButton
 
     image: "image://theme/exchange-alt"
-    textLabel: qsTr("Cellural data")
+    textLabel: qsTr("Cellular data")
     assignedSettingsPage: "mobile"
 
     activated: cellularNetworkTechnology.connected

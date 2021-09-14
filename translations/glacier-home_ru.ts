@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -75,36 +77,32 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
-        <translation>Мобильные данные</translation>
+        <translation type="vanished">Мобильные данные</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
+        <source>Cellular data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Deleter</name>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
         <source>Removing</source>
-        <translation>Удаляется</translation>
+        <translation type="vanished">Удаляется</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
         <source>Uninstalling</source>
-        <translation>Удаляется</translation>
+        <translation type="vanished">Удаляется</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
         <source>Uninstall</source>
-        <translation>Деинсталировать</translation>
+        <translation type="vanished">Деинсталировать</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
         <source>Remove</source>
-        <translation>Удалить</translation>
+        <translation type="vanished">Удалить</translation>
     </message>
 </context>
 <context>
@@ -128,7 +126,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="48"/>
+        <location filename="../src/fileutils.cpp" line="49"/>
         <source>Screenshot</source>
         <translation>Снимок экрана</translation>
     </message>
@@ -136,7 +134,7 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="184"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
         <source>folder</source>
         <translation>папка</translation>
     </message>
@@ -160,14 +158,22 @@
 <context>
     <name>MediaControls</name>
     <message>
-        <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknow artist</source>
-        <translation>Неизвестный артист</translation>
+        <translation type="vanished">Неизвестный артист</translation>
+    </message>
+    <message>
+        <source>Unknow track</source>
+        <translation type="vanished">Неизвестный трек</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
+        <source>Unknown artist</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
-        <source>Unknow track</source>
-        <translation>Неизвестный трек</translation>
+        <source>Unknown track</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -176,31 +182,51 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>год назад</numerusform><numerusform>лет назад</numerusform><numerusform>лет назад</numerusform><numerusform>%n лет назад</numerusform></translation>
+        <translation>
+            <numerusform>год назад</numerusform>
+            <numerusform>лет назад</numerusform>
+            <numerusform>лет назад</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>месяц назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>%n месяцев назад</numerusform></translation>
+        <translation>
+            <numerusform>месяц назад</numerusform>
+            <numerusform>месяцев назад</numerusform>
+            <numerusform>месяцев назад</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>день назад</numerusform><numerusform>дней назад</numerusform><numerusform>дней назад</numerusform><numerusform>%n дней назад</numerusform></translation>
+        <translation>
+            <numerusform>день назад</numerusform>
+            <numerusform>дней назад</numerusform>
+            <numerusform>дней назад</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>час назад</numerusform><numerusform>часов назад</numerusform><numerusform>часов назад</numerusform><numerusform>%n часов назад</numerusform></translation>
+        <translation>
+            <numerusform>час назад</numerusform>
+            <numerusform>часов назад</numerusform>
+            <numerusform>часов назад</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>минута назад</numerusform><numerusform>минут назад</numerusform><numerusform>минут назад</numerusform><numerusform>%n минут назад</numerusform></translation>
+        <translation>
+            <numerusform>минута назад</numerusform>
+            <numerusform>минут назад</numerusform>
+            <numerusform>минут назад</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>

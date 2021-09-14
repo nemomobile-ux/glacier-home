@@ -53,8 +53,8 @@ Item {
             var artistTag = Mpris.metadataToString(Mpris.Artist)
             var titleTag = Mpris.metadataToString(Mpris.Title)
 
-            artistLabel.text = (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : qsTr("Unknow artist")
-            songLabel.text = (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : qsTr("Unknow track")
+            artistLabel.text = (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : qsTr("Unknown artist")
+            songLabel.text = (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : qsTr("Unknown track")
         }
     }
 
