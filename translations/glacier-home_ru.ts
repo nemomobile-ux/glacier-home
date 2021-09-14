@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ru">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -77,32 +75,9 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <source>Cellural data</source>
-        <translation type="vanished">Мобильные данные</translation>
-    </message>
-    <message>
         <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellular data</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Deleter</name>
-    <message>
-        <source>Removing</source>
-        <translation type="vanished">Удаляется</translation>
-    </message>
-    <message>
-        <source>Uninstalling</source>
-        <translation type="vanished">Удаляется</translation>
-    </message>
-    <message>
-        <source>Uninstall</source>
-        <translation type="vanished">Деинсталировать</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Удалить</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -158,22 +133,14 @@
 <context>
     <name>MediaControls</name>
     <message>
-        <source>Unknow artist</source>
-        <translation type="vanished">Неизвестный артист</translation>
-    </message>
-    <message>
-        <source>Unknow track</source>
-        <translation type="vanished">Неизвестный трек</translation>
-    </message>
-    <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknown artist</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
         <source>Unknown track</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -182,51 +149,31 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>год назад</numerusform>
-            <numerusform>лет назад</numerusform>
-            <numerusform>лет назад</numerusform>
-        </translation>
+        <translation><numerusform>год назад</numerusform><numerusform>лет назад</numerusform><numerusform>лет назад</numerusform><numerusform>%n лет назад</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>месяц назад</numerusform>
-            <numerusform>месяцев назад</numerusform>
-            <numerusform>месяцев назад</numerusform>
-        </translation>
+        <translation><numerusform>месяц назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>%n месяцев назад</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>день назад</numerusform>
-            <numerusform>дней назад</numerusform>
-            <numerusform>дней назад</numerusform>
-        </translation>
+        <translation><numerusform>день назад</numerusform><numerusform>дней назад</numerusform><numerusform>дней назад</numerusform><numerusform>%n дней назад</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>час назад</numerusform>
-            <numerusform>часов назад</numerusform>
-            <numerusform>часов назад</numerusform>
-        </translation>
+        <translation><numerusform>час назад</numerusform><numerusform>часов назад</numerusform><numerusform>часов назад</numerusform><numerusform>%n часов назад</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>минута назад</numerusform>
-            <numerusform>минут назад</numerusform>
-            <numerusform>минут назад</numerusform>
-        </translation>
+        <translation><numerusform>минута назад</numerusform><numerusform>минут назад</numerusform><numerusform>минут назад</numerusform><numerusform>%n минут назад</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
