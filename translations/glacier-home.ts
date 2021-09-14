@@ -83,33 +83,6 @@
     </message>
 </context>
 <context>
-    <name>Deleter</name>
-    <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="38"/>
-        <source>Removing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="40"/>
-        <source>Uninstalling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="61"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="103"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="181"/>
-        <source>Uninstall</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="80"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="93"/>
-        <location filename="../src/qml/applauncher/Deleter.qml" line="138"/>
-        <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DeviceLockUI</name>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
@@ -130,7 +103,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="48"/>
+        <location filename="../src/fileutils.cpp" line="49"/>
         <source>Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -138,7 +111,7 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="184"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
         <source>folder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -163,12 +136,12 @@
     <name>MediaControls</name>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
-        <source>Unknow artist</source>
+        <source>Unknown artist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
-        <source>Unknow track</source>
+        <source>Unknown track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
