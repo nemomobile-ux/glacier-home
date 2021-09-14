@@ -211,6 +211,16 @@ Item {
                     cancelAnimation.start()
                 }
             }
+
+            if (!Desktop.instance.lockscreenVisible() && !diagonal) {
+                if (gesture == "down") {
+                    if (gestureArea.value >= Desktop.instance.height / 2) {
+                        Desktop.instance.controlcenter.height = Desktop.instance.height
+                    } else {
+                        Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
+                    }
+                }
+            }
             comp.gestureOnGoing = false
         }
         // States are for the animations that follow your finger during swipes
