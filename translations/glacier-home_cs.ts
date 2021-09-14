@@ -77,9 +77,13 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellural data</source>
-        <translation>Mobilní data</translation>
+        <translation type="vanished">Mobilní data</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
+        <source>Cellular data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
