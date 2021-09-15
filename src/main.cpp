@@ -42,9 +42,18 @@ int main(int argc, char **argv)
 {
     HomeApplication app(argc, argv, QString());
 
-    QTranslator myappTranslator;
-    myappTranslator.load(QStringLiteral("/usr/share/lipstick-glacier-home-qt5/translations/glacer-home_%1.qm").arg(QLocale::system().name()));
-    app.installTranslator(&myappTranslator);
+
+    QTranslator* myappTranslator = new QTranslator(&app);
+    if (myappTranslator->load(QLocale(), QLatin1String("glacer-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/")) ) {
+        qDebug() << "translation.load() success" << QLocale::system().name();
+        if (app.installTranslator(myappTranslator)) {
+            qDebug() << "installTranslator() success" << QLocale::system().name();
+        } else {
+            qDebug() << "installTranslator() failed" << QLocale::system().name();
+        }
+    } else {
+        qDebug() << "translation.load() failed" << QLocale::system().name();
+    }
 
     QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
