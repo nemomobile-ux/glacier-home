@@ -55,6 +55,7 @@ Item{
             opacity = 0
         } else {
             opacity = 1
+            folderName.text = model.title
         }
     }
 
@@ -97,7 +98,6 @@ Item{
                 bottomMargin:Theme.itemSpacingHuge
             }
 
-            text: model == 0 ? "" : model.title
             textColor : Theme.textColor
 
             onAccepted: {
