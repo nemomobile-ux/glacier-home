@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 
 
     QTranslator* myappTranslator = new QTranslator(&app);
-    if (myappTranslator->load(QLocale(), QLatin1String("glacer-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/")) ) {
+    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/")) ) {
         qDebug() << "translation.load() success" << QLocale::system().name();
         if (app.installTranslator(myappTranslator)) {
             qDebug() << "installTranslator() success" << QLocale::system().name();
