@@ -77,7 +77,7 @@
     <message>
         <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
         <source>Cellular data</source>
-        <translation type="unfinished"/>
+        <translation>Dane komórkowe</translation>
     </message>
 </context>
 <context>
@@ -135,12 +135,12 @@
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknown artist</source>
-        <translation type="unfinished"/>
+        <translation>Nieznany wykonawca</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
         <source>Unknown track</source>
-        <translation type="unfinished"/>
+        <translation>Nieznany utwór</translation>
     </message>
 </context>
 <context>
