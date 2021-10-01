@@ -16,12 +16,7 @@ bool GlacierWindowModel::approveWindow(LipstickCompositorWindow *window)
     bool accepted = window->isInProcess() == false
             && window->category() != QLatin1String("overlay")
             && window->category() != QLatin1String("cover")
-            && window->title() != QLatin1String("maliit-server")
-#if QT_VERSION >= 0x050700
-            && window->windowFlags() != 2;
-#else
-            ;
-#endif
+            && window->title() != QLatin1String("maliit-server");
     if (accepted) {
         m_titles.insert(window->title(), window->windowId());
     }

@@ -464,13 +464,13 @@ Item {
 
         onWindowAdded: {
             console.log("Compositor: Window added \"" + window.title + "\""
-                        + " category: " + window.category + " flags " + window.windowFlags)
+                        + " category: " + window.category)
 
             var isHomeWindow = window.isInProcess && comp.homeWindow == null
                     && window.title === "Home"
             var isDialogWindow = window.category === "dialog"
             var isNotificationWindow = window.category == "notification"
-            var isOverlayWindow = window.category == "overlay" || window.windowFlags === inputMethodWindowType || window.title === "maliit-server"
+            var isOverlayWindow = window.category == "overlay" || window.title === "maliit-server"
             isAlarmWindow = window.category == "alarm"
             var parent = null
             if (window.category == "cover" || window.title == "_CoverWindow") {
