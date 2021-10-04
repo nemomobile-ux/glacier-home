@@ -97,7 +97,7 @@ Page {
 
     //USB mode selector connections
     Connections{
-        target: USBModeSelector
+        target: usbModeSelector
         function onWindowVisibleChanged() {
             if(usbModeSelector.windowVisible) {
                 usbModedDialog.visible = true
@@ -113,7 +113,7 @@ Page {
 
     /*Bluetooth section */
     Connections{
-        target: BluetoothAgent
+        target: bluetoothAgent
 
         function onWindowVisibleChanged() {
             btRequestConfirmationDialog.deviceCode = code
