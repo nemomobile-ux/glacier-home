@@ -82,8 +82,27 @@ Page {
         id: geoAgent
     }
 
+
     GlacierPolkitInterface{
         id: authAgent
+    }
+
+    DBusAdaptor {
+        id: btDbusAdapter
+        service: "org.nemomobile.lipstick"
+        path: "/org/nemomobile/lipstick/bluetoothagent"
+        iface: "org.nemomobile.lipstick"
+
+        signal pair(string address)
+        signal unPair(string address)
+
+        signal connectDevice(string address)
+
+        signal replyToAgentRequest(int requestId, int error, string passkey)
+
+        onPair: bluetoothAgent.pair(address)
+        onUnPair: bluetoothAgent.unPair(address)
+        onConnectDevice: bluetoothAgent.connectDevice(address)
     }
 
     //force refresh
