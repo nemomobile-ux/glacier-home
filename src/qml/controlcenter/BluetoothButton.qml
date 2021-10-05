@@ -63,7 +63,7 @@ ControlButton {
 
 
     function updateLabel() {
-        if(bluetoothModel.powered) {
+        if(bluetoothModel.powered && _adapter) {
             bluetoothButton.textLabel = _adapter.name
         } else {
             bluetoothButton.textLabel = qsTr("Bluetooth")

@@ -115,15 +115,38 @@ Page {
     Connections{
         target: bluetoothAgent
 
-        function onWindowVisibleChanged() {
+        function onShowRequiesDialog(btMacAddres, name, code) {
             btRequestConfirmationDialog.deviceCode = code
             btRequestConfirmationDialog.deviceName = name
+            btRequestConfirmationDialog.mac = btMacAddres
             btRequestConfirmationDialog.open();
+        }
+    }
+
+    Connections{
+        target: bluetoothObexAgent
+
+        function onShowRequiesDialog(deviceName, fileName) {
+            btObexRequestConfirmationDialog.deviceName = deviceName
+            btObexRequestConfirmationDialog.fileName = fileName
+            btObexRequestConfirmationDialog.open()
+        }
+
+        function onError() {
+            btObexRequestConfirmationDialog.close()
+        }
+
+        function transferFinished(resultPath) {
+            btObexRequestConfirmationDialog.close()
         }
     }
 
     BtRequestConfirmationDialog{
         id: btRequestConfirmationDialog
+    }
+
+    BtObexRequestConfirmationDialog{
+        id: btObexRequestConfirmationDialog
     }
 
     UsbModeDialog{

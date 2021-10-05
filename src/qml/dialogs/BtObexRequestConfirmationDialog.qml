@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -37,27 +37,25 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import Nemo.Dialogs 1.0
 
 QueryDialog {
-    id: btRequestConfirmationDialog
+    id: btObexRequestConfirmationDialog
     visible: false
-    property string mac: ""
     property string deviceName: ""
-    property string deviceCode: ""
+    property string fileName: ""
 
     inline: false
 
     cancelText: qsTr("Cancel")
-    acceptText: qsTr("Connect")
-    headingText: qsTr("Connect to device ") + deviceName
-    subLabelText: qsTr("code: ") + deviceCode
+    acceptText: qsTr("Download")
+    headingText: deviceName+" "+qsTr("send you file")
+    subLabelText: fileName
 
-    icon: "image://theme/link"
+    icon: "image://theme/file-download"
 
     onAccepted: {
-        console.log("Paring to "+mac)
-        bluetoothAgent.requestConfirmationAccept()
+        bluetoothObexAgent.requestConfirmationAccept()
     }
 
     onCanceled: {
-        bluetoothAgent.requestConfirmationReject()
+        bluetoothObexAgent.requestConfirmationReject()
     }
 }
