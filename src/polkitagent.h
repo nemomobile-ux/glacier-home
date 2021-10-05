@@ -29,9 +29,9 @@ QT_END_NAMESPACE
 class PolkitAuthAgentAdaptor: public QDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.lipstick.polkitAuthAgent")
+    Q_CLASSINFO("D-Bus Interface", "org.nemomobile.lipstick.polkitAuthAgent")
     Q_CLASSINFO("D-Bus Introspection", ""
-"  <interface name=\"org.lipstick.polkitAuthAgent\">\n"
+"  <interface name=\"org.nemomobile.lipstick.polkitAuthAgent\">\n"
 "    <method name=\"initiateAuthenticationFinish\">\n"
 "      <arg direction=\"out\" type=\"b\"/>\n"
 "    </method>\n"

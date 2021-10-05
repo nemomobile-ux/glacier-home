@@ -43,7 +43,7 @@
 class PolkitInterface : public PolkitQt1::Agent::Listener
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.lipstick.polkitAuthAgent")
+    Q_CLASSINFO("D-Bus Interface", "org.nemomobile.lipstick.polkitAuthAgent")
 
     Q_PROPERTY(QString message READ message NOTIFY messageChanged)
     Q_PROPERTY(QString user READ user NOTIFY userChanged)

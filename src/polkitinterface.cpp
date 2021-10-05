@@ -42,9 +42,9 @@ PolkitInterface::PolkitInterface(QObject *parent) : PolkitQt1::Agent::Listener(p
 {
     new PolkitAuthAgentAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerService("org.lipstick.polkitAuthAgent");
+    dbus.registerService("org.nemomobile.lipstick.polkitAuthAgent");
 
-    if (!QDBusConnection::sessionBus().registerObject("/org/lipstick/polkitAuthAgent"
+    if (!QDBusConnection::sessionBus().registerObject("/org/nemomobile/lipstick/polkitAuthAgent"
                                                       , this,
                                                       QDBusConnection::ExportScriptableSlots |
                                                       QDBusConnection::ExportScriptableProperties |
