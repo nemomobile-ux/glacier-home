@@ -50,24 +50,42 @@
     </message>
 </context>
 <context>
-    <name>BtRequestConfirmationDialog</name>
+    <name>BtObexRequestConfirmationDialog</name>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
+        <source>Download</source>
+        <translation>Stáhnout</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
+        <source>send you file</source>
+        <translation>odeslat soubor</translation>
+    </message>
+</context>
+<context>
+    <name>BtRequestConfirmationDialog</name>
+    <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>Connect to device </source>
         <translation>Připojit k zařízení </translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
         <translation>kód: </translation>
     </message>
