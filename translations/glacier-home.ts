@@ -52,24 +52,42 @@
     </message>
 </context>
 <context>
-    <name>BtRequestConfirmationDialog</name>
+    <name>BtObexRequestConfirmationDialog</name>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
+        <source>send you file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BtRequestConfirmationDialog</name>
+    <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
-        <source>Connect</source>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
-        <source>Connect to device </source>
+        <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
+        <source>Connect to device </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
         <translation type="unfinished"></translation>
     </message>
