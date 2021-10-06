@@ -1,5 +1,4 @@
-
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +20,7 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2021, Chipligin Sergey <neochapay@gmail.com>
 
 import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
@@ -31,101 +31,106 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import "notifications"
 
-Flickable {
-    id: mainFlickable
-    clip: true
-    contentHeight: rootitem.height
-    contentWidth: parent.width
+Item {
+    id: feedsPage
+    width: desktop.width
+    height: desktop.height-statusbar.height
 
     Rectangle{
         id: bg
-        width: desktop.width
-        height: desktop.height-statusbar.height
+        anchors.fill: parent
         color: Theme.backgroundColor
         opacity: 0.6
     }
 
-    onXChanged: {
-        if(x < 0){
-            bg.opacity = 0.6*(desktop.width+x)/desktop.width
-        }else{
-            bg.opacity = 0.6*(desktop.width-x)/desktop.width
-        }
-    }
+    Flickable {
+        id: mainFlickable
+        anchors.fill: parent
+        clip: true
+        contentHeight: rootitem.height
+        contentWidth: parent.width
 
-    Item {
-        id: rootitem
-        width: parent.width
-        height: childrenRect.height
-        // Day of week
-        Rectangle {
-            id: daterow
-            height: Theme.itemHeightMedium
-            width: parent.width
-
-            anchors{
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
-                topMargin: Theme.itemSpacingLarge
-                bottomMargin: Theme.itemSpacingLarge
+        onXChanged: {
+            if(x < 0){
+                bg.opacity = 0.6*(desktop.width+x)/desktop.width
+            }else{
+                bg.opacity = 0.6*(desktop.width-x)/desktop.width
             }
+        }
 
-            color: "transparent"
+        Item {
+            id: rootitem
+            width: parent.width
+            height: childrenRect.height
+            // Day of week
+            Rectangle {
+                id: daterow
+                height: Theme.itemHeightMedium
+                width: parent.width
 
-            Label {
-                id: displayDayOfWeek
-                text: Qt.formatDateTime(wallClock.time, "dddd")
-                color: Theme.textColor
-                font.pixelSize: Theme.fontSizeLarge
-                anchors {
+                anchors{
                     top: parent.top
-                    horizontalCenter: parent.horizontalCenter
+                    horizontalCenter: parent.rootitemhorizontalCenter
+                    topMargin: Theme.itemSpacingLarge
+                    bottomMargin: Theme.itemSpacingLarge
                 }
+
+                color: "transparent"
+
+                Label {
+                    id: displayDayOfWeek
+                    text: Qt.formatDateTime(wallClock.time, "dddd")
+                    color: Theme.textColor
+                    font.pixelSize: Theme.fontSizeLarge
+                    anchors {
+                        top: parent.top
+                        horizontalCenter: parent.horizontalCenter
+                    }
+                }
+
+                // Current date
+                Label {
+                    id: displayCurrentDate
+                    text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
+                    font.pixelSize: Theme.fontSizeLarge
+                    color: Theme.textColor
+                    font.weight: Font.Light
+                    wrapMode: Text.WordWrap
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        top: displayDayOfWeek.bottom
+                    }
+                }
+            }
+            Timer {
+                id: timestampTimer
+                interval: 60000
+                running: true
+                repeat: true
             }
 
-            // Current date
-            Label {
-                id: displayCurrentDate
-                text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                font.pixelSize: Theme.fontSizeLarge
-                color: Theme.textColor
-                font.weight: Font.Light
-                wrapMode: Text.WordWrap
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    top: displayDayOfWeek.bottom
+            Column {
+                id: notificationColumn
+                width: parent.width
+                anchors{
+                    top: daterow.bottom
+                    topMargin: Theme.itemHeightLarge*1.5
                 }
-            }
-        }
-        Timer {
-            id: timestampTimer
-            interval: 60000
-            running: true
-            repeat: true
-        }
-
-        Column {
-            id: notificationColumn
-            width: parent.width
-            anchors{
-                top: daterow.bottom
-                topMargin: Theme.itemHeightLarge*1.5
-            }
-            spacing: Theme.itemSpacingExtraSmall
-            Repeater {
-                model: NotificationListModel {
-                    id: notifmodel
-                }
-                delegate: NotificationItem{
-                    id: notifItem
-                    Connections {
-                        target: timestampTimer
-                        function onTriggered() { notifItem.refreshTimestamp() }
-                        function onRunningChanged(running) { if (timestampTimer.running) notifItem.refreshTimestamp() }
+                spacing: Theme.itemSpacingExtraSmall
+                Repeater {
+                    model: NotificationListModel {
+                        id: notifmodel
+                    }
+                    delegate: NotificationItem{
+                        id: notifItem
+                        Connections {
+                            target: timestampTimer
+                            function onTriggered() { notifItem.refreshTimestamp() }
+                            function onRunningChanged(running) { if (timestampTimer.running) notifItem.refreshTimestamp() }
+                        }
                     }
                 }
             }
         }
     }
 }
-
