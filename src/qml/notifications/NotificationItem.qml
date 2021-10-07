@@ -1,3 +1,34 @@
+/****************************************************************************************
+**
+** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
+** All rights reserved.
+**
+** You may use this file under the terms of BSD license as follows:
+**
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are met:
+**     * Redistributions of source code must retain the above copyright
+**       notice, this list of conditions and the following disclaimer.
+**     * Redistributions in binary form must reproduce the above copyright
+**       notice, this list of conditions and the following disclaimer in the
+**       documentation and/or other materials provided with the distribution.
+**     * Neither the name of the author nor the
+**       names of its contributors may be used to endorse or promote products
+**       derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+** ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+** DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
+** ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+** (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+** LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+** ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**
+****************************************************************************************/
+
 import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -9,12 +40,8 @@ import "../scripts/desktop.js" as Desktop
 Item {
     id: notifyArea
 
-    height: Theme.itemHeightExtraLarge
-    width: parent.width-Theme.itemSpacingSmall*2
-    anchors{
-        left: parent.left
-        leftMargin: Theme.itemSpacingSmall
-    }
+    height: modelData.progress == 0 ? Theme.itemHeightExtraLarge : Theme.itemHeightExtraLarge + Theme.itemHeightExtraSmall
+    width: parent.width-Theme.itemSpacingSmall
 
     clip: true
 
@@ -25,15 +52,15 @@ Item {
 
     property alias appTimestamp: appTimestamp
     property alias pressBg: pressBg
-    property int iconSize:Math.min(Theme.iconSizeLauncher, height-Theme.itemSpacingMedium)
+    property int iconSize: height-Theme.itemSpacingMedium
     property string timeAgo
     property int swipeTreshold: notifyArea.width/3
 
     MouseArea{
         id: notifyMouseArea
-        anchors.fill: parent
+        anchors.fill: notifyArea
 
-        drag.target: modelData.userRemovable ? notifyArea : null
+        drag.target: notifyArea
         drag.axis: Drag.XAxis
         drag.minimumX: -notifyArea.width
         drag.maximumX: notifyArea.width
@@ -97,6 +124,7 @@ Item {
         easing.type: Easing.InOutQuad
         onStopped: modelData.actionInvoked("default")
     }
+
     NumberAnimation {
         id:slideReverseAnimation
         target: notifyArea
@@ -107,6 +135,7 @@ Item {
         easing.type: Easing.InOutQuad
         onStopped: modelData.removeRequested()
     }
+
     NumberAnimation {
         id:slideBackAnimation
         target: notifyArea
@@ -119,124 +148,140 @@ Item {
 
     Rectangle {
         id:pressBg
-        anchors.fill: parent
+        width: parent.width - Theme.itemSpacingSmall
+        height: parent.height
+        anchors{
+            left: parent.left
+            leftMargin: Theme.itemSpacingSmall
+        }
+
         color: Theme.fillColor
         visible: notifyMouseArea.pressed
         radius: Theme.itemSpacingMedium
         opacity: 0.5
     }
 
-    Rectangle{
-        id: progressBar
-        width: notifyArea.width * modelData.progress
-        height: notifyArea.height
-        color: Theme.accentColor
-        radius: Theme.itemSpacingMedium
-        opacity: 0.75
+    Item {
+        id: littleArea
+        width: parent.width
+        height: Theme.itemHeightExtraLarge
+
         anchors{
             top: parent.top
             left: parent.left
         }
-        visible: modelData.progress != 0
 
-        Behavior on width{
-            NumberAnimation { duration: 333 }
-        }
-    }
+        Image {
+            id: appIcon
+            property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
 
-    Image {
-        id: appIcon
-        property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
+            height: parent.height-Theme.itemSpacingMedium
+            width: height
+            anchors{
+                left: parent.left
+                leftMargin: Theme.itemSpacingMedium
+                verticalCenter:littleArea.verticalCenter
+            }
 
-        height: iconSize
-        width: iconSize
-        anchors{
-            left: parent.left
-            leftMargin: Theme.itemSpacingLarge
-            verticalCenter:parent.verticalCenter
-        }
-
-        source: {
-            if (modelData.icon) {
-                if(modelData.icon.indexOf("/") == 0)
-                    return "file://" + modelData.icon
-                else
-                    return "image://theme/" + modelData.icon
-            } else if (modelData.appIcon) {
-                if(modelData.appIcon.indexOf("/") == 0)
-                    return "file://" + modelData.appIcon
-                else
-                    return "image://theme/" + modelData.appIcon
-            } else return defaultIcon
-        }
-        onStatusChanged: {
-            if (appIcon.status == Image.Error) {
-                appIcon.source = defaultIcon
+            source: {
+                if (modelData.icon) {
+                    if(modelData.icon.indexOf("/") == 0)
+                        return "file://" + modelData.icon
+                    else
+                        return "image://theme/" + modelData.icon
+                } else if (modelData.appIcon) {
+                    if(modelData.appIcon.indexOf("/") == 0)
+                        return "file://" + modelData.appIcon
+                    else
+                        return "image://theme/" + modelData.appIcon
+                } else return defaultIcon
+            }
+            onStatusChanged: {
+                if (appIcon.status == Image.Error) {
+                    appIcon.source = defaultIcon
+                }
             }
         }
-    }
 
-    Label {
-        id: appName
-        text: modelData.appName
-        width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
-        color: Theme.textColor
-        elide: Text.ElideRight
-        font.pixelSize: Theme.fontSizeSmall
-        anchors {
-            left: appIcon.right
-            leftMargin: Theme.itemSpacingSmall
-            top: parent.top
-            topMargin: Theme.itemSpacingSmall
+        Label {
+            id: appName
+            text: modelData.appName
+            width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
+            color: Theme.textColor
+            elide: Text.ElideRight
+            font.pixelSize: Theme.fontSizeSmall
+            anchors {
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
+                top: parent.top
+                topMargin: Theme.itemSpacingSmall
+            }
+        }
+
+        Label {
+            id:appTimestamp
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            text: if(timeAgo) timeAgo
+            horizontalAlignment: Text.AlignRight
+            anchors {
+                top: parent.top
+                topMargin: Theme.itemSpacingSmall
+                right:parent.right
+                rightMargin: Theme.itemSpacingSmall
+
+            }
+            Component.onCompleted: refreshTimestamp()
+        }
+
+        Label {
+            id: appSummary
+            text: modelData.summary || modelData.previewSummary
+            width: parent.width-Theme.itemSpacingHuge
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            anchors{
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
+                top: appName.bottom
+                topMargin: Theme.itemSpacingExtraSmall
+            }
+            maximumLineCount: 1
+            elide: Text.ElideRight
+        }
+
+        Label {
+            id: appBody
+            width: parent.width-Theme.itemSpacingHuge
+            text: modelData.body || modelData.previewBody
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            anchors{
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
+                top: appSummary.bottom
+                topMargin: Theme.itemSpacingSmall
+            }
+            maximumLineCount: 1
+            elide: Text.ElideRight
         }
     }
 
-    Label {
-        id:appTimestamp
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeTiny
-        text: if(timeAgo) timeAgo
-        horizontalAlignment: Text.AlignRight
-        anchors {
-            top: parent.top
-            topMargin: Theme.itemSpacingSmall
-            right:parent.right
-            rightMargin: Theme.itemSpacingSmall
+    ProgressBar{
+        id: progressBar
+        width: notifyArea.width  - Theme.itemSpacingSmall *2
+        height: Theme.itemHeightExtraSmall / 3
+        value: modelData.progress
 
-        }
-        Component.onCompleted: refreshTimestamp()
-    }
-
-    Label {
-        id: appSummary
-        text: modelData.summary || modelData.previewSummary
-        width: parent.width-Theme.itemSpacingHuge
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeTiny
         anchors{
-            left: appIcon.right
+            top: littleArea.bottom
+            topMargin: Theme.itemHeightExtraSmall / 3
+            left: littleArea.left
             leftMargin: Theme.itemSpacingSmall
-            top: appName.bottom
-            topMargin: Theme.itemSpacingSmall
         }
-        maximumLineCount: 1
-        elide: Text.ElideRight
-    }
 
-    Label {
-        id: appBody
-        width: parent.width-Theme.itemSpacingHuge
-        text: modelData.body || modelData.previewBody
-        color: Theme.textColor
-        font.pixelSize: Theme.fontSizeTiny
-        anchors{
-            left: appIcon.right
-            leftMargin: Theme.itemSpacingSmall
-            top: appSummary.bottom
-            topMargin: Theme.itemSpacingSmall
-        }
-        maximumLineCount: 1
-        elide: Text.ElideRight
+        visible: modelData.progress != 0
+        indeterminate: modelData.progress == -1
     }
 
     Connections {

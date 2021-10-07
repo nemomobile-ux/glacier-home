@@ -33,75 +33,76 @@ import "notifications"
 
 Item {
     id: feedsPage
-    width: desktop.width
-    height: desktop.height-statusbar.height
+    width: 640//desktop.width
+    height: 480 //desktop.height-statusbar.height
 
     Rectangle{
         id: bg
         anchors.fill: parent
         color: Theme.backgroundColor
-        opacity: 0.6
+        //opacity: 0
     }
 
-    Flickable {
-        id: mainFlickable
-        anchors.fill: parent
-        clip: true
-        contentHeight: rootitem.height
-        contentWidth: parent.width
+    // Day of week
+    Rectangle {
+        id: dateRow
+        height: Theme.itemHeightLarge
+        width: parent.width
 
-        onXChanged: {
-            if(x < 0){
-                bg.opacity = 0.6*(desktop.width+x)/desktop.width
-            }else{
-                bg.opacity = 0.6*(desktop.width-x)/desktop.width
+        anchors{
+            top: parent.top
+            horizontalCenter: parent.rootitemhorizontalCenter
+            topMargin: Theme.itemSpacingLarge
+            bottomMargin: Theme.itemSpacingLarge
+        }
+
+        color: "transparent"
+
+        Label {
+            id: displayDayOfWeek
+            //text: Qt.formatDateTime(wallClock.time, "dddd")
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeLarge
+            anchors {
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
             }
         }
+
+        // Current date
+        Label {
+            id: displayCurrentDate
+            //text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
+            font.pixelSize: Theme.fontSizeLarge
+            color: Theme.textColor
+            font.weight: Font.Light
+            wrapMode: Text.WordWrap
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: displayDayOfWeek.bottom
+            }
+        }
+    }
+
+    Item {
+        id: mainFlickable
+        width: parent.width
+        height: parent.height-dateRow.height-Theme.itemSpacingLarge*2
+
+        anchors{
+            top: dateRow.bottom
+            topMargin: Theme.itemHeightLarge*1.5
+        }
+
+        clip: true
+        //contentHeight: rootitem.height
+        //contentWidth: parent.width
 
         Item {
             id: rootitem
             width: parent.width
             height: childrenRect.height
-            // Day of week
-            Rectangle {
-                id: daterow
-                height: Theme.itemHeightMedium
-                width: parent.width
 
-                anchors{
-                    top: parent.top
-                    horizontalCenter: parent.rootitemhorizontalCenter
-                    topMargin: Theme.itemSpacingLarge
-                    bottomMargin: Theme.itemSpacingLarge
-                }
-
-                color: "transparent"
-
-                Label {
-                    id: displayDayOfWeek
-                    text: Qt.formatDateTime(wallClock.time, "dddd")
-                    color: Theme.textColor
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors {
-                        top: parent.top
-                        horizontalCenter: parent.horizontalCenter
-                    }
-                }
-
-                // Current date
-                Label {
-                    id: displayCurrentDate
-                    text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-                    font.pixelSize: Theme.fontSizeLarge
-                    color: Theme.textColor
-                    font.weight: Font.Light
-                    wrapMode: Text.WordWrap
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                        top: displayDayOfWeek.bottom
-                    }
-                }
-            }
             Timer {
                 id: timestampTimer
                 interval: 60000
@@ -112,10 +113,7 @@ Item {
             Column {
                 id: notificationColumn
                 width: parent.width
-                anchors{
-                    top: daterow.bottom
-                    topMargin: Theme.itemHeightLarge*1.5
-                }
+
                 spacing: Theme.itemSpacingExtraSmall
                 Repeater {
                     model: NotificationListModel {
@@ -125,8 +123,15 @@ Item {
                         id: notifItem
                         Connections {
                             target: timestampTimer
-                            function onTriggered() { notifItem.refreshTimestamp() }
-                            function onRunningChanged(running) { if (timestampTimer.running) notifItem.refreshTimestamp() }
+                            function onTriggered() {
+                                notifItem.refreshTimestamp()
+                            }
+
+                            function onRunningChanged(running) {
+                                if (timestampTimer.running) {
+                                    notifItem.refreshTimestamp()
+                                }
+                            }
                         }
                     }
                 }
