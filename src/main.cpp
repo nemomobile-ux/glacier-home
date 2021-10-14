@@ -28,6 +28,8 @@
 #include <QScreen>
 #include <QTranslator>
 
+#include <QtCore/qmath.h>
+
 #include <homewindow.h>
 #include <homeapplication.h>
 #include <lipstickqmlpath.h>
@@ -101,6 +103,9 @@ int main(int argc, char **argv)
     setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
     setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
     setenv("QT_IM_MODULE", "Maliit", 1);
+
+//Wayland not provide real DPI. But Scale factor in QtQuickControls-Nemo based on it
+    setenv("QT_WAYLAND_FORCE_DPI", QString::number(qFloor(QGuiApplication::primaryScreen()->physicalDotsPerInch())).toUtf8(), 1);
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }
