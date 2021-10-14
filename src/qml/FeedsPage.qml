@@ -60,7 +60,7 @@ Item {
 
         Label {
             id: displayDayOfWeek
-            //text: Qt.formatDateTime(wallClock.time, "dddd")
+            text: Qt.formatDateTime(wallClock.time, "dddd")
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeLarge
             anchors {
@@ -72,7 +72,7 @@ Item {
         // Current date
         Label {
             id: displayCurrentDate
-            //text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
+            text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
             font.pixelSize: Theme.fontSizeLarge
             color: Theme.textColor
             font.weight: Font.Light
@@ -95,8 +95,6 @@ Item {
         }
 
         clip: true
-        //contentHeight: rootitem.height
-        //contentWidth: parent.width
 
         Item {
             id: rootitem
