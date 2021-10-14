@@ -33,14 +33,14 @@ import "notifications"
 
 Item {
     id: feedsPage
-    width: 640//desktop.width
-    height: 480 //desktop.height-statusbar.height
+    width: desktop.width
+    height: desktop.height-statusbar.height
 
     Rectangle{
         id: bg
         anchors.fill: parent
         color: Theme.backgroundColor
-        //opacity: 0
+        opacity: 0.6
     }
 
     // Day of week
