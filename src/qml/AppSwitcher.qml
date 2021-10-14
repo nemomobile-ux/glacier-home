@@ -166,7 +166,7 @@ Item {
             color: Theme.fillDarkColor
             opacity: 0.3
             border {
-                width: size.ratio(1)
+                width: size.dp(1)
                 color: Theme.backgroundColor
             }
         }
