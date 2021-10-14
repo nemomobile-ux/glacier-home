@@ -128,7 +128,7 @@ Item{
             }
 
             width: parent.width
-            height: Theme.itemHeightHuge + Theme.fontSizeTiny + Theme.itemSpacingSmall*2
+            height: Theme.itemHeightHuge + Theme.fontSizeTiny*3 + Theme.itemSpacingSmall*2
             spacing: Theme.itemSpacingSmall
             leftPadding: (fastActions.width-Theme.itemSpacingSmall*fastActions.columns-Theme.itemHeightHuge*fastActions.columns)/2
 

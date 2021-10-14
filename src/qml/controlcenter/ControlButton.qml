@@ -37,13 +37,13 @@ Item {
     signal clicked();
     signal pressed();
 
-    width: height
-    height: Theme.itemHeightHuge
+    width: Theme.itemHeightHuge
+    height: button.height + label.height + Theme.itemSpacingSmall * 2
 
     Rectangle{
         id: button
-        width: parent.width
-        height: parent.height
+        width: Theme.itemHeightHuge
+        height: Theme.itemHeightHuge
         radius: parent.height*0.5
 
         color: activated ? Theme.accentColor : Theme.textColor
@@ -80,17 +80,21 @@ Item {
         }
     }
 
-    Text{
+    Label{
         id: label
         anchors{
             top: button.bottom
             topMargin: Theme.itemSpacingSmall
         }
         width: parent.width
+        height: Theme.fontSizeTiny*3
+
         horizontalAlignment: Text.AlignHCenter
         font.pixelSize: Theme.fontSizeTiny
         text: textLabel
         color: Theme.textColor
+        elide: Text.ElideRight
+        wrapMode: Text.WordWrap
     }
 
     MouseArea{
