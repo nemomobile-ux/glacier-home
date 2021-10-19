@@ -257,14 +257,25 @@ Page {
         screenshot.capture()
     }
 
-    Pager {
+    ListView {
         id: pager
         anchors.topMargin: statusbar.height
         anchors.fill: parent
         enabled: Desktop.compositor.state != "controlCenter"
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        boundsBehavior: Flickable.StopAtBounds
+
         model: VisualItemModel {
+            FeedsPage {
+                id: feeds
+                width: pager.width
+                height: pager.height
+            }
             AppLauncher {
                 id: launcher
+                width: pager.width
                 height: pager.height
                 switcher: switcher
             }
@@ -275,15 +286,10 @@ Page {
                 visibleInHome: x > -width && x < desktop.width
                 launcher: launcher
             }
-            FeedsPage {
-                id: feeds
-                width: pager.width
-                height: pager.height
-            }
         }
 
         // Initial view should be the AppLauncher
-        currentIndex: 0
+        currentIndex: 1
     }
 
     Wallpaper{
@@ -323,21 +329,16 @@ Page {
     }
 
     Connections {
-        target: feeds
-        function onXChanged(x) {
+        target: pager
+        function onContentXChanged() {
             var opacityCalc
-            if(feeds.x < 0){
-                opacityCalc = (desktop.width+feeds.x)/desktop.width
-            }else{
-                opacityCalc = (desktop.width-feeds.x)/desktop.width
-            }
 
-            if(opacityCalc < 0) {
+            if(pager.contentX > desktop.width) {
                 opacityCalc = 0
-            }
-
-            if(opacityCalc > 1) {
+            } else if (pager.contentX <= 0) {
                 opacityCalc = 1
+            } else {
+                opacityCalc = (desktop.width-pager.contentX)/desktop.width
             }
 
             statusbar.opacityStart = opacityCalc
