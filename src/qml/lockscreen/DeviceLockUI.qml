@@ -13,11 +13,12 @@ import "../scripts/desktop.js" as Desktop
 Item {
     id: root
 
-    property bool shouldAuthenticate: Lipstick.compositor.visible
     property int remainingAttempts
     property AuthenticationInput authenticationInput
+    signal authOK()
 
     Column {
+        id: codePadColumn
         anchors.fill: parent
 
         SequentialAnimation  {
@@ -35,12 +36,16 @@ Item {
             width: parent.width
             Label {
                 id: feedbackLabel
+                width: parent.width
                 font.pixelSize: Theme.fontSizeMedium
                 text: " "
+                horizontalAlignment: Text.AlignHCenter
             }
             Label {
                 id: attemptsRemainingLabel
                 font.pixelSize: Theme.fontSizeMedium
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
                 text: " "
             }
         }
@@ -153,6 +158,7 @@ Item {
             }
         }
     }
+
     function displayFeedback(feedback, data) {
         switch(feedback) {
 
@@ -173,15 +179,15 @@ Item {
         }
     }
 
-    function displayError(error) {
-        console.log("displayError "+error)
-    }
-
     Connections {
         target: root.authenticationInput
 
         function onFeedback(feedback, data) { root.displayFeedback(feedback, data) }
-        function onError(error) { root.displayError(error) }
+        function onAuthenticationEnded(confirmed) {
+            if(confirmed) {
+                authOK()
+            }
+        }
     }
 
 }
