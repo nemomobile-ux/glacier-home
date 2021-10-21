@@ -149,11 +149,49 @@ Image {
         id: mouseArea
         anchors.fill: parent
 
+        property int pressY: 0
+        property bool fingerDown
+
+        property bool locked: DeviceLock.state >= DeviceLock.Locked && DeviceLock.automaticLocking >=0
+
         onClicked: {
-            if(DeviceLock.state >= DeviceLock.Locked) {
+            if(locked) {
                 codePad.visible = true
                 codePad.width = 400
             }
+        }
+
+        onPressed: {
+            if(!locked) {
+                fingerDown = true
+                cancelSnap()
+                pressY = mouseY
+            }
+        }
+
+        onPositionChanged: {
+            if(!locked) {
+                var delta = pressY - mouseY
+                if (parent.y - delta > 0)
+                    return
+                parent.y = parent.y - delta
+            }
+        }
+
+        onReleased: {
+            if(!locked) {
+                displayOffTimer.restart()
+                if(parent.height-parent.y > Theme.itemHeightHuge*2) {
+                    unlockAnimation.start()
+                } else {
+                    lockScreen.snapPosition()
+                }
+            }
+        }
+
+        function startCodePadAnimation(value) {
+            snapCodePadAnimation.valueTo = value
+            snapCodePadAnimation.start()
         }
     }
 
@@ -292,7 +330,6 @@ Image {
 
     Column {
         id: lockscreenNotificationColumn
-        
         width: parent.width
         visible: !codePad.visible
 
