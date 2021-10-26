@@ -57,12 +57,6 @@ install(FILES ${SETTINGS_WALLPAPERPLUGIN}
     DESTINATION
     ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/qml/plugins/wallpaper)
 
-file(GLOB SETTINGS_NOTIFICATIONSPLUGIN settings-plugins/notifications/*)
-list(REMOVE_ITEM SETTINGS_NOTIFICATIONSPLUGIN notifications.json)
-install(FILES ${SETTINGS_NOTIFICATIONSPLUGIN}
-    DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/qml/plugins/notifications)
-
 file(GLOB SETTINGS_DESKTOPPLUGIN settings-plugins/desktop/*)
 list(REMOVE_ITEM SETTINGS_DESKTOPPLUGIN desktop.json)
 install(FILES ${SETTINGS_DESKTOPPLUGIN}
@@ -71,7 +65,6 @@ install(FILES ${SETTINGS_DESKTOPPLUGIN}
 
 set(SETTINGS_PLUGINCONFIG
     settings-plugins/wallpaper/wallpaper.json
-    settings-plugins/notifications/notifications.json
     settings-plugins/desktop/desktop.json)
 install(FILES ${SETTINGS_PLUGINCONFIG}
     DESTINATION
