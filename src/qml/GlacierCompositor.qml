@@ -81,7 +81,7 @@ Item {
 
             width: parent.width
             height: parent.height
-            visible: comp.appActive
+            visible: comp.appActive && !Desktop.instance.lockscreen.visible
         }
 
         Rectangle {
