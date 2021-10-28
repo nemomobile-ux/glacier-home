@@ -395,7 +395,6 @@ Item {
 
         onDisplayOff: {
             if (root.topmostAlarmWindow == null) {
-                Desktop.instance.codepadVisible = false
                 setCurrentWindow(root.homeWindow)
             }
             Desktop.instance.displayOn = false
