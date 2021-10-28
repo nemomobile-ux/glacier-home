@@ -175,7 +175,6 @@ Page {
     property alias lockscreen: lockScreen
     property alias switcher: switcher
     property alias statusbar: statusbar
-    property alias controlcenter: controlCenter
 
     readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
 
@@ -189,7 +188,7 @@ Page {
             if (pageStack.depth > 1) {
                 pageStack.pop();
                 event.accepted = true;
-            } else { Qt.quit(); }
+            }
         }
     }
 
@@ -199,11 +198,6 @@ Page {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
         z: 201
-    }
-
-    ControlCenter{
-        id: controlCenter
-        z: 202
     }
 
     GlacierRotation {
@@ -236,7 +230,6 @@ Page {
         target: LipstickSettings
         function onLockscreenVisibleChanged(visible) {
             glacierRotation.rotateRotationParent(desktop.orientation)
-            controlcenter.down()
         }
     }
 
@@ -260,7 +253,6 @@ Page {
         id: pager
         anchors.topMargin: statusbar.height
         anchors.fill: parent
-        enabled: Desktop.compositor.state != "controlCenter"
         orientation: ListView.Horizontal
         snapMode: ListView.SnapOneItem
         highlightRangeMode: ListView.StrictlyEnforceRange

@@ -39,39 +39,17 @@ import org.nemomobile.statusnotifier 1.0
 
 import Nemo.DBus 2.0
 
-import "controlcenter"
-import "statusbar"
-
-import "scripts/desktop.js" as Desktop
+import "../statusbar"
 
 Item{
     id: controlCenterArea
-
-    width: desktop.isUiPortrait ? Desktop.instance.width : Desktop.instance.height
-    anchors.horizontalCenter: parent.horizontalCenter
-
-    height: 0
-    visible: height > 0
-
     clip: true
-
-    function down() {
-        controlCenterArea.height = 0
-        Desktop.compositor.state = ""
-    }
+    width: parent.width
+    height: childrenRect.height
 
     function openSettingsPage(plugin,extended) {
         settingsInterface.call("openSettingsPage",[plugin, extended])
     }
-
-    onHeightChanged: {
-        if(height != (desktop.isUiPortrait ? Desktop.instance.width : Desktop.instance.height)) {
-            hiderTimer.restart()
-        } else {
-            hiderTimer.stop()
-        }
-    }
-
 
     DBusInterface {
         id: settingsInterface
@@ -83,36 +61,10 @@ Item{
         signalsEnabled: true
     }
 
-    Timer{
-        id: hiderTimer
-        repeat: false
-        running: false
-        interval: 5000
-        onTriggered: {
-            down()
-        }
-    }
-
-    Rectangle{
-        id: controlCenterOutAreaDim
-        anchors.fill: parent
-        color: Theme.backgroundColor
-    }
-
-    InverseMouseArea{
-        anchors.fill: parent
-        enabled: controlCenterArea.height > 0
-        parent: controlCenterArea
-
-        onPressed: {
-            controlCenterArea.height = 0
-        }
-    }
-
     Rectangle {
         id: controlCenter
         width: parent.width
-        height: parent.width
+        height: childrenRect.height
         color: "transparent"
 
         Grid {
@@ -180,29 +132,6 @@ Item{
                 }
             }
         }
-    }
-/*Little hack for hide control center*/
-    MouseArea{
-        id: backgroundMouseArea
-        width: parent.width
-        height: parent.height-controlCenter.height
-        anchors.top: controlCenter.bottom
-
-        property int pMouse: 0
-
-        onPressed: {
-            backgroundMouseArea.pMouse = backgroundMouseArea.mouseY
-        }
-        onReleased: {
-            if(pMouse-backgroundMouseArea.mouseY >= Theme.itemHeightHuge){
-                controlCenterArea.down()
-            }
-            pMouse = 0;
-        }
-    }
-
-    Behavior on height {
-        NumberAnimation { duration: 300 }
     }
 }
 
