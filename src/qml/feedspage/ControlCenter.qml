@@ -36,6 +36,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import QtGraphicalEffects 1.0
 
 import org.nemomobile.statusnotifier 1.0
+import org.nemomobile.glacier 1.0
 
 import Nemo.DBus 2.0
 
@@ -49,6 +50,10 @@ Item{
 
     function openSettingsPage(plugin,extended) {
         settingsInterface.call("openSettingsPage",[plugin, extended])
+    }
+
+    ControlCenterButtonsModel{
+        id: controlCenterButtonModel
     }
 
     DBusInterface {
@@ -84,24 +89,12 @@ Item{
             spacing: Theme.itemSpacingSmall
             leftPadding: (fastActions.width-Theme.itemSpacingSmall*fastActions.columns-Theme.itemHeightHuge*fastActions.columns)/2
 
-            WiFiButton{
-                id: wifiButton
-            }
-
-            BluetoothButton{
-                id: bluetoothButton
-            }
-
-            CellularDataControlButton{
-                id: cellularDataControlButton
-            }
-
-            LocationControlButton{
-                id: locationControlButton
-            }
-
-            QuietControlButton{
-                id: quietControlButton
+            Repeater{
+                id: buttonRepeater
+                model: controlCenterButtonModel
+                delegate: Loader{
+                    source: "/usr/share/lipstick-glacier-home-qt5/qml/feedspage/"+path+".qml"
+                }
             }
         }
 

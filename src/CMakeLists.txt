@@ -1,5 +1,7 @@
 set(SRC
     main.cpp
+    controlcenterbuttonsmodel.cpp
+    controlcenterbuttonsmodel.h
     fileutils.cpp
     fileutils.h
     geoclueagent.cpp
