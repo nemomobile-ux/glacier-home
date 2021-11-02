@@ -31,8 +31,7 @@ target_link_libraries(lipstick PUBLIC
     Qt5::DBus
     PkgConfig::LIPSTICK
     PkgConfig::MLITE5
-    PkgConfig::NEMODEVICELOCK
-    PkgConfig::POLKITQT5)
+    PkgConfig::NEMODEVICELOCK)
 
 if(QT_VERSION EQUAL "5.6.0")
     target_link_libraries(lipstick PUBLIC
