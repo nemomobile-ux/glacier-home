@@ -82,11 +82,6 @@ Page {
         id: geoAgent
     }
 
-
-    GlacierPolkitInterface{
-        id: authAgent
-    }
-
     DBusAdaptor {
         id: btDbusAdapter
         service: "org.nemomobile.lipstick"
