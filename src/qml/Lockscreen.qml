@@ -271,6 +271,7 @@ Image {
 
     MediaControls{
         id: mediaControls
+        visible: !codePad.visible
 
         anchors{
             top: operatorLine.bottom
