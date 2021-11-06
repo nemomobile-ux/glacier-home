@@ -141,11 +141,6 @@ Item {
                 }
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
-            } else if (gesture == "down" && !diagonal) {
-                //show ControlCenter
-                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2)) {
-                    Desktop.instance.controlcenter.height = mouseY
-                }
             }
         }
 
@@ -156,15 +151,6 @@ Item {
             comp.gestureOnGoing = true
             if (comp.appActive && !diagonal) {
                 state = "swipe"
-            }
-            else if (!Desktop.instance.lockscreenVisible() && !diagonal) {
-                if(gesture == "down") {
-                    state = "controlCenter"
-                    Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
-                } else if (gesture == "up" && state == "controlCenter") {
-                    Desktop.instance.controlcenter.height = 0
-                    state = ""
-                }
             }
         }
 
@@ -212,15 +198,6 @@ Item {
                 }
             }
 
-            if (!Desktop.instance.lockscreenVisible() && !diagonal) {
-                if (gesture == "down") {
-                    if (gestureArea.value >= Desktop.instance.height / 2) {
-                        Desktop.instance.controlcenter.height = Desktop.instance.height
-                    } else {
-                        Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
-                    }
-                }
-            }
             comp.gestureOnGoing = false
         }
         // States are for the animations that follow your finger during swipes
