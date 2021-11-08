@@ -44,7 +44,7 @@ Rectangle{
     id: volumeControlWindow
 
     width: Desktop.instance.width
-    height: Theme.itemHeightHuge
+    height: mainVolumeRow.height+Theme.itemSpacingSmall*2
 
     color: Theme.backgroundColor
 
@@ -54,44 +54,54 @@ Rectangle{
 
     visible: volumeControl.windowVisible
 
-    Image{
-        id: soundIcon
-        height: Theme.itemHeightMedium
-        width: height
+    Row{
+        id: mainVolumeRow
+        width: parent.width - Theme.itemSpacingSmall*2
+        height: Theme.itemHeightMedium + Theme.itemSpacingSmall*5
+        spacing: Theme.itemSpacingSmall
 
         anchors{
-            left: parent.left
-            leftMargin: (parent.height-soundIcon.height)/2
-            verticalCenter: parent.verticalCenter
-        }
-        source: if(volumeControl.volume == volumeControl.maximumVolume) {
-                    "image://theme/volume-up"
-                } else if(volumeControl.volume == 0) {
-                    "image://theme/volume-off"
-                } else {
-                    "image://theme/volume-down"
-                }
-    }
-
-    Slider {
-        id: volumeSlider
-        width: parent.width-parent.height*1.2
-
-        anchors{
-            left: soundIcon.right
-            leftMargin: parent.height*0.2
-            verticalCenter: parent.verticalCenter
+            top: volumeControlWindow.top
+            topMargin: Theme.itemSpacingSmall
+            left: volumeControlWindow.left
+            leftMargin: Theme.itemSpacingSmall
         }
 
-        minimumValue: 0
-        value: volumeControl.volume
-        maximumValue: volumeControl.maximumVolume
+        Image{
+            id: soundIcon
+            height: Theme.itemHeightMedium
+            width: height
 
-        onValueChanged:{
-            volumeControlWindow.visible = true
-            voltimer.restart()
+            anchors{
+                verticalCenter: parent.verticalCenter
+            }
+            source: if(volumeControl.volume == volumeControl.maximumVolume) {
+                        "image://theme/volume-up"
+                    } else if(volumeControl.volume == 0) {
+                        "image://theme/volume-off"
+                    } else {
+                        "image://theme/volume-down"
+                    }
+        }
 
-            volumeControl.volume = volumeSlider.value
+        Slider {
+            id: volumeSlider
+            width: parent.width-soundIcon.width-Theme.itemSpacingSmall*2
+
+            anchors{
+                verticalCenter: parent.verticalCenter
+            }
+
+            minimumValue: 0
+            value: volumeControl.volume
+            maximumValue: volumeControl.maximumVolume
+
+            onValueChanged:{
+                volumeControlWindow.visible = true
+                voltimer.restart()
+
+                volumeControl.volume = volumeSlider.value
+            }
         }
     }
 
