@@ -29,68 +29,33 @@
 **
 ****************************************************************************************/
 
-#ifndef POLKITINTERFACE_H
-#define POLKITINTERFACE_H
+#ifndef CONTROLCENTERBUTTONSMODEL_H
+#define CONTROLCENTERBUTTONSMODEL_H
 
-#include <polkit-qt5-1/PolkitQt1/Agent/Listener>
-#include <polkit-qt5-1/PolkitQt1/Identity>
-#include <polkit-qt5-1/PolkitQt1/Subject>
-#include <polkit-qt5-1/PolkitQt1/Details>
 #include <QObject>
-#include <QDebug>
-#include <QDBusConnection>
+#include <QAbstractListModel>
 
-class PolkitInterface : public PolkitQt1::Agent::Listener
+class ControlCenterButtonsModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.nemomobile.lipstick.polkitAuthAgent")
-
-    Q_PROPERTY(QString message READ message NOTIFY messageChanged)
-    Q_PROPERTY(QString user READ user NOTIFY userChanged)
-
 public:
-    explicit PolkitInterface(QObject *parent = 0);
-    QString message() {return  m_message;}
-    QString user() {return m_user;}
+    explicit ControlCenterButtonsModel(QObject *parent = nullptr);
 
-signals:
-    void openAuthWindow();
-    void closeAuthWindow();
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QHash<int, QByteArray> roleNames() const {return hash;}
 
-    void messageChanged();
-    void userChanged();
-    void iconChanged();
-
-public slots:
-    void initiateAuthentication(const QString &actionId,
-                                const QString &message,
-                                const QString &iconName,
-                                const PolkitQt1::Details &details,
-                                const QString &cookie,
-                                const PolkitQt1::Identity::List &identities,
-                                PolkitQt1::Agent::AsyncResult *result);
-    bool initiateAuthenticationFinish();
-    void cancelAuthentication();
-
-    void sessionRequest(QString request, bool echo);
-    void sessionComplete(bool auth);
-    void initSession();
-
-    void accepted(QString password);
-    void rejected();
-    void setUser(PolkitQt1::Identity newUser);
+    Q_INVOKABLE QStringList allButtons();
 
 private:
-    QString m_message;
-    QString m_user;
+    void loadDefaultConfig();
+    void loadConfig();
+    void saveConfig();
 
-    QString m_cookie;
+    QHash<int,QByteArray> hash;
+    QStringList m_buttonList;
+    QString m_configFilePath;
 
-    PolkitQt1::Identity m_currentIdentity;
-    PolkitQt1::Agent::AsyncResult* m_asyncResult;
-    PolkitQt1::Agent::Session* m_session;
-
-    QString formalizeUser(PolkitQt1::Identity id);
 };
 
-#endif // POLKITINTERFACE_H
+#endif // CONTROLCENTERBUTTONSMODEL_H

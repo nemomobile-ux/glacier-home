@@ -29,6 +29,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 // Feeds page:
 // the place for an event feed.
 
+import "feedspage"
 import "notifications"
 
 Item {
@@ -84,13 +85,21 @@ Item {
         }
     }
 
+    ControlCenter{
+        id: controlCenter
+        anchors{
+            top: dateRow.bottom
+            topMargin: Theme.itemHeightLarge*1.5
+        }
+    }
+
     Item {
         id: mainFlickable
         width: parent.width
-        height: parent.height-dateRow.height-Theme.itemSpacingLarge*2
+        height: parent.height-dateRow.height-controlCenter.height-Theme.itemSpacingLarge*3
 
         anchors{
-            top: dateRow.bottom
+            top: controlCenter.bottom
             topMargin: Theme.itemHeightLarge*1.5
         }
 

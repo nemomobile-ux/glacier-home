@@ -81,7 +81,7 @@ Item {
 
             width: parent.width
             height: parent.height
-            visible: comp.appActive
+            visible: comp.appActive && !Desktop.instance.lockscreen.visible
         }
 
         Rectangle {
@@ -141,11 +141,6 @@ Item {
                 }
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
-            } else if (gesture == "down" && !diagonal) {
-                //show ControlCenter
-                if(mouseY > (Theme.itemHeightHuge+Theme.itemSpacingSmall*2)) {
-                    Desktop.instance.controlcenter.height = mouseY
-                }
             }
         }
 
@@ -156,15 +151,6 @@ Item {
             comp.gestureOnGoing = true
             if (comp.appActive && !diagonal) {
                 state = "swipe"
-            }
-            else if (!Desktop.instance.lockscreenVisible() && !diagonal) {
-                if(gesture == "down") {
-                    state = "controlCenter"
-                    Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
-                } else if (gesture == "up" && state == "controlCenter") {
-                    Desktop.instance.controlcenter.height = 0
-                    state = ""
-                }
             }
         }
 
@@ -212,15 +198,6 @@ Item {
                 }
             }
 
-            if (!Desktop.instance.lockscreenVisible() && !diagonal) {
-                if (gesture == "down") {
-                    if (gestureArea.value >= Desktop.instance.height / 2) {
-                        Desktop.instance.controlcenter.height = Desktop.instance.height
-                    } else {
-                        Desktop.instance.controlcenter.height = Theme.itemHeightHuge+Theme.itemSpacingSmall*2
-                    }
-                }
-            }
             comp.gestureOnGoing = false
         }
         // States are for the animations that follow your finger during swipes
@@ -257,63 +234,6 @@ Item {
                                                                                        ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
                                                                                             Desktop.instance.lockscreen.height :
                                                                                             Desktop.instance.lockscreen.width)+gestureArea.value) ) )
-                }
-            },
-            // pullCodepad is when you are pulling codepad into view to enter security code
-            State {
-                name: "pullCodepad"
-                when: Desktop.instance.codepadVisible
-                PropertyChanges {
-                    target: Desktop.instance
-                    codepadVisible: true
-                }
-
-                PropertyChanges {
-                    target: gestureArea
-                    delayReset: true
-                }
-
-                PropertyChanges {
-                    target: Desktop.instance.codepad
-                    // Confusing logic and math to get the codepad follow your finger
-                    x: gestureArea.lockscreenX + (gestureArea.value < 0 ? Desktop.instance.lockscreen.width : -Desktop.instance.lockscreen.width) +
-                       ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
-                                                                                          (gestureArea.gesture == "right" ?
-                                                                                               ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                                    -Desktop.instance.lockscreen.width :
-                                                                                                    -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
-                                                                                               ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                                    Desktop.instance.lockscreen.width :
-                                                                                                    Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
-                    // Bringing up the codepad opacity from 0 to 1
-                    opacity: gestureArea.horizontal ? (gestureArea.value < 0 ? (gestureArea.value / -Desktop.instance.lockscreen.width) :
-                                                                               gestureArea.value / Desktop.instance.lockscreen.width) : 0
-                }
-            },
-            // pushCodepad is when you are pushing the codepad away without entering a security code
-            State {
-                name: "pushCodepad"
-                when: Desktop.instance.lockscreenVisible() && DeviceLock.state === DeviceLock.Locked && Desktop.instance.codepadVisible
-
-                PropertyChanges {
-                    target: gestureArea
-                    delayReset: true
-                }
-                PropertyChanges {
-                    target: Desktop.instance.codepad
-                    // Confusing logic for the codepad to follow your swipe
-                    x: gestureArea.lockscreenX +
-                       ((gestureArea.horizontal) ? (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
-                                                                                          (gestureArea.gesture == "right" ?
-                                                                                               ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                                    -Desktop.instance.lockscreen.width :
-                                                                                                    -Desktop.instance.lockscreen.height)+Math.abs(gestureArea.value) :
-                                                                                               ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                                    Desktop.instance.lockscreen.width :
-                                                                                                    Desktop.instance.lockscreen.height)+gestureArea.value) ) : 0 )
-                    // Hiding the codepad with opacity fading from 1 to 0
-                    opacity: 1 - (gestureArea.horizontal ? (gestureArea.value < 0 ? (gestureArea.value / -Desktop.instance.lockscreen.width) :
-                                                                                    gestureArea.value / Desktop.instance.lockscreen.width) : 0)
                 }
             }
         ]
@@ -452,7 +372,6 @@ Item {
 
         onDisplayOff: {
             if (root.topmostAlarmWindow == null) {
-                Desktop.instance.codepadVisible = false
                 setCurrentWindow(root.homeWindow)
             }
             Desktop.instance.displayOn = false

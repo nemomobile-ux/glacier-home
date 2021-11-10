@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -67,23 +67,19 @@ Item {
         id: column
         width: parent.width
         height: childrenRect.height
-        Row {
-            id: trackLabel
+
+        Label {
+            id: artistLabel
             width: parent.width
-            spacing: Theme.itemSpacingSmall
-
-            Label {
-                id: artistLabel
-                width: parent.width/2-Theme.itemSpacingSmall
-                horizontalAlignment: Text.AlignRight
-            }
-
-            Label {
-                id: songLabel
-                width: parent.width/2-Theme.itemSpacingSmall
-                horizontalAlignment: Text.Alignleft
-            }
+            horizontalAlignment: Text.AlignHCenter
         }
+
+        Label {
+            id: songLabel
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+        }
+
 
         Rectangle {
             id: controls
@@ -94,7 +90,7 @@ Item {
             Image{
                 id: playPauseBtn
                 width: height
-                height: parent.width/9
+                height: Theme.itemHeightExtraLarge*0.9
 
                 anchors.centerIn: parent;
 

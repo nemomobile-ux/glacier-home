@@ -20,7 +20,7 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2018, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2021, Chupligin Sergey <neochapay@gmail.com>
 
 #include <QFont>
 #include <QQmlEngine>
@@ -34,11 +34,11 @@
 #include <homeapplication.h>
 #include <lipstickqmlpath.h>
 
+#include "controlcenterbuttonsmodel.h"
 #include "geoclueagent.h"
 #include "glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
-#include "polkitinterface.h"
 
 int main(int argc, char **argv)
 {
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
     qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
-    qmlRegisterType<PolkitInterface>("org.nemomobile.glacier", 1, 0, "GlacierPolkitInterface");
+    qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 

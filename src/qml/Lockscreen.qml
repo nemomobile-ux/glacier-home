@@ -147,125 +147,59 @@ Image {
 
     MouseArea {
         id: mouseArea
+        anchors.fill: parent
+
         property int pressY: 0
         property bool fingerDown
-        property bool ignoreEvents
-        anchors.fill: parent
-        property bool gestureStarted: false
-        property string gesture: ""
-        property int startX
-        property int threshold: Theme.itemHeightHuge * 2
-        property int swipeDistance
-        property string action: ""
+
+        property bool locked: DeviceLock.state >= DeviceLock.Locked && DeviceLock.automaticLocking >=0
+
+        onClicked: {
+            if(locked) {
+                codePad.visible = true
+                codePad.width = 400
+            }
+        }
 
         onPressed: {
-            startX = mouseX;
-            fingerDown = true
-            cancelSnap()
-            pressY = mouseY
+            if(!locked) {
+                fingerDown = true
+                cancelSnap()
+                pressY = mouseY
+            }
         }
 
         onPositionChanged: {
-            var delta = pressY - mouseY
-            pressY = mouseY + delta
-            if (parent.y - delta > 0)
-                return
-            parent.y = parent.y - delta
+            if(!locked) {
+                var delta = pressY - mouseY
+                if (parent.y - delta > 0)
+                    return
+                parent.y = parent.y - delta
+            }
         }
+
+        onReleased: {
+            if(!locked) {
+                displayOffTimer.restart()
+                if(parent.height-parent.y > Theme.itemHeightHuge*2) {
+                    unlockAnimation.start()
+                } else {
+                    lockScreen.snapPosition()
+                }
+            }
+        }
+
         function startCodePadAnimation(value) {
             snapCodePadAnimation.valueTo = value
             snapCodePadAnimation.start()
         }
-
-        function snapBack() {
-            fingerDown = false
-            if (!LipstickSettings.lockscreenVisible || Math.abs(parent.y) > parent.height / 3) {
-                LipstickSettings.lockscreenVisible = false
-            } else if (LipstickSettings.lockscreenVisible) {
-                LipstickSettings.lockscreenVisible = true
-            }
-
-            lockScreen.snapPosition()
-        }
-        onMouseXChanged: {
-            // Checks which was it left or right swipe
-            if(mouseX > (startX+threshold)) {
-                gesture = "right"
-                gestureStarted = true;
-            }
-            else if(mouseX < (startX+threshold)) {
-                gesture = "left"
-                gestureStarted = true;
-            }
-            // Makes codepad follow the swipe
-            if(codePad.inView) {
-                if(gesture == "right") {
-                    swipeDistance = mouseX - startX
-                    codePad.x = swipeDistance
-                }
-                if(gesture == "left") {
-                    swipeDistance = startX - mouseX
-                    codePad.x = -swipeDistance
-                }
-            }else {
-                if(gesture == "right") {
-                    swipeDistance = mouseX - startX
-                    codePad.x = swipeDistance - parent.width
-                }
-                else if(gesture == "left") {
-                    swipeDistance = startX - mouseX
-                    codePad.x = parent.width - swipeDistance
-                }
-
-            }
-
-        }
-        // Animation to snap codepad into view or out of view
-        onReleased: {
-            displayOffTimer.restart()
-            if(codePad.inView) {
-                if(gesture == "right") {
-                    if(swipeDistance > threshold) {
-                        startCodePadAnimation(parent.width)
-                        codePad.inView = false
-                    }else {
-                        startCodePadAnimation(0)
-                        codePad.inView = true
-                    }
-                }else if(gesture == "left") {
-                    if(swipeDistance > threshold) {
-                        startCodePadAnimation(-parent.width)
-                        codePad.inView = false
-                    }else {
-                        startCodePadAnimation(0)
-                        codePad.inView = true
-                    }
-                }
-            }else {
-                if(swipeDistance > threshold) {
-                    startCodePadAnimation(0)
-                    codePad.inView = true
-                }else {
-                    if(gesture == "right") {
-                        startCodePadAnimation(-parent.width)
-                        codePad.inView = false
-                    }
-                    else {
-                        startCodePadAnimation(parent.width)
-                        codePad.inView = false
-                    }
-                }
-            }
-            snapBack()
-            gestureStarted = false
-        }
-
-        onCanceled: snapBack()
     }
+
     SequentialAnimation {
         id: unlockAnimation
         property alias valueTo: unlockNumAnimation.to
         property alias setProperty: unlockNumAnimation.property
+
 
         NumberAnimation {
             id: unlockNumAnimation
@@ -284,9 +218,9 @@ Image {
         function onDisplayOff() {
             displayOn = false
             displayOffTimer.stop()
-            codePad.x = -parent.width
-            codePad.inView = false
+            codePad.visible = false
         }
+
         function onDisplayOn() {
             displayOn = true
             displayOffTimer.stop()
@@ -337,6 +271,7 @@ Image {
 
     MediaControls{
         id: mediaControls
+        visible: !codePad.visible
 
         anchors{
             top: operatorLine.bottom
@@ -347,21 +282,18 @@ Image {
 
     DeviceLockUI {
         id: codePad
-        visible: DeviceLock.state == DeviceLock.Locked && codepadVisible
+        visible: false
         anchors {
             top: lockscreenClock.bottom
+            horizontalCenter: parent.horizontalCenter
             topMargin: Theme.itemSpacingHuge
         }
-        property bool inView: false
-        property bool gestureStarted: mouseArea.gestureStarted
-        x: width * 2
+
         width: lockScreen.width
         height: visible ? lockScreen.height / 2 : 0
-        opacity: (1-Math.abs((1 - (-1)) * (x - (-parent.width)) / (parent.width - (-parent.width)) + (-1)))
-        authenticationInput: DeviceLockAuthenticationInput {
 
-            readonly property bool unlocking: registered
-                                              && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
+        authenticationInput: DeviceLockAuthenticationInput {
+            readonly property bool unlocking: registered && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
             registered: lockscreenVisible()
             active: lockscreenVisible()
@@ -373,14 +305,13 @@ Image {
                     DeviceLock.cancel()
                 }
             }
+
             onAuthenticationEnded: {
                 if(confirmed) {
                     unlockAnimationHelper(mouseArea.gesture)
-                }else {
-
                 }
-
             }
+
             function unlockAnimationHelper(gesture) {
                 if(gesture == "left") {
                     unlockAnimation.setProperty = "x"
@@ -395,19 +326,13 @@ Image {
             }
         }
 
-        onGestureStartedChanged: {
-            if(gestureStarted) {
-                mouseArea.z = 2
-            }else {
-                mouseArea.z = 0
-            }
-        }
+        onAuthOK: unlockAnimation.start()
     }
 
     Column {
         id: lockscreenNotificationColumn
-        
         width: parent.width
+        visible: !codePad.visible
 
         anchors {
             bottom: angileAnimation.top
