@@ -41,10 +41,10 @@
     </message>
 </context>
 <context>
-    <name>BluetoothButton</name>
+    <name>BluetoothControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
+        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
@@ -93,7 +93,7 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
+        <location filename="../src/qml/feedspage/CellularDataControlButton.qml" line="33"/>
         <source>Cellular data</source>
         <translation>Mobile Daten</translation>
     </message>
@@ -101,17 +101,17 @@
 <context>
     <name>DeviceLockUI</name>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="166"/>
         <source>Enter security code</source>
         <translation>Sicherheitscode eingeben</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="164"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="170"/>
         <source>Incorrect code</source>
         <translation>Code nicht korrekt</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="172"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="178"/>
         <source>Temporarily locked</source>
         <translation>Temporär gesperrt</translation>
     </message>
@@ -135,7 +135,7 @@
 <context>
     <name>LocationControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
+        <location filename="../src/qml/feedspage/LocationControlButton.qml" line="31"/>
         <source>Location</source>
         <translation>Ort</translation>
     </message>
@@ -164,37 +164,37 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>Jahre zuvor</numerusform><numerusform>Vor %n Jahren</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>Monate vorher</numerusform><numerusform>Vor %n Monaten</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>Tage zuvor</numerusform><numerusform>Vor %n Tagen</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>Stunden früher</numerusform><numerusform>Vor %n Stunden</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="111"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>Minuten zuvor</numerusform><numerusform>Vor %n Minuen</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="113"/>
         <source>Just now</source>
         <translation>Gerade eben</translation>
     </message>
@@ -202,7 +202,7 @@
 <context>
     <name>QuietControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/QuietControlButton.qml" line="32"/>
         <source>Quiet</source>
         <translation>Stumm</translation>
     </message>
@@ -260,6 +260,14 @@
         <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
         <source>installed on your device</source>
         <translation>Auf dem Gerät installiert</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownScreen</name>
+    <message>
+        <location filename="../src/qml/system/ShutdownScreen.qml" line="73"/>
+        <source>Shutting down</source>
+        <translation>Ausschalten</translation>
     </message>
 </context>
 <context>
@@ -329,9 +337,9 @@
     </message>
 </context>
 <context>
-    <name>WiFiButton</name>
+    <name>WiFiControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
         <source>Wi-Fi</source>
         <translation>WLAN</translation>
     </message>
@@ -360,19 +368,6 @@
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
         <source>Always show search panel</source>
         <translation>Suchfeld immer anzeigen</translation>
-    </message>
-</context>
-<context>
-    <name>notifications</name>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="32"/>
-        <source>Notifications</source>
-        <translation>Ankündigungen</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="53"/>
-        <source>Show notification body on lockscreen</source>
-        <translation>Nachrichten im Lockscreen anzeigen</translation>
     </message>
 </context>
 <context>
