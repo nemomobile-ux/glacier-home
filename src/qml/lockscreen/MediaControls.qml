@@ -86,6 +86,7 @@ Item {
             width: parent.width
             height: Theme.itemHeightExtraLarge
             color: "transparent"
+            visible: mprisManager.canPause || mprisManager.canPause
 
             Image{
                 id: playPauseBtn
