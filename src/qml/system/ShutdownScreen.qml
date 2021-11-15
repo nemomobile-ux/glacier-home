@@ -60,8 +60,18 @@ Rectangle {
     }
 
     Image {
+        id: logoImage
         anchors.centerIn: parent
-        source: shutdownMode ? "" : "image://theme/graphic-shutdown-logo"
+        source: shutdownMode ? "" : "image://theme/graphic-nemo-logo"
+    }
+
+    Text {
+        anchors.top: logoImage.bottom
+        anchors.topMargin: Theme.itemSpacingLarge
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: Theme.textColor
+        text: qsTr("Shutting down")
+        font.pixelSize:Theme.fontSizeMedium
     }
 
     Behavior on opacity {
