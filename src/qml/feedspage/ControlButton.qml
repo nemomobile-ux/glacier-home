@@ -109,7 +109,6 @@ Item {
 //if we have assignet settings page close controlCenter
 //and show settings application
             if(assignedSettingsPage != "") {
-                controlCenterArea.height = 0
                 controlCenterArea.openSettingsPage(assignedSettingsPage,assignedSettingsPageParams)
             }
         }
