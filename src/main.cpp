@@ -104,8 +104,6 @@ int main(int argc, char **argv)
     setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
     setenv("QT_IM_MODULE", "Maliit", 1);
 
-//Wayland not provide real DPI. But Scale factor in QtQuickControls-Nemo based on it
-    setenv("QT_WAYLAND_FORCE_DPI", QString::number(qFloor(QGuiApplication::primaryScreen()->physicalDotsPerInch())).toUtf8(), 1);
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }
