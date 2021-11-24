@@ -45,7 +45,7 @@ Item {
     }
 
     // Day of week
-    Rectangle {
+    Item {
         id: dateRow
         height: Theme.itemHeightLarge
         width: parent.width
@@ -56,8 +56,6 @@ Item {
             topMargin: Theme.itemSpacingLarge
             bottomMargin: Theme.itemSpacingLarge
         }
-
-        color: "transparent"
 
         Label {
             id: displayDayOfWeek
@@ -100,7 +98,7 @@ Item {
 
         anchors{
             top: controlCenter.bottom
-            topMargin: Theme.itemHeightLarge*1.5
+            topMargin: Theme.itemSpacingMedium
         }
 
         clip: true
