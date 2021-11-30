@@ -86,15 +86,6 @@ Item {
         }
         opacity: switcherRoot.closeMode ? .6 : 1
         Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
-
-        Rectangle {
-            color: "white"
-            width: 4
-            height: 4
-            radius: 2
-            x: originX
-            y: originY
-        }
     }
 
     function close() {
