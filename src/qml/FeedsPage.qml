@@ -47,14 +47,14 @@ Item {
     // Day of week
     Item {
         id: dateRow
-        height: Theme.itemHeightLarge
+        height: displayDayOfWeek.height+displayCurrentDate.height
         width: parent.width
+        clip: true
 
         anchors{
             top: parent.top
+            topMargin: Theme.itemSpacingMedium
             horizontalCenter: parent.rootitemhorizontalCenter
-            topMargin: Theme.itemSpacingLarge
-            bottomMargin: Theme.itemSpacingLarge
         }
 
         Label {
@@ -87,14 +87,15 @@ Item {
         id: controlCenter
         anchors{
             top: dateRow.bottom
-            topMargin: Theme.itemHeightLarge*1.5
+            topMargin: Theme.itemSpacingMedium
         }
     }
 
-    Item {
+    Flickable {
         id: mainFlickable
         width: parent.width
-        height: parent.height-dateRow.height-controlCenter.height-Theme.itemSpacingLarge*3
+        height: feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4
+        contentHeight: notificationColumn.height
 
         anchors{
             top: controlCenter.bottom
@@ -103,44 +104,38 @@ Item {
 
         clip: true
 
-        Item {
-            id: rootitem
+        Column {
+            id: notificationColumn
             width: parent.width
-            height: childrenRect.height
+            spacing: Theme.itemSpacingExtraSmall
 
-            Timer {
-                id: timestampTimer
-                interval: 60000
-                running: true
-                repeat: true
-            }
+            Repeater {
+                model: NotificationListModel {
+                    id: notifmodel
+                }
+                delegate: NotificationItem{
+                    id: notifItem
+                    Connections {
+                        target: timestampTimer
+                        function onTriggered() {
+                            notifItem.refreshTimestamp()
+                        }
 
-            Column {
-                id: notificationColumn
-                width: parent.width
-
-                spacing: Theme.itemSpacingExtraSmall
-                Repeater {
-                    model: NotificationListModel {
-                        id: notifmodel
-                    }
-                    delegate: NotificationItem{
-                        id: notifItem
-                        Connections {
-                            target: timestampTimer
-                            function onTriggered() {
+                        function onRunningChanged(running) {
+                            if (timestampTimer.running) {
                                 notifItem.refreshTimestamp()
-                            }
-
-                            function onRunningChanged(running) {
-                                if (timestampTimer.running) {
-                                    notifItem.refreshTimestamp()
-                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    Timer {
+        id: timestampTimer
+        interval: 60000
+        running: true
+        repeat: true
     }
 }
