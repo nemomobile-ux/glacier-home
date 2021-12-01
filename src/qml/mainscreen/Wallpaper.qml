@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import QtSensors 5.2
+import QtQuick.Window 2.1
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
@@ -95,6 +96,11 @@ Item {
         anchors.fill: wallpaperImage
         source: wallpaperImage
         radius: 100
+        opacity: Lipstick.compositor.gestureArea.active ? 1.0 - Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 1.0
         visible: Lipstick.compositor.topmostWindow !== Lipstick.compositor.homeWindow
+        NumberAnimation {
+            properties: "opacity"
+            duration: 200
+        }
     }
 }
