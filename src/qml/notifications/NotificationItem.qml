@@ -66,7 +66,7 @@ Item {
         drag.maximumX: notifyArea.width
         drag.onActiveChanged: {
             if(!drag.active ) {
-                if((notifyArea.x > swipeTreshold)) {
+                if((notifyArea.x > swipeTreshold) && !modelData.hasProgress) {
                     slideAnimation.start()
                 }else if (notifyArea.x < -swipeTreshold){
                     slideReverseAnimation.start()
@@ -81,7 +81,7 @@ Item {
                 return
             }
 
-            if (modelData.userRemovable) {
+            if (modelData.userRemovable && !modelData.hasProgress) {
                 slideAnimation.start()
             } else {
                 modelData.actionInvoked("default")
