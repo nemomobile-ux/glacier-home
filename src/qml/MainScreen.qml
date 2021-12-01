@@ -192,7 +192,13 @@ Page {
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
-        visible: Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow
+        opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
+            Lipstick.compositor.gestureArea.active ? 
+            Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
+        NumberAnimation {
+            properties: "opacity"
+            duration: 200
+        }
         z: 201
     }
 
@@ -253,6 +259,13 @@ Page {
         snapMode: ListView.SnapOneItem
         highlightRangeMode: ListView.StrictlyEnforceRange
         boundsBehavior: Flickable.StopAtBounds
+        opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
+            Lipstick.compositor.gestureArea.active ? 
+            Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
+        NumberAnimation {
+            properties: "opacity"
+            duration: 200
+        }
 
         model: VisualItemModel {
             FeedsPage {
@@ -284,15 +297,19 @@ Page {
         id: wallpaper
         anchors.fill: parent
 
-        z: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? -100 : 100
+        z: -100
     }
 
     Rectangle {
         color: Theme.backgroundColor
-        opacity: 0.5
+        opacity:  Lipstick.compositor.gestureArea.active ? 0.5 * (1.0 - Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height))) : 0.5
         visible: Lipstick.compositor.topmostWindow !== Lipstick.compositor.homeWindow
         z: 101
         anchors.fill: wallpaper
+        NumberAnimation {
+            properties: "opacity"
+            duration: 200
+        }
     }
 
     Lockscreen {

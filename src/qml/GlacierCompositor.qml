@@ -142,6 +142,9 @@ Item {
                 resizeBorder.visible = true
 //                console.log("performing diagonal gesture:", resizeBorder.x, resizeBorder.y, resizeBorder.width, resizeBorder.height, diagonal)
             }
+            if (comp.appActive) {
+                comp.topmostWindow.opacity = 1.0 - gestureArea.progress / (Math.min(Screen.width, Screen.height))
+            }
         }
 
         onGestureStarted: {
@@ -173,6 +176,7 @@ Item {
                         Lipstick.compositor.closeClientForWindowId(comp.topmostWindow.window.windowId)
                     }
                 } else {
+                    comp.topmostWindow.opacity = 1.0
                     cancelAnimation.start()
                 }
             } else if (comp.homeActive){
@@ -292,7 +296,10 @@ Item {
             }
 
             ScriptAction {
-                script: comp.setCurrentWindow(comp.homeWindow)
+                script: {
+                    comp.topmostWindow.opacity = 1.0
+                    comp.setCurrentWindow(comp.homeWindow)
+                }
             }
 
             PropertyAction {
@@ -336,6 +343,8 @@ Item {
         // The application window that was most recently topmost
         property Item topmostApplicationWindow
         property Item topmostAlarmWindow: null
+
+        property Item gestureArea: gestureArea
 
         function windowToFront(winId) {
             var o = comp.windowForId(winId)
