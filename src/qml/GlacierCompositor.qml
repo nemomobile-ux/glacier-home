@@ -287,12 +287,22 @@ Item {
 
             property alias valueTo: valueAnimation.to
 
-            NumberAnimation {
-                id: valueAnimation
-                target: gestureArea
-                property: "value"
-                duration: 200
-                easing.type: Easing.OutQuint
+            ParallelAnimation {
+                NumberAnimation {
+                    id: valueAnimation
+                    target: gestureArea
+                    property: "value"
+                    duration: 200
+                    easing.type: Easing.OutQuint
+                }
+                NumberAnimation {
+                    id: wOpacityAnimation
+                    target: comp.topmostWindow
+                    property: "opacity"
+                    to: 0
+                    duration: 200
+                    easing.type: Easing.OutQuint
+                }
             }
 
             ScriptAction {
