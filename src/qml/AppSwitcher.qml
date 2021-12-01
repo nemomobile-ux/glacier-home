@@ -29,7 +29,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.glacier 1.0
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 
 import "appswitcher"
 
@@ -43,6 +43,7 @@ Item {
     property alias runningAppsCount: switcherModel.itemCount
     property var switchModel: switcherModel
     property var launcher: null
+    property var wallpaper: null
 
     onVisibleInHomeChanged: {
         // Exit close mode when scrolling out of view
@@ -105,6 +106,20 @@ Item {
 
                     // The outer Item is necessary because of animations in SwitcherItem changing
                     // its size, which would break the Grid.
+ 
+                    FastBlur {
+                        anchors.fill: switcherItemBG
+                        source: wallpaper
+                        radius: 100
+                    }
+
+                    Rectangle {
+                        id: switcherItemBG
+                        color: Theme.backgroundColor
+                        anchors.fill: switcherItem
+                        opacity: 0.5
+                    }
+
                     SwitcherItem {
                         id: switcherItem
                         width: parent.width

@@ -5,6 +5,8 @@ import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import Nemo.Configuration 1.0
 
+import QtGraphicalEffects 1.15
+
 import "../scripts/desktop.js" as Desktop
 
 Item {
@@ -76,6 +78,7 @@ Item {
             NumberAnimation { duration: 200 }
         }
     }
+
 /*Disable accelerometer when device locked */
     Connections {
         target: LipstickSettings
@@ -86,5 +89,12 @@ Item {
                 accelerometer.active = false
             }
         }
+    }
+
+    FastBlur {
+        anchors.fill: wallpaperImage
+        source: wallpaperImage
+        radius: 100
+        visible: Lipstick.compositor.topmostWindow !== Lipstick.compositor.homeWindow
     }
 }

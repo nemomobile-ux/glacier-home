@@ -192,6 +192,7 @@ Page {
     Statusbar {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
+        visible: Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow
         z: 201
     }
 
@@ -271,6 +272,7 @@ Page {
                 height: pager.height
                 visibleInHome: x > -width && x < desktop.width
                 launcher: launcher
+                wallpaper: wallpaper
             }
         }
 
@@ -282,7 +284,15 @@ Page {
         id: wallpaper
         anchors.fill: parent
 
-        z: -100
+        z: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? -100 : 100
+    }
+
+    Rectangle {
+        color: Theme.backgroundColor
+        opacity: 0.5
+        visible: Lipstick.compositor.topmostWindow !== Lipstick.compositor.homeWindow
+        z: 101
+        anchors.fill: wallpaper
     }
 
     Lockscreen {
