@@ -35,14 +35,22 @@ Item {
     id: notificationWindow
     property alias summary: summary.text
     property alias body: body.text
-    property alias icon: icon.source
     width: Desktop.instance.width
     height: Desktop.instance.height
     rotation: Desktop.instance.parent.rotation
     x: Desktop.instance.x
     y: Desktop.instance.y
 
-/*Glacier use fontawesome icons but nemo use maemo icons */
+    Connections{
+        target: notificationPreviewPresenter
+        function onNotificationChanged() {
+            if(notificationPreviewPresenter.notification) {
+                icon.source = formatIcon(notificationPreviewPresenter.notification.appIcon)
+            }
+        }
+    }
+
+/*Glacier use fontawesome icons but mer use maemo icons */
     function formatIcon(icon){
         if(icon === "") {
             return "../images/notification-circle.png"
@@ -69,12 +77,6 @@ Item {
         height: notificationArea.notificationHeight
 
         onClicked: if (notificationPreviewPresenter.notification != null) notificationPreviewPresenter.notification.actionInvoked("default")
-
-        Component.onCompleted: {
-            if( notificationPreviewPresenter.notification != null) {
-                icon.source = formatIcon(notificationPreviewPresenter.notification.icon)
-            }
-        }
 
         Rectangle {
             id: notificationPreview
@@ -174,7 +176,7 @@ Item {
                     width:  parent.width
                     height: (text == "") ? 0 : undefined
                     font {
-                        pointSize: Theme.fontSizeTiny/4
+                        pixelSize: Theme.fontSizeTiny
                         bold: true
                     }
 
@@ -199,7 +201,7 @@ Item {
                         verticalCenter: (summary.text == "") ? parent.verticalCenter : undefined
                     }
                     font {
-                        pointSize: (summary.text == "") ? Theme.fontSizeTiny/4 : Theme.fontSizeTiny/6
+                        pixelSize: (summary.text == "") ? Theme.fontSizeTiny : Theme.fontSizeTiny/2
                         bold: false
                     }
                     width:  parent.width
