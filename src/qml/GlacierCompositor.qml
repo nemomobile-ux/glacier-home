@@ -372,12 +372,14 @@ Item {
         function setCurrentWindow(w, skipAnimation) {
             if (w == null)
                 w = homeWindow
+            
+            if (w.window.title !== "maliit-server") {
+                topmostWindow = w
+            }
 
-            topmostWindow = w
-
-            if (topmostWindow == homeWindow || topmostWindow == null || w.window.title === "maliit-server") {
+            if (topmostWindow == homeWindow || topmostWindow == null) {
                 comp.clearKeyboardFocus()
-            } else {
+            } else if (w.window.title !== "maliit-server") {
                 if (topmostApplicationWindow)
                     topmostApplicationWindow.visible = false
                 topmostApplicationWindow = topmostWindow
