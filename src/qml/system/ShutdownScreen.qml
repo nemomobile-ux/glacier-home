@@ -66,6 +66,7 @@ Rectangle {
     }
 
     Text {
+        visible: !shutdownMode
         anchors.top: logoImage.bottom
         anchors.topMargin: Theme.itemSpacingLarge
         anchors.horizontalCenter: parent.horizontalCenter
