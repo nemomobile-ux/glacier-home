@@ -18,6 +18,8 @@ set(SRC
     ../models/controlcenterbuttonsmodel.h
     ../models/glacierwindowmodel.cpp
     ../models/glacierwindowmodel.h
+    ../widgets/swipewavewidget.cpp
+    ../widgets/swipewavewidget.h
     ../geoclueagent.cpp
     ../geoclueagent.h
     ../geoagent.cpp

@@ -1,9 +1,7 @@
 set(SRC
     main.cpp
     fileutils.cpp
-    fileutils.h
-    widgets/swipewavewidget.cpp
-    widgets/swipewavewidget.h)
+    fileutils.h)
 
 #add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
 #    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml

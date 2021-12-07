@@ -26,6 +26,7 @@
 #include "../mceconnect.h"
 #include "../geoagent.h"
 #include "../models/controlcenterbuttonsmodel.h"
+#include "../widgets/swipewavewidget.h"
 
 class Q_DECL_EXPORT NemomobileGlacierPlugin : public QQmlExtensionPlugin
 {
@@ -47,6 +48,7 @@ public:
         qmlRegisterType<MceConnect>(uri, 1, 0, "GlacierMceConnect");
         qmlRegisterType<GeoclueAgent>(uri, 1, 0, "GlacierGeoAgent");
         qmlRegisterType<ControlCenterButtonsModel>(uri, 1, 0, "ControlCenterButtonsModel");
+        qmlRegisterType<SwipeWaveWidget>(uri, 1, 0, "SwipeWave");
     }
 };
 

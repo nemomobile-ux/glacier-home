@@ -33,15 +33,134 @@
 
 SwipeWaveWidget::SwipeWaveWidget(QQuickItem *parent)
     : QQuickPaintedItem(parent)
-    , m_accentColor(QColor("#0091e5"))
+    , m_color(QColor(0x00, 0x91, 0xe5))
+    , m_active(false)
 {
+    m_itemSize = size();
+    m_init = false;
 
+    setAcceptedMouseButtons(Qt::LeftButton);
+    setAcceptHoverEvents(true);
+
+    connect(this, &SwipeWaveWidget::trigered,
+            this, &SwipeWaveWidget::resetMainPoint);
 }
 
 void SwipeWaveWidget::paint(QPainter *painter)
 {
-    QBrush accentBrush(m_accentColor);
+    m_itemSize = size();
+    m_c2.setX(m_itemSize.width());
+    m_c2.setY(m_itemSize.height()/2);
+
+    if(!m_init) {
+        resetMainPoint();
+        m_init = true;
+    }
+
+    m_endPoint.setX(m_itemSize.width());
+    m_endPoint.setY(m_itemSize.height());
+
+    QBrush accentBrush(m_color);
 
     painter->setPen(Qt::NoPen);
     painter->setRenderHint(QPainter::Antialiasing);
+
+    QPainterPath myPath;
+    myPath.moveTo(m_itemSize.width() , 0);
+    myPath.quadTo(m_c1, m_endPoint);
+
+    painter->setBrush(accentBrush);
+    painter->drawPath(myPath);
+}
+
+void SwipeWaveWidget::setActive(bool active)
+{
+    if(active != m_active) {
+        m_active = active;
+        emit activeChanged();
+    }
+}
+
+void SwipeWaveWidget::setColor(QColor color)
+{
+    if(color != m_color) {
+        m_color = color;
+        emit colorChanged();
+    }
+}
+
+void SwipeWaveWidget::mousePressEvent(QMouseEvent *event)
+{
+    if(!active()) {
+        return;
+    }
+    m_mouseButtonPressed = true;
+}
+
+void SwipeWaveWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(!active()) {
+        return;
+    }
+    m_mouseButtonPressed = false;
+
+    if(m_c1.x() < m_itemSize.width()/4) {
+        emit trigered();
+    }
+
+    resetMainPoint();
+    update();
+
+}
+
+void SwipeWaveWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if(!active()) {
+        return;
+    }
+
+    if(m_mouseButtonPressed) {
+        if(event->pos().x() < 0
+                || event->pos().y() < 0)
+        {
+            int x = event->pos().x();
+            int y = event->pos().y();
+
+            if(event->pos().x() < 0) {
+                x = 0;
+            }
+            if(event->pos().y() < 0) {
+                y = 0;
+            }
+            setMainPoint(x, y);
+        }
+        else if (event->pos().x() > m_itemSize.width()
+                 || event->pos().y() > m_itemSize.height()) {
+            resetMainPoint();
+        } else {
+            setMainPoint(event->pos().x(), event->pos().y());
+        }
+        update();
+    }
+}
+
+void SwipeWaveWidget::touchEvent(QTouchEvent *event)
+{
+    if(!active()) {
+        return;
+    }
+
+    m_c1.setX(event->touchPoints().first().pos().x());
+    m_c1.setY(event->touchPoints().first().pos().y());
+}
+
+void SwipeWaveWidget::setMainPoint(qreal x, qreal y)
+{
+    m_c1.setX(x);
+    m_c1.setY(y);
+}
+
+void SwipeWaveWidget::resetMainPoint()
+{
+    setMainPoint(m_itemSize.width(), m_itemSize.height()/2);
 }
