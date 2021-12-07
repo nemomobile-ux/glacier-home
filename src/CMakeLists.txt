@@ -2,14 +2,6 @@ set(SRC
     main.cpp
     fileutils.cpp
     fileutils.h
-    geoclueagent.cpp
-    geoclueagent.h
-    mceconnect.cpp
-    mceconnect.h
-    models/controlcenterbuttonsmodel.cpp
-    models/controlcenterbuttonsmodel.h
-    models/glacierwindowmodel.cpp
-    models/glacierwindowmodel.h
     widgets/swipewavewidget.cpp
     widgets/swipewavewidget.h)
 
@@ -24,9 +16,7 @@ set(SRC
 #set_property(SOURCE geoagent.cpp PROPERTY SKIP_AUTOGEN ON)
 
 add_executable(lipstick
-    ${SRC}
-    geoagent.cpp
-    geoagent.h)
+    ${SRC})
 
 target_link_libraries(lipstick PUBLIC
     Qt5::Gui
@@ -36,6 +26,8 @@ target_link_libraries(lipstick PUBLIC
     PkgConfig::LIPSTICK
     PkgConfig::MLITE5
     PkgConfig::NEMODEVICELOCK)
+
+add_subdirectory(plugin)
 
 if(QT_VERSION EQUAL "5.6.0")
     target_link_libraries(lipstick PUBLIC

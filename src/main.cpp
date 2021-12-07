@@ -34,9 +34,7 @@
 #include <homeapplication.h>
 #include <lipstickqmlpath.h>
 
-#include "models/controlcenterbuttonsmodel.h"
 #include "geoclueagent.h"
-#include "models/glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
 
@@ -88,11 +86,6 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->addImportPath("/usr/lib/qt/qml");
-
-    qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
-    qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
-    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
-    qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 
