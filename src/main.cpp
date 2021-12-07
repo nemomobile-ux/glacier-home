@@ -34,9 +34,9 @@
 #include <homeapplication.h>
 #include <lipstickqmlpath.h>
 
-#include "controlcenterbuttonsmodel.h"
+#include "models/controlcenterbuttonsmodel.h"
 #include "geoclueagent.h"
-#include "glacierwindowmodel.h"
+#include "models/glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
 

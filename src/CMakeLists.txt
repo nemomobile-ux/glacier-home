@@ -1,15 +1,17 @@
 set(SRC
     main.cpp
-    controlcenterbuttonsmodel.cpp
-    controlcenterbuttonsmodel.h
     fileutils.cpp
     fileutils.h
     geoclueagent.cpp
     geoclueagent.h
-    glacierwindowmodel.cpp
-    glacierwindowmodel.h
     mceconnect.cpp
-    mceconnect.h)
+    mceconnect.h
+    models/controlcenterbuttonsmodel.cpp
+    models/controlcenterbuttonsmodel.h
+    models/glacierwindowmodel.cpp
+    models/glacierwindowmodel.h
+    widgets/swipewavewidget.cpp
+    widgets/swipewavewidget.h)
 
 #add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
 #    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
