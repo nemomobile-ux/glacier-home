@@ -46,7 +46,7 @@
         <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
         <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
         <source>Bluetooth</source>
-        <translation>Блютуз</translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
