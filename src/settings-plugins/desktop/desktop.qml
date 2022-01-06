@@ -43,6 +43,13 @@ Page {
         defaultValue: true
     }
 
+    ConfigurationValue {
+        id: infinityPager
+        key: "/home/glacier/homeScreen/infinityPager"
+        defaultValue: false
+    }
+
+
     SettingsColumn{
         id: windowedModeSettings
         spacing: Theme.itemSpacingLarge
@@ -102,6 +109,35 @@ Page {
                     verticalCenter: alwaysShowSearchLabel.verticalCenter
                 }
                 onClicked: alwaysShowSearch.value = checked
+            }
+        }
+
+        Rectangle{
+            id: infinityPagerColumn
+            width: parent.width
+            height: childrenRect.height
+
+            color: "transparent"
+
+            Label{
+                id: infinityPagerLabel
+                text: qsTr("Infinite scrolling main screen");
+                anchors{
+                    left: parent.left
+                    top: parent.top
+                }
+                width: parent.width-windowedModeCheck.width
+                wrapMode: Text.WordWrap
+            }
+
+            CheckBox{
+                id: infinityPagerCheck
+                checked: infinityPager.value
+                anchors{
+                    right: parent.right
+                    verticalCenter: infinityPagerLabel.verticalCenter
+                }
+                onClicked: infinityPager.value = checked
             }
         }
     }

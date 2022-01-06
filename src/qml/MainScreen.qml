@@ -39,14 +39,12 @@ import QtQuick.Window 2.1
 
 import Nemo.Time 1.0
 import Nemo.Configuration 1.0
+import Nemo.DBus 2.0
+
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import org.nemomobile.statusnotifier 1.0
-
 import org.nemomobile.systemsettings 1.0
-
-import Nemo.DBus 2.0
-
 import org.nemomobile.glacier 1.0
 
 import "scripts/desktop.js" as Desktop
@@ -58,6 +56,20 @@ import "system"
 Page {
     id: desktop
     focus: true
+
+    ConfigurationValue {
+        id: infinityPager
+        key: "/home/glacier/homeScreen/infinityPager"
+        defaultValue: false
+
+        onValueChanged: {
+            if(value == true) {
+                pager.sourceComponent = infinityPagerView
+            } else {
+                pager.sourceComponent = listPagerView
+            }
+        }
+    }
 
     // This is used in the favorites page and in the lock screen
     WallClock {
@@ -193,8 +205,8 @@ Page {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
         opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
-            Lipstick.compositor.gestureArea.active ? 
-            Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
+                                                                                             Lipstick.compositor.gestureArea.active ?
+                                                                                                 Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
         NumberAnimation {
             properties: "opacity"
             duration: 200
@@ -251,46 +263,88 @@ Page {
         screenshot.capture()
     }
 
-    ListView {
+    VisualItemModel {
+        id: visualItemsModel
+        FeedsPage {
+            id: feeds
+            width: pager.width
+            height: pager.height
+        }
+        AppLauncher {
+            id: launcher
+            width: pager.width
+            height: pager.height
+            switcher: switcher
+        }
+        AppSwitcher {
+            id: switcher
+            width: pager.width
+            height: pager.height
+            visibleInHome: x > -width && x < desktop.width
+            launcher: launcher
+            wallpaper: wallpaper
+        }
+    }
+
+    Component{
+        id: infinityPagerView
+        Pager {
+            id: pager
+            anchors.topMargin: statusbar.height
+            anchors.fill: parent
+            enabled: Desktop.compositor.state != "controlCenter"
+            model: visualItemsModel
+            // Initial view should be the AppLauncher
+            currentIndex: 1
+        }
+    }
+
+    Component{
+        id: listPagerView
+        ListView {
+            id: pager
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            boundsBehavior: Flickable.StopAtBounds
+            opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
+                                                                                                 Lipstick.compositor.gestureArea.active ?
+                                                                                                     Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
+            NumberAnimation {
+                properties: "opacity"
+                duration: 200
+            }
+
+            model: visualItemsModel
+
+            // Initial view should be the AppLauncher
+            currentIndex: 1
+
+            Connections {
+                target: pager
+                function onContentXChanged() {
+                    var opacityCalc
+
+                    if(pager.contentX > desktop.width) {
+                        opacityCalc = 0
+                    } else if (pager.contentX <= 0) {
+                        opacityCalc = 1
+                    } else {
+                        opacityCalc = (desktop.width-pager.contentX)/desktop.width
+                    }
+
+                    statusbar.opacityStart = opacityCalc
+                }
+            }
+        }
+    }
+
+    Loader{
         id: pager
         anchors.topMargin: statusbar.height
         anchors.fill: parent
-        orientation: ListView.Horizontal
-        snapMode: ListView.SnapOneItem
-        highlightRangeMode: ListView.StrictlyEnforceRange
-        boundsBehavior: Flickable.StopAtBounds
-        opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
-            Lipstick.compositor.gestureArea.active ? 
-            Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
-        NumberAnimation {
-            properties: "opacity"
-            duration: 200
-        }
-
-        model: VisualItemModel {
-            FeedsPage {
-                id: feeds
-                width: pager.width
-                height: pager.height
-            }
-            AppLauncher {
-                id: launcher
-                width: pager.width
-                height: pager.height
-                switcher: switcher
-            }
-            AppSwitcher {
-                id: switcher
-                width: pager.width
-                height: pager.height
-                visibleInHome: x > -width && x < desktop.width
-                launcher: launcher
-                wallpaper: wallpaper
-            }
-        }
-
-        // Initial view should be the AppLauncher
-        currentIndex: 1
+        sourceComponent: infinityPager.value == true ? infinityPagerView : listPagerView
     }
 
     Wallpaper{
@@ -339,23 +393,6 @@ Page {
 
     Screenshot{
         id: screenshot
-    }
-
-    Connections {
-        target: pager
-        function onContentXChanged() {
-            var opacityCalc
-
-            if(pager.contentX > desktop.width) {
-                opacityCalc = 0
-            } else if (pager.contentX <= 0) {
-                opacityCalc = 1
-            } else {
-                opacityCalc = (desktop.width-pager.contentX)/desktop.width
-            }
-
-            statusbar.opacityStart = opacityCalc
-        }
     }
 
     Connections {
