@@ -89,10 +89,10 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->addImportPath("/usr/lib/qt/qml");
 
-    qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
-    qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
-    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
-    qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
+    qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier.lipstick", 1, 0 ,"GlacierWindowModel");
+    qmlRegisterType<MceConnect>("org.nemomobile.glacier.lipstick", 1, 0, "GlacierMceConnect");
+    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier.lipstick", 1, 0, "GlacierGeoAgent");
+    qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier.lipstick", 1, 0, "ControlCenterButtonsModel");
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 
