@@ -41,33 +41,51 @@
     </message>
 </context>
 <context>
-    <name>BluetoothButton</name>
+    <name>BluetoothControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
+        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
-    <name>BtRequestConfirmationDialog</name>
+    <name>BtObexRequestConfirmationDialog</name>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
+        <source>Download</source>
+        <translation>Pobierz</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
+        <source>send you file</source>
+        <translation>przesyła Tobie plik</translation>
+    </message>
+</context>
+<context>
+    <name>BtRequestConfirmationDialog</name>
+    <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect</source>
         <translation>Połącz</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>Connect to device </source>
         <translation>Połącz z urządzeniem</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
         <translation>kod:</translation>
     </message>
@@ -75,7 +93,7 @@
 <context>
     <name>CellularDataControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
+        <location filename="../src/qml/feedspage/CellularDataControlButton.qml" line="33"/>
         <source>Cellular data</source>
         <translation>Dane komórkowe</translation>
     </message>
@@ -83,17 +101,17 @@
 <context>
     <name>DeviceLockUI</name>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="166"/>
         <source>Enter security code</source>
         <translation>Wpisz kod</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="164"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="170"/>
         <source>Incorrect code</source>
         <translation>Kod nieprawidłowy</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="172"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="178"/>
         <source>Temporarily locked</source>
         <translation>Tymczasowo zablokowane</translation>
     </message>
@@ -117,7 +135,7 @@
 <context>
     <name>LocationControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
+        <location filename="../src/qml/feedspage/LocationControlButton.qml" line="31"/>
         <source>Location</source>
         <translation>Lokalizacja</translation>
     </message>
@@ -146,37 +164,37 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n rok temu</numerusform><numerusform>%n lata temu</numerusform><numerusform>%n lat temu</numerusform><numerusform>%n lata temu</numerusform></translation>
+        <translation><numerusform>%n rok temu</numerusform><numerusform>%n lata temu</numerusform><numerusform>%n lat temu</numerusform><numerusform>%n lat temu</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n miesiąc temu</numerusform><numerusform>%n miesiące temu</numerusform><numerusform>%n miesięcy temu</numerusform><numerusform>%n miesiąca temu</numerusform></translation>
+        <translation><numerusform>%n miesiąc temu</numerusform><numerusform>%n miesiące temu</numerusform><numerusform>%n miesięcy temu</numerusform><numerusform>%n miesięcy temu</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n dzień temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dnia temu</numerusform></translation>
+        <translation><numerusform>%n dzień temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n godzinę temu</numerusform><numerusform>%n godziny temu</numerusform><numerusform>%n godzin temu</numerusform><numerusform>%n godziny temu</numerusform></translation>
+        <translation><numerusform>%n godzinę temu</numerusform><numerusform>%n godziny temu</numerusform><numerusform>%n godzin temu</numerusform><numerusform>%n godzin temu</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="111"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n minutę temu</numerusform><numerusform>%n minuty temu</numerusform><numerusform>%n minut temu</numerusform><numerusform>%n minuty temu</numerusform></translation>
+        <translation><numerusform>%n minutę temu</numerusform><numerusform>%n minuty temu</numerusform><numerusform>%n minut temu</numerusform><numerusform>%n minut temu</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="113"/>
         <source>Just now</source>
         <translation>Teraz</translation>
     </message>
@@ -184,7 +202,7 @@
 <context>
     <name>QuietControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/QuietControlButton.qml" line="32"/>
         <source>Quiet</source>
         <translation>Cichy</translation>
     </message>
@@ -245,6 +263,14 @@
     </message>
 </context>
 <context>
+    <name>ShutdownScreen</name>
+    <message>
+        <location filename="../src/qml/system/ShutdownScreen.qml" line="73"/>
+        <source>Shutting down</source>
+        <translation>Wyłączanie</translation>
+    </message>
+</context>
+<context>
     <name>USBModeSelector</name>
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="75"/>
@@ -264,7 +290,7 @@
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131"/>
         <source>Developer Mode</source>
-        <translation>Tryb deweloperski</translation>
+        <translation>Tryb programisty</translation>
     </message>
 </context>
 <context>
@@ -311,9 +337,9 @@
     </message>
 </context>
 <context>
-    <name>WiFiButton</name>
+    <name>WiFiControlButton</name>
     <message>
-        <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
+        <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
         <source>Wi-Fi</source>
         <translation>Wi-Fi</translation>
     </message>
@@ -342,19 +368,6 @@
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
         <source>Always show search panel</source>
         <translation>Zawsze pokazuj panel wyszukiwania</translation>
-    </message>
-</context>
-<context>
-    <name>notifications</name>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="32"/>
-        <source>Notifications</source>
-        <translation>Powiadomienia</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="53"/>
-        <source>Show notification body on lockscreen</source>
-        <translation>Pokaż zawartość powiadomień na ekranie blokowania</translation>
     </message>
 </context>
 <context>
