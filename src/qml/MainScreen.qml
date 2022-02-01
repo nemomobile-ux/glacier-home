@@ -146,7 +146,7 @@ Page {
             btObexRequestConfirmationDialog.open()
         }
 
-        function onError() {
+        function onTransferError() {
             btObexRequestConfirmationDialog.close()
         }
 
