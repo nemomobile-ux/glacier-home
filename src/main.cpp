@@ -62,7 +62,6 @@ int main(int argc, char **argv)
 
     FileUtils *fileUtils = new FileUtils();
 
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
     if (!v.isEmpty()) {
@@ -83,11 +82,14 @@ int main(int argc, char **argv)
             nativeOrientation = app.primaryScreen()->nativeOrientation();
         }
     }
-    if (nativeOrientation == Qt::PrimaryOrientation)
+    if (nativeOrientation == Qt::PrimaryOrientation) {
         nativeOrientation = app.primaryScreen()->primaryOrientation();
+    }
+
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->addImportPath("/usr/lib/qt/qml");
+    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
