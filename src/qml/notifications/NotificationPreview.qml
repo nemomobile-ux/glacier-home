@@ -21,7 +21,7 @@
 //
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
-// Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
+// Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
 */
 import QtQuick 2.6
 import QtQuick.Controls.Nemo 1.0
@@ -29,17 +29,12 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 
-import "../scripts/desktop.js" as Desktop
-
 Item {
     id: notificationWindow
     property alias summary: summary.text
     property alias body: body.text
-    width: Desktop.instance.width
-    height: Desktop.instance.height
-    rotation: Desktop.instance.parent.rotation
-    x: Desktop.instance.x
-    y: Desktop.instance.y
+    width: Lipstick.compositor.quickWindow.width
+    height: Lipstick.compositor.quickWindow.height
 
     Connections{
         target: notificationPreviewPresenter

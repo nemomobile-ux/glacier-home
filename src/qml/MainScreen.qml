@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
 ** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
@@ -49,7 +49,6 @@ import Nemo.DBus 2.0
 
 import org.nemomobile.glacier 1.0
 
-import "scripts/desktop.js" as Desktop
 import "mainscreen"
 import "dialogs"
 import "volumecontrol"
@@ -222,8 +221,6 @@ Page {
     Component.onCompleted: {
         glacierRotation.rotationParent = desktop.parent
         setLockScreen(true)
-        Desktop.instance = desktop
-        Desktop.compositor.mainReady();
         Lipstick.compositor.screenOrientation = nativeOrientation
         LipstickSettings.lockScreen(true)
     }
@@ -245,10 +242,6 @@ Page {
         } else {
             LipstickSettings.lockscreenVisible = false
         }
-    }
-
-    function makeScreenshot() {
-        screenshot.capture()
     }
 
     ListView {
@@ -337,10 +330,6 @@ Page {
         z: 400
     }
 
-    Screenshot{
-        id: screenshot
-    }
-
     Connections {
         target: pager
         function onContentXChanged() {
@@ -362,6 +351,20 @@ Page {
         target: volumeControl
         function onShowAudioWarning() {
             audioWarnigDialog.open();
+        }
+    }
+
+    Connections {
+        target: Lipstick.compositor
+        function onWindowRemoved(window) {
+            desktop.focus = true
+            switcher.switchModel.removeWindowForTitle(window.title)
+        }
+        function onDisplayOff() {
+            desktop.displayOn = false;
+        }
+        function onDisplayOn() {
+            desktop.displayOn = true;
         }
     }
 }
