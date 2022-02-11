@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2021 Sergey Chupligin <neochapay@gmail.com>
+** Copyright (C) 2019-2022 Sergey Chupligin <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -42,6 +42,7 @@ StatusbarItem{
     iconSize: statusbarRight.height
     visible: false
     transparent: !cellularNetworkTechnology.connected
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknow.png"
 
     OfonoManager {
         id: manager
@@ -65,7 +66,7 @@ StatusbarItem{
     }
 
     function formatValue() {
-        if(cellularDataTechnology.technology == "2") {
+        if(cellularDataTechnology.technology == "2" || cellularDataTechnology.technology == "gsm") {
             dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
         }else if(cellularDataTechnology.technology == "2.5" || cellularDataTechnology.technology == "gprs") {
             dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
