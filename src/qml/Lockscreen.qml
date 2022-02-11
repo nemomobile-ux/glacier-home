@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -41,8 +41,6 @@ import Nemo.Configuration 1.0
 import "notifications"
 import "lockscreen"
 
-import "scripts/desktop.js" as Desktop
-
 Image {
     id: lockScreen
     source: lockScreenWallpaper.value
@@ -80,10 +78,11 @@ Image {
         if (mouseArea.fingerDown)
             return // we'll fix this up on touch release via the animations
 
-        if (snapOpenAnimation.running)
+        if (snapOpenAnimation.running) {
             snapOpenAnimation.to = -height
-        else if (!snapClosedAnimation.running && !LipstickSettings.lockscreenVisible)
+        } else if (!snapClosedAnimation.running && !LipstickSettings.lockscreenVisible) {
             y = -height
+        }
     }
 
     onDisplayOnChanged: {
@@ -181,7 +180,7 @@ Image {
         onReleased: {
             if(!locked) {
                 displayOffTimer.restart()
-                if(parent.height-parent.y > Theme.itemHeightHuge*2) {
+                if(lockScreen.y < -(lockScreen.width/3)) {
                     unlockAnimation.start()
                 } else {
                     lockScreen.snapPosition()

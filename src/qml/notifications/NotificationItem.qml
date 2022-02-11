@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -34,8 +34,6 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
-
-import "../scripts/desktop.js" as Desktop
 
 Item {
     id: notifyArea
@@ -77,7 +75,7 @@ Item {
         }
 
         onClicked: {
-            if (Desktop.instance.lockscreenVisible()) {
+            if (LipstickSettings.lockscreenVisible === true) {
                 return
             }
 
@@ -86,8 +84,6 @@ Item {
             } else {
                 modelData.actionInvoked("default")
             }
-
-            Desktop.instance.setLockScreen(false)
         }
     }
 

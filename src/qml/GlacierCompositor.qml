@@ -2,7 +2,7 @@
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
 // Copyright (C) 2017 Aleksi Suomalainen
 // Copyright (C) 2020 Eetu Kahelin
-// Copyright (C) 2021 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+// Copyright (C) 2021-2022 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 // This file is part of Glacier Home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,6 @@ import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 
 import "compositor"
-import "scripts/desktop.js" as Desktop
-
 
 Item {
     id: root
@@ -42,15 +40,6 @@ Item {
     // used by ubuntumirclient QPA for special clients to request input method windows from Mir.
 
     property int inputMethodWindowType: 2;
-
-    function mainReady() {
-        windowedLayer.visible = !Desktop.instance.lockscreen.visible
-        valueAnimationLock.target = Desktop.instance.lockscreen
-    }
-
-    Component.onCompleted: {
-        Desktop.compositor = root;
-    }
 
     Connections {
         target: comp.quickWindow
@@ -81,7 +70,7 @@ Item {
 
             width: parent.width
             height: parent.height
-            visible: comp.appActive && !Desktop.instance.lockscreen.visible
+            visible: comp.appActive && !LipstickSettings.lockscreenVisible
         }
 
         Rectangle {
@@ -181,21 +170,19 @@ Item {
                 }
             } else if (comp.homeActive){
                 if (gestureArea.progress >= lockThreshold) {
-                    lockAnimation.valueTo = (gesture == "left" ?
-                                                 Desktop.instance.lockscreen.width :
-                                                 -Desktop.instance.lockscreen.width)
+
                     lockAnimation.start()
 
                     if (gesture == "down") {
                         // swipe down on lockscreen to turn off display
-                        if (Desktop.instance.lockscreenVisible()) {
-                            Desktop.instance.setLockScreen(true)
+                        if (LipstickSettings.lockscreenVisible === true) {
+                            LipstickSettings.lockScreen(true)
                             comp.setDisplayOff()
                         }
                     }
                     // Unlocks if no security code required
-                    else if (DeviceLock.state !== DeviceLock.Locked && Desktop.instance.lockscreenVisible()) {
-                        Desktop.instance.setLockScreen(false)
+                    else if (DeviceLock.state !== DeviceLock.Locked && LipstickSettings.lockscreenVisible === true) {
+                        LipstickSettings.lockscreenVisible = false
                     }
                 } else {
                     cancelAnimation.start()
@@ -222,22 +209,10 @@ Item {
             },
             State {
                 name: "lock"
-                when: Desktop.instance.state === "locked"
+                when: LipstickSettings.lockscreenVisible === true
                 PropertyChanges {
                     target: gestureArea
                     delayReset: true
-                }
-                PropertyChanges {
-                    target: Desktop.instance.lockscreen
-
-                    y: gestureArea.lockscreenY + ((gestureArea.horizontal) ? 0 : (Desktop.instance.lockscreenVisible()?(gestureArea.value) :
-                                                                                       (gestureArea.gesture == "down" ?
-                                                                                       ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                            -Desktop.instance.lockscreen.height :
-                                                                                            -Desktop.instance.lockscreen.width)+Math.abs(gestureArea.value) :
-                                                                                       ((Desktop.instance.lockscreen.width === comp.topmostWindow.width) ?
-                                                                                            Desktop.instance.lockscreen.height :
-                                                                                            Desktop.instance.lockscreen.width)+gestureArea.value) ) )
                 }
             }
         ]
@@ -271,8 +246,11 @@ Item {
             }
 
             ScriptAction {
-                script: Desktop.instance.setLockScreen(
-                            Desktop.instance.lockscreenVisible())
+                script: if (LipstickSettings.lockscreenVisible === true) {
+                    LipstickSettings.lockScreen(true)
+                } else {
+                    LipstickSettings.lockscreenVisible = false
+                }
             }
 
             PropertyAction {
@@ -338,6 +316,7 @@ Item {
             id: innerMystic
         }
     }
+
     Compositor {
         id: comp
         property Item homeWindow
@@ -395,11 +374,6 @@ Item {
             if (root.topmostAlarmWindow == null) {
                 setCurrentWindow(root.homeWindow)
             }
-            Desktop.instance.displayOn = false
-        }
-
-        onDisplayOn: {
-            Desktop.instance.displayOn = true
         }
 
         onWindowAdded: {
@@ -479,8 +453,6 @@ Item {
         onWindowRemoved: {
             console.log("Compositor: Window removed \"" + window.title + "\""
                         + " category: " + window.category)
-            Desktop.instance.switcher.switchModel.removeWindowForTitle(
-                        window.title)
             var w = window.userData
             if (window.category == "alarm") {
                 comp.topmostAlarmWindow = null
@@ -491,7 +463,6 @@ Item {
 
             if (window.userData)
                 window.userData.destroy()
-            Desktop.instance.focus = true
         }
 
         screenOrientation: {

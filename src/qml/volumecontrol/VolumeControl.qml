@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -36,14 +36,12 @@ import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 
-
-import "../scripts/desktop.js" as Desktop
-
+import "../system"
 
 Rectangle{
     id: volumeControlWindow
 
-    width: Desktop.instance.width
+    width: Lipstick.compositor.quickWindow.width
     height: mainVolumeRow.height+Theme.itemSpacingSmall*2
 
     color: Theme.backgroundColor
@@ -160,13 +158,17 @@ Rectangle{
         }
     }
 
+    Screenshot{
+        id: screenshot
+    }
+
     Timer{
         id: screenShotTimer
         interval: 2000
         onTriggered: {
             if(upPress && downPress) {
                 volumeControlWindow.visible = false
-                Desktop.instance.makeScreenshot();
+                screenshot.capture();
             }
         }
     }
