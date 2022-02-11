@@ -42,7 +42,7 @@ StatusbarItem{
     iconSize: statusbarRight.height
     visible: false
     transparent: !cellularNetworkTechnology.connected
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknow.png"
+    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
 
     OfonoManager {
         id: manager
