@@ -27,7 +27,6 @@ AgentAdaptor::AgentAdaptor(GeoclueAgent *parent)
 {
     // constructor
     setAutoRelaySignals(true);
-    qDebug() << Q_FUNC_INFO;
 }
 
 AgentAdaptor::~AgentAdaptor()
@@ -37,14 +36,12 @@ AgentAdaptor::~AgentAdaptor()
 
 uint AgentAdaptor::maxAccuracyLevel() const
 {
-    qDebug() << Q_FUNC_INFO;
     // get the value of property MaxAccuracyLevel
     return qvariant_cast< uint >(parent()->property("MaxAccuracyLevel"));
 }
 
 void AgentAdaptor::AuthorizeApp(const QString &desktop_id, uint req_accuracy_level, bool &authorized, uint &allowed_accuracy_level)
 {
-    qDebug() << Q_FUNC_INFO;
     // handle method call org.freedesktop.GeoClue2.Agent.AuthorizeApp
     authorized = parent()->AuthorizeApp(desktop_id, req_accuracy_level, allowed_accuracy_level);
 }
