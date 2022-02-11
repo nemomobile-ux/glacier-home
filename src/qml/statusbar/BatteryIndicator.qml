@@ -103,6 +103,13 @@ StatusbarItem {
         fillMode: Image.PreserveAspectFit
 
         visible: cableState.connected
+
+        layer.effect: ColoredIconEffect{
+            color:  Theme.backgroundColor
+        }
+
+        layer.enabled: true
+        layer.samplerName: "source"
     }
 
     Timer{
