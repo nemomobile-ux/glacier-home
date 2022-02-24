@@ -15,6 +15,7 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 option(USE_SYSTEMD "Use systemd services" ON)
+option(USE_GEOCLUE2 "Use geoclue2 location service. If no use classic geoclue" OFF)
 
 set(QT_MIN_VERSION "5.11.0")
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS

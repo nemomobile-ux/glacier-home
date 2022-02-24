@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -31,21 +31,7 @@
 
 import QtQuick 2.6
 import org.nemomobile.glacier 1.0
-import Nemo.Configuration 1.0
 
-StatusbarItem {
-    id: gpsIndicator
-    iconSize: statusbarRight.height * 0.75
-    iconSizeHeight: statusbarRight.height
-
-    visible: loactionLevel.value != 0
-    transparent: (usegeoclue2) ? !geoAgent.inUse : false
-
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
-
-    ConfigurationValue {
-        id: loactionLevel
-        key: "/home/glacier/loaction/enabled"
-        defaultValue: "0"
-    }
+GlacierGeoAgent{
+    id: geoAgent
 }

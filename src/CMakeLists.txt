@@ -4,8 +4,6 @@ set(SRC
     controlcenterbuttonsmodel.h
     fileutils.cpp
     fileutils.h
-    geoclueagent.cpp
-    geoclueagent.h
     glacierwindowmodel.cpp
     glacierwindowmodel.h
     mceconnect.cpp
@@ -21,10 +19,17 @@ set(SRC
 #set_property(SOURCE geoagent.h PROPERTY SKIP_AUTOGEN ON)
 #set_property(SOURCE geoagent.cpp PROPERTY SKIP_AUTOGEN ON)
 
-add_executable(lipstick
-    ${SRC}
-    geoagent.cpp
-    geoagent.h)
+if(USE_GEOCLUE2)
+    add_compile_options(-DUSE_GEOCLUE2)
+
+    set(GEOCLUE_SRC
+        geoclueagent.cpp
+        geoclueagent.h
+        geoagent.cpp
+        geoagent.h)
+endif()
+
+add_executable(lipstick ${SRC} ${GEOCLUE_SRC})
 
 target_link_libraries(lipstick PUBLIC
     Qt5::Gui

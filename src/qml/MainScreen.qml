@@ -77,7 +77,7 @@ Page {
         }
     }
 
-    GlacierGeoAgent{
+    Loader{
         id: geoAgent
     }
 
@@ -223,6 +223,10 @@ Page {
         setLockScreen(true)
         Lipstick.compositor.screenOrientation = nativeOrientation
         LipstickSettings.lockScreen(true)
+
+        if(usegeoclue2) {
+            geoAgent.source = "system/GeoClue2Agent.qml"
+        }
     }
 
     Connections {

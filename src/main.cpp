@@ -35,7 +35,11 @@
 #include <lipstickqmlpath.h>
 
 #include "controlcenterbuttonsmodel.h"
+
+#ifdef USE_GEOCLUE2
 #include "geoclueagent.h"
+#endif
+
 #include "glacierwindowmodel.h"
 #include "fileutils.h"
 #include "mceconnect.h"
@@ -93,8 +97,13 @@ int main(int argc, char **argv)
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
-    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
     qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
+#ifdef USE_GEOCLUE2
+    app.engine()->rootContext()->setContextProperty("usegeoclue2", true);
+    qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
+#else
+    app.engine()->rootContext()->setContextProperty("usegeoclue2", false);
+#endif
 
     app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
 
