@@ -191,7 +191,7 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="111"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>Minuten zuvor</numerusform><numerusform>Vor %n Minuen</numerusform></translation>
+        <translation><numerusform>Minuten zuvor</numerusform><numerusform>Vor %n Minuten</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="113"/>
