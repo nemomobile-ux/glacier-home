@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="48"/>
         <source>Dangerous volume level!</source>
-        <translation>Gefährliche Lautstärke</translation>
+        <translation>Gefährliche Lautstärke!</translation>
     </message>
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49"/>
