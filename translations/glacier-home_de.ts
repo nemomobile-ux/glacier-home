@@ -37,7 +37,7 @@
     <message>
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49"/>
         <source>Do you want to continue?</source>
-        <translation>Möchtest du fortsetzen?</translation>
+        <translation>Möchten Sie fortsetzen?</translation>
     </message>
 </context>
 <context>
