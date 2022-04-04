@@ -20,7 +20,7 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2018-2021, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2022, Chupligin Sergey <neochapay@gmail.com>
 
 #include <QFont>
 #include <QQmlEngine>
@@ -65,6 +65,7 @@ int main(int argc, char **argv)
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils *fileUtils = new FileUtils();
+    MceConnect *mceConnect = new MceConnect();
 
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
@@ -92,6 +93,7 @@ int main(int argc, char **argv)
 
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
+    app.engine()->rootContext()->setContextProperty("mceConnect", mceConnect);
     app.engine()->addImportPath("/usr/lib/qt/qml");
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");

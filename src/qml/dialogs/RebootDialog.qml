@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -37,7 +37,18 @@ import Nemo.DBus 2.0
 Item {
     id: rebootDialog
     anchors.fill: parent
-    visible: false
+    visible: mceConnect.rebootDialogVisible
+
+    Connections{
+        target: mceConnect
+        function onPowerKeyPressed() {
+            if(!mceConnect.rebootDialogVisible) {
+                mceConnect.rebootDialogVisible = true
+            } else {
+                mceConnect.rebootDialogVisible = false
+            }
+        }
+    }
 
     Rectangle{
         id: shadow
@@ -48,9 +59,9 @@ Item {
 
     MouseArea{
         anchors.fill: parent
-        enabled: rebootDialog.visible
+        enabled: mceConnect.rebootDialogVisible
         onPressed: {
-            rebootDialog.visible = false
+            mceConnect.rebootDialogVisible = false
         }
     }
 

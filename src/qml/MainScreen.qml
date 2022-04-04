@@ -65,18 +65,6 @@ Page {
         updateFrequency: WallClock.Minute
     }
 
-    GlacierMceConnect{
-        id: mceConnect
-
-        onPowerKeyPressed: {
-            if(!rebootDialog.visible) {
-                rebootDialog.visible = true
-            } else {
-                rebootDialog.visible = false
-            }
-        }
-    }
-
     Loader{
         id: geoAgent
     }
