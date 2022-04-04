@@ -29,7 +29,9 @@ if(USE_GEOCLUE2)
         geoagent.h)
 endif()
 
-add_executable(lipstick ${SRC} ${GEOCLUE_SRC})
+qtquick_compiler_add_resources(RESOURCES qml/glacier-home.qrc)
+
+add_executable(lipstick ${SRC} ${GEOCLUE_SRC} ${RESOURCES})
 
 target_link_libraries(lipstick PUBLIC
     Qt5::Gui
@@ -40,18 +42,11 @@ target_link_libraries(lipstick PUBLIC
     PkgConfig::MLITE5
     PkgConfig::NEMODEVICELOCK)
 
-if(QT_VERSION EQUAL "5.6.0")
-    target_link_libraries(lipstick PUBLIC
-        Qt5::Compositor)
-else()
-    target_link_libraries(lipstick PUBLIC
-        Qt5::WaylandCompositor)
-endif()
+target_link_libraries(lipstick PUBLIC
+    Qt5::WaylandCompositor)
 
 install(TARGETS lipstick RUNTIME
     DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(DIRECTORY qml
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt5)
 
 file(GLOB SETTINGS_WALLPAPERPLUGIN settings-plugins/wallpaper/*)
 list(REMOVE_ITEM SETTINGS_WALLPAPERPLUGIN wallpaper.json)

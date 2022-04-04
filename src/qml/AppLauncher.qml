@@ -195,7 +195,7 @@ Flickable{
                     if(modelData) {
                         launcherItem.iconCaption.text = modelData.object.title
                         launcherItem.isFolder = modelData.object.type == LauncherModel.Folder
-                        launcherItem.source = modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+                        launcherItem.source = modelData.object.iconId == "" ? "qrc:/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
                     }
                 }
             }

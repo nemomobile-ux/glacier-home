@@ -93,7 +93,7 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->addImportPath("/usr/lib/qt/qml");
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
+    app.setCompositorPath("qrc:/GlacierCompositor.qml");
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("usegeoclue2", false);
 #endif
 
-    app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
+    app.setQmlPath("qrc:/MainScreen.qml");
 
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser
