@@ -54,6 +54,15 @@ Item {
         }
     }
 
+    Connections{
+        target: mceConnect
+        function onRebootDialogVisibleChanged() {
+            if(mceConnect.rebootDialogVisible) {
+                comp.hideAllWindows()
+            }
+        }
+    }
+
     Item {
         id: layersParent
         anchors.fill: parent
@@ -483,6 +492,10 @@ Item {
             } else {
                 screenOrientation = sensorOrientation
             }
+        }
+
+        function hideAllWindows() {
+            setCurrentWindow(root.homeWindow)
         }
     }
 }
