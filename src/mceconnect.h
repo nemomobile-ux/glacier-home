@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -39,16 +39,22 @@ class MceConnect : public QObject
     Q_OBJECT
     Q_PROPERTY(bool mouseAvailable READ mouseAvailable NOTIFY mouseAvailableChanged)
     Q_PROPERTY(bool keyboardeAvailable READ keyboardAvailable NOTIFY keyboardAvailableChanged)
+    Q_PROPERTY(bool rebootDialogVisible READ rebootDialogVisible WRITE rebootDialogVisible NOTIFY rebootDialogVisibleChanged)
 
 public:
     explicit MceConnect(QObject *parent = 0);
     bool mouseAvailable() {return m_mouseAvailable;}
     bool keyboardAvailable() {return m_keyboardAvailable;}
+    bool rebootDialogVisible() {return m_rebootDialogVisible;}
 
 signals:
     void powerKeyPressed();
     void mouseAvailableChanged();
     void keyboardAvailableChanged();
+    void rebootDialogVisibleChanged();
+
+public:
+    void rebootDialogVisible(const bool visible);
 
 private slots:
     void getPowerKeyAction(const QString &action);
@@ -58,6 +64,7 @@ private slots:
 private:
     bool m_mouseAvailable;
     bool m_keyboardAvailable;
+    bool m_rebootDialogVisible;
 };
 
 #endif // MCECONNECT_H

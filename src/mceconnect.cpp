@@ -40,6 +40,7 @@ MceConnect::MceConnect(QObject *parent) :
     QObject(parent)
     , m_mouseAvailable(false)
     , m_keyboardAvailable(false)
+    , m_rebootDialogVisible(false)
 {
     QDBusConnection::systemBus().connect(
                     QString(),
@@ -63,7 +64,15 @@ MceConnect::MceConnect(QObject *parent) :
                     QStringLiteral(MCE_SIGNAL_IF),
                     QStringLiteral(MCE_HARDWARE_KEYBOARD_STATE_SIG),
                     this,
-                    SLOT(getKeyboardAction(QString)));
+                SLOT(getKeyboardAction(QString)));
+}
+
+void MceConnect::rebootDialogVisible(const bool visible)
+{
+    if(visible != m_rebootDialogVisible) {
+        m_rebootDialogVisible = visible;
+        emit rebootDialogVisibleChanged();
+    }
 }
 
 void MceConnect::getPowerKeyAction(const QString &action)
