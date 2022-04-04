@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
-** Copyright (c) 2018, Chupligin Sergey
+** Copyright (c) 2018-2022, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -84,6 +84,7 @@ Item {
 
     Row {
         id:searchRow
+        spacing: Theme.itemSpacingMedium
         anchors {
             top: parent.top
             left: parent.left
@@ -93,6 +94,7 @@ Item {
             rightMargin: Theme.itemSpacingMedium
             bottomMargin:Theme.itemSpacingHuge
         }
+
         Image {
             id:searchIcon
             anchors.verticalCenter: parent.verticalCenter
@@ -115,6 +117,7 @@ Item {
             id:searchField
             width:parent.width - searchIcon.width - Theme.itemSpacingMedium
             placeholderText: qsTr("Search")
+
             Binding {
                 target: appLauncher
                 property: "searchString"
@@ -124,6 +127,10 @@ Item {
                 if(text.lenght>0) {
                     searchField.forceActiveFocus()
                 }
+            }
+
+            style: TextFieldStyle{
+                placeholderTextColor: Theme.textColor
             }
         }
     }
