@@ -362,7 +362,7 @@
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
         <source>Enable windowed mode</source>
-        <translation>Fenstermodus einschalten</translation>
+        <translation>Fenstermodus aktivieren</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
