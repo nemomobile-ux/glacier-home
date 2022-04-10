@@ -82,7 +82,7 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>Connect to device </source>
-        <translation>Zu Gerät verbinden</translation>
+        <translation>Mit Gerät verbinden</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
