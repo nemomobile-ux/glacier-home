@@ -145,7 +145,7 @@
     <message>
         <location filename="../src/qml/statusbar/MediaController.qml" line="67"/>
         <source>No music playing</source>
-        <translation>Es spielt keine Musik</translation>
+        <translation>Keine Musikwiedergabe</translation>
     </message>
 </context>
 <context>
