@@ -328,7 +328,7 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53"/>
         <source>Ask</source>
-        <translation>(Ab-)fragen</translation>
+        <translation>Fragen</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69"/>
