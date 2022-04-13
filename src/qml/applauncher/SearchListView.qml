@@ -346,19 +346,23 @@ Item {
         }
 
         delegate: Item {
-            width: parent.width
+            width: listView.width
             height:Theme.itemHeightExtraLarge*1.2
             property string iconCaption: model.title
             property string iconSource: {
                 if(model.iconSource) {
-                    if(model.iconSource.indexOf("file:///") == 0) {
+                    if (model.iconSource.indexOf("file:///") == 0) {
                         return model.iconSource
-                    }else {
+                    } else {
                         if( model.iconSource.indexOf("/") == 0) {
                             return "file://" + model.iconSource
-                        } else return "image://theme/" + model.iconSource
+                        } else {
+                            return "image://theme/" + model.iconSource
+                        }
                     }
-                } else return "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                } else {
+                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                }
             }
 
             Rectangle {
@@ -368,7 +372,7 @@ Item {
             }
             Image {
                 id: iconImage
-                width: Math.min(Theme.iconSizeLauncher, parent.height-Theme.itemSpacingMedium)
+                width: parent.height-Theme.itemSpacingMedium
                 height: width
                 source:iconSource
                 anchors.verticalCenter: parent.verticalCenter
