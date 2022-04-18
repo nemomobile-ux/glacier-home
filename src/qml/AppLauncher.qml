@@ -126,6 +126,9 @@ Flickable{
         cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
 
         height: parent.height
+        anchors.top: searchListView.bottom
+        anchors.topMargin: Theme.itemSpacingMedium
+        anchors.bottom: parent.bottom
         width: parent.width
 
         cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
