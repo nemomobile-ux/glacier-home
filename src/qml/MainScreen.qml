@@ -54,9 +54,10 @@ import "dialogs"
 import "volumecontrol"
 import "system"
 
-Page {
+Item {
     id: desktop
     focus: true
+    anchors.fill: parent
 
     // This is used in the favorites page and in the lock screen
     WallClock {
@@ -194,10 +195,11 @@ Page {
         rotationParent: desktop.parent
     }
 
-    orientation: Lipstick.compositor.screenOrientation
-
-    onOrientationChanged: {
-        glacierRotation.rotateRotationParent(orientation)
+    Connections{
+        target: Lipstick.compositor
+        function onScreenOrientationChanged(){
+            glacierRotation.rotateRotationParent(Lipstick.compositor.screenOrientation)
+        }
     }
 
     onParentChanged: {
