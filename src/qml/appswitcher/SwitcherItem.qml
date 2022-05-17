@@ -33,9 +33,9 @@ import org.nemomobile.lipstick 0.1
 Item {
     id: switcherItemRoot
 
-    property bool rotateWindowContent: !desktop.isPortrait
+    property bool rotateWindowContent: desktop.isPortrait
     property int desktopAngle: {
-        switch(desktop.orientation) {
+        switch(Lipstick.compositor.screenOrientation) {
         case Qt.PortraitOrientation:
             return 0
         case Qt.InvertedPortraitOrientation:
@@ -48,7 +48,7 @@ Item {
     }
 
     property int originX: {
-        switch(desktop.orientation) {
+        switch(Lipstick.compositor.screenOrientation) {
         case Qt.PortraitOrientation:
             return 0
         case Qt.InvertedPortraitOrientation:
@@ -60,7 +60,7 @@ Item {
         }
     }
     property int originY: {
-        switch(desktop.orientation) {
+        switch(Lipstick.compositor.screenOrientation) {
         case Qt.PortraitOrientation:
             return 0
         case Qt.InvertedPortraitOrientation:

@@ -159,7 +159,7 @@ Item {
     property alias switcher: switcher
     property alias statusbar: statusbar
 
-    readonly property int isUiPortrait: orientation == Qt.PortraitOrientation || orientation == Qt.InvertedPortraitOrientation
+    readonly property int isUiPortrait: Lipstick.compositor.screenOrientation == Qt.PortraitOrientation || Lipstick.compositor.screenOrientation == Qt.InvertedPortraitOrientation
 
     property alias displayOn: lockScreen.displayOn
     property bool deviceLocked: DeviceLock.state >= DeviceLock.Locked
