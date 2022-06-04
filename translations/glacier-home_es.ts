@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" version="2.1">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -170,7 +168,7 @@
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation>
-            <numerusform>hace año</numerusform>
+            <numerusform>%n hace año</numerusform>
             <numerusform>%n hace años</numerusform>
         </translation>
     </message>
@@ -179,7 +177,7 @@
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation>
-            <numerusform>hace mes</numerusform>
+            <numerusform>%n hace mes</numerusform>
             <numerusform>%n hace meses</numerusform>
         </translation>
     </message>
@@ -188,7 +186,7 @@
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation>
-            <numerusform>hace día</numerusform>
+            <numerusform>%n hace día</numerusform>
             <numerusform>%n hace días</numerusform>
         </translation>
     </message>
@@ -197,7 +195,7 @@
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation>
-            <numerusform>hace hora</numerusform>
+            <numerusform>%n hace hora</numerusform>
             <numerusform>%n hace horas</numerusform>
         </translation>
     </message>
@@ -206,7 +204,7 @@
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation>
-            <numerusform>hace minuto</numerusform>
+            <numerusform>%n hace minuto</numerusform>
             <numerusform>%n hace minutos</numerusform>
         </translation>
     </message>
@@ -392,7 +390,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
         <source>Select wallpaper</source>
-        <translation>elegir fondo de pantalla</translation>
+        <translation>Elegir fondo de pantalla</translation>
     </message>
 </context>
 <context>
