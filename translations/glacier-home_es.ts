@@ -375,7 +375,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
         <source>Select wallpaper</source>
-        <translation>elegir fondo de pantalla</translation>
+        <translation>Elegir fondo de pantalla</translation>
     </message>
 </context>
 <context>
