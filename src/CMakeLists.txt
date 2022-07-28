@@ -52,22 +52,3 @@ install(TARGETS lipstick RUNTIME
     DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY qml
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt5)
-
-file(GLOB SETTINGS_WALLPAPERPLUGIN settings-plugins/wallpaper/*)
-list(REMOVE_ITEM SETTINGS_WALLPAPERPLUGIN wallpaper.json)
-install(FILES ${SETTINGS_WALLPAPERPLUGIN}
-    DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/qml/plugins/wallpaper)
-
-file(GLOB SETTINGS_DESKTOPPLUGIN settings-plugins/desktop/*)
-list(REMOVE_ITEM SETTINGS_DESKTOPPLUGIN desktop.json)
-install(FILES ${SETTINGS_DESKTOPPLUGIN}
-    DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/qml/plugins/desktop)
-
-set(SETTINGS_PLUGINCONFIG
-    settings-plugins/wallpaper/wallpaper.json
-    settings-plugins/desktop/desktop.json)
-install(FILES ${SETTINGS_PLUGINCONFIG}
-    DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/glacier-settings/plugins)

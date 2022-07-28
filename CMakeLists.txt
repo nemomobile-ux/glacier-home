@@ -43,6 +43,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 
 add_subdirectory(src)
+add_subdirectory(settings-plugins)
 
 if(USE_SYSTEMD)
     install(FILES data/lipstick.service
