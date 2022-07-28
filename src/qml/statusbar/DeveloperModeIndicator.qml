@@ -30,17 +30,21 @@
 ****************************************************************************************/
 
 import QtQuick 2.6
-import org.nemomobile.systemsettings 1.0
+import org.glacier.developermode 1.0
 
 StatusbarItem {
-    id: wifiStatus
+    id: developerModeIndicator
     iconSize: statusbarRight.height
 
-    visible: usbModeSettings.currentMode == "developer_mode"
+    visible: false
 
     source: "image://theme/bug"
 
-    USBSettings{
-        id: usbModeSettings
+    DeveloperMode{
+        id: developerMode
+
+        onEnabledChanged: {
+            developerModeIndicator.visible = developerMode.enabled
+        }
     }
 }

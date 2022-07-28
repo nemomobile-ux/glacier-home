@@ -172,7 +172,7 @@ Item {
                 id: locationIndicator
             }
 
-            UsbModeIndicator{
+            DeveloperModeIndicator{
                 id: usbModedIndicator
             }
         }
