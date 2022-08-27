@@ -290,7 +290,7 @@
     <message>
         <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131"/>
         <source>Developer Mode</source>
-        <translation>Entwickler Modus</translation>
+        <translation>Entwicklermodus</translation>
     </message>
 </context>
 <context>
