@@ -408,7 +408,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
         <source>Lockscreen wallpaper</source>
-        <translation>Lockscreen Hintergrund</translation>
+        <translation>Lockscreen-Hintergrund</translation>
     </message>
 </context>
 </TS>
