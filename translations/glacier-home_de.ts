@@ -398,7 +398,7 @@
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Homescreen wallpaper</source>
-        <translation>Homescreen Hintergrundbild</translation>
+        <translation>Homescreen-Hintergrund</translation>
     </message>
     <message>
         <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
