@@ -134,7 +134,6 @@ Flickable{
         cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
 
         property Item reorderItem
-        property bool onUninstall
         property var switcher: null
         property int iconSize: Theme.itemHeightSmall
 

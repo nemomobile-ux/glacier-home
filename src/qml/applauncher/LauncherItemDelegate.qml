@@ -32,17 +32,17 @@ import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 
 Item {
-    id: wrapper
+    id: launcherItemDelegate
     property alias source: iconImage.source
     property alias iconCaption: iconText
     property bool reordering: launcherItem.reordering
     property bool isFolder
+    property alias onUninstall: launcherItem.onUninstall
     property alias parentItem: launcherItem.parentItem
     property alias folderModel:launcherItem.folderModel
 
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
-    clip: true
 
     Timer {
         id: moveTimer
@@ -57,12 +57,63 @@ Item {
             }
         }
     }
+
+    onOnUninstallChanged: {
+        if(onUninstall) {
+            doUninstallAnumation.start()
+        } else {
+            doUninstallAnumation.stop()
+        }
+    }
+
+    Rectangle{
+        id: uninuninstallerItem
+        width: launcherItem.width*2
+        height: launcherItem.height/2
+        visible: onUninstall
+        color: Theme.backgroundAccentColor
+
+        radius: 10
+
+        anchors{
+            horizontalCenter: launcherItemDelegate.horizontalCenter
+            bottom: launcherItemDelegate.top
+        }
+
+        onVisibleChanged: {
+            console.log(x + " " + y)
+        }
+    }
+
+    SequentialAnimation {
+        id: doUninstallAnumation
+        loops: Animation.Infinite
+        PropertyAnimation {
+            target: launcherItem
+            properties: "y";
+            easing.type: Easing.InOutElastic;
+            easing.amplitude: 2.0;
+            easing.period: 1.5
+            to: launcherItemDelegate.y+launcherItem.width*0.2
+        }
+        PropertyAnimation {
+            target: launcherItem
+            properties: "y";
+            easing.type: Easing.InOutElastic;
+            easing.amplitude: 2.0;
+            easing.period: 1.5
+            to: launcherItemDelegate.y
+        }
+    }
+
+
     // Application icon for the launcher
     LauncherItemWrapper {
         id: launcherItem
-        width: wrapper.width
+        width: launcherItemDelegate.width
         height: iconWrapper.height+Theme.itemSpacingSmall+Theme.fontSizeTiny*3
-        isFolder: wrapper.isFolder
+        isFolder: launcherItemDelegate.isFolder
+        clip: true
 
         Item {
             id: iconWrapper
@@ -78,8 +129,8 @@ Item {
             Image {
                 id: iconImage
                 anchors.centerIn: parent
-                height: launcherItem.reordering ? parent.height*1.2 : parent.height
-                width: launcherItem.reordering ? parent.width*1.2 : parent.width
+                height: launcherItem.reordering ? parent.height : parent.height*0.8
+                width: launcherItem.reordering ? parent.width : parent.width*0.8
                 asynchronous: true
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
@@ -132,6 +183,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeTiny
             color: Theme.textColor
+            visible: !launcherItem.reordering
 
             wrapMode: Text.WordWrap
 

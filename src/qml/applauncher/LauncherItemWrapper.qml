@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2022, Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
@@ -34,6 +35,7 @@ MouseArea {
     property int newFolderIndex: -1
     property real oldY
     property bool isFolder
+    property bool onUninstall: false
     property Item parentItem
     property alias slideMoveAnim: slideMoveAnim
     property QtObject folderModel
@@ -60,46 +62,53 @@ MouseArea {
     }
 
     onClicked: {
-        // TODO: disallow if close mode enabled
-        if (modelData.object.type !== LauncherModel.Folder) {
+        if(!onUninstall && modelData.object.type !== LauncherModel.Folder) {
+            // TODO: disallow if close mode enabled
             var winId = switcher.switchModel.getWindowIdForTitle(modelData.object.title)
-            if (winId == 0 && !modelData.object.isLaunching)
+            if (winId == 0 && !modelData.object.isLaunching) {
                 modelData.object.launchApplication()
-            else
+            } else {
                 Lipstick.compositor.windowToFront(winId)
+            }
         }
     }
+
     onPressed: {
         newIndex = -1
         newFolderIndex = -1
+        onUninstall = false
+    }
+
+    onMouseXChanged: {
+        onUninstall = false
+    }
+
+    onMouseYChanged: {
+        onUninstall = false
     }
 
     onPressAndHold: {
+        deleteTimer.start()
         reparent(parentItem)
         parentItem.reorderItem = launcherItem
         drag.target = launcherItem
         z = 1000
         reordering = true
-        if(!isFolder){
-            parentItem.onUninstall = true
-        }
 
         // don't allow dragging an icon out of pages with a horizontal flick
         pager.interactive = false
     }
 
     onReleased: {
-        if (reordering) {
+        deleteTimer.stop()
+
+        if (reordering && !onUninstall) {
             reordering = false
             reorderEnded()
             reorderTimer.stop()
             drag.target = null
             parentItem.reorderItem = null
             pager.interactive = true
-            if(parentItem.onUninstall){
-                parentItem.onUninstall = false
-                deleteState="basic"
-            }
             parentItem.folderIndex = -1
             reparent(parentItem.contentItem)
             z = parent.z
@@ -130,12 +139,12 @@ MouseArea {
             var offset = gridViewPos.x - item.x
             var folderThreshold = !isFolder ? item.width / 4 : item.width / 2
             if (offset < folderThreshold) {
-                if (Math.abs(cellIndex - item.cellIndex) > 1 || cellIndex > item.cellIndex || item.y !== wrapper.offsetY) {
+                if (Math.abs(cellIndex - item.cellIndex) > 1 || cellIndex > item.cellIndex || item.y !== launcherItemDelegate.offsetY) {
                     idx = cellIndex < item.cellIndex ? item.cellIndex - 1 : item.cellIndex
                     folderItem = null
                 }
             } else if (offset >= item.width - folderThreshold) {
-                if (Math.abs(cellIndex - item.cellIndex) > 1 || cellIndex < item.cellIndex || item.y !== wrapper.offsetY) {
+                if (Math.abs(cellIndex - item.cellIndex) > 1 || cellIndex < item.cellIndex || item.y !== launcherItemDelegate.offsetY) {
                     idx = cellIndex > item.cellIndex ? item.cellIndex + 1 : item.cellIndex
                     folderItem = null
                 }
@@ -184,25 +193,24 @@ MouseArea {
         if(deleteState != "basic"){
             //Just placeholder to get visual feedback
             enabled=false
-            deleteAnimation.start()
-            deleteTimer.start()
         }
     }
     Timer {//Just placeholder to get visual feedback
         id:deleteTimer
         interval: 3000
         onTriggered: {
-            iconWrapper.opacity=1.0
-            enabled = true
+            slideMoveAnim.start()
+            launcherItem.enabled = false
+            onUninstall = true
         }
     }
 
-    NumberAnimation {//Just placeholder to get visual feedback
-        id:deleteAnimation;
-        target: typeof iconWrapper !== 'undefined' ? iconWrapper : parent;
-        property: "opacity";
-        to: 0.2;
-        duration: 3000;
+    InverseMouseArea{
+        anchors.fill: parent
+        onPressed: {
+            onUninstall = false
+            reordering = false
+        }
     }
 
     Timer {
@@ -235,7 +243,7 @@ MouseArea {
         NumberAnimation {
             target: launcherItem;
             property: "x";
-            to: wrapper.x;
+            to: launcherItemDelegate.x;
             duration: 130;
             easing.type: Easing.OutQuint
         }
@@ -243,7 +251,7 @@ MouseArea {
         NumberAnimation {
             target: launcherItem;
             property: "y";
-            to: wrapper.y;
+            to: launcherItemDelegate.y;
             duration: 130;
             easing.type: Easing.OutQuint
         }
