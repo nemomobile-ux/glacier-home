@@ -19,8 +19,6 @@
 
 #include "wallpapersettingsplugin.h"
 
-
-WallpaperSettingsPlugin::WallpaperSettingsPlugin(QObject *parent)
+WallpaperSettingsPlugin::WallpaperSettingsPlugin(QObject* parent)
 {
-
 }

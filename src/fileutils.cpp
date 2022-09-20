@@ -22,31 +22,32 @@
 
 #include "fileutils.h"
 
-#include <QStandardPaths>
-#include <QDir>
-#include <QDebug>
-#include <QFile>
 #include <QDateTime>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QStandardPaths>
 #include <QTextStream>
 
-FileUtils::FileUtils(QObject *parent) : QObject(parent)
+FileUtils::FileUtils(QObject* parent)
+    : QObject(parent)
 {
-    if(!QFile::exists(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick/applications.menu")) {
+    if (!QFile::exists(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick/applications.menu")) {
         makeDefaultMenu();
     }
 }
 
 QString FileUtils::getScreenshotPath()
 {
-    QString screenshotDir = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)+"/Screenshots";
+    QString screenshotDir = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) + "/Screenshots";
 
     QDir scrDir;
 
-    if(!scrDir.exists(screenshotDir)) {
+    if (!scrDir.exists(screenshotDir)) {
         scrDir.mkpath(screenshotDir);
     }
 
-    QString path = screenshotDir+"/"+tr("Screenshot")+"_"+QDateTime::currentDateTime().toString("ddMMyyyy-hhmmss")+".png";
+    QString path = screenshotDir + "/" + tr("Screenshot") + "_" + QDateTime::currentDateTime().toString("ddMMyyyy-hhmmss") + ".png";
 
     return path;
 }
@@ -56,22 +57,22 @@ QStringList FileUtils::getBlacklistedApplications()
     QStringList blackListedApplications;
 
     QByteArray blackListFilePath = qgetenv("GLACIER_BLACKLISTAPP_FILE");
-    if(blackListFilePath.isEmpty()) {
+    if (blackListFilePath.isEmpty()) {
         qDebug() << "GLACIER_BLACKLISTAPP_FILE env is empty - use default file";
         blackListFilePath = "/etc/glacier/blacklistapp";
     }
 
     QFile systemBlackListedFile(blackListFilePath);
-    if(systemBlackListedFile.exists()) {
-        if(systemBlackListedFile.open(QIODevice::ReadOnly)) {
-            while(!systemBlackListedFile.atEnd()) {
-                QString line = systemBlackListedFile.readLine().replace("\n","");
+    if (systemBlackListedFile.exists()) {
+        if (systemBlackListedFile.open(QIODevice::ReadOnly)) {
+            while (!systemBlackListedFile.atEnd()) {
+                QString line = systemBlackListedFile.readLine().replace("\n", "");
 
-                if(line.isEmpty()) {
+                if (line.isEmpty()) {
                     continue;
                 }
 
-                if(QFile::exists(line) && line.contains(".desktop")) {
+                if (QFile::exists(line) && line.contains(".desktop")) {
                     blackListedApplications.append(line);
                 } else {
                     qWarning() << "Wrong line" << line;
@@ -90,7 +91,7 @@ QStringList FileUtils::getBlacklistedApplications()
 void FileUtils::makeDefaultMenu()
 {
     QDir lipctickConfigDir(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick");
-    if(!lipctickConfigDir.exists()) {
+    if (!lipctickConfigDir.exists()) {
         lipctickConfigDir.mkpath(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick");
     }
 

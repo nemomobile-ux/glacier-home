@@ -30,30 +30,30 @@
 ****************************************************************************************/
 
 #include "controlcenterbuttonsmodel.h"
-#include <QStandardPaths>
-#include <QFile>
-#include <QDir>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QStandardPaths>
 #include <QXmlStreamWriter>
 
-ControlCenterButtonsModel::ControlCenterButtonsModel(QObject *parent)
+ControlCenterButtonsModel::ControlCenterButtonsModel(QObject* parent)
     : QAbstractListModel(parent)
 {
-    hash.insert(Qt::UserRole ,QByteArray("path"));
-    m_configFilePath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)+"/lipstick/controlcenter.menu";
-    if(!QFile::exists(m_configFilePath)) {
+    hash.insert(Qt::UserRole, QByteArray("path"));
+    m_configFilePath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick/controlcenter.menu";
+    if (!QFile::exists(m_configFilePath)) {
         loadDefaultConfig();
     } else {
         loadConfig();
     }
 }
 
-int ControlCenterButtonsModel::rowCount(const QModelIndex &parent) const
+int ControlCenterButtonsModel::rowCount(const QModelIndex& parent) const
 {
     return m_buttonList.size();
 }
 
-QVariant ControlCenterButtonsModel::data(const QModelIndex &index, int role) const
+QVariant ControlCenterButtonsModel::data(const QModelIndex& index, int role) const
 {
     Q_UNUSED(role);
     if (!index.isValid())
@@ -64,7 +64,7 @@ QVariant ControlCenterButtonsModel::data(const QModelIndex &index, int role) con
 
     QString item = m_buttonList.at(index.row());
 
-    if(role == Qt::UserRole)
+    if (role == Qt::UserRole)
         return item;
 
     return QVariant();
@@ -73,13 +73,13 @@ QVariant ControlCenterButtonsModel::data(const QModelIndex &index, int role) con
 QStringList ControlCenterButtonsModel::allButtons()
 {
     /*
-    * All button must be here /usr/share/lipstick-glacier-home-qt5/qml/feedspage/
-    * and name must be <SomeThing>ControlButton.qml
-    */
+     * All button must be here /usr/share/lipstick-glacier-home-qt5/qml/feedspage/
+     * and name must be <SomeThing>ControlButton.qml
+     */
     QStringList allButtons;
     QDir directory("/usr/share/lipstick-glacier-home-qt5/qml/feedspage/");
-    QStringList controlButtons = directory.entryList(QStringList() << "*?ControlButton.qml" , QDir::Files);
-    foreach(QString filename, controlButtons) {
+    QStringList controlButtons = directory.entryList(QStringList() << "*?ControlButton.qml", QDir::Files);
+    foreach (QString filename, controlButtons) {
         allButtons << filename.remove(".qml");
     }
     return allButtons;
@@ -88,18 +88,18 @@ QStringList ControlCenterButtonsModel::allButtons()
 void ControlCenterButtonsModel::loadDefaultConfig()
 {
     m_buttonList
-            << "WiFiControlButton"
-            << "BluetoothControlButton"
-            << "CellularDataControlButton"
-            << "LocationControlButton"
-            << "QuietControlButton";
+        << "WiFiControlButton"
+        << "BluetoothControlButton"
+        << "CellularDataControlButton"
+        << "LocationControlButton"
+        << "QuietControlButton";
     saveConfig();
 }
 
 void ControlCenterButtonsModel::loadConfig()
 {
     QFile config(m_configFilePath);
-    if(!config.open(QFile::ReadOnly | QFile::Text)) {
+    if (!config.open(QFile::ReadOnly | QFile::Text)) {
         qWarning() << "Can't read config" << m_configFilePath;
         return;
     }
@@ -108,9 +108,9 @@ void ControlCenterButtonsModel::loadConfig()
     xmlReader.setDevice(&config);
     xmlReader.readNext();
 
-    while(!xmlReader.atEnd()) {
-        if(xmlReader.isStartElement()) {
-            if(xmlReader.name() == "Button") {
+    while (!xmlReader.atEnd()) {
+        if (xmlReader.isStartElement()) {
+            if (xmlReader.name() == "Button") {
                 m_buttonList << xmlReader.readElementText();
             }
         }
@@ -129,7 +129,7 @@ void ControlCenterButtonsModel::saveConfig()
     xmlWriter.writeStartDocument();
     xmlWriter.writeStartElement("Menu");
 
-    foreach(const QString button, m_buttonList) {
+    foreach (const QString button, m_buttonList) {
         xmlWriter.writeStartElement("Button");
         xmlWriter.writeCharacters(button);
         xmlWriter.writeEndElement();

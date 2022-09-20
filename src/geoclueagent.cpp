@@ -34,7 +34,7 @@
 
 #include <MGConfItem>
 
-GeoclueAgent::GeoclueAgent(QObject *parent)
+GeoclueAgent::GeoclueAgent(QObject* parent)
     : m_inUse(false)
     , m_authRequest(true)
 {
@@ -56,24 +56,24 @@ GeoclueAgent::GeoclueAgent(QObject *parent)
     authorizationRequest();
 
     QDBusServiceWatcher* watcher = new QDBusServiceWatcher("org.freedesktop.GeoClue2",
-                                                           QDBusConnection::systemBus());
+        QDBusConnection::systemBus());
     connect(watcher, &QDBusServiceWatcher::serviceRegistered, this, &GeoclueAgent::onServiceRegistred);
     connect(watcher, &QDBusServiceWatcher::serviceUnregistered, this, &GeoclueAgent::onServiceUnregistred);
 
     QDBusConnection::systemBus().connect("org.freedesktop.GeoClue2",
-                                         "/org/freedesktop/GeoClue2/Manager",
-                                         "org.freedesktop.DBus.Properties",
-                                         "PropertiesChanged",
-                                         this,
-                                         SLOT(propertiesChanged(QString,QVariantMap)));
+        "/org/freedesktop/GeoClue2/Manager",
+        "org.freedesktop.DBus.Properties",
+        "PropertiesChanged",
+        this,
+        SLOT(propertiesChanged(QString, QVariantMap)));
 }
 
 uint GeoclueAgent::MaxAccuracyLevel()
 {
-/*@todo allow setup mode
- * now 0 - disabled other - enabled
- */
-    if(!m_locationEnabled) {
+    /*@todo allow setup mode
+     * now 0 - disabled other - enabled
+     */
+    if (!m_locationEnabled) {
         return 0;
     }
     /*@todo allow setup mode */
@@ -90,7 +90,7 @@ uint GeoclueAgent::MaxAccuracyLevel()
     return 6;
 }
 
-bool GeoclueAgent::AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint &allowed_accuracy_level)
+bool GeoclueAgent::AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint& allowed_accuracy_level)
 {
     allowed_accuracy_level = req_accuracy_level;
     return true;
@@ -107,7 +107,7 @@ void GeoclueAgent::propertiesChanged(QString interface, QVariantMap properties)
         if (properties.contains("InUse")) {
             bool currentInUse = std::find(properties.cbegin(), properties.cend(), "InUse")->toBool();
 
-            if(currentInUse != m_inUse) {
+            if (currentInUse != m_inUse) {
                 m_inUse = currentInUse;
                 emit inUseChanged(m_inUse);
             }
@@ -118,43 +118,43 @@ void GeoclueAgent::propertiesChanged(QString interface, QVariantMap properties)
 void GeoclueAgent::locationEnabledItemChanded()
 {
     m_locationEnabled = MGConfItem(QStringLiteral("/home/glacier/loaction/enabled")).value(0).toBool();
-    deleteClient(); //to update currect values we need to reload clients
+    deleteClient(); // to update currect values we need to reload clients
 }
 
 void GeoclueAgent::loactionLevelItemChanged()
 {
     m_locationLevel = MGConfItem(QStringLiteral("/home/glacier/loaction/level")).value(0).toUInt();
-    deleteClient(); //to update currect values we need to reload clients
+    deleteClient(); // to update currect values we need to reload clients
 }
 
-void GeoclueAgent::onServiceRegistred(const QString &service)
+void GeoclueAgent::onServiceRegistred(const QString& service)
 {
     m_authRequest = true;
     authorizationRequest();
 }
 
-void GeoclueAgent::onServiceUnregistred(const QString &service)
+void GeoclueAgent::onServiceUnregistred(const QString& service)
 {
-    if(!m_authRequest) {
+    if (!m_authRequest) {
         qDebug() << "Trying restart geoclue";
         QDBusConnection::systemBus().interface()->startService("org.freedesktop.GeoClue2");
     }
 }
 
-void GeoclueAgent::authorizationRequestAnswer(QDBusPendingCallWatcher *call)
+void GeoclueAgent::authorizationRequestAnswer(QDBusPendingCallWatcher* call)
 {
     QDBusPendingReply<void> reply = *call;
 
-    if(reply.isError()) {
-        if(reply.error().name() == "org.freedesktop.DBus.Error.AccessDenied") {
+    if (reply.isError()) {
+        if (reply.error().name() == "org.freedesktop.DBus.Error.AccessDenied") {
             m_authRequest = true;
-            return ;
+            return;
         }
     } else {
         QDBusMessage clientMessage = QDBusMessage::createMethodCall("org.freedesktop.GeoClue2",
-                                                                    "/org/freedesktop/GeoClue2/Manager",
-                                                                    "org.freedesktop.GeoClue2.Manager",
-                                                                    "GetClient");
+            "/org/freedesktop/GeoClue2/Manager",
+            "org.freedesktop.GeoClue2.Manager",
+            "GetClient");
         QDBusConnection::systemBus().asyncCall(clientMessage);
         m_authRequest = false;
     }
@@ -165,10 +165,10 @@ void GeoclueAgent::authorizationRequestAnswer(QDBusPendingCallWatcher *call)
 void GeoclueAgent::authorizationRequest()
 {
     QDBusMessage agentMessage = QDBusMessage::createMethodCall(
-                "org.freedesktop.GeoClue2",
-                "/org/freedesktop/GeoClue2/Manager",
-                "org.freedesktop.GeoClue2.Manager",
-                "AddAgent");
+        "org.freedesktop.GeoClue2",
+        "/org/freedesktop/GeoClue2/Manager",
+        "org.freedesktop.GeoClue2.Manager",
+        "AddAgent");
 
     QList<QVariant> args;
     args.append("lipstick");
@@ -184,9 +184,9 @@ void GeoclueAgent::authorizationRequest()
 void GeoclueAgent::deleteClient()
 {
     QDBusMessage deleteClientMessage = QDBusMessage::createMethodCall("org.freedesktop.GeoClue2",
-                                                                "/org/freedesktop/GeoClue2/Manager",
-                                                                "org.freedesktop.GeoClue2.Manager",
-                                                                "DeleteClient");
+        "/org/freedesktop/GeoClue2/Manager",
+        "org.freedesktop.GeoClue2.Manager",
+        "DeleteClient");
     QDBusConnection::systemBus().asyncCall(deleteClientMessage);
     m_authRequest = true;
     authorizationRequest();

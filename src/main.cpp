@@ -23,15 +23,15 @@
 // Copyright (c) 2018-2022, Chupligin Sergey <neochapay@gmail.com>
 
 #include <QFont>
-#include <QQmlEngine>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QScreen>
 #include <QTranslator>
 
 #include <QtCore/qmath.h>
 
-#include <homewindow.h>
 #include <homeapplication.h>
+#include <homewindow.h>
 #include <lipstickqmlpath.h>
 
 #include "controlcenterbuttonsmodel.h"
@@ -40,17 +40,16 @@
 #include "geoclueagent.h"
 #endif
 
-#include "glacierwindowmodel.h"
 #include "fileutils.h"
+#include "glacierwindowmodel.h"
 #include "mceconnect.h"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     HomeApplication app(argc, argv, QString());
 
-
     QTranslator* myappTranslator = new QTranslator(&app);
-    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/")) ) {
+    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/"))) {
         qDebug() << "translation.load() success" << QLocale::system().name();
         if (app.installTranslator(myappTranslator)) {
             qDebug() << "installTranslator() success" << QLocale::system().name();
@@ -64,8 +63,8 @@ int main(int argc, char **argv)
     QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
 
-    FileUtils *fileUtils = new FileUtils();
-    MceConnect *mceConnect = new MceConnect();
+    FileUtils* fileUtils = new FileUtils();
+    MceConnect* mceConnect = new MceConnect();
 
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
@@ -96,7 +95,7 @@ int main(int argc, char **argv)
     app.engine()->rootContext()->setContextProperty("mceConnect", mceConnect);
     app.engine()->addImportPath("/usr/lib/qt/qml");
 
-    qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0 ,"GlacierWindowModel");
+    qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0, "GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
     qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
 #ifdef USE_GEOCLUE2
@@ -120,4 +119,3 @@ int main(int argc, char **argv)
     app.mainWindowInstance()->showFullScreen();
     return app.exec();
 }
-

@@ -31,43 +31,41 @@
 #ifndef GEOCLUE_AGENT_H
 #define GEOCLUE_AGENT_H
 
-#include <QObject>
-#include <QDBusMessage>
-#include <QDBusInterface>
-#include <QDBusPendingCall>
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
+#include <QDBusInterface>
+#include <QDBusMessage>
+#include <QDBusPendingCall>
 #include <QDBusServiceWatcher>
 #include <QDebug>
-#include <QDBusPendingCall>
+#include <QObject>
 
-class GeoclueAgent : public QObject
-{
+class GeoclueAgent : public QObject {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.GeoClue2.Agent")
     Q_PROPERTY(bool inUse READ inUse NOTIFY inUseChanged)
     Q_SCRIPTABLE Q_PROPERTY(uint MaxAccuracyLevel READ MaxAccuracyLevel)
 
-public:
-    explicit GeoclueAgent (QObject *parent = nullptr);
+        public : explicit GeoclueAgent(QObject* parent = nullptr);
     uint MaxAccuracyLevel();
-    bool inUse() {return  m_inUse;}
+    bool inUse() { return m_inUse; }
 
 signals:
     void inUseChanged(bool inUse);
 
 public slots:
-    Q_SCRIPTABLE bool AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint &allowed_accuracy_level);
+    Q_SCRIPTABLE bool AuthorizeApp(QString desktop_id, uint req_accuracy_level, uint& allowed_accuracy_level);
     bool requiresAuthorization();
 
     void locationEnabledItemChanded();
     void loactionLevelItemChanged();
 
 private slots:
-    void onServiceRegistred(const QString &service);
-    void onServiceUnregistred(const QString &service);
-    void authorizationRequestAnswer(QDBusPendingCallWatcher *call);
+    void onServiceRegistred(const QString& service);
+    void onServiceUnregistred(const QString& service);
+    void authorizationRequestAnswer(QDBusPendingCallWatcher* call);
     void propertiesChanged(QString interface, QVariantMap properties);
+
 private:
     void authorizationRequest();
     void deleteClient();

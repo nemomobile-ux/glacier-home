@@ -34,18 +34,17 @@
 
 #include <QObject>
 
-class MceConnect : public QObject
-{
+class MceConnect : public QObject {
     Q_OBJECT
     Q_PROPERTY(bool mouseAvailable READ mouseAvailable NOTIFY mouseAvailableChanged)
     Q_PROPERTY(bool keyboardeAvailable READ keyboardAvailable NOTIFY keyboardAvailableChanged)
     Q_PROPERTY(bool rebootDialogVisible READ rebootDialogVisible WRITE rebootDialogVisible NOTIFY rebootDialogVisibleChanged)
 
 public:
-    explicit MceConnect(QObject *parent = 0);
-    bool mouseAvailable() {return m_mouseAvailable;}
-    bool keyboardAvailable() {return m_keyboardAvailable;}
-    bool rebootDialogVisible() {return m_rebootDialogVisible;}
+    explicit MceConnect(QObject* parent = 0);
+    bool mouseAvailable() { return m_mouseAvailable; }
+    bool keyboardAvailable() { return m_keyboardAvailable; }
+    bool rebootDialogVisible() { return m_rebootDialogVisible; }
 
 signals:
     void powerKeyPressed();
@@ -57,9 +56,9 @@ public:
     void rebootDialogVisible(const bool visible);
 
 private slots:
-    void getPowerKeyAction(const QString &action);
-    void getMouseAction(const QString &mouse_state);
-    void getKeyboardAction(const QString &keyboard_state);
+    void getPowerKeyAction(const QString& action);
+    void getMouseAction(const QString& mouse_state);
+    void getKeyboardAction(const QString& keyboard_state);
 
 private:
     bool m_mouseAvailable;

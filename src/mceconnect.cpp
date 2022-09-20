@@ -36,79 +36,79 @@
 #include <mce/dbus-names.h>
 #include <mce/mode-names.h>
 
-MceConnect::MceConnect(QObject *parent) :
-    QObject(parent)
+MceConnect::MceConnect(QObject* parent)
+    : QObject(parent)
     , m_mouseAvailable(false)
     , m_keyboardAvailable(false)
     , m_rebootDialogVisible(false)
 {
     QDBusConnection::systemBus().connect(
-                    QString(),
-                    QStringLiteral(MCE_SIGNAL_PATH),
-                    QStringLiteral(MCE_SIGNAL_IF),
-                    QStringLiteral(MCE_POWER_BUTTON_TRIGGER),
-                    this,
-                    SLOT(getPowerKeyAction(QString)));
+        QString(),
+        QStringLiteral(MCE_SIGNAL_PATH),
+        QStringLiteral(MCE_SIGNAL_IF),
+        QStringLiteral(MCE_POWER_BUTTON_TRIGGER),
+        this,
+        SLOT(getPowerKeyAction(QString)));
 
     QDBusConnection::systemBus().connect(
-                    QString(),
-                    QStringLiteral(MCE_SIGNAL_PATH),
-                    QStringLiteral(MCE_SIGNAL_IF),
-                    QStringLiteral(MCE_HARDWARE_MOUSE_STATE_GET),
-                    this,
-                    SLOT(getMouseAction(QString)));
+        QString(),
+        QStringLiteral(MCE_SIGNAL_PATH),
+        QStringLiteral(MCE_SIGNAL_IF),
+        QStringLiteral(MCE_HARDWARE_MOUSE_STATE_GET),
+        this,
+        SLOT(getMouseAction(QString)));
 
     QDBusConnection::systemBus().connect(
-                    QString(),
-                    QStringLiteral(MCE_SIGNAL_PATH),
-                    QStringLiteral(MCE_SIGNAL_IF),
-                    QStringLiteral(MCE_HARDWARE_KEYBOARD_STATE_SIG),
-                    this,
-                SLOT(getKeyboardAction(QString)));
+        QString(),
+        QStringLiteral(MCE_SIGNAL_PATH),
+        QStringLiteral(MCE_SIGNAL_IF),
+        QStringLiteral(MCE_HARDWARE_KEYBOARD_STATE_SIG),
+        this,
+        SLOT(getKeyboardAction(QString)));
 }
 
 void MceConnect::rebootDialogVisible(const bool visible)
 {
-    if(visible != m_rebootDialogVisible) {
+    if (visible != m_rebootDialogVisible) {
         m_rebootDialogVisible = visible;
         emit rebootDialogVisibleChanged();
     }
 }
 
-void MceConnect::getPowerKeyAction(const QString &action)
+void MceConnect::getPowerKeyAction(const QString& action)
 {
     if (action == QLatin1String("power-key-menu")) {
         emit powerKeyPressed();
     }
 }
 
-void MceConnect::getMouseAction(const QString &mouse_state)
+void MceConnect::getMouseAction(const QString& mouse_state)
 {
     bool mouseAvailable;
 
-    if(mouse_state == MCE_HARDWARE_MOUSE_AVAILABLE) {
+    if (mouse_state == MCE_HARDWARE_MOUSE_AVAILABLE) {
         mouseAvailable = true;
     } else {
         mouseAvailable = false;
     }
 
-    if(mouseAvailable != m_mouseAvailable) {
+    if (mouseAvailable != m_mouseAvailable) {
         m_mouseAvailable = mouseAvailable;
         emit mouseAvailableChanged();
     }
 }
 
-void MceConnect::getKeyboardAction(const QString &keyboard_state)
+void MceConnect::getKeyboardAction(const QString& keyboard_state)
 {
     bool keyboardAvailable;
 
-    if(keyboard_state == MCE_HARDWARE_KEYBOARD_AVAILABLE) {
+    if (keyboard_state == MCE_HARDWARE_KEYBOARD_AVAILABLE) {
         keyboardAvailable = true;
     } else {
         keyboardAvailable = false;
     }
 
-    if(keyboardAvailable != m_keyboardAvailable) {
+    if (keyboardAvailable != m_keyboardAvailable) {
         m_keyboardAvailable = keyboardAvailable;
         emit keyboardAvailableChanged();
     }

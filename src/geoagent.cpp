@@ -10,10 +10,10 @@
 
 #include "geoagent.h"
 #include "geoclueagent.h"
-#include <QtCore/QMetaObject>
 #include <QtCore/QByteArray>
 #include <QtCore/QList>
 #include <QtCore/QMap>
+#include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
@@ -22,7 +22,7 @@
  * Implementation of adaptor class AgentAdaptor
  */
 
-AgentAdaptor::AgentAdaptor(GeoclueAgent *parent)
+AgentAdaptor::AgentAdaptor(GeoclueAgent* parent)
     : QDBusAbstractAdaptor(parent)
 {
     // constructor
@@ -37,12 +37,11 @@ AgentAdaptor::~AgentAdaptor()
 uint AgentAdaptor::maxAccuracyLevel() const
 {
     // get the value of property MaxAccuracyLevel
-    return qvariant_cast< uint >(parent()->property("MaxAccuracyLevel"));
+    return qvariant_cast<uint>(parent()->property("MaxAccuracyLevel"));
 }
 
-void AgentAdaptor::AuthorizeApp(const QString &desktop_id, uint req_accuracy_level, bool &authorized, uint &allowed_accuracy_level)
+void AgentAdaptor::AuthorizeApp(const QString& desktop_id, uint req_accuracy_level, bool& authorized, uint& allowed_accuracy_level)
 {
     // handle method call org.freedesktop.GeoClue2.Agent.AuthorizeApp
     authorized = parent()->AuthorizeApp(desktop_id, req_accuracy_level, allowed_accuracy_level);
 }
-

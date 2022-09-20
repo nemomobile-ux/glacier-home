@@ -19,7 +19,6 @@
 
 #include "desktopsettingsplugin.h"
 
-DesktopSettingsPlugin::DesktopSettingsPlugin(QObject *parent)
+DesktopSettingsPlugin::DesktopSettingsPlugin(QObject* parent)
 {
-
 }

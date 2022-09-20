@@ -32,18 +32,17 @@
 #ifndef CONTROLCENTERBUTTONSMODEL_H
 #define CONTROLCENTERBUTTONSMODEL_H
 
-#include <QObject>
 #include <QAbstractListModel>
+#include <QObject>
 
-class ControlCenterButtonsModel : public QAbstractListModel
-{
+class ControlCenterButtonsModel : public QAbstractListModel {
     Q_OBJECT
 public:
-    explicit ControlCenterButtonsModel(QObject *parent = nullptr);
+    explicit ControlCenterButtonsModel(QObject* parent = nullptr);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QHash<int, QByteArray> roleNames() const {return hash;}
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    QVariant data(const QModelIndex& index, int role) const;
+    QHash<int, QByteArray> roleNames() const { return hash; }
 
     Q_INVOKABLE QStringList allButtons();
 
@@ -52,10 +51,9 @@ private:
     void loadConfig();
     void saveConfig();
 
-    QHash<int,QByteArray> hash;
+    QHash<int, QByteArray> hash;
     QStringList m_buttonList;
     QString m_configFilePath;
-
 };
 
 #endif // CONTROLCENTERBUTTONSMODEL_H

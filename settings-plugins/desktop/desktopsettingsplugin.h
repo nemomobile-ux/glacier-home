@@ -22,21 +22,19 @@
 
 #include <glaciersettingsplugin.h>
 
-class DesktopSettingsPlugin : public GlacierSettingsPlugin
-{
+class DesktopSettingsPlugin : public GlacierSettingsPlugin {
     Q_OBJECT
     Q_INTERFACES(GlacierSettingsPlugin)
     Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
 public:
-    explicit DesktopSettingsPlugin(QObject *parent = nullptr);
-    PluginCategory category() { return PluginCategory::Personalization ;}
-    QString id() { return "desktop";}
-    QString title() { return tr("Desktop");}
-    QString description() { return "Setup desktop behavor";}
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml";}
-    QString icon() { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg";}
+    explicit DesktopSettingsPlugin(QObject* parent = nullptr);
+    PluginCategory category() { return PluginCategory::Personalization; }
+    QString id() { return "desktop"; }
+    QString title() { return tr("Desktop"); }
+    QString description() { return "Setup desktop behavor"; }
+    QString qmlPath() { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
+    QString icon() { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
     bool enabled() { return true; }
-
 };
 
 #endif // DESCTOPSETTINGSPLUGIN_H
