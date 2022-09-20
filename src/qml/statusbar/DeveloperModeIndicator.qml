@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2020-2022 Sergey Chupligin (NeoChapay) <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -36,7 +36,7 @@ StatusbarItem {
     id: developerModeIndicator
     iconSize: statusbarRight.height
 
-    visible: false
+    visible: developerMode.enabled
 
     source: "image://theme/bug"
 
