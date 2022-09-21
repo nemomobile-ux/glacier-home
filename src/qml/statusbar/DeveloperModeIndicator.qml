@@ -42,9 +42,5 @@ StatusbarItem {
 
     DeveloperMode{
         id: developerMode
-
-        onEnabledChanged: {
-            developerModeIndicator.visible = developerMode.enabled
-        }
     }
 }
