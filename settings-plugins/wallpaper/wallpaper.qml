@@ -140,7 +140,7 @@ Page {
 
                 MouseArea{
                     anchors.fill: parent
-                    onClicked: pageStack.push("/usr/share/glacier-settings/qml/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/homeScreen/wallpaperImage"})
+                    onClicked: pageStack.push("/usr/share/glacier-settings/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/homeScreen/wallpaperImage"})
                 }
             }
         }
@@ -170,7 +170,7 @@ Page {
 
             MouseArea{
                 anchors.fill: parent
-                onClicked: pageStack.push("/usr/share/glacier-settings/qml/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/lockScreen/wallpaperImage"})
+                onClicked: pageStack.push("/usr/share/glacier-settings/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/lockScreen/wallpaperImage"})
             }
         }
     }
