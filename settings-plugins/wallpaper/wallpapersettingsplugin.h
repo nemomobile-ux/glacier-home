@@ -31,7 +31,7 @@ public:
     PluginCategory category() { return PluginCategory::Personalization; }
     QString id() { return "wallpaper"; }
     QString title() { return tr("Wallpaper"); }
-    QString description() { return "Select background image"; }
+    QString description() { return tr("Select background image"); }
     QString qmlPath() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.qml"; }
     QString icon() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.svg"; }
     bool enabled() { return true; }

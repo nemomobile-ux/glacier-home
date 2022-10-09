@@ -31,7 +31,7 @@ public:
     PluginCategory category() { return PluginCategory::Personalization; }
     QString id() { return "desktop"; }
     QString title() { return tr("Desktop"); }
-    QString description() { return "Setup desktop behavor"; }
+    QString description() { return tr("Setup desktop behavior"); }
     QString qmlPath() { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
     QString icon() { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
     bool enabled() { return true; }
