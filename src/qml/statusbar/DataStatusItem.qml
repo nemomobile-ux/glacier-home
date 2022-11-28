@@ -35,7 +35,6 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import MeeGo.Connman 0.2
 import MeeGo.QOfono 0.2
-import org.nemomobile.ofono 1.0
 
 StatusbarItem{
     id: dataStatus
