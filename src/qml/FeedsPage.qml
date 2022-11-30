@@ -50,14 +50,14 @@ Item {
     Item {
         id: dateRow
         height: Theme.itemHeightExtraLarge
-        width: parent.width - Theme.itemSpacingExtraSmall*2
+        width: parent.width - Theme.itemSpacingLarge*2
         clip: true
 
         anchors{
             top: parent.top
             topMargin: Theme.itemSpacingMedium
             left: parent.left
-            leftMargin: Theme.itemSpacingExtraSmall
+            leftMargin: Theme.itemSpacingLarge
         }
 
         Label {
@@ -75,18 +75,18 @@ Item {
     ControlCenter{
         id: controlCenter
         height: Theme.itemHeightExtraLarge
-        width: parent.width - Theme.itemSpacingExtraSmall*2
+        width: parent.width - Theme.itemSpacingLarge*2
 
         anchors{
             top: dateRow.bottom
             left: parent.left
-            leftMargin: Theme.itemSpacingExtraSmall
+            leftMargin: Theme.itemSpacingLarge
         }
     }
 
     Flickable {
         id: mainFlickable
-        width: parent.width - Theme.itemSpacingExtraSmall*2
+        width: parent.width - Theme.itemSpacingLarge*2
         height: feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4
         contentHeight: notificationColumn.height
 
@@ -94,7 +94,7 @@ Item {
             top: controlCenter.bottom
             topMargin: Theme.itemSpacingMedium
             left: parent.left
-            leftMargin: Theme.itemSpacingExtraSmall
+            leftMargin: Theme.itemSpacingLarge
         }
 
         clip: true
@@ -102,7 +102,7 @@ Item {
         Column {
             id: notificationColumn
             width: parent.width
-            spacing: Theme.itemSpacingExtraSmall
+            spacing: Theme.itemSpacingSmall
 
             Repeater {
                 model: NotificationListModel {
