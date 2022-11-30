@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2017 Samuel Pavlovic <sam@volvosoftware.com>
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -45,8 +45,6 @@ import "../statusbar"
 Item{
     id: controlCenterArea
     clip: true
-    width: parent.width
-    height: childrenRect.height
 
     function openSettingsPage(plugin,extended) {
         settingsInterface.call("openSettingsPage",[plugin, extended])
@@ -66,63 +64,19 @@ Item{
         signalsEnabled: true
     }
 
-    Rectangle {
-        id: controlCenter
+    Row {
+        id: fastActions
+
+        spacing: (controlCenterArea.width-Theme.itemHeightExtraLarge*5)/4
+
         width: parent.width
-        height: childrenRect.height
-        color: "transparent"
+        height: parent.height
 
-        Grid {
-            id: fastActions
-
-            columns: 5
-            clip: true
-
-            anchors{
-                top: parent.top
-                topMargin: Theme.itemSpacingSmall
-                left: parent.left
-            }
-
-            width: parent.width
-            height: Theme.itemHeightHuge + Theme.fontSizeTiny*3 + Theme.itemSpacingSmall*2
-            spacing: Theme.itemSpacingSmall
-            leftPadding: (fastActions.width-Theme.itemSpacingSmall*fastActions.columns-Theme.itemHeightHuge*fastActions.columns)/2
-
-            Repeater{
-                id: buttonRepeater
-                model: controlCenterButtonModel
-                delegate: Loader{
-                    source: "/usr/share/lipstick-glacier-home-qt5/qml/feedspage/"+path+".qml"
-                }
-            }
-        }
-
-        Grid{
-            id: statusIcons
-
-            columns: Math.round(parent.width/Theme.itemHeightSmall)
-            width: parent.width
-            height: Theme.itemHeightSmall-Theme.itemSpacingSmall*2
-
-            spacing: Theme.itemSpacingSmall
-            clip: true
-
-            anchors{
-                top: fastActions.bottom
-                topMargin: Theme.itemSpacingSmall
-                left: parent.left
-                leftMargin: Theme.itemSpacingSmall
-            }
-
-            Repeater{
-                id: statusIconsRepeator
-                model: statusNotiferModel
-
-                delegate: StatusbarItem{
-                    iconSize: statusIcons.height
-                    source: notifierItem.icon
-                }
+        Repeater{
+            id: buttonRepeater
+            model: controlCenterButtonModel
+            delegate: Loader{
+                source: "/usr/share/lipstick-glacier-home-qt5/qml/feedspage/"+path+".qml"
             }
         }
     }

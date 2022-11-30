@@ -39,7 +39,7 @@ Item {
     id: notifyArea
 
     height: modelData.progress == 0 ? Theme.itemHeightExtraLarge : Theme.itemHeightExtraLarge + Theme.itemHeightExtraSmall
-    width: parent.width-Theme.itemSpacingSmall
+    width: parent.width
 
     clip: true
 
@@ -144,17 +144,10 @@ Item {
 
     Rectangle {
         id:pressBg
-        width: parent.width - Theme.itemSpacingSmall
-        height: parent.height
-        anchors{
-            left: parent.left
-            leftMargin: Theme.itemSpacingSmall
-        }
-
+        anchors.fill: parent
         color: Theme.fillColor
-        visible: notifyMouseArea.pressed
         radius: Theme.itemSpacingMedium
-        opacity: 0.5
+        opacity: notifyMouseArea.pressed ? 0.8 : 0.5
     }
 
     Item {

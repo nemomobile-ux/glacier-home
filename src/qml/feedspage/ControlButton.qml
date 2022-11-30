@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -25,7 +25,6 @@ import QtQuick.Controls.Styles.Nemo 1.0
 Item {
     id: contolButton
     property alias image: icon.source
-    property alias textLabel: label.text
 
     property bool activated: false
     property bool connected: false
@@ -37,13 +36,14 @@ Item {
     signal clicked();
     signal pressed();
 
-    width: Theme.itemHeightHuge
-    height: button.height + label.height + Theme.itemSpacingSmall * 2
+    width: Theme.itemHeightExtraLarge
+    height: Theme.itemHeightExtraLarge
 
     Rectangle{
         id: button
-        width: Theme.itemHeightHuge
-        height: Theme.itemHeightHuge
+        width: contolButton.width
+        height: contolButton.height
+
         radius: parent.height*0.5
 
         color: activated ? Theme.accentColor : Theme.textColor
@@ -78,23 +78,6 @@ Item {
             layer.samplerName: "source"
 
         }
-    }
-
-    Label{
-        id: label
-        anchors{
-            top: button.bottom
-            topMargin: Theme.itemSpacingSmall
-        }
-        width: parent.width
-        height: Theme.fontSizeTiny*3
-
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: Theme.fontSizeTiny
-        text: textLabel
-        color: Theme.textColor
-        elide: Text.ElideRight
-        wrapMode: Text.WordWrap
     }
 
     MouseArea{

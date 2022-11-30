@@ -1,4 +1,4 @@
-// This file is part of glacier-home, a nice user experience for touchscreens.
+/* This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,14 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2021, Chipligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2021-2022, Chipligin Sergey <neochapay@gmail.com>
+*/
 
 import QtQuick 2.6
-import org.nemomobile.lipstick 0.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
+
+import org.nemomobile.lipstick 0.1
 // Feeds page:
 // the place for an event feed.
 
@@ -47,59 +49,52 @@ Item {
     // Day of week
     Item {
         id: dateRow
-        height: displayDayOfWeek.height+displayCurrentDate.height
-        width: parent.width
+        height: Theme.itemHeightExtraLarge
+        width: parent.width - Theme.itemSpacingExtraSmall*2
         clip: true
 
         anchors{
             top: parent.top
             topMargin: Theme.itemSpacingMedium
-            horizontalCenter: parent.rootitemhorizontalCenter
+            left: parent.left
+            leftMargin: Theme.itemSpacingExtraSmall
         }
 
         Label {
             id: displayDayOfWeek
-            text: Qt.formatDateTime(wallClock.time, "dddd")
+            text: Qt.formatDateTime(wallClock.time, "dddd, MMMM d")
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeLarge
             anchors {
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
-            }
-        }
-
-        // Current date
-        Label {
-            id: displayCurrentDate
-            text: Qt.formatDate(wallClock.time, "d MMMM yyyy")
-            font.pixelSize: Theme.fontSizeLarge
-            color: Theme.textColor
-            font.weight: Font.Light
-            wrapMode: Text.WordWrap
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: displayDayOfWeek.bottom
+                left: parent.left
+                verticalCenter: parent.verticalCenter
             }
         }
     }
 
     ControlCenter{
         id: controlCenter
+        height: Theme.itemHeightExtraLarge
+        width: parent.width - Theme.itemSpacingExtraSmall*2
+
         anchors{
             top: dateRow.bottom
-            topMargin: Theme.itemSpacingMedium
+            left: parent.left
+            leftMargin: Theme.itemSpacingExtraSmall
         }
     }
 
     Flickable {
         id: mainFlickable
-        width: parent.width
+        width: parent.width - Theme.itemSpacingExtraSmall*2
         height: feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4
         contentHeight: notificationColumn.height
 
         anchors{
             top: controlCenter.bottom
             topMargin: Theme.itemSpacingMedium
+            left: parent.left
+            leftMargin: Theme.itemSpacingExtraSmall
         }
 
         clip: true
