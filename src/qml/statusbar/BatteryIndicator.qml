@@ -51,11 +51,9 @@ StatusbarItem {
         }
     }
 
-    MceBatteryState {
-        id:  batteryChargeState
-
-        onStateChanged: {
-            if(state === MceBatteryState.Charging) {
+    MceChargerState{
+        onChargingChanged: {
+            if(charging) {
                 chargingTimer.start()
             } else {
                 chargingTimer.stop()
@@ -120,7 +118,7 @@ StatusbarItem {
         onTriggered: {
             if(batteryIndicator.chargeValue == 6)
             {
-                batteryIndicator.chargeValue = 0
+                chargeIcon()
             }
             else
             {
