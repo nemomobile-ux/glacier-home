@@ -46,6 +46,8 @@ Item {
         opacity: 0.6
     }
 
+    property int columnWidth: desktop.isUiPortrait ? desktop.width - Theme.itemSpacingLarge*2 : desktop.width/2 - Theme.itemSpacingLarge*2
+
     // Day of week
     Item {
         id: dateRow
@@ -75,7 +77,7 @@ Item {
     ControlCenter{
         id: controlCenter
         height: Theme.itemHeightExtraLarge
-        width: parent.width - Theme.itemSpacingLarge*2
+        width: columnWidth
 
         anchors{
             top: dateRow.bottom
@@ -86,14 +88,14 @@ Item {
 
     Flickable {
         id: mainFlickable
-        width: parent.width - Theme.itemSpacingLarge*2
+        width: columnWidth
         height: feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4
         contentHeight: notificationColumn.height
 
         anchors{
-            top: controlCenter.bottom
-            topMargin: Theme.itemSpacingMedium
-            left: parent.left
+            top: desktop.isUiPortrait ? controlCenter.bottom : dateRow.bottom
+            topMargin: desktop.isUiPortrait ? Theme.itemSpacingMedium : undefined
+            left: desktop.isUiPortrait ? parent.left : controlCenter.right
             leftMargin: Theme.itemSpacingLarge
         }
 
