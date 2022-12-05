@@ -29,7 +29,7 @@ import Nemo.Connectivity 1.0
 ControlButton{
     id: cellularDataControlButton
 
-    image: "image://theme/exchange-alt"
+    image: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
     textLabel: qsTr("Cellular data")
     assignedSettingsPage: "mobile"
 
@@ -40,32 +40,23 @@ ControlButton{
         path: "/net/connman/technology/cellular"
     }
 
+    OfonoManager {
+        id: manager
+    }
+
     MobileDataConnection{
         id: mobileData
-        useDefaultModem: true
-
-        onModemPathChanged: {
-            console.log("modemPathChanged"+modemPath)
-        }
-
-        Component.onCompleted: {
-            if(presentSimCount == 0) {
-                cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-            }
-        }
-
-        onPresentSimCountChanged: {
-            if(presentSimCount == 0) {
-                cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-            } else {
-                cellularDataControlButton.image = "image://theme/exchange-alt"
-            }
-        }
     }
 
     OfonoNetworkRegistration{
         id: cellularRegistration
-        modemPath: mobileData.modemPath
+        modemPath: manager.defaultModem
+
+        onStatusChanged: if(!status) {
+                             cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+                        } else {
+                              cellularDataControlButton.image = "image://theme/exchange-alt"
+                        }
     }
 
     onClicked: {
