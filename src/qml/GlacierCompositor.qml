@@ -19,7 +19,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Window 2.1
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
@@ -143,6 +143,8 @@ Item {
             if (comp.appActive) {
                 comp.topmostWindow.opacity = 1.0 - gestureArea.progress / (Math.min(Screen.width, Screen.height))
             }
+
+            comp.lastClick = null
         }
 
         onGestureStarted: {
@@ -343,15 +345,22 @@ Item {
         property Item topmostAlarmWindow: null
 
         property Item gestureArea: gestureArea
+        property var lastClick: []
+
+        function setClickCoordinate(coord) {
+            lastClick = [ coord.x , coord.y ]
+        }
 
         function windowToFront(winId) {
             var o = comp.windowForId(winId)
             var window = null
             var wi = null
-            if (o)
+            if (o) {
                 window = o.userData
-            if (window == null)
+            }
+            if (window == null) {
                 window = homeWindow
+            }
 
             setCurrentWindow(window)
 
@@ -368,10 +377,15 @@ Item {
             if (topmostWindow == homeWindow || topmostWindow == null) {
                 comp.clearKeyboardFocus()
             } else if (w.window.title !== "maliit-server") {
-                if (topmostApplicationWindow)
+                if (topmostApplicationWindow) {
                     topmostApplicationWindow.visible = false
+                }
                 topmostApplicationWindow = topmostWindow
                 topmostApplicationWindow.visible = true
+                if (!skipAnimation) {
+                    topmostApplicationWindow.animateIn()
+                    lastClick = null
+                }
                 if (w.window) w.window.takeFocus()
             }
         }
@@ -383,6 +397,7 @@ Item {
             if (root.topmostAlarmWindow == null) {
                 setCurrentWindow(root.homeWindow)
             }
+            lastClick = null
         }
 
         onWindowAdded: {
@@ -419,10 +434,11 @@ Item {
                                                   window: window
                                               })
             }
-            else
+            else {
                 w = windowWrapper.createObject(parent, {
                                                    window: window
                                                })
+            }
 
             window.userData = w
 
@@ -451,6 +467,8 @@ Item {
                     setCurrentWindow(w)
                 }
             }
+
+            lastClick = null
         }
 
         onWindowRaised: {
@@ -496,6 +514,7 @@ Item {
 
         function hideAllWindows() {
             setCurrentWindow(root.homeWindow)
+            lastClick = null
         }
     }
 }

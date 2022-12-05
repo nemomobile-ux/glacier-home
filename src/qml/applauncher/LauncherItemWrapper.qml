@@ -1,4 +1,4 @@
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,17 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2022, Chupligin Sergey <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 
-import QtQuick 2.6
+import QtQuick 2.7
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 import org.nemomobile.lipstick 0.1
 
 MouseArea {
+    id: launcherItem
+
     property bool reordering
     property int newIndex: -1
     property int newFolderIndex: -1
@@ -40,7 +43,6 @@ MouseArea {
     property Item folderItem
     property string deleteState: "basic"
 
-    id: launcherItem
     parent: parentItem.contentItem
     transformOrigin: Item.Center
     onXChanged: moved()
@@ -63,10 +65,14 @@ MouseArea {
         // TODO: disallow if close mode enabled
         if (modelData.object.type !== LauncherModel.Folder) {
             var winId = switcher.switchModel.getWindowIdForTitle(modelData.object.title)
-            if (winId == 0 && !modelData.object.isLaunching)
+
+            if (winId == 0 && !modelData.object.isLaunching) {
+                var globalPosition = mapToGlobal(mouse.x, mouse.y)
+                Lipstick.compositor.setClickCoordinate(globalPosition)
                 modelData.object.launchApplication()
-            else
+            } else {
                 Lipstick.compositor.windowToFront(winId)
+            }
         }
     }
     onPressed: {

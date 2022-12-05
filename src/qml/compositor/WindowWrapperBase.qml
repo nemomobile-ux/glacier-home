@@ -1,6 +1,6 @@
 // Copyright (C) 2013 Jolla Ltd.
-//
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// Copyright (c) 2022, Chupligin Sergey <neochapay@gmail.com>
+// This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,52 @@ import QtQuick 2.6
 
 Item {
     id: wrapper
+    width: window.width
+    height: window.height
 
     property Item window
-    width: window !== null ? window.width : 0
-    height: window !== null ? window.height : 0
-    NumberAnimation on opacity { id: fadeInAnimation; running: false; from: 0; to: 1 }
-    function animateIn() { fadeInAnimation.start(); }
 
-    Component.onCompleted: window.parent = wrapper
+    function animateIn() {
+        if(comp.lastClick != null) {
+            toX.from = comp.lastClick[0]
+            toY.from = comp.lastClick[1]
+            openFromIcon.start();
+        }
+    }
+
+    Component.onCompleted: {
+        window.parent = wrapper
+    }
+
+    ParallelAnimation{
+        id: openFromIcon
+        PropertyAnimation{
+            target: window
+            property: "width"
+            from: 0
+            to: parent.width
+            duration: 300
+        }
+        PropertyAnimation{
+            target: window
+            property: "height"
+            from: 0
+            to: parent.height
+            duration: 300
+        }
+        PropertyAnimation{
+            id: toX
+            target: wrapper
+            property: "x"
+            to: 0
+            duration: 300
+        }
+        PropertyAnimation{
+            id: toY
+            target: wrapper
+            property: "y"
+            to: 0
+            duration: 300
+        }
+    }
 }
