@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,8 +29,8 @@ import Nemo.Connectivity 1.0
 ControlButton{
     id: cellularDataControlButton
 
-    image: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-    textLabel: qsTr("Cellular data")
+    image: "image://theme/exchange-alt"
+
     assignedSettingsPage: "mobile"
 
     activated: cellularNetworkTechnology.connected

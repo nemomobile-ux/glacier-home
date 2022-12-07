@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,7 +29,6 @@ ControlButton {
     id: wifiButton
 
     image: "image://theme/wifi"
-    textLabel: qsTr("Wi-Fi")
     assignedSettingsPage: "wifi"
 
     TechnologyModel {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -28,7 +28,6 @@ ControlButton {
     id: locationButton
 
     image: "image://theme/map-marker-alt"
-    textLabel: qsTr("Location")
     assignedSettingsPage: "gps"
 
     activated: loactionLevel.value != 0

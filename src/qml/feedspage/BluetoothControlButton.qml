@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,7 +29,6 @@ ControlButton {
     id: bluetoothButton
 
     image: "image://theme/bluetooth"
-    textLabel: qsTr("Bluetooth")
     activated: bluetoothModel.powered
 
     assignedSettingsPage: "bluez"
@@ -49,24 +48,11 @@ ControlButton {
 
     onClicked: bluetoothModel.powered = !bluetoothButton.activated;
 
-    Component.onCompleted: {
-        updateLabel()
-    }
-
     Connections{
         target: _bluetoothManager
         function onUsableAdapterChanged() {
             _adapter = _bluetoothManager.usableAdapter
             bluetoothButton.updateLabel()
-        }
-    }
-
-
-    function updateLabel() {
-        if(bluetoothModel.powered && _adapter) {
-            bluetoothButton.textLabel = _adapter.name
-        } else {
-            bluetoothButton.textLabel = qsTr("Bluetooth")
         }
     }
 }
