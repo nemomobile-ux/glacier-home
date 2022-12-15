@@ -1,18 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
 <context>
     <name>AppSwitcher</name>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="194"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="209"/>
         <source>Done</source>
         <translation>Закончить</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="210"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="225"/>
         <source>Close All</source>
         <translation>Закрыть всё</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="220"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="235"/>
         <source>Nothing open yet</source>
         <translation>Нет открытых приложений</translation>
     </message>
@@ -99,19 +99,32 @@
     </message>
 </context>
 <context>
+    <name>DesktopSettingsPlugin</name>
+    <message>
+        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="33"/>
+        <source>Desktop</source>
+        <translation>Рабочий стол</translation>
+    </message>
+    <message>
+        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="34"/>
+        <source>Setup desktop behavior</source>
+        <translation>Настроить поведение рабочего стола</translation>
+    </message>
+</context>
+<context>
     <name>DeviceLockUI</name>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="166"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194"/>
         <source>Enter security code</source>
         <translation>Введите код безопастности</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="170"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="198"/>
         <source>Incorrect code</source>
         <translation>Неверный код</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="178"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="206"/>
         <source>Temporarily locked</source>
         <translation>Временно заблокирован</translation>
     </message>
@@ -119,7 +132,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="49"/>
+        <location filename="../src/fileutils.cpp" line="50"/>
         <source>Screenshot</source>
         <translation>Снимок экрана</translation>
     </message>
@@ -164,37 +177,37 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="99"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>год назад</numerusform><numerusform>лет назад</numerusform><numerusform>лет назад</numerusform><numerusform>%n лет назад</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="101"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>месяц назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>месяцев назад</numerusform><numerusform>%n месяцев назад</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>день назад</numerusform><numerusform>дней назад</numerusform><numerusform>дней назад</numerusform><numerusform>%n дней назад</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>час назад</numerusform><numerusform>часов назад</numerusform><numerusform>часов назад</numerusform><numerusform>%n часов назад</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="111"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation><numerusform>минута назад</numerusform><numerusform>минут назад</numerusform><numerusform>минут назад</numerusform><numerusform>%n минут назад</numerusform></translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="113"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
         <source>Just now</source>
         <translation>Только что</translation>
     </message>
@@ -223,41 +236,41 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="117"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="119"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
         <source>Hide search panel</source>
         <translation>Скрыть панель поиска</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
         <source>Pinup search panel</source>
         <translation>Закрепить панель поиска</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="191"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="268"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="278"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="275"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="285"/>
         <source>Application</source>
         <translation>Приложение</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="193"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="289"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="296"/>
         <source>Contact</source>
         <translation>Контакт</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="195"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="202"/>
         <source>Content</source>
         <translation>Содержимое</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="269"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
         <source>installed on your device</source>
         <translation>установлен на ваше устройство</translation>
     </message>
@@ -265,7 +278,7 @@
 <context>
     <name>ShutdownScreen</name>
     <message>
-        <location filename="../src/qml/system/ShutdownScreen.qml" line="73"/>
+        <location filename="../src/qml/system/ShutdownScreen.qml" line="74"/>
         <source>Shutting down</source>
         <translation>Выключение</translation>
     </message>
@@ -337,6 +350,19 @@
     </message>
 </context>
 <context>
+    <name>WallpaperSettingsPlugin</name>
+    <message>
+        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="33"/>
+        <source>Wallpaper</source>
+        <translation>Обои</translation>
+    </message>
+    <message>
+        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="34"/>
+        <source>Select background image</source>
+        <translation>Выберите обои</translation>
+    </message>
+</context>
+<context>
     <name>WiFiControlButton</name>
     <message>
         <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
@@ -355,17 +381,17 @@
 <context>
     <name>desktop</name>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="32"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="32"/>
         <source>Desktop</source>
         <translation>Рабочий стол</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="59"/>
         <source>Enable windowed mode</source>
         <translation>Включить поддержку многооконности</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="88"/>
         <source>Always show search panel</source>
         <translation>Всегда показывать панель поиска</translation>
     </message>
@@ -373,7 +399,7 @@
 <context>
     <name>selectImage</name>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
+        <location filename="../settings-plugins/wallpaper/selectImage.qml" line="33"/>
         <source>Select wallpaper</source>
         <translation>Выбрать обои</translation>
     </message>
@@ -381,32 +407,32 @@
 <context>
     <name>wallpaper</name>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="32"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="32"/>
         <source>Wallpapers</source>
         <translation>Обои</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="71"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
         <source>Use parallax effect for wallpaper</source>
         <translation>Использовать эффект паралакса для обоев</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="100"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="100"/>
         <source>Use different images for lockscreen and home screen</source>
         <translation>Использовать разные изображения для экрана блокировки и домашнего экрана</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Homescreen wallpaper</source>
         <translation>Обои домашнего экрана</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
         <source>Wallpaper</source>
         <translation>Обои</translation>
     </message>
     <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="162"/>
         <source>Lockscreen wallpaper</source>
         <translation>Обои экрана блокировки</translation>
     </message>
