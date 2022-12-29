@@ -42,7 +42,6 @@ ControlButton {
 
         onPoweredChanged: {
             bluetoothButton.activated = bluetoothModel.powered
-            updateLabel()
         }
     }
 
@@ -52,7 +51,6 @@ ControlButton {
         target: _bluetoothManager
         function onUsableAdapterChanged() {
             _adapter = _bluetoothManager.usableAdapter
-            bluetoothButton.updateLabel()
         }
     }
 }
