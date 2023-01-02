@@ -29,10 +29,8 @@ import Nemo.Connectivity 1.0
 ControlButton{
     id: cellularDataControlButton
 
-    image: "image://theme/exchange-alt"
-
+    image: cellularRegistration.status ? "image://theme/exchange-alt" :"/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
     assignedSettingsPage: "mobile"
-
     activated: cellularNetworkTechnology.connected
 
     NetworkTechnology {
@@ -44,6 +42,17 @@ ControlButton{
         id: manager
     }
 
+    OfonoConnMan {
+        id: ofonoConnMan
+        modemPath: manager.defaultModem
+    }
+
+    OfonoContextConnection {
+        id: contextConnection
+        contextPath: (ofonoConnMan.contexts !== undefined && ofonoConnMan.contexts.length > 0) ? ofonoConnMan.contexts[0] : ""
+    }
+
+
     MobileDataConnection{
         id: mobileData
     }
@@ -51,17 +60,14 @@ ControlButton{
     OfonoNetworkRegistration{
         id: cellularRegistration
         modemPath: manager.defaultModem
-
-        onStatusChanged: if(!status) {
-                             cellularDataControlButton.image = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
-                        } else {
-                              cellularDataControlButton.image = "image://theme/exchange-alt"
-                        }
     }
 
     onClicked: {
         if(mobileData.presentSimCount != 0) {
             mobileData.autoConnect = !mobileData.autoConnect
+            console.log("mobileData.autoConnect " + mobileData.autoConnect)
         }
+        contextConnection.active = !contextConnection.active
+
     }
 }
