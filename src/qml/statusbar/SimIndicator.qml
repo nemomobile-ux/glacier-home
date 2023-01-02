@@ -32,7 +32,7 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.0
 
-import MeeGo.QOfono 0.2
+import QOfono 0.2
 
 import org.nemomobile.lipstick 0.1
 

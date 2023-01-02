@@ -22,7 +22,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-import MeeGo.Connman 0.2
+import Connman 0.2
 
 
 ControlButton {

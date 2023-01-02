@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import MeeGo.Connman 0.2
+import Connman 0.2
 
 StatusbarItem {
     id: bluetoothIndicator
