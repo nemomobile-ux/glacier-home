@@ -33,8 +33,8 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-import MeeGo.Connman 0.2
-import MeeGo.QOfono 0.2
+import Connman 0.2
+import QOfono 0.2
 
 StatusbarItem{
     id: dataStatus
