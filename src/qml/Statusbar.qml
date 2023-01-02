@@ -173,6 +173,10 @@ Item {
             }
 
             DeveloperModeIndicator{
+                id: developerModeIndicator
+            }
+
+            USBModeIndicator{
                 id: usbModedIndicator
             }
         }
