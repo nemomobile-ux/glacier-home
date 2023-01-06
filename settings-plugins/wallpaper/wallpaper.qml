@@ -52,69 +52,25 @@ Page {
     ConfigurationValue {
         id: enableParallax
         key: "/home/glacier/homeScreen/enableParallax"
-        defaultValue: true
+        defaultValue: false
     }
 
     SettingsColumn{
         id: wallpaperSettings
         spacing: Theme.itemSpacingLarge
 
-        Rectangle{
-            id: parallaxWallpaper
-            width: parent.width
-            height: childrenRect.height
-
-            color: "transparent"
-
-            Label{
-                id: parallaxWallpaperLabel
-                text: qsTr("Use parallax effect for wallpaper");
-                anchors{
-                    left: parent.left
-                    top: parent.top
-                }
-                width: parent.width-parallaxWallpaperCheck.width
-                wrapMode: Text.WordWrap
-            }
-
-            CheckBox{
-                id: parallaxWallpaperCheck
-                checked: enableParallax.value
-                anchors{
-                    right: parent.right
-                    verticalCenter: parallaxWallpaperLabel.verticalCenter
-                }
-                onClicked: enableParallax.value = checked
-            }
+        RightCheckBox{
+            id: parallaxWallpaperCheck
+            label: qsTr("Use parallax effect for wallpaper");
+            checked: enableParallax.value
+            onClicked: enableParallax.value = checked
         }
 
-        Rectangle{
-            id: differentImages
-            width: parent.width
-            height: childrenRect.height
-
-            color: "transparent"
-
-            Label{
-                id: differentImagesLabel
-                text: qsTr("Use different images for lockscreen and home screen");
-                anchors{
-                    left: parent.left
-                    top: parent.top
-                }
-                width: parent.width-differentImagesCheck.width
-                wrapMode: Text.WordWrap
-            }
-
-            CheckBox{
-                id: differentImagesCheck
-                checked: differentWallpaper.value
-                anchors{
-                    right: parent.right
-                    verticalCenter: differentImagesLabel.verticalCenter
-                }
-                onClicked: differentWallpaper.value = checked
-            }
+        RightCheckBox{
+            id: differentImagesCheck
+            label: qsTr("Use different images for lockscreen and home screen");
+            checked: differentWallpaper.value
+            onClicked: differentWallpaper.value = checked
         }
 
         Rectangle{
