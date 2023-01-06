@@ -43,6 +43,12 @@ Page {
         defaultValue: true
     }
 
+    ConfigurationValue {
+        id: infinityPager
+        key: "/home/glacier/homeScreen/infinityPager"
+        defaultValue: false
+    }
+
     SettingsColumn{
         id: windowedModeSettings
         spacing: Theme.itemSpacingLarge
@@ -60,6 +66,13 @@ Page {
             checked: alwaysShowSearch.value
             onClicked: alwaysShowSearch.value = checked
             label: qsTr("Always show search panel");
+        }
+
+        RightCheckBox{
+            id: infinityPagerCheck
+            checked: infinityPager.value
+            onClicked: infinityPager.value = checked
+            label: qsTr("Infinite scrolling main screen");
         }
 
     }

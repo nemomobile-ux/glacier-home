@@ -59,6 +59,12 @@ Item {
     focus: true
     anchors.fill: parent
 
+    ConfigurationValue {
+        id: infinityPager
+        key: "/home/glacier/homeScreen/infinityPager"
+        defaultValue: false
+    }
+
     // This is used in the favorites page and in the lock screen
     WallClock {
         id: wallClock
@@ -238,39 +244,101 @@ Item {
         }
     }
 
-    ListView {
+    VisualItemModel {
+        id: visualItemsModel
+
+        FeedsPage {
+            id: feeds
+            width: pager.width
+            height: pager.height
+        }
+        AppLauncher {
+            id: launcher
+            width: pager.width
+            height: pager.height
+            switcher: switcher
+        }
+        AppSwitcher {
+            id: switcher
+            width: pager.width
+            height: pager.height
+            visibleInHome: x > -width && x < desktop.width
+            launcher: launcher
+            wallpaper: wallpaper
+        }
+    }
+
+
+    Component{
+        id: infinityPagerView
+        Pager {
+            id: pager
+            anchors.fill: parent
+            enabled: Desktop.compositor.state != "controlCenter"
+            model: visualItemsModel
+            // Initial view should be the AppLauncher
+            currentIndex: 1
+
+            Connections {
+                target: pager
+                function onOffsetChanged() {
+                    var opacityCalc = 0
+
+                    if (offset >= 0 && offset <= 1) {
+                        opacityCalc = 1 - offset
+                    } else if (offset >= 2 && offset <= 3) {
+                        opacityCalc = offset - 2
+                    }
+
+                    statusbar.opacityStart = opacityCalc
+                }
+
+            }
+        }
+    }
+
+    Component {
+        id: listPagerView
+
+        ListView {
+            id: pager
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            boundsBehavior: Flickable.StopAtBounds
+
+            model: visualItemsModel
+
+            // Initial view should be the AppLauncher
+            currentIndex: 1
+
+            Connections {
+                target: pager
+
+                function onContentXChanged() {
+                    var opacityCalc
+
+                    if(pager.contentX > desktop.width) {
+                        opacityCalc = 0
+                    } else if (pager.contentX <= 0) {
+                        opacityCalc = 1
+                    } else {
+                        opacityCalc = (desktop.width-pager.contentX)/desktop.width
+                    }
+
+                    statusbar.opacityStart = opacityCalc
+                }
+            }
+
+        }
+    }
+
+    Loader{
         id: pager
         anchors.topMargin: statusbar.height
         anchors.fill: parent
-        orientation: ListView.Horizontal
-        snapMode: ListView.SnapOneItem
-        highlightRangeMode: ListView.StrictlyEnforceRange
-        boundsBehavior: Flickable.StopAtBounds
-
-        model: VisualItemModel {
-            FeedsPage {
-                id: feeds
-                width: pager.width
-                height: pager.height
-            }
-            AppLauncher {
-                id: launcher
-                width: pager.width
-                height: pager.height
-                switcher: switcher
-            }
-            AppSwitcher {
-                id: switcher
-                width: pager.width
-                height: pager.height
-                visibleInHome: x > -width && x < desktop.width
-                launcher: launcher
-                wallpaper: wallpaper
-            }
-        }
-
-        // Initial view should be the AppLauncher
-        currentIndex: 1
+        sourceComponent: infinityPager.value ? infinityPagerView : listPagerView
     }
 
     Wallpaper{
@@ -303,23 +371,6 @@ Item {
         id: rebootDialog
         focus: true
         z: 400
-    }
-
-    Connections {
-        target: pager
-        function onContentXChanged() {
-            var opacityCalc
-
-            if(pager.contentX > desktop.width) {
-                opacityCalc = 0
-            } else if (pager.contentX <= 0) {
-                opacityCalc = 1
-            } else {
-                opacityCalc = (desktop.width-pager.contentX)/desktop.width
-            }
-
-            statusbar.opacityStart = opacityCalc
-        }
     }
 
     Connections {
