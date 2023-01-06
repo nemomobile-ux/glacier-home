@@ -273,12 +273,27 @@ Item {
         id: infinityPagerView
         Pager {
             id: pager
-            anchors.topMargin: statusbar.height
             anchors.fill: parent
             enabled: Desktop.compositor.state != "controlCenter"
             model: visualItemsModel
             // Initial view should be the AppLauncher
             currentIndex: 1
+
+            Connections {
+                target: pager
+                function onOffsetChanged() {
+                    var opacityCalc = 0
+
+                    if (offset >= 0 && offset <= 1) {
+                        opacityCalc = 1 - offset
+                    } else if (offset >= 2 && offset <= 3) {
+                        opacityCalc = offset - 2
+                    }
+
+                    statusbar.opacityStart = opacityCalc
+                }
+
+            }
         }
     }
 
@@ -287,7 +302,6 @@ Item {
 
         ListView {
             id: pager
-            anchors.topMargin: statusbar.height
             anchors.fill: parent
             orientation: ListView.Horizontal
             snapMode: ListView.SnapOneItem
@@ -298,6 +312,25 @@ Item {
 
             // Initial view should be the AppLauncher
             currentIndex: 1
+
+            Connections {
+                target: pager
+
+                function onContentXChanged() {
+                    var opacityCalc
+
+                    if(pager.contentX > desktop.width) {
+                        opacityCalc = 0
+                    } else if (pager.contentX <= 0) {
+                        opacityCalc = 1
+                    } else {
+                        opacityCalc = (desktop.width-pager.contentX)/desktop.width
+                    }
+
+                    statusbar.opacityStart = opacityCalc
+                }
+            }
+
         }
     }
 
@@ -338,23 +371,6 @@ Item {
         id: rebootDialog
         focus: true
         z: 400
-    }
-
-    Connections {
-        target: pager
-        function onContentXChanged() {
-            var opacityCalc
-
-            if(pager.contentX > desktop.width) {
-                opacityCalc = 0
-            } else if (pager.contentX <= 0) {
-                opacityCalc = 1
-            } else {
-                opacityCalc = (desktop.width-pager.contentX)/desktop.width
-            }
-
-            statusbar.opacityStart = opacityCalc
-        }
     }
 
     Connections {
