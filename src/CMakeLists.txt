@@ -1,3 +1,5 @@
+file(GLOB_RECURSE QML_JS_FILES *.qml *.js)
+
 set(SRC
     main.cpp
     controlcenterbuttonsmodel.cpp
@@ -7,7 +9,9 @@ set(SRC
     glacierwindowmodel.cpp
     glacierwindowmodel.h
     mceconnect.cpp
-    mceconnect.h)
+    mceconnect.h
+    ${QML_JS_FILES}
+    )
 
 #add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
 #    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
