@@ -47,63 +47,21 @@ Page {
         id: windowedModeSettings
         spacing: Theme.itemSpacingLarge
 
-        Rectangle{
-            id: windowedModeColumn
-            width: parent.width
-            height: childrenRect.height
 
-            color: "transparent"
-
-            Label{
-                id: windowedModeLabel
-                text: qsTr("Enable windowed mode");
-                anchors{
-                    left: parent.left
-                    top: parent.top
-                }
-                width: parent.width-windowedModeCheck.width
-                wrapMode: Text.WordWrap
-            }
-
-            CheckBox{
-                id: windowedModeCheck
-                checked: windowedMode.value
-                anchors{
-                    right: parent.right
-                    verticalCenter: windowedModeLabel.verticalCenter
-                }
-                onClicked: windowedMode.value = checked
-            }
+        RightCheckBox{
+            id: windowedModeCheck
+            checked: windowedMode.value
+            onClicked: windowedMode.value = checked
+            label: qsTr("Enable windowed mode");
         }
 
-        Rectangle{
-            id: alwaysShowSearchColumn
-            width: parent.width
-            height: childrenRect.height
-
-            color: "transparent"
-
-            Label{
-                id: alwaysShowSearchLabel
-                text: qsTr("Always show search panel");
-                anchors{
-                    left: parent.left
-                    top: parent.top
-                }
-                width: parent.width-windowedModeCheck.width
-                wrapMode: Text.WordWrap
-            }
-
-            CheckBox{
-                id: alwaysShowSearchCheck
-                checked: alwaysShowSearch.value
-                anchors{
-                    right: parent.right
-                    verticalCenter: alwaysShowSearchLabel.verticalCenter
-                }
-                onClicked: alwaysShowSearch.value = checked
-            }
+        RightCheckBox{
+            id: alwaysShowSearchCheck
+            checked: alwaysShowSearch.value
+            onClicked: alwaysShowSearch.value = checked
+            label: qsTr("Always show search panel");
         }
+
     }
 }
 
