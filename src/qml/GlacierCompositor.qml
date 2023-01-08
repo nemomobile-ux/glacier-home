@@ -26,6 +26,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
+import org.nemomobile.configuration 1.0
 
 import "compositor"
 
@@ -40,6 +41,12 @@ Item {
     // used by ubuntumirclient QPA for special clients to request input method windows from Mir.
 
     property int inputMethodWindowType: 2;
+
+    ConfigurationValue {
+        id: windowAnimation
+        key: "/home/glacier/homeScreen/windowAnimation"
+        defaultValue: true
+    }
 
     Connections {
         target: comp.quickWindow
@@ -382,7 +389,7 @@ Item {
                 }
                 topmostApplicationWindow = topmostWindow
                 topmostApplicationWindow.visible = true
-                if (!skipAnimation) {
+                if (!skipAnimation && windowAnimation.value) {
                     topmostApplicationWindow.animateIn()
                     lastClick = null
                 }
