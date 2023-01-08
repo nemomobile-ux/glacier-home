@@ -43,15 +43,6 @@
     </message>
 </context>
 <context>
-    <name>BluetoothControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
-        <source>Bluetooth</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>BtObexRequestConfirmationDialog</name>
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
@@ -89,14 +80,6 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CellularDataControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/CellularDataControlButton.qml" line="33"/>
-        <source>Cellular data</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -142,16 +125,8 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="174"/>
         <source>folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LocationControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/LocationControlButton.qml" line="31"/>
-        <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -226,14 +201,6 @@
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
         <source>Just now</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QuietControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/QuietControlButton.qml" line="32"/>
-        <source>Quiet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -380,14 +347,6 @@
     </message>
 </context>
 <context>
-    <name>WiFiControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
-        <source>Wi-Fi</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
@@ -403,13 +362,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="59"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="61"/>
         <source>Enable windowed mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="88"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="68"/>
         <source>Always show search panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="75"/>
+        <source>Infinite scrolling main screen</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -429,27 +393,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="64"/>
         <source>Use parallax effect for wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="100"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
         <source>Use different images for lockscreen and home screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
         <source>Homescreen wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
         <source>Wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="162"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="118"/>
         <source>Lockscreen wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
