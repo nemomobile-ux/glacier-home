@@ -41,15 +41,6 @@
     </message>
 </context>
 <context>
-    <name>BluetoothControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
-        <source>Bluetooth</source>
-        <translation>Bluetooth</translation>
-    </message>
-</context>
-<context>
     <name>BtObexRequestConfirmationDialog</name>
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
@@ -88,14 +79,6 @@
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
         <translation>kód: </translation>
-    </message>
-</context>
-<context>
-    <name>CellularDataControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/CellularDataControlButton.qml" line="33"/>
-        <source>Cellular data</source>
-        <translation>Mobilní data</translation>
     </message>
 </context>
 <context>
@@ -140,17 +123,9 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="174"/>
         <source>folder</source>
         <translation>složka</translation>
-    </message>
-</context>
-<context>
-    <name>LocationControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/LocationControlButton.qml" line="31"/>
-        <source>Location</source>
-        <translation>Poloha</translation>
     </message>
 </context>
 <context>
@@ -210,14 +185,6 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
         <source>Just now</source>
         <translation>Právě teď</translation>
-    </message>
-</context>
-<context>
-    <name>QuietControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/QuietControlButton.qml" line="32"/>
-        <source>Quiet</source>
-        <translation>Tichý</translation>
     </message>
 </context>
 <context>
@@ -363,14 +330,6 @@
     </message>
 </context>
 <context>
-    <name>WiFiControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
-        <source>Wi-Fi</source>
-        <translation>Wi-Fi</translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
@@ -386,14 +345,19 @@
         <translation>Plocha</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="59"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="61"/>
         <source>Enable windowed mode</source>
         <translation>Povolit režim v okně</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="88"/>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="68"/>
         <source>Always show search panel</source>
         <translation>Vždy zobrazovat panel vyhledávání</translation>
+    </message>
+    <message>
+        <location filename="../settings-plugins/desktop/desktop.qml" line="75"/>
+        <source>Infinite scrolling main screen</source>
+        <translation>Nekonečná domovká obrazovka</translation>
     </message>
 </context>
 <context>
@@ -412,27 +376,27 @@
         <translation>Tapety</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="64"/>
         <source>Use parallax effect for wallpaper</source>
         <translation>Použít efekt parallaxy pro tapetu</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="100"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
         <source>Use different images for lockscreen and home screen</source>
         <translation>Použít jiné obrázky pro zamykací a domácí obrazovku</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
         <source>Homescreen wallpaper</source>
         <translation>Tapeta domácí obrazovky</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="133"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
         <source>Wallpaper</source>
         <translation>Tapeta</translation>
     </message>
     <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="162"/>
+        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="118"/>
         <source>Lockscreen wallpaper</source>
         <translation>Tapeta zamykací obrazovky</translation>
     </message>
