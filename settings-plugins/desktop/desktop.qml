@@ -49,6 +49,12 @@ Page {
         defaultValue: false
     }
 
+    ConfigurationValue {
+        id: windowAnimation
+        key: "/home/glacier/homeScreen/windowAnimation"
+        defaultValue: true
+    }
+
     SettingsColumn{
         id: windowedModeSettings
         spacing: Theme.itemSpacingLarge
@@ -73,6 +79,13 @@ Page {
             checked: infinityPager.value
             onClicked: infinityPager.value = checked
             label: qsTr("Infinite scrolling main screen");
+        }
+
+        RightCheckBox{
+            id: windowAnimationCheck
+            checked: windowAnimation.value
+            onClicked: windowAnimation.value = checked
+            label: qsTr("Window animation");
         }
 
     }
