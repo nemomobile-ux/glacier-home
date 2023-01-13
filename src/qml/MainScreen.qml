@@ -274,7 +274,7 @@ Item {
         Pager {
             id: pager
             anchors.fill: parent
-            enabled: Desktop.compositor.state != "controlCenter"
+            enabled: Lipstick.compositor.state != "controlCenter"
             model: visualItemsModel
             // Initial view should be the AppLauncher
             currentIndex: 1
