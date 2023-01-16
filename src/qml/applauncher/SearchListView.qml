@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
-** Copyright (c) 2018-2022, Chupligin Sergey
+** Copyright (c) 2018-2023, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -37,7 +37,7 @@ import org.nemomobile.lipstick 0.1
 import org.nemomobile.contacts 1.0
 
 Item {
-    id:rootItem
+    id:searchList
     height: calculateHeight()
     anchors.bottomMargin:Theme.itemSpacingHuge
     property alias searchField: searchField
@@ -51,12 +51,13 @@ Item {
         if(!alwaysShowSearch.value)
         {
             searchListView.visible = false;
+            searchListView.height = 0
         }
     }
 
     function calculateHeight()
     {
-        if(rootItem.visible){
+        if(searchList.visible){
             if(searchField.text.length > 0){
                return  parent.height
             }
@@ -72,7 +73,7 @@ Item {
         if(!alwaysShowSearch.value)
         {
             if(visible){
-                rootItem.height = calculateHeight()
+                searchList.height = calculateHeight()
                 searchField.focus = true
                 searchField.forceActiveFocus()
             } else {
@@ -108,7 +109,7 @@ Item {
                 anchors.fill: parent
                 onPressAndHold: {
                     hideShowRow.visible = true
-                    rootItem.height = rootItem.height+hideShowRow.height
+                    searchList.height = searchList.height+hideShowRow.height
                 }
             }
         }
@@ -150,7 +151,7 @@ Item {
             text: alwaysShowSearch.value == true ? qsTr("Hide search panel") : qsTr("Pinup search panel")
             width: parent.width
             onClicked: {
-                rootItem.height = rootItem.height-hideShowRow.height
+                searchList.height = searchList.height-hideShowRow.height
                 hideShowRow.visible = false
                 if(alwaysShowSearch.value == true)
                 {
@@ -166,7 +167,7 @@ Item {
         InverseMouseArea {
             anchors.fill: parent
             onPressed: {
-                rootItem.height = rootItem.height-hideShowRow.height
+                searchList.height = searchList.height-hideShowRow.height
                 hideShowRow.visible = false
             }
         }

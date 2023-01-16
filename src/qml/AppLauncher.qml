@@ -1,4 +1,4 @@
-/* This file is part of colorful-home, a nice user experience for touchscreens.
+/* This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018-2021, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2023, Chupligin Sergey <neochapay@gmail.com>
 */
 
 import QtQuick 2.6
@@ -85,6 +85,7 @@ Flickable{
                 if(searchString.length < 1 && !alwaysShowSearch.value == true)
                 {
                     searchListView.visible = false
+                    searchListView.height = 0
                 }
             }
         }
