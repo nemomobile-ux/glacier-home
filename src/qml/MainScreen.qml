@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
@@ -187,7 +187,7 @@ Item {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
         opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
-            Lipstick.compositor.gestureArea.active ? 
+            Lipstick.compositor.gestureArea.active ?
             Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
         NumberAnimation {
             properties: "opacity"
@@ -210,14 +210,14 @@ Item {
 
     onParentChanged: {
         glacierRotation.rotationParent = desktop.parent
-        glacierRotation.rotateRotationParent(nativeOrientation)
-        glacierRotation.rotateObject(desktop.parent, nativeOrientation, true)
+        glacierRotation.rotateRotationParent(orientationCalc())
+        glacierRotation.rotateObject(desktop.parent, orientationCalc(), true)
     }
 
     Component.onCompleted: {
         glacierRotation.rotationParent = desktop.parent
         setLockScreen(true)
-        Lipstick.compositor.screenOrientation = nativeOrientation
+        Lipstick.compositor.screenOrientation = orientationCalc()
         LipstickSettings.lockScreen(true)
 
         if(usegeoclue2) {
@@ -228,7 +228,7 @@ Item {
     Connections {
         target: LipstickSettings
         function onLockscreenVisibleChanged(visible) {
-            glacierRotation.rotateRotationParent(desktop.orientation)
+            glacierRotation.rotateRotationParent(orientationCalc())
         }
     }
 
@@ -392,5 +392,14 @@ Item {
         function onDisplayOn() {
             desktop.displayOn = true;
         }
+    }
+
+    function orientationCalc() {
+        if (Lipstick.compositor.orientationLock == "portrait") {
+            return Qt.PortraitOrientation
+        } else if (Lipstick.compositor.orientationLock == "landscape") {
+            return Qt.LandscapeOrientation
+        }
+        return nativeOrientation
     }
 }
