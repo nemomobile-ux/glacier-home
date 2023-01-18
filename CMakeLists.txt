@@ -56,7 +56,7 @@ install(FILES data/nemovars.conf
 install(FILES
     data/90-glacier-powerkey.conf
     data/90-glacier-devlock.conf
-    DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/mce)
+    DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/mce)
 
 # Translations
 file(GLOB TS_FILES translations/*.ts)
