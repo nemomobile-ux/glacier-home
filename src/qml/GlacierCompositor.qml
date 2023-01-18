@@ -500,22 +500,32 @@ Item {
         }
 
         screenOrientation: {
-            if (orientationLock == "portrait") {
+            switch(orientationLock) {
+            case "portrait":
                 return Qt.PortraitOrientation
-            } else if (orientationLock == "landscape") {
+            case "portrait-inverted":
+                return Qt.InvertedPortraitOrientation
+            case "landscape":
                 return Qt.LandscapeOrientation
+            case "landscape-inverted":
+                return Qt.InvertedLandscapeOrientation
+            default:
+                return nativeOrientation
             }
-            return nativeOrientation
         }
 
-
         function recalcOrientation() {
-            if (orientationLock == "portrait") {
-                screenOrientation = (sensorOrientation & Qt.PortraitOrientation)|| Qt.PortraitOrientation
-            } else if (orientationLock == "landscape") {
-                screenOrientation = (sensorOrientation & Qt.LandscapeOrientation) || Qt.LandscapeOrientation
-            } else {
-                screenOrientation = sensorOrientation
+            switch(orientationLock) {
+            case "portrait":
+                return Qt.PortraitOrientation
+            case "portrait-inverted":
+                return Qt.InvertedPortraitOrientation
+            case "landscape":
+                return Qt.LandscapeOrientation
+            case "landscape-inverted":
+                return Qt.InvertedLandscapeOrientation
+            default:
+                return screenOrientation
             }
         }
 
