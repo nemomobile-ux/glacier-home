@@ -38,7 +38,7 @@ import org.nemomobile.lipstick 0.1
 Item {
     id: notifyArea
 
-    height: modelData.progress == 0 ? Theme.itemHeightExtraLarge : Theme.itemHeightExtraLarge + Theme.itemHeightExtraSmall
+    height: littleArea.height + ( (modelData.progress === 0) ? 0 : Theme.itemHeightExtraSmall )
     width: parent.width
 
     clip: true
@@ -50,7 +50,7 @@ Item {
 
     property alias appTimestamp: appTimestamp
     property alias pressBg: pressBg
-    property int iconSize: height-Theme.itemSpacingMedium
+    property alias iconSize: appIcon.height
     property string timeAgo
     property int swipeTreshold: notifyArea.width/3
 
@@ -97,11 +97,11 @@ Item {
 
         if (years >= 1) {
             timeAgo = qsTr("%n year(s) ago", "notifications", years)
-        }else if (months >= 1) {
+        } else if (months >= 1) {
             timeAgo = qsTr("%n months(s) ago", "notifications", months)
-        }else if (days >= 1) {
+        } else if (days >= 1) {
             timeAgo = qsTr("%n day(s) ago", "notifications", days)
-        }else if (hours >= 1) {
+        } else if (hours >= 1) {
             timeAgo = qsTr("%n hours(s) ago", "notifications", hours)
         } else if (minutes >= 1) {
             timeAgo = qsTr("%n minutes(s) ago", "notifications", minutes)
@@ -111,7 +111,7 @@ Item {
     }
 
     NumberAnimation {
-        id:slideAnimation
+        id: slideAnimation
         target: notifyArea
         property: "x"
         duration: 200
@@ -122,7 +122,7 @@ Item {
     }
 
     NumberAnimation {
-        id:slideReverseAnimation
+        id: slideReverseAnimation
         target: notifyArea
         property: "x"
         duration: 200
@@ -133,7 +133,7 @@ Item {
     }
 
     NumberAnimation {
-        id:slideBackAnimation
+        id: slideBackAnimation
         target: notifyArea
         property: "x"
         duration: 200
@@ -143,7 +143,7 @@ Item {
     }
 
     Rectangle {
-        id:pressBg
+        id: pressBg
         anchors.fill: parent
         color: Theme.fillColor
         radius: Theme.itemSpacingMedium
@@ -153,37 +153,36 @@ Item {
     Item {
         id: littleArea
         width: parent.width
-        height: Theme.itemHeightExtraLarge
+        height: Math.max(appIcon.height, appName.paintedHeight + appSummary.paintedHeight + appBody.paintedHeight +  2* Theme.itemSpacingExtraSmall) + 2 * Theme.itemSpacingSmall
 
-        anchors{
-            top: parent.top
-            left: parent.left
-        }
 
         Image {
             id: appIcon
             property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
 
-            height: parent.height-Theme.itemSpacingMedium
+            fillMode: Image.PreserveAspectFit
             width: height
-            anchors{
-                left: parent.left
-                leftMargin: Theme.itemSpacingMedium
-                verticalCenter:littleArea.verticalCenter
-            }
+            height: Theme.itemHeightLarge
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.margins: Theme.itemSpacingMedium
 
             source: {
                 if (modelData.icon) {
-                    if(modelData.icon.indexOf("/") == 0)
+                    if(modelData.icon.indexOf("/") === 0) {
                         return "file://" + modelData.icon
-                    else
+                    } else {
                         return "image://theme/" + modelData.icon
+                    }
                 } else if (modelData.appIcon) {
-                    if(modelData.appIcon.indexOf("/") == 0)
+                    if(modelData.appIcon.indexOf("/") === 0) {
                         return "file://" + modelData.appIcon
-                    else
+                    } else {
                         return "image://theme/" + modelData.appIcon
-                } else return defaultIcon
+                    }
+                } else {
+                    return defaultIcon
+                }
             }
             onStatusChanged: {
                 if (appIcon.status == Image.Error) {
@@ -192,71 +191,78 @@ Item {
             }
         }
 
+
         Label {
             id: appName
             text: modelData.appName
-            width: Math.min(implicitWidth,  parent.width-appTimestamp.width-Theme.itemSpacingSmall)
+            //            width: Math.min(implicitWidth,  parent.width - appTimestamp.paintedWidth -Theme.itemSpacingSmall)
+            width: parent.width - appTimestamp.paintedWidth - appIcon.width  - 3*Theme.itemSpacingSmall
             color: Theme.textColor
             elide: Text.ElideRight
             font.pixelSize: Theme.fontSizeSmall
             anchors {
-                left: appIcon.right
-                leftMargin: Theme.itemSpacingSmall
                 top: parent.top
                 topMargin: Theme.itemSpacingSmall
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
             }
         }
 
         Label {
-            id:appTimestamp
+            id: appTimestamp
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeTiny
             text: if(timeAgo) timeAgo
             horizontalAlignment: Text.AlignRight
             anchors {
                 top: parent.top
-                topMargin: Theme.itemSpacingSmall
+                topMargin: Theme.itemSpacingExtraSmall
                 right:parent.right
                 rightMargin: Theme.itemSpacingSmall
-
             }
             Component.onCompleted: refreshTimestamp()
         }
 
         Label {
             id: appSummary
-            text: modelData.summary || modelData.previewSummary
-            width: parent.width-Theme.itemSpacingHuge
-            color: Theme.textColor
+            text: "sumary "  + modelData.summary || modelData.previewSummary
+            width: parent.width
             font.pixelSize: Theme.fontSizeTiny
-            anchors{
-                left: appIcon.right
-                leftMargin: Theme.itemSpacingSmall
-                top: appName.bottom
-                topMargin: Theme.itemSpacingExtraSmall
-            }
             maximumLineCount: 1
             elide: Text.ElideRight
+            anchors {
+                top: appName.bottom
+                topMargin: Theme.itemSpacingExtraSmall
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
+                right: parent.right
+                rightMargin: Theme.itemSpacingSmall
+            }
         }
 
         Label {
             id: appBody
-            width: parent.width-Theme.itemSpacingHuge
-            text: modelData.body || modelData.previewBody
+            width: parent.width
+            text: "body " +modelData.body || modelData.previewBody
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeTiny
-            anchors{
-                left: appIcon.right
-                leftMargin: Theme.itemSpacingSmall
-                top: appSummary.bottom
-                topMargin: Theme.itemSpacingSmall
-            }
             maximumLineCount: 1
             elide: Text.ElideRight
+            anchors {
+                top: appSummary.bottom
+                topMargin: Theme.itemSpacingExtraSmall
+                left: appIcon.right
+                leftMargin: Theme.itemSpacingSmall
+                right: parent.right
+                rightMargin: Theme.itemSpacingSmall
+                bottom: parent.bottom
+                bottomMargin: Theme.itemSpacingSmall
+            }
         }
+
     }
 
-    ProgressBar{
+    ProgressBar {
         id: progressBar
         width: notifyArea.width  - Theme.itemSpacingSmall *2
         height: Theme.itemHeightExtraSmall / 3
@@ -269,8 +275,8 @@ Item {
             leftMargin: Theme.itemSpacingSmall
         }
 
-        visible: modelData.progress != 0
-        indeterminate: modelData.progress == -1
+        visible: modelData.progress !== 0
+        indeterminate: modelData.progress === -1
     }
 
     Connections {
