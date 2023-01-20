@@ -225,7 +225,7 @@ Item {
 
         Label {
             id: appSummary
-            text: "sumary "  + modelData.summary || modelData.previewSummary
+            text: modelData.summary || modelData.previewSummary
             width: parent.width
             font.pixelSize: Theme.fontSizeTiny
             maximumLineCount: 1
@@ -243,7 +243,7 @@ Item {
         Label {
             id: appBody
             width: parent.width
-            text: "body " +modelData.body || modelData.previewBody
+            text: modelData.body || modelData.previewBody
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeTiny
             maximumLineCount: 1
