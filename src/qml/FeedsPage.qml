@@ -89,7 +89,7 @@ Item {
     Flickable {
         id: mainFlickable
         width: columnWidth
-        height: desktop.isUiPortrait ? feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4 : feedsPage.height-dateRow.height
+        height: desktop.isUiPortrait ? feedsPage.height-dateRow.height-controlCenter.height-Theme.itemSpacingMedium*4 : feedsPage.height-dateRow.height-Theme.itemSpacingMedium*2
         contentHeight: notificationColumn.height
 
         anchors{
