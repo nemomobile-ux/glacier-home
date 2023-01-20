@@ -45,6 +45,7 @@ Item {
 
     clip: true
 
+    property alias appName: appName
     property alias appIcon: appIcon
     property alias appBody: appBody
     property alias appSummary: appSummary
@@ -228,11 +229,13 @@ Item {
 
         Label {
             id: appSummary
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeMedium
             text: modelData.summary || modelData.previewSummary
-            width: parent.width - appTimestamp.paintedWidth - appIcon.width  - 3*Theme.itemSpacingSmall
-            font.pixelSize: Theme.fontSizeSmall
             maximumLineCount: 1
             elide: Text.ElideRight
+            width: parent.width - (appTimestamp.paintedWidth + appIcon.width + 4*Theme.itemSpacingSmall)
+
             anchors {
                 top: parent.top
                 topMargin: Theme.itemSpacingSmall
@@ -243,23 +246,40 @@ Item {
 
         Label {
             id: appBody
-            width: parent.width
-            text: modelData.body || modelData.previewBody
             color: Theme.textColor
-            font.pixelSize: Theme.fontSizeTiny
+            font.pixelSize: Theme.fontSizeSmall
+            text: modelData.body || modelData.previewBody
             maximumLineCount: 1
             elide: Text.ElideRight
+            width: parent.width - ( appName.paintedWidth + appIcon.width + 4*Theme.itemSpacingSmall )
+
             anchors {
                 top: appSummary.bottom
-                topMargin: Theme.itemSpacingExtraSmall
+                topMargin: Theme.itemSpacingExtraSmall/2
                 left: appIcon.right
                 leftMargin: Theme.itemSpacingSmall
-                right: parent.right
-                rightMargin: Theme.itemSpacingSmall
                 bottom: parent.bottom
                 bottomMargin: Theme.itemSpacingSmall
             }
         }
+
+
+        Label {
+            id: appName
+            color: Theme.textColor
+            font.pixelSize: Theme.fontSizeTiny
+            text: modelData.appName
+            horizontalAlignment: Text.AlignRight
+
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: Theme.itemSpacingSmall
+                right: parent.right
+                rightMargin: Theme.itemSpacingSmall
+            }
+        }
+
+
 
     }
 
