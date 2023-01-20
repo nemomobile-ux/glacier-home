@@ -35,6 +35,8 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 
+import Nemo.DBus 2.0
+
 Item {
     id: notifyArea
 
@@ -45,7 +47,6 @@ Item {
 
     property alias appIcon: appIcon
     property alias appBody: appBody
-    property alias appName: appName
     property alias appSummary: appSummary
 
     property alias appTimestamp: appTimestamp
@@ -53,6 +54,18 @@ Item {
     property alias iconSize: appIcon.height
     property string timeAgo
     property int swipeTreshold: notifyArea.width/3
+
+
+    DBusInterface {
+        id: dbus
+
+        function invokeRemoteAction(action) {
+            dbus.service = action.service
+            dbus.path = action.path
+            dbus.iface = action.iface
+            dbus.call(action.method, action.arguments || [])
+        }
+    }
 
     MouseArea{
         id: notifyMouseArea
@@ -77,6 +90,11 @@ Item {
         onClicked: {
             if (LipstickSettings.lockscreenVisible === true) {
                 return
+            }
+
+            if (modelData.remoteActions.length > 0) {
+                var action = modelData.remoteActions[0];
+                dbus.invokeRemoteAction(action)
             }
 
             if (modelData.userRemovable && !modelData.hasProgress) {
@@ -153,7 +171,7 @@ Item {
     Item {
         id: littleArea
         width: parent.width
-        height: Math.max(appIcon.height, appName.paintedHeight + appSummary.paintedHeight + appBody.paintedHeight +  2* Theme.itemSpacingExtraSmall) + 2 * Theme.itemSpacingSmall
+        height: Math.max(appIcon.height, appSummary.paintedHeight + appBody.paintedHeight +  Theme.itemSpacingExtraSmall) + 2 * Theme.itemSpacingSmall
 
 
         Image {
@@ -193,27 +211,12 @@ Item {
 
 
         Label {
-            id: appName
-            text: modelData.appName
-            //            width: Math.min(implicitWidth,  parent.width - appTimestamp.paintedWidth -Theme.itemSpacingSmall)
-            width: parent.width - appTimestamp.paintedWidth - appIcon.width  - 3*Theme.itemSpacingSmall
-            color: Theme.textColor
-            elide: Text.ElideRight
-            font.pixelSize: Theme.fontSizeSmall
-            anchors {
-                top: parent.top
-                topMargin: Theme.itemSpacingSmall
-                left: appIcon.right
-                leftMargin: Theme.itemSpacingSmall
-            }
-        }
-
-        Label {
             id: appTimestamp
             color: Theme.textColor
             font.pixelSize: Theme.fontSizeTiny
             text: if(timeAgo) timeAgo
             horizontalAlignment: Text.AlignRight
+
             anchors {
                 top: parent.top
                 topMargin: Theme.itemSpacingExtraSmall
@@ -226,17 +229,15 @@ Item {
         Label {
             id: appSummary
             text: modelData.summary || modelData.previewSummary
-            width: parent.width
-            font.pixelSize: Theme.fontSizeTiny
+            width: parent.width - appTimestamp.paintedWidth - appIcon.width  - 3*Theme.itemSpacingSmall
+            font.pixelSize: Theme.fontSizeSmall
             maximumLineCount: 1
             elide: Text.ElideRight
             anchors {
-                top: appName.bottom
-                topMargin: Theme.itemSpacingExtraSmall
+                top: parent.top
+                topMargin: Theme.itemSpacingSmall
                 left: appIcon.right
                 leftMargin: Theme.itemSpacingSmall
-                right: parent.right
-                rightMargin: Theme.itemSpacingSmall
             }
         }
 
@@ -279,6 +280,7 @@ Item {
         indeterminate: modelData.progress === -1
     }
 
+
     Connections {
         target: Lipstick.compositor
         function onDisplayOn() {
@@ -301,5 +303,39 @@ Item {
 
     Component.onCompleted: {
         refreshTimestamp()
+
+        /*
+        console.log(
+            "appName: " +modelData.appName + "\n" +
+            "explicitAppName : " + modelData.explicitAppName + "\n" +
+            "disambiguatedAppName: " + modelData.disambiguatedAppName + "\n" +
+            "id: " + modelData.id + "\n" +
+            "appIcon: " + modelData.appIcon + "\n" +
+            "appIconOrigin: " + modelData.appIconOrigin + "\n" +
+            "summary: " +modelData.summary + "\n" +
+            "body: " + modelData.body  + "\n" +
+            "actions: " +modelData.actions + "\n" +
+            "hints: " +modelData.hints  + "\n" +
+            "expireTimeout: " + modelData.expireTimeout  + "\n" +
+            "timestamp: " + modelData.timestamp  + "\n" +
+            "previewSummary: " + modelData.previewSummary  + "\n" +
+            "previewBody: " + modelData.previewBody  + "\n" +
+            "subText: " + modelData.subText  + "\n" +
+            "urgency: " + modelData.urgency + "\n" +
+            "itemCount: " + modelData.itemCount  + "\n" +
+            "priority: " +modelData.priority  + "\n" +
+            "category: " + modelData.category  + "\n" +
+            "userRemovable: " + modelData.userRemovable  + "\n" +
+            "remoteActions: " + modelData.remoteActions  + "\n" +
+            "owner: " + modelData.owner  + "\n" +
+            "progress: " + modelData.progress  + "\n" +
+            "hasProgress: " + modelData.hasProgress  + "\n" +
+            "isTransient: " + modelData.isTransient  + "\n" +
+            "color: " + modelData.color + "\n"
+        )
+        */
+
+
     }
+
 }
