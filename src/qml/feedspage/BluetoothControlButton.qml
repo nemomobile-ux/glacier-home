@@ -28,7 +28,7 @@ import org.kde.bluezqt 1.0 as BluezQt
 ControlButton {
     id: bluetoothButton
 
-    image: "image://theme/bluetooth"
+    image: "image://theme/bluetooth-b"
     activated: bluetoothModel.powered
 
     assignedSettingsPage: "bluez"
