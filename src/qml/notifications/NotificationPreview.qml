@@ -29,6 +29,9 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 import org.nemomobile.lipstick 0.1
 
+import "NofiticationImage.js" as NotificationImage
+
+
 Item {
     id: notificationWindow
     property alias summary: summary.text
@@ -40,32 +43,15 @@ Item {
         target: notificationPreviewPresenter
         function onNotificationChanged() {
             if(notificationPreviewPresenter.notification) {
-                icon.source = formatIcon(notificationPreviewPresenter.notification.appIcon)
+                icon.source = NotificationImage.notificationImage(null,notificationPreviewPresenter.notification.appIcon)
             }
         }
-    }
-
-/*Glacier use fontawesome icons but mer use maemo icons */
-    function formatIcon(icon){
-        if(icon === "") {
-            return "../images/notification-circle.png"
-        }
-
-        if(icon === "icon-system-charging") {
-            return "image://theme/plug"
-        }
-
-        if(icon === "icon-system-usb") {
-            return "image://theme/bug"
-        }
-
-        return "image://theme/"+icon;
     }
 
     MouseArea {
         id: notificationArea
         property int notificationHeight: Math.min(parent.width,parent.height)/7
-        property int notificationMargin: 14
+        property int notificationMargin: Theme.itemSpacingSmall
         property int notificationIconSize: Math.min(parent.width,parent.height)/12
         y: -notificationArea.height
         width: notificationWindow.width
@@ -171,7 +157,7 @@ Item {
                     width:  parent.width
                     height: (text == "") ? 0 : undefined
                     font {
-                        pixelSize: Theme.fontSizeTiny
+                        pixelSize: Theme.fontSizeMedium
                         bold: true
                     }
 
@@ -196,7 +182,7 @@ Item {
                         verticalCenter: (summary.text == "") ? parent.verticalCenter : undefined
                     }
                     font {
-                        pixelSize: (summary.text == "") ? Theme.fontSizeTiny : Theme.fontSizeTiny/2
+                        pixelSize: (summary.text == "") ? Theme.fontSizeMedium : Theme.fontSizeSmall
                         bold: false
                     }
                     width:  parent.width
