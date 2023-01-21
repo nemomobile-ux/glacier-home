@@ -37,6 +37,8 @@ import org.nemomobile.lipstick 0.1
 
 import Nemo.DBus 2.0
 
+import "NofiticationImage.js" as NotificationImage
+
 Item {
     id: notifyArea
 
@@ -177,7 +179,6 @@ Item {
 
         Image {
             id: appIcon
-            property string defaultIcon: "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
 
             fillMode: Image.PreserveAspectFit
             width: height
@@ -186,26 +187,11 @@ Item {
             anchors.top: parent.top
             anchors.margins: Theme.itemSpacingMedium
 
-            source: {
-                if (modelData.icon) {
-                    if(modelData.icon.indexOf("/") === 0) {
-                        return "file://" + modelData.icon
-                    } else {
-                        return "image://theme/" + modelData.icon
-                    }
-                } else if (modelData.appIcon) {
-                    if(modelData.appIcon.indexOf("/") === 0) {
-                        return "file://" + modelData.appIcon
-                    } else {
-                        return "image://theme/" + modelData.appIcon
-                    }
-                } else {
-                    return defaultIcon
-                }
-            }
+            source: NotificationImage.notificationImage(modelData.icon, modelData.appIcon)
+
             onStatusChanged: {
                 if (appIcon.status == Image.Error) {
-                    appIcon.source = defaultIcon
+                    appIcon.source = NotificationImage.defaultIcon
                 }
             }
         }
@@ -357,5 +343,7 @@ Item {
 
 
     }
+
+
 
 }
