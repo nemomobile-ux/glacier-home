@@ -54,7 +54,7 @@ Item {
     ConfigurationValue {
         id: enableParallax
         key: "/home/glacier/homeScreen/enableParallax"
-        defaultValue: true
+        defaultValue: false
         onValueChanged: {
             if(!LipstickSettings.lockscreenVisible && value) {
                 accelerometer.active = true
