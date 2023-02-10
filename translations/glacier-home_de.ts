@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -144,46 +142,31 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Jahre zuvor</numerusform>
-            <numerusform>Vor %n Jahren</numerusform>
-        </translation>
+        <translation><numerusform>Jahre zuvor</numerusform><numerusform>Vor %n Jahren</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Monate vorher</numerusform>
-            <numerusform>Vor %n Monaten</numerusform>
-        </translation>
+        <translation><numerusform>Monate vorher</numerusform><numerusform>Vor %n Monaten</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Tage zuvor</numerusform>
-            <numerusform>Vor %n Tagen</numerusform>
-        </translation>
+        <translation><numerusform>Tage zuvor</numerusform><numerusform>Vor %n Tagen</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Stunden früher</numerusform>
-            <numerusform>Vor %n Stunden</numerusform>
-        </translation>
+        <translation><numerusform>Stunden früher</numerusform><numerusform>Vor %n Stunden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>Minuten zuvor</numerusform>
-            <numerusform>Vor %n Minuten</numerusform>
-        </translation>
+        <translation><numerusform>Minuten zuvor</numerusform><numerusform>Vor %n Minuten</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
