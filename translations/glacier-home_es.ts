@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -144,46 +142,31 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>hace año</numerusform>
-            <numerusform>%n hace años</numerusform>
-        </translation>
+        <translation><numerusform>hace año</numerusform><numerusform>%n hace años</numerusform><numerusform>%n hace años</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>hace mes</numerusform>
-            <numerusform>%n hace meses</numerusform>
-        </translation>
+        <translation><numerusform>hace mes</numerusform><numerusform>%n hace meses</numerusform><numerusform>%n hace meses</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>hace día</numerusform>
-            <numerusform>%n hace días</numerusform>
-        </translation>
+        <translation><numerusform>hace día</numerusform><numerusform>%n hace días</numerusform><numerusform>%n hace días</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>hace hora</numerusform>
-            <numerusform>%n hace horas</numerusform>
-        </translation>
+        <translation><numerusform>hace hora</numerusform><numerusform>%n hace horas</numerusform><numerusform>%n hace horas</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>hace minuto</numerusform>
-            <numerusform>%n hace minutos</numerusform>
-        </translation>
+        <translation><numerusform>hace minuto</numerusform><numerusform>%n hace minutos</numerusform><numerusform>%n hace minutos</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>

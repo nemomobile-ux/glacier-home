@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -144,51 +142,31 @@
         <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>%n rok temu</numerusform>
-            <numerusform>%n lata temu</numerusform>
-            <numerusform>%n lat temu</numerusform>
-        </translation>
+        <translation><numerusform>%n rok temu</numerusform><numerusform>%n lata temu</numerusform><numerusform>%n lat temu</numerusform><numerusform>%n lat temu</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>%n miesiąc temu</numerusform>
-            <numerusform>%n miesiące temu</numerusform>
-            <numerusform>%n miesięcy temu</numerusform>
-        </translation>
+        <translation><numerusform>%n miesiąc temu</numerusform><numerusform>%n miesiące temu</numerusform><numerusform>%n miesięcy temu</numerusform><numerusform>%n miesięcy temu</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>%n dzień temu</numerusform>
-            <numerusform>%n dni temu</numerusform>
-            <numerusform>%n dni temu</numerusform>
-        </translation>
+        <translation><numerusform>%n dzień temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>%n godzinę temu</numerusform>
-            <numerusform>%n godziny temu</numerusform>
-            <numerusform>%n godzin temu</numerusform>
-        </translation>
+        <translation><numerusform>%n godzinę temu</numerusform><numerusform>%n godziny temu</numerusform><numerusform>%n godzin temu</numerusform><numerusform>%n godzin temu</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation>
-            <numerusform>%n minutę temu</numerusform>
-            <numerusform>%n minuty temu</numerusform>
-            <numerusform>%n minut temu</numerusform>
-        </translation>
+        <translation><numerusform>%n minutę temu</numerusform><numerusform>%n minuty temu</numerusform><numerusform>%n minut temu</numerusform><numerusform>%n minut temu</numerusform></translation>
     </message>
     <message>
         <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
