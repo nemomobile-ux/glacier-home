@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="cs">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="cs">
 <context>
     <name>DesktopSettingsPlugin</name>
     <message>
@@ -39,7 +37,7 @@
     <message>
         <location filename="../desktop.qml" line="88"/>
         <source>Window animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animace oken</translation>
     </message>
 </context>
 </TS>
