@@ -1,0 +1,17 @@
+git:
+  filters:
+    - filter_type: file
+      file_format: QT
+      source_language: en
+      source_file: translations/glacier-home.ts
+      translation_files_expression: 'translations/glacier-home_<lang>.ts'
+    - filter_type: file
+      file_format: QT
+      source_language: en
+      source_file: 'settings-plugins/desktop/translations/desktop.ts'
+      translation_files_expression: 'settings-plugins/desktop/translations/desktop_<lang>.ts'
+    - filter_type: file
+      file_format: QT
+      source_language: en
+      source_file: 'settings-plugins/desktop/translations/wallpaper.ts'
+      translation_files_expression: 'settings-plugins/desktop/translations/wallpaper_<lang>.ts'

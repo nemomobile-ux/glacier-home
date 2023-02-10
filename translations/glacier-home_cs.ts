@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="cs">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="cs">
 <context>
     <name>AppSwitcher</name>
     <message>
@@ -82,19 +84,6 @@
     </message>
 </context>
 <context>
-    <name>DesktopSettingsPlugin</name>
-    <message>
-        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="33"/>
-        <source>Desktop</source>
-        <translation>Plocha</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="34"/>
-        <source>Setup desktop behavior</source>
-        <translation>Nastavit chování plochy</translation>
-    </message>
-</context>
-<context>
     <name>DeviceLockUI</name>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194"/>
@@ -152,37 +141,57 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="99"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>loni</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform><numerusform>před %n lety</numerusform></translation>
+        <translation>
+            <numerusform>loni</numerusform>
+            <numerusform>před %n lety</numerusform>
+            <numerusform>před %n lety</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="101"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před měsícem</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform><numerusform>před %n měsíci</numerusform></translation>
+        <translation>
+            <numerusform>před měsícem</numerusform>
+            <numerusform>před %n měsíci</numerusform>
+            <numerusform>před %n měsíci</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>včera</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform><numerusform>před %n dny</numerusform></translation>
+        <translation>
+            <numerusform>včera</numerusform>
+            <numerusform>před %n dny</numerusform>
+            <numerusform>před %n dny</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před hodinou</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform><numerusform>před %n hodinami</numerusform></translation>
+        <translation>
+            <numerusform>před hodinou</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+            <numerusform>před %n hodinami</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>před minutou</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform><numerusform>před %n minutami</numerusform></translation>
+        <translation>
+            <numerusform>před minutou</numerusform>
+            <numerusform>před %n minutami</numerusform>
+            <numerusform>před %n minutami</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
         <source>Just now</source>
         <translation>Právě teď</translation>
     </message>
@@ -203,41 +212,41 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="119"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="120"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Hide search panel</source>
         <translation>Skrýt panel hledání</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Pinup search panel</source>
         <translation>Připnout na panel hledání</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="275"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="285"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="199"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
         <source>Application</source>
         <translation>Aplikace</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="296"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="201"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="297"/>
         <source>Contact</source>
         <translation>Kontakt</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="202"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="203"/>
         <source>Content</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="277"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="287"/>
         <source>installed on your device</source>
         <translation>nainstalováno na vaše zařízení</translation>
     </message>
@@ -317,88 +326,11 @@
     </message>
 </context>
 <context>
-    <name>WallpaperSettingsPlugin</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="33"/>
-        <source>Wallpaper</source>
-        <translation>Tapeta</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="34"/>
-        <source>Select background image</source>
-        <translation>Zvolit obrázek pozadí</translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
-    </message>
-</context>
-<context>
-    <name>desktop</name>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="32"/>
-        <source>Desktop</source>
-        <translation>Plocha</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="61"/>
-        <source>Enable windowed mode</source>
-        <translation>Povolit režim v okně</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="68"/>
-        <source>Always show search panel</source>
-        <translation>Vždy zobrazovat panel vyhledávání</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="75"/>
-        <source>Infinite scrolling main screen</source>
-        <translation>Nekonečná domovká obrazovka</translation>
-    </message>
-</context>
-<context>
-    <name>selectImage</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/selectImage.qml" line="33"/>
-        <source>Select wallpaper</source>
-        <translation>Zvolit tapetu</translation>
-    </message>
-</context>
-<context>
-    <name>wallpaper</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="32"/>
-        <source>Wallpapers</source>
-        <translation>Tapety</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="64"/>
-        <source>Use parallax effect for wallpaper</source>
-        <translation>Použít efekt parallaxy pro tapetu</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
-        <source>Use different images for lockscreen and home screen</source>
-        <translation>Použít jiné obrázky pro zamykací a domácí obrazovku</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
-        <source>Homescreen wallpaper</source>
-        <translation>Tapeta domácí obrazovky</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
-        <source>Wallpaper</source>
-        <translation>Tapeta</translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="118"/>
-        <source>Lockscreen wallpaper</source>
-        <translation>Tapeta zamykací obrazovky</translation>
     </message>
 </context>
 </TS>

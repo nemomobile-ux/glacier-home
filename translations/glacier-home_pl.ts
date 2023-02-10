@@ -1,18 +1,20 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pl" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pl">
 <context>
     <name>AppSwitcher</name>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="194"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="209"/>
         <source>Done</source>
         <translation>Gotowe</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="210"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="225"/>
         <source>Close All</source>
         <translation>Zamknij wszystkie</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="220"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="235"/>
         <source>Nothing open yet</source>
         <translation>Żadna aplikacja nie została jeszcze otwarta</translation>
     </message>
@@ -38,15 +40,6 @@
         <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49"/>
         <source>Do you want to continue?</source>
         <translation>Czy na pewno chcesz kontynuować?</translation>
-    </message>
-</context>
-<context>
-    <name>BluetoothControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="32"/>
-        <location filename="../src/qml/feedspage/BluetoothControlButton.qml" line="69"/>
-        <source>Bluetooth</source>
-        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
@@ -91,27 +84,19 @@
     </message>
 </context>
 <context>
-    <name>CellularDataControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/CellularDataControlButton.qml" line="33"/>
-        <source>Cellular data</source>
-        <translation>Dane komórkowe</translation>
-    </message>
-</context>
-<context>
     <name>DeviceLockUI</name>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="166"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194"/>
         <source>Enter security code</source>
         <translation>Wpisz kod</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="170"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="198"/>
         <source>Incorrect code</source>
         <translation>Kod nieprawidłowy</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="178"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="206"/>
         <source>Temporarily locked</source>
         <translation>Tymczasowo zablokowane</translation>
     </message>
@@ -119,7 +104,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="49"/>
+        <location filename="../src/fileutils.cpp" line="50"/>
         <source>Screenshot</source>
         <translation>Zrzut ekranu</translation>
     </message>
@@ -127,17 +112,9 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="174"/>
         <source>folder</source>
         <translation>folder</translation>
-    </message>
-</context>
-<context>
-    <name>LocationControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/LocationControlButton.qml" line="31"/>
-        <source>Location</source>
-        <translation>Lokalizacja</translation>
     </message>
 </context>
 <context>
@@ -164,47 +141,59 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n rok temu</numerusform><numerusform>%n lata temu</numerusform><numerusform>%n lat temu</numerusform><numerusform>%n lat temu</numerusform></translation>
+        <translation>
+            <numerusform>%n rok temu</numerusform>
+            <numerusform>%n lata temu</numerusform>
+            <numerusform>%n lat temu</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n miesiąc temu</numerusform><numerusform>%n miesiące temu</numerusform><numerusform>%n miesięcy temu</numerusform><numerusform>%n miesięcy temu</numerusform></translation>
+        <translation>
+            <numerusform>%n miesiąc temu</numerusform>
+            <numerusform>%n miesiące temu</numerusform>
+            <numerusform>%n miesięcy temu</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n dzień temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform><numerusform>%n dni temu</numerusform></translation>
+        <translation>
+            <numerusform>%n dzień temu</numerusform>
+            <numerusform>%n dni temu</numerusform>
+            <numerusform>%n dni temu</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n godzinę temu</numerusform><numerusform>%n godziny temu</numerusform><numerusform>%n godzin temu</numerusform><numerusform>%n godzin temu</numerusform></translation>
+        <translation>
+            <numerusform>%n godzinę temu</numerusform>
+            <numerusform>%n godziny temu</numerusform>
+            <numerusform>%n godzin temu</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="111"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>%n minutę temu</numerusform><numerusform>%n minuty temu</numerusform><numerusform>%n minut temu</numerusform><numerusform>%n minut temu</numerusform></translation>
+        <translation>
+            <numerusform>%n minutę temu</numerusform>
+            <numerusform>%n minuty temu</numerusform>
+            <numerusform>%n minut temu</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="113"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
         <source>Just now</source>
         <translation>Teraz</translation>
-    </message>
-</context>
-<context>
-    <name>QuietControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/QuietControlButton.qml" line="32"/>
-        <source>Quiet</source>
-        <translation>Cichy</translation>
     </message>
 </context>
 <context>
@@ -223,41 +212,41 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="117"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="120"/>
         <source>Search</source>
         <translation>Szukaj</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Hide search panel</source>
         <translation>Ukryj panel wyszukiwania</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Pinup search panel</source>
         <translation>Pokaż panel wyszukiwania</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="191"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="268"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="278"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="199"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
         <source>Application</source>
         <translation>Aplikacja</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="193"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="289"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="201"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="297"/>
         <source>Contact</source>
         <translation>Kontakt</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="195"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="203"/>
         <source>Content</source>
         <translation>Zawartość</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="269"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="277"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="287"/>
         <source>installed on your device</source>
         <translation>zainstalowane na twoim urządzeniu</translation>
     </message>
@@ -265,7 +254,7 @@
 <context>
     <name>ShutdownScreen</name>
     <message>
-        <location filename="../src/qml/system/ShutdownScreen.qml" line="73"/>
+        <location filename="../src/qml/system/ShutdownScreen.qml" line="74"/>
         <source>Shutting down</source>
         <translation>Wyłączanie</translation>
     </message>
@@ -337,78 +326,11 @@
     </message>
 </context>
 <context>
-    <name>WiFiControlButton</name>
-    <message>
-        <location filename="../src/qml/feedspage/WiFiControlButton.qml" line="32"/>
-        <source>Wi-Fi</source>
-        <translation>Wi-Fi</translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
-    </message>
-</context>
-<context>
-    <name>desktop</name>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="32"/>
-        <source>Desktop</source>
-        <translation>Pulpit</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
-        <source>Enable windowed mode</source>
-        <translation>Włącz tryb okienkek</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
-        <source>Always show search panel</source>
-        <translation>Zawsze pokazuj panel wyszukiwania</translation>
-    </message>
-</context>
-<context>
-    <name>selectImage</name>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
-        <source>Select wallpaper</source>
-        <translation>Wybierz tapetę</translation>
-    </message>
-</context>
-<context>
-    <name>wallpaper</name>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="32"/>
-        <source>Wallpapers</source>
-        <translation>Tapety</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="71"/>
-        <source>Use parallax effect for wallpaper</source>
-        <translation>Użyj efektu paralaksy dla tapety</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="100"/>
-        <source>Use different images for lockscreen and home screen</source>
-        <translation>Użyj innych obrazów dla ekranu blokowania i ekranu domowego</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
-        <source>Homescreen wallpaper</source>
-        <translation>Tapeta ekranu domowego</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
-        <source>Wallpaper</source>
-        <translation>Tapeta</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
-        <source>Lockscreen wallpaper</source>
-        <translation>Tapeta ekranu blokowania</translation>
     </message>
 </context>
 </TS>

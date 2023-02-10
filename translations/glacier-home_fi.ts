@@ -1,18 +1,20 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fi" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>AppSwitcher</name>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="194"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="209"/>
         <source>Done</source>
         <translation>Valmis</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="210"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="225"/>
         <source>Close All</source>
         <translation>Sulje kaikki</translation>
     </message>
     <message>
-        <location filename="../src/qml/AppSwitcher.qml" line="220"/>
+        <location filename="../src/qml/AppSwitcher.qml" line="235"/>
         <source>Nothing open yet</source>
         <translation>Mitään ei ole vielä auki</translation>
     </message>
@@ -41,59 +43,60 @@
     </message>
 </context>
 <context>
-    <name>BluetoothButton</name>
+    <name>BtObexRequestConfirmationDialog</name>
     <message>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="32"/>
-        <location filename="../src/qml/controlcenter/BluetoothButton.qml" line="69"/>
-        <source>Bluetooth</source>
-        <translation>Bluetooth</translation>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Peruuta</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
+        <source>send you file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BtRequestConfirmationDialog</name>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="47"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
         <source>Connect</source>
         <translation>Yhdistä</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
         <source>Connect to device </source>
         <translation>Yhdistä laitteeseen</translation>
     </message>
     <message>
-        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50"/>
+        <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
         <translation>koodi:</translation>
     </message>
 </context>
 <context>
-    <name>CellularDataControlButton</name>
-    <message>
-        <location filename="../src/qml/controlcenter/CellularDataControlButton.qml" line="33"/>
-        <source>Cellular data</source>
-        <translation>Mobiilidata</translation>
-    </message>
-</context>
-<context>
     <name>DeviceLockUI</name>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="160"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194"/>
         <source>Enter security code</source>
         <translation>Syötä pääsykoodi</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="164"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="198"/>
         <source>Incorrect code</source>
         <translation>Väärä pääsykoodi</translation>
     </message>
     <message>
-        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="172"/>
+        <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="206"/>
         <source>Temporarily locked</source>
         <translation>Tilapäisesti lukittu</translation>
     </message>
@@ -101,7 +104,7 @@
 <context>
     <name>FileUtils</name>
     <message>
-        <location filename="../src/fileutils.cpp" line="49"/>
+        <location filename="../src/fileutils.cpp" line="50"/>
         <source>Screenshot</source>
         <translation>Kuvakaappaus</translation>
     </message>
@@ -109,17 +112,9 @@
 <context>
     <name>LauncherItemWrapper</name>
     <message>
-        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="168"/>
+        <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="174"/>
         <source>folder</source>
         <translation>kansio</translation>
-    </message>
-</context>
-<context>
-    <name>LocationControlButton</name>
-    <message>
-        <location filename="../src/qml/controlcenter/LocationControlButton.qml" line="31"/>
-        <source>Location</source>
-        <translation>Paikannus</translation>
     </message>
 </context>
 <context>
@@ -146,47 +141,54 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="76"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>vuosi sitten</numerusform><numerusform>%n vuotta sitten</numerusform></translation>
+        <translation>
+            <numerusform>vuosi sitten</numerusform>
+            <numerusform>%n vuotta sitten</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="78"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>kuukausi sitten</numerusform><numerusform>%n kuukautta sitten</numerusform></translation>
+        <translation>
+            <numerusform>kuukausi sitten</numerusform>
+            <numerusform>%n kuukautta sitten</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="80"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>päivä sitten</numerusform><numerusform>%n päivää sitten</numerusform></translation>
+        <translation>
+            <numerusform>päivä sitten</numerusform>
+            <numerusform>%n päivää sitten</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="82"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>tunti sitten</numerusform><numerusform>%n tuntia sitten</numerusform></translation>
+        <translation>
+            <numerusform>tunti sitten</numerusform>
+            <numerusform>%n tuntia sitten</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="84"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
-        <translation><numerusform>minuutti sitten</numerusform><numerusform>%n minuuttia sitten</numerusform></translation>
+        <translation>
+            <numerusform>minuutti sitten</numerusform>
+            <numerusform>%n minuuttia sitten</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="86"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
         <source>Just now</source>
         <translation>Juuri nyt</translation>
-    </message>
-</context>
-<context>
-    <name>QuietControlButton</name>
-    <message>
-        <location filename="../src/qml/controlcenter/QuietControlButton.qml" line="32"/>
-        <source>Quiet</source>
-        <translation>Hiljaisuus</translation>
     </message>
 </context>
 <context>
@@ -205,43 +207,51 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="117"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="120"/>
         <source>Search</source>
         <translation>Haku</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Hide search panel</source>
         <translation>Piilota haku</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="143"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Pinup search panel</source>
         <translation>Kiinnitä haku</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="191"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="268"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="278"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="199"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
         <source>Application</source>
         <translation>Sovellus</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="193"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="289"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="201"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="297"/>
         <source>Contact</source>
         <translation>Yhteystieto</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="195"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="203"/>
         <source>Content</source>
         <translation>Sisältö</translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="269"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="279"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="277"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="287"/>
         <source>installed on your device</source>
         <translation>Asennettu laitteelle</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownScreen</name>
+    <message>
+        <location filename="../src/qml/system/ShutdownScreen.qml" line="74"/>
+        <source>Shutting down</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -311,91 +321,11 @@
     </message>
 </context>
 <context>
-    <name>WiFiButton</name>
-    <message>
-        <location filename="../src/qml/controlcenter/WiFiButton.qml" line="32"/>
-        <source>Wi-Fi</source>
-        <translation>Wi-Fi</translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
-    </message>
-</context>
-<context>
-    <name>desktop</name>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="32"/>
-        <source>Desktop</source>
-        <translation>Työpöytä</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="59"/>
-        <source>Enable windowed mode</source>
-        <translation>Käytä ikkunoitua tilaa</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/desktop/desktop.qml" line="88"/>
-        <source>Always show search panel</source>
-        <translation>Näytä haku aina</translation>
-    </message>
-</context>
-<context>
-    <name>notifications</name>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="32"/>
-        <source>Notifications</source>
-        <translation>Ilmoitukset</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/notifications/notifications.qml" line="53"/>
-        <source>Show notification body on lockscreen</source>
-        <translation>Näytä ilmoitusten leipäteksti lukitusnäytössä</translation>
-    </message>
-</context>
-<context>
-    <name>selectImage</name>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/selectImage.qml" line="33"/>
-        <source>Select wallpaper</source>
-        <translation>Valitse taustakuva</translation>
-    </message>
-</context>
-<context>
-    <name>wallpaper</name>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="32"/>
-        <source>Wallpapers</source>
-        <translation>Taustakuvat</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="71"/>
-        <source>Use parallax effect for wallpaper</source>
-        <translation>Käytä parallaksitehostetta taustakuvalle</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="100"/>
-        <source>Use different images for lockscreen and home screen</source>
-        <translation>Käytä eri taustakuvaa lukitus- ja kotinäytössä</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
-        <source>Homescreen wallpaper</source>
-        <translation>Kotinäytön taustakuva</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="133"/>
-        <source>Wallpaper</source>
-        <translation>Taustakuva</translation>
-    </message>
-    <message>
-        <location filename="../src/settings-plugins/wallpaper/wallpaper.qml" line="162"/>
-        <source>Lockscreen wallpaper</source>
-        <translation>Lukitusnäytön taustakuva</translation>
     </message>
 </context>
 </TS>

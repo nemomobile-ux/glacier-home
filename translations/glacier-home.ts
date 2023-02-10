@@ -84,19 +84,6 @@
     </message>
 </context>
 <context>
-    <name>DesktopSettingsPlugin</name>
-    <message>
-        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="33"/>
-        <source>Desktop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktopsettingsplugin.h" line="34"/>
-        <source>Setup desktop behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DeviceLockUI</name>
     <message>
         <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194"/>
@@ -154,7 +141,7 @@
 <context>
     <name>NotificationItem</name>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="99"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="120"/>
         <source>%n year(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -163,7 +150,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="101"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="122"/>
         <source>%n months(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -172,7 +159,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="103"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="124"/>
         <source>%n day(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -181,7 +168,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="105"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="126"/>
         <source>%n hours(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -190,7 +177,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="107"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="128"/>
         <source>%n minutes(s) ago</source>
         <comment>notifications</comment>
         <translation>
@@ -199,7 +186,7 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/qml/notifications/NotificationItem.qml" line="109"/>
+        <location filename="../src/qml/notifications/NotificationItem.qml" line="130"/>
         <source>Just now</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,41 +207,41 @@
 <context>
     <name>SearchListView</name>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="119"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="120"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Hide search panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="150"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="151"/>
         <source>Pinup search panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="198"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="275"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="285"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="199"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
         <source>Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="200"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="296"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="201"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="297"/>
         <source>Contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="202"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="203"/>
         <source>Content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="276"/>
-        <location filename="../src/qml/applauncher/SearchListView.qml" line="286"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="277"/>
+        <location filename="../src/qml/applauncher/SearchListView.qml" line="287"/>
         <source>installed on your device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -334,87 +321,10 @@
     </message>
 </context>
 <context>
-    <name>WallpaperSettingsPlugin</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="33"/>
-        <source>Wallpaper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpapersettingsplugin.h" line="34"/>
-        <source>Select background image</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>WifiPanel</name>
     <message>
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>desktop</name>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="32"/>
-        <source>Desktop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="61"/>
-        <source>Enable windowed mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="68"/>
-        <source>Always show search panel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/desktop/desktop.qml" line="75"/>
-        <source>Infinite scrolling main screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>selectImage</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/selectImage.qml" line="33"/>
-        <source>Select wallpaper</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>wallpaper</name>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="32"/>
-        <source>Wallpapers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="64"/>
-        <source>Use parallax effect for wallpaper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="71"/>
-        <source>Use different images for lockscreen and home screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
-        <source>Homescreen wallpaper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="89"/>
-        <source>Wallpaper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings-plugins/wallpaper/wallpaper.qml" line="118"/>
-        <source>Lockscreen wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
