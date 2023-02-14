@@ -93,7 +93,7 @@ Rectangle{
             minimumValue: 0
             value: volumeControl.volume
             maximumValue: volumeControl.maximumVolume
-            stepSize: 10
+            stepSize: 1
 
             onValueChanged:{
                 volumeControlWindow.visible = true
@@ -203,10 +203,10 @@ Rectangle{
     {
         if(volumeControlWindow.pressedKey == Qt.Key_VolumeUp) {
             //up volume
-            volumeControl.volume = volumeControl.volume+10
+            volumeControl.volume = volumeControl.volume+1
 
         } else if(volumeControlWindow.pressedKey == Qt.Key_VolumeDown) {
-            volumeControl.volume = volumeControl.volume-10
+            volumeControl.volume = volumeControl.volume-1
         }
     }
 }
