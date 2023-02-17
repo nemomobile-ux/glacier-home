@@ -41,7 +41,10 @@ import Nemo.Dialogs 1.0
 
 SelectionDialog{
     id: selectionDialog
-    visible: false
+
+    property bool mustBeShowed: false
+
+    visible: mustBeShowed && LipstickSettings.lockscreenVisible !== true
 
     USBSettings{
         id: usbSettings
@@ -49,10 +52,6 @@ SelectionDialog{
 
     ListModel{
         id: modesModel
-        ListElement{
-            name: qsTr("Ask")
-            mode: "ask"
-        }
         ListElement {
             name: qsTr("Connection sharing")
             mode: "connection_sharing"

@@ -108,9 +108,9 @@ Item {
         target: usbModeSelector
         function onWindowVisibleChanged() {
             if(usbModeSelector.windowVisible) {
-                usbModedDialog.visible = true
+                usbModedDialog.mustBeShowed = true
             } else {
-                usbModedDialog.visible = false
+                usbModedDialog.mustBeShowed = false
             }
         }
     }
