@@ -48,6 +48,12 @@ Item {
         defaultValue: true
     }
 
+    ConfigurationValue {
+        id: windowedMode
+        key: "/home/glacier/windowedMode"
+        defaultValue: false
+    }
+
     Connections {
         target: comp.quickWindow
         function onActiveFocusItemChanged() {
@@ -416,7 +422,7 @@ Item {
             var isDialogWindow = window.category === "dialog"
             var isNotificationWindow = window.category == "notification"
             var isOverlayWindow = window.category == "overlay" || window.title === "maliit-server"
-            isAlarmWindow = window.category == "alarm"
+            var isAlarmWindow = window.category == "alarm"
             var parent = null
             if (window.category == "cover" || window.title == "_CoverWindow") {
                 window.visible = false
@@ -431,6 +437,11 @@ Item {
             } else if (isAlarmWindow) {
                 parent = alarmsLayer
             } else {
+                // If not windowed mode make app fullscreen
+                if(windowedMode.value === false) {
+                    window.resize(Qt.size(root.width, root.height))
+                }
+
                 parent = appLayer
             }
 
