@@ -1,16 +1,15 @@
 [Unit]
-Description=The lipstick UI
-BindsTo=graphical-session.target
-Before=graphical-session.target
-Requires=dbus.socket
-After=dbus.socket
+Description=Glacier Home UX
+Requires=dbus.socket pre-user-session.target
+After=pre-user-session.target
 
 [Service]
 Type=simple
 EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
 EnvironmentFile=-/var/lib/environment/compositor/*.conf
 ExecStart=/usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
-Restart=on-failure
-TimeoutStartSec=240
+Restart=always
+TimeoutStartSec=60
 
-
+[Install]
+WantedBy=user-session.target
