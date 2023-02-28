@@ -107,7 +107,7 @@ Rectangle{
     Timer {
         id: voltimer
         interval: 2000
-        onTriggered: volumeControlWindow.visible = false
+        onTriggered: volumeControl.windowVisible = false
     }
 
     Connections {
