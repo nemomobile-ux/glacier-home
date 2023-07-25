@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2017 Samuel Pavlovic <sam@volvosoftware.com>
-** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -31,9 +31,7 @@
 ****************************************************************************************/
 
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
-import QtGraphicalEffects 1.0
+import Nemo.Controls
 
 import org.nemomobile.statusnotifier 1.0
 import org.nemomobile.glacier 1.0
@@ -76,7 +74,7 @@ Item{
             id: buttonRepeater
             model: controlCenterButtonModel
             delegate: Loader{
-                source: "/usr/share/lipstick-glacier-home-qt5/qml/feedspage/"+path+".qml"
+                source: "/usr/share/lipstick-glacier-home-qt6/qml/feedspage/"+path+".qml"
             }
         }
     }

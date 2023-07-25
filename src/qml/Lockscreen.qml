@@ -29,9 +29,8 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import QtQuick
+import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
@@ -58,7 +57,7 @@ Image {
     ConfigurationValue{
         id: lockScreenWallpaper
         key: (differentWallpaper.value == true) ? "/home/glacier/lockScreen/wallpaperImage" : "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "/usr/share/lipstick-glacier-home-qt6/qml/images/graphics-wallpaper-home.jpg"
     }
 
     ConfigurationValue{

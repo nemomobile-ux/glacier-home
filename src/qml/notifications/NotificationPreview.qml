@@ -1,5 +1,5 @@
 /*
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,10 @@
 //
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
-// Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
+// Copyright (C) 2018-2023 Chupligin Sergey <neochapay@gmail.com>
 */
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1
 

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2020-2023 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,7 +29,6 @@
 **
 ****************************************************************************************/
 
-
 import QtQuick 2.6
 import Connman 0.2
 
@@ -40,15 +39,15 @@ StatusbarItem {
     source: {
         if (wlan.connected) {
             if (networkManager.defaultRoute.strength >= 59) {
-                return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_4.png"
+                return "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_wifi_4.png"
             } else if (networkManager.defaultRoute.strength >= 55) {
-                return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_3.png"
+                return "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_wifi_3.png"
             } else if (networkManager.defaultRoute.strength >= 50) {
-                return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_2.png"
+                return "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_wifi_2.png"
             } else if (networkManager.defaultRoute.strength >= 40) {
-                return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_1.png"
+                return "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_wifi_1.png"
             } else {
-                return "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_wifi_0.png"
+                return "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_wifi_0.png"
             }
         }
         return "image://theme/icon_wifi_touch"

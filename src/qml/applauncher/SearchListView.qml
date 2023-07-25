@@ -30,8 +30,7 @@
 **
 ****************************************************************************************/
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.contacts 1.0
@@ -130,9 +129,7 @@ Item {
                 }
             }
 
-            style: TextFieldStyle{
-                placeholderTextColor: Theme.textColor
-            }
+            placeholderTextColor: Theme.textColor
         }
     }
 
@@ -362,7 +359,7 @@ Item {
                         }
                     }
                 } else {
-                    return "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                    return "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png"
                 }
             }
 
@@ -381,7 +378,7 @@ Item {
                 anchors.leftMargin: Theme.itemSpacingLarge
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
-                        iconImage.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                        iconImage.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png"
                     }
                 }
             }

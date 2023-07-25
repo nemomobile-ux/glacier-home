@@ -2,7 +2,7 @@
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
 // Copyright (C) 2017 Aleksi Suomalainen
 // Copyright (C) 2020 Eetu Kahelin
-// Copyright (C) 2021-2022 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+// Copyright (C) 2021-2023 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 // This file is part of Glacier Home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,7 @@
 // SOFTWARE.
 import QtQuick 2.6
 import QtQuick.Window 2.1
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo
 
 import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
@@ -451,6 +450,8 @@ Item {
                 w = alphaWrapper.createObject(parent, {
                                                   window: window
                                               })
+
+                console.log("owerlay height: " + window.height)
             }
             else {
                 w = windowWrapper.createObject(parent, {

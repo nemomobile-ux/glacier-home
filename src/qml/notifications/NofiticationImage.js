@@ -1,6 +1,6 @@
 .pragma library
 
-var defaultIcon = "/usr/share/lipstick-glacier-home-qt5/qml/images/glacier.svg"
+var defaultIcon = "/usr/share/lipstick-glacier-home-qt6/qml/images/glacier.svg"
 
 function iconAlias(icon) {
 

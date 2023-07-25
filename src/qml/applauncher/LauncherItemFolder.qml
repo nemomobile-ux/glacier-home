@@ -16,15 +16,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2021, Sergey Chupligin <neochapay@gmail.com>
+// Copyright (c) 2021-2023, Sergey Chupligin <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 import org.nemomobile.lipstick 0.1
 
 Item {
@@ -117,7 +116,7 @@ Item {
 
                             onStatusChanged: {
                                 if (iconImage.status == Image.Error) {
-                                    iconImage.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png"
+                                    iconImage.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png"
                                 }
                             }
                         }

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2017 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2017-2023 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,12 +29,8 @@
 **
 ****************************************************************************************/
 
-
 import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
-import QtQuick.Layouts 1.0
+import Nemo.Controls
 
 import org.nemomobile.mpris 1.0
 

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2019-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -28,7 +28,6 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
-
 
 import QtQuick 2.6
 import Nemo.Mce 1.0
@@ -70,13 +69,13 @@ StatusbarItem {
         id: batteryStatus
     }
 
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery"+chargeValue+".png"
+    source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery"+chargeValue+".png"
 
     Image {
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
-        source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/battery_grid.png"
+        source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery_grid.png"
         layer.effect: ColoredIconEffect{
             color: if(batteryStatus.status === MceBatteryStatus.Ok) {
                        Theme.textColor

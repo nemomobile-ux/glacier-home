@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2019-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,9 +30,7 @@
 ****************************************************************************************/
 
 import QtQuick 2.6
-import QtQuick.Controls 1.0 //needed for the Stack attached property
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import org.nemomobile.systemsettings 1.0
 

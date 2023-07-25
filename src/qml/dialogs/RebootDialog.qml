@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,8 +30,7 @@
 ****************************************************************************************/
 
 import QtQuick 2.6
-import QtQuick.Controls 1.0 //needed for the Stack attached property
-
+import Nemo.Controls
 import Nemo.DBus 2.0
 
 Item {

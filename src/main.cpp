@@ -20,7 +20,7 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2018-2022, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2023, Chupligin Sergey <neochapay@gmail.com>
 
 #include <QFont>
 #include <QQmlContext>
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     HomeApplication app(argc, argv, QString());
 
     QTranslator* myappTranslator = new QTranslator(&app);
-    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt5/translations/"))) {
+    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt6/translations/"))) {
         qDebug() << "translation.load() success" << QLocale::system().name();
         if (app.installTranslator(myappTranslator)) {
             qDebug() << "installTranslator() success" << QLocale::system().name();
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
         qDebug() << "translation.load() failed" << QLocale::system().name();
     }
 
-    QmlPath::append("/usr/share/lipstick-glacier-home-qt5/qml");
+    QmlPath::append("/usr/share/lipstick-glacier-home-qt6/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils* fileUtils = new FileUtils();
@@ -93,7 +93,7 @@ int main(int argc, char** argv)
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->rootContext()->setContextProperty("mceConnect", mceConnect);
-    app.engine()->addImportPath("/usr/lib/qt/qml");
+    app.engine()->addImportPath("/usr/lib/qt6/qml");
 
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0, "GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
@@ -105,8 +105,8 @@ int main(int argc, char** argv)
     app.engine()->rootContext()->setContextProperty("usegeoclue2", false);
 #endif
 
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt5/qml/GlacierCompositor.qml");
-    app.setQmlPath("/usr/share/lipstick-glacier-home-qt5/qml/MainScreen.qml");
+    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt6/qml/GlacierCompositor.qml");
+    app.setQmlPath("/usr/share/lipstick-glacier-home-qt6/qml/MainScreen.qml");
 
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser

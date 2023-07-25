@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,10 +18,7 @@
  */
 
 import QtQuick 2.6
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
-
+import Nemo.Controls
 import Connman 0.2
 import QOfono 0.2
 import Nemo.Connectivity 1.0
@@ -29,7 +26,7 @@ import Nemo.Connectivity 1.0
 ControlButton{
     id: cellularDataControlButton
 
-    image: cellularRegistration.status ? "image://theme/exchange-alt" :"/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+    image: cellularRegistration.status ? "image://theme/exchange-alt" :"/usr/share/lipstick-glacier-home-qt6/qml/theme/nosim.png"
     assignedSettingsPage: "mobile"
     activated: cellularNetworkTechnology.connected
 
