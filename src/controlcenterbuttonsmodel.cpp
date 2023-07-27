@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -73,11 +73,11 @@ QVariant ControlCenterButtonsModel::data(const QModelIndex& index, int role) con
 QStringList ControlCenterButtonsModel::allButtons()
 {
     /*
-     * All button must be here /usr/share/lipstick-glacier-home-qt5/qml/feedspage/
+     * All button must be here /usr/share/lipstick-glacier-home-qt6/qml/feedspage/
      * and name must be <SomeThing>ControlButton.qml
      */
     QStringList allButtons;
-    QDir directory("/usr/share/lipstick-glacier-home-qt5/qml/feedspage/");
+    QDir directory("/usr/share/lipstick-glacier-home-qt6/qml/feedspage/");
     QStringList controlButtons = directory.entryList(QStringList() << "*?ControlButton.qml", QDir::Files);
     foreach (QString filename, controlButtons) {
         allButtons << filename.remove(".qml");
@@ -110,7 +110,7 @@ void ControlCenterButtonsModel::loadConfig()
 
     while (!xmlReader.atEnd()) {
         if (xmlReader.isStartElement()) {
-            if (xmlReader.name() == "Button") {
+            if (xmlReader.name().toString() == "Button") {
                 m_buttonList << xmlReader.readElementText();
             }
         }

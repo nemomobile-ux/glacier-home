@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2022 Sergey Chupligin <neochapay@gmail.com>
+** Copyright (C) 2019-2023 Sergey Chupligin <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,9 +29,7 @@
 **
 ****************************************************************************************/
 import QtQuick 2.6
-import QtQuick.Layouts 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import Connman 0.2
 import QOfono 0.2
@@ -41,7 +39,7 @@ StatusbarItem{
     iconSize: statusbarRight.height
     visible: false
     transparent: !cellularNetworkTechnology.connected
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_unknown.png"
+    source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_unknown.png"
 
     OfonoManager {
         id: manager
@@ -66,15 +64,15 @@ StatusbarItem{
 
     function formatValue() {
         if(cellularDataTechnology.technology == "2" || cellularDataTechnology.technology == "gsm") {
-            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_gprs.png"
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_gprs.png"
         }else if(cellularDataTechnology.technology == "2.5" || cellularDataTechnology.technology == "gprs") {
-            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_egprs.png"
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_egprs.png"
         }else if(cellularDataTechnology.technology == "3" || cellularDataTechnology.technology == "umts") {
-            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_utms.png"
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_utms.png"
         }else if(cellularDataTechnology.technology == "3.5" || cellularDataTechnology.technology == "hspa") {
-            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_hspa.png"
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_hspa.png"
         }else if(cellularDataTechnology.technology == "4" || cellularDataTechnology.technology == "lte") {
-            dataStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/data_lte.png"
+            dataStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/data_lte.png"
         }
 
         if(cellularDataTechnology.technology == "unknown" || cellularDataTechnology.technology == "") {

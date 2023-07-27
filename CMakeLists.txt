@@ -17,9 +17,9 @@ include(GNUInstallDirs)
 option(USE_SYSTEMD "Use systemd services" ON)
 option(USE_GEOCLUE2 "Use geoclue2 location service. If no use classic geoclue" OFF)
 
-set(QT_MIN_VERSION "5.11.0")
+set(QT_MIN_VERSION "6.0.0")
 set(CMAKE_INSTALL_PREFIX /usr)
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Gui
     Qml
     Quick
@@ -28,31 +28,26 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     LinguistTools)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(LIPSTICK lipstick-qt5 REQUIRED IMPORTED_TARGET)
+pkg_check_modules(LIPSTICK lipstick-qt6 REQUIRED IMPORTED_TARGET)
 pkg_check_modules(NEMODEVICELOCK nemodevicelock REQUIRED IMPORTED_TARGET)
-pkg_check_modules(MLITE5 mlite5 REQUIRED IMPORTED_TARGET)
-pkg_check_modules(POLKITQT5 polkit-qt5-1 REQUIRED IMPORTED_TARGET)
+pkg_check_modules(MLITE6 mlite6 REQUIRED IMPORTED_TARGET)
 
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-find_package(KF5 REQUIRED COMPONENTS BluezQt)
+find_package(KF6 REQUIRED COMPONENTS BluezQt)
 
-add_definitions(-DBLUEZQT_VERSION_MAJOR=${KF5BluezQt_VERSION_MAJOR})
-add_definitions(-DBLUEZQT_VERSION_MINOR=${KF5BluezQt_VERSION_MINOR})
-
-include(KDEInstallDirs)
-include(KDECMakeSettings)
+add_definitions(-DBLUEZQT_VERSION_MAJOR=${KF6BluezQt_VERSION_MAJOR})
+add_definitions(-DBLUEZQT_VERSION_MINOR=${KF6BluezQt_VERSION_MINOR})
 
 add_subdirectory(src)
 add_subdirectory(settings-plugins)
 
 if(USE_SYSTEMD)
-    install(FILES data/lipstick.service
-        DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
+    install(FILES data/lipstick.service DESTINATION /usr/lib/systemd/user)
 endif()
 
 install(FILES data/nemovars.conf
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt5)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt6)
 install(FILES
     data/90-glacier-powerkey.conf
     data/90-glacier-devlock.conf
@@ -60,11 +55,11 @@ install(FILES
 
 # Translations
 file(GLOB TS_FILES translations/*.ts)
-qt5_add_translation(QM_FILES ${TS_FILES})
+qt6_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(lipstick translations)
 
 install(FILES ${QM_FILES}
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt5/translations)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt6/translations)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -20,12 +20,11 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2021-2022, Chipligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2021-2023, Chipligin Sergey <neochapay@gmail.com>
 */
 
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1
 // Feeds page:

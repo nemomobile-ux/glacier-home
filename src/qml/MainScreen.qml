@@ -31,12 +31,10 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
-import QtQuick.Window 2.1
+import QtQuick 2.0
+import Nemo.Controls
 
+import QtQml.Models
 import Nemo.Time 1.0
 import Nemo.Configuration 1.0
 import org.nemomobile.lipstick 0.1
@@ -244,7 +242,7 @@ Item {
         }
     }
 
-    VisualItemModel {
+    ObjectModel {
         id: visualItemsModel
 
         FeedsPage {

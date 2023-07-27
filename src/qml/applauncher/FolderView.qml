@@ -16,11 +16,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2020-2021, Chupigin Sergey <neochapay@gmail.com>
+// Copyright (c) 2020-2023, Chupigin Sergey <neochapay@gmail.com>
 
 import QtQuick 2.6
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1
 
@@ -98,7 +97,7 @@ Item{
                 bottomMargin:Theme.itemSpacingHuge
             }
 
-            textColor : Theme.textColor
+            color : Theme.textColor
 
             onAccepted: {
                 model.title = folderName.text
@@ -141,7 +140,7 @@ Item{
                 width: folderGridView.cellWidth
                 height: folderGridView.cellHeight
                 isFolder: model.object.type == LauncherModel.Folder
-                source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt5/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
                 iconCaption.text: model.object.title
                 iconCaption.color: Theme.textColor
                 folderModel:folderGridView.model

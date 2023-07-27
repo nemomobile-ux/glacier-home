@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2022 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2018-2023 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,9 +18,7 @@
  */
 
 import QtQuick 2.6
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 
 Item {
     id: contolButton

@@ -1,5 +1,5 @@
 
-// This file is part of colorful-home, a nice user experience for touchscreens.
+// This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,6 +20,7 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (c) 2023, Chupigin Sergey (NeoChapay) <neochapay@gmail.com>
 
 import QtQuick 2.6
 
@@ -27,7 +28,7 @@ Image {
     id: closeButton
     signal clicked()
 
-    source: '/usr/share/lipstick-glacier-home-qt5/qml/images/closeapp.svg'
+    source: '/usr/share/lipstick-glacier-home-qt6/qml/images/closeapp.svg'
     sourceSize.width: width
     sourceSize.height: height
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2013 Jolla Ltd.
-// Copyright (c) 2022, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2022-2023, Chupligin Sergey <neochapay@gmail.com>
 // This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,7 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import QtQuick 2.6
+import QtQuick
+import QtQml
 
 Item {
     id: wrapper

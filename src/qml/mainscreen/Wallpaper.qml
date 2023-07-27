@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -37,8 +37,6 @@ import org.nemomobile.lipstick 0.1
 import org.nemomobile.devicelock 1.0
 import Nemo.Configuration 1.0
 
-import QtGraphicalEffects 1.15
-
 Item {
     id: wallpaper
 
@@ -48,7 +46,7 @@ Item {
     ConfigurationValue {
         id: wallpaperSource
         key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
+        defaultValue: "/usr/share/lipstick-glacier-home-qt6/qml/images/wallpaper-portrait-bubbles.png"
     }
 
     ConfigurationValue {
@@ -67,7 +65,6 @@ Item {
     Accelerometer {
         id: accelerometer
         active: (enableParallax.value === true && !LipstickSettings.lockscreenVisible === true)
-        skipDuplicates: true
 
         onReadingChanged: {
             var calculateX = -maxX+maxX*accelerometer.reading.x*0.1
@@ -121,7 +118,8 @@ Item {
         }
     }
 
-    FastBlur {
+    //TODO: fix this QtGraphicalEffects removed from Qt6
+    /*FastBlur {
         anchors.fill: wallpaperImage
         source: wallpaperImage
         radius: 100
@@ -131,5 +129,5 @@ Item {
             properties: "opacity"
             duration: 200
         }
-    }
+    }*/
 }

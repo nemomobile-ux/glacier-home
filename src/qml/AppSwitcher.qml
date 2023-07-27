@@ -21,15 +21,12 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2021, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2021-2023, Chupligin Sergey <neochapay@gmail.com>
 
 import QtQuick 2.6
 import org.nemomobile.lipstick 0.1
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import Nemo.Controls
 import org.nemomobile.glacier 1.0
-import QtGraphicalEffects 1.15
 
 import "appswitcher"
 
@@ -107,11 +104,12 @@ Item {
                     // The outer Item is necessary because of animations in SwitcherItem changing
                     // its size, which would break the Grid.
  
-                    FastBlur {
+                    //TODO: fix this QtGraphicalEffects removed from Qt6
+                    /*FastBlur {
                         anchors.fill: switcherItemBG
                         source: wallpaper
                         radius: 100
-                    }
+                    }*/
 
                     Rectangle {
                         id: switcherItemBG
@@ -238,8 +236,8 @@ Item {
         font.pixelSize: Theme.fontSizeMedium
         color: Theme.textColor
     }
-
-    DropShadow {
+    //TODO: fix this QtGraphicalEffects removed from Qt6
+    /*DropShadow {
         anchors.fill: noAppsOpenText
         horizontalOffset: noAppsOpenText.height/15
         verticalOffset: noAppsOpenText.height/10
@@ -248,5 +246,5 @@ Item {
         color: "#80000000"
         source: noAppsOpenText
         visible: switcherModel.itemCount === 0
-    }
+    }*/
 }

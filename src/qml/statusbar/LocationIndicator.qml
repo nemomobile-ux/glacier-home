@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -41,7 +41,7 @@ StatusbarItem {
     visible: loactionLevel.value != 0
     transparent: (usegeoclue2) ? !geoAgent.inUse : false
 
-    source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_gps.png"
+    source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_gps.png"
 
     ConfigurationValue {
         id: loactionLevel

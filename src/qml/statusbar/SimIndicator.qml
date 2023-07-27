@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2021 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -80,7 +80,7 @@ Row {
             width: simIndicator.height
             height: simIndicator.height
 
-            source: "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+            source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/nosim.png"
             iconSize:       simIndicator.height
             iconSizeHeight: simIndicator.height
 
@@ -100,13 +100,13 @@ Row {
             function recalcIcon() {
                 // TODO FIXUP enabling/Disabling
                 /*if(!model.enabled) {
-                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/disabled-sim.png"
+                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/disabled-sim.png"
                 } else */if(!cellularRegistrationStatus.status) {
-                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/nosim.png"
+                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/nosim.png"
                 } else if(cellularRegistrationStatus.strength > 20){
-                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_" + Math.ceil(cellularRegistrationStatus.strength/20) + ".png"
+                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_signal_" + Math.ceil(cellularRegistrationStatus.strength/20) + ".png"
                 } else {
-                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt5/qml/theme/icon_signal_0.png"
+                    cellStatus.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_signal_0.png"
                 }
             }
         }

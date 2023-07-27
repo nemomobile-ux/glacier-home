@@ -18,15 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2022, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2022-2023, Chupligin Sergey <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 
-import QtQuick 2.7
-import QtQuick.Controls.Nemo 1.0
-import QtQuick.Controls.Styles.Nemo 1.0
+import QtQuick
+import Nemo.Controls
 import org.nemomobile.lipstick 0.1
 
 MouseArea {
