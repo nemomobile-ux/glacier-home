@@ -31,7 +31,6 @@
 
 import QtQuick 2.6
 import Nemo.Controls
-import QtQuick.Controls.Styles.Nemo 1.0
 
 import Nemo.Dialogs 1.0
 
