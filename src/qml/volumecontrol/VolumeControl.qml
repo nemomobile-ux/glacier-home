@@ -71,7 +71,7 @@ Rectangle{
             anchors{
                 verticalCenter: parent.verticalCenter
             }
-            source: if(volumeControl.volume == volumeControl.maximumVolume) {
+            source: if(volumeControl.volume == volumeControl.to) {
                         "image://theme/volume-up"
                     } else if(volumeControl.volume == 0) {
                         "image://theme/volume-off"
@@ -88,9 +88,9 @@ Rectangle{
                 verticalCenter: parent.verticalCenter
             }
 
-            minimumValue: 0
             value: volumeControl.volume
-            maximumValue: volumeControl.maximumVolume
+            from: 0
+            to: volumeControl.maximumVolume
             stepSize: 1
 
             onValueChanged:{
