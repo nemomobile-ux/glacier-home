@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6.0)
 
 project(glacier-home
-    VERSION 0.37
+    VERSION 1.0
     DESCRIPTION "Glacier UX homescreen")
 
 set(CMAKE_AUTOMOC ON)
@@ -17,7 +17,7 @@ include(GNUInstallDirs)
 option(USE_SYSTEMD "Use systemd services" ON)
 option(USE_GEOCLUE2 "Use geoclue2 location service. If no use classic geoclue" OFF)
 
-set(QT_MIN_VERSION "6.0.0")
+set(QT_MIN_VERSION "6.2.0")
 set(CMAKE_INSTALL_PREFIX /usr)
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Gui

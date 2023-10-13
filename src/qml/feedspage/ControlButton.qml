@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
 Item {
@@ -46,7 +46,7 @@ Item {
 
         color: activated ? Theme.accentColor : Theme.textColor
 
-        Image {
+        NemoIcon {
             id: icon
             anchors.centerIn: parent
 
@@ -56,25 +56,7 @@ Item {
             sourceSize.width: size.dp(86)
             sourceSize.height: size.dp(86)
 
-
-            layer.effect: ShaderEffect {
-                id: shaderItem
-                property color color: activated ? Theme.textColor : Theme.fillColor
-
-                fragmentShader: "
-                 varying mediump vec2 qt_TexCoord0;
-                 uniform highp float qt_Opacity;
-                 uniform lowp sampler2D source;
-                 uniform highp vec4 color;
-                 void main() {
-                     highp vec4 pixelColor = texture2D(source, qt_TexCoord0);
-                     gl_FragColor = vec4(mix(pixelColor.rgb/max(pixelColor.a, 0.00390625), color.rgb/max(color.a, 0.00390625), color.a) * pixelColor.a, pixelColor.a) * qt_Opacity;
-                 }
-             "
-            }
-            layer.enabled: true
-            layer.samplerName: "source"
-
+            color: activated ? Theme.textColor : Theme.fillColor
         }
     }
 
