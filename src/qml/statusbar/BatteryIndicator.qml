@@ -29,10 +29,12 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Mce 1.0
 
-import Nemo.Configuration 1.0
+import Nemo
+import Nemo.Controls
+import Nemo.Configuration
 
 StatusbarItem {
     id: batteryIndicator
@@ -71,26 +73,22 @@ StatusbarItem {
 
     source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery"+chargeValue+".png"
 
-    Image {
+    NemoIcon {
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
         source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery_grid.png"
-        layer.effect: ColoredIconEffect{
-            color: if(batteryStatus.status === MceBatteryStatus.Ok) {
-                       Theme.textColor
-                   } else if (batteryStatus.status === MceBatteryStatus.Full) {
-                       Theme.accentColor
-                   } else {
-                       "red"
-                   }
-        }
 
-        layer.enabled: true
-        layer.samplerName: "source"
+        color: if(batteryStatus.status === MceBatteryStatus.Ok) {
+                   Theme.textColor
+               } else if (batteryStatus.status === MceBatteryStatus.Full) {
+                   Theme.accentColor
+               } else {
+                   "red"
+               }
     }
 
-    Image {
+    NemoIcon {
         id: pluginIndicator
         width: parent.width
         height: parent.height
@@ -101,12 +99,7 @@ StatusbarItem {
 
         visible: cableState.connected
 
-        layer.effect: ColoredIconEffect{
-            color:  Theme.backgroundColor
-        }
-
-        layer.enabled: true
-        layer.samplerName: "source"
+        color:  Theme.backgroundColor
     }
 
     Timer{
