@@ -16,10 +16,8 @@
  * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
-import QtQuick 2.6
-
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
+import QtQuick
+import Nemo.Controls
 
 import Nemo.Configuration 1.0
 
@@ -39,13 +37,13 @@ Page {
     ConfigurationValue {
         id: homeWallpaperImage
         key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "file:///usr/share/lipstick-glacier-home-qt5/qml/images/wallpaper-portrait-bubbles.png"
+        defaultValue: "file:///usr/share/lipstick-glacier-home-qt6/qml/images/wallpaper-portrait-bubbles.png"
     }
 
     ConfigurationValue{
         id: lockScreenWallpaperImage
         key: "/home/glacier/lockScreen/wallpaperImage"
-        defaultValue: "file:///usr/share/lipstick-glacier-home-qt5/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "file:///usr/share/lipstick-glacier-home-qt6/qml/images/graphics-wallpaper-home.jpg"
     }
 
     ConfigurationValue {
