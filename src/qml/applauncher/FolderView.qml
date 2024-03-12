@@ -16,12 +16,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2020-2023, Chupigin Sergey <neochapay@gmail.com>
+// Copyright (c) 2020-2024, Chupigin Sergey <neochapay@gmail.com>
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.lipstick 0.1
+import org.nemomobile.lipstick
 
 Item{
     id: folderLoader
