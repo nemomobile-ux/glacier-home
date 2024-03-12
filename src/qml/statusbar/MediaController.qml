@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2017-2023 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2017-2024 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,10 +29,10 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.1
+import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.mpris 1.0
+import org.nemomobile.mpris
 
 Component {
     id: mediaPanelItem

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2022-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,8 +29,8 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import org.nemomobile.glacier 1.0
+import QtQuick
+import org.nemomobile.glacier
 
 GlacierGeoAgent{
     id: geoAgent

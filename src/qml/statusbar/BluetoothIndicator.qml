@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2023-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,9 +29,8 @@
 **
 ****************************************************************************************/
 
-
-import QtQuick 2.6
-import Connman 0.2
+import QtQuick
+import Connman
 
 StatusbarItem {
     id: bluetoothIndicator

@@ -1,4 +1,3 @@
-
 // This file is part of colorful-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,12 +20,12 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2021-2023, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2021-2024, Chupligin Sergey <neochapay@gmail.com>
 
-import QtQuick 2.6
-import org.nemomobile.lipstick 0.1
+import QtQuick
+import org.nemomobile.lipstick
 import Nemo.Controls
-import org.nemomobile.glacier 1.0
+import org.nemomobile.glacier
 
 import "appswitcher"
 

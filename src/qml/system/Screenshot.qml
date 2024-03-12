@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,14 +29,14 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.lipstick 0.1
-import Nemo.Notifications 1.0
-import Nemo.Ngf 1.0
+import org.nemomobile.lipstick
+import Nemo.Notifications
+import Nemo.Ngf
 
-import org.nemomobile.glacier 1.0
+import org.nemomobile.glacier 1
 
 Item {
     id: screenShoter

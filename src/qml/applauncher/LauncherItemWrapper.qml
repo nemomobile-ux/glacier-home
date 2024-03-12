@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2022-2023, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2022-2024, Chupligin Sergey <neochapay@gmail.com>
 // Copyright (c) 2017, Eetu Kahelin
 // Copyright (c) 2013, Jolla Ltd <robin.burchell@jollamobile.com>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
@@ -26,7 +26,7 @@
 
 import QtQuick
 import Nemo.Controls
-import org.nemomobile.lipstick 0.1
+import org.nemomobile.lipstick
 
 MouseArea {
     id: launcherItem
@@ -60,7 +60,7 @@ MouseArea {
         }
     }
 
-    onClicked: {
+    onClicked: function(mouse) {
         // TODO: disallow if close mode enabled
         if (modelData.object.type !== LauncherModel.Folder) {
             var winId = switcher.switchModel.getWindowIdForTitle(modelData.object.title)
@@ -74,12 +74,12 @@ MouseArea {
             }
         }
     }
-    onPressed: {
+    onPressed: function(mouse) {
         newIndex = -1
         newFolderIndex = -1
     }
 
-    onPressAndHold: {
+    onPressAndHold: function(mouse) {
         reparent(parentItem)
         parentItem.reorderItem = launcherItem
         drag.target = launcherItem
@@ -93,7 +93,7 @@ MouseArea {
         pager.interactive = false
     }
 
-    onReleased: {
+    onReleased: function(mouse) {
         if (reordering) {
             reordering = false
             reorderEnded()

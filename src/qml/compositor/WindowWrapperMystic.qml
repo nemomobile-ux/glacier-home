@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import QtQuick 2.6
-import QtQuick.Window 2.1
-import org.nemomobile.lipstick 0.1
+import QtQuick
+import QtQuick.Window
+import org.nemomobile.lipstick
 
 WindowWrapperBase {
     id: wrapper

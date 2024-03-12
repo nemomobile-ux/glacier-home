@@ -21,9 +21,9 @@
 //
 // Copyright (C) 2012 Jolla Ltd.
 // Contact: Vesa Halttunen <vesa.halttunen@jollamobile.com>
-// Copyright (C) 2018-2023 Chupligin Sergey <neochapay@gmail.com>
+// Copyright (C) 2018-2024 Chupligin Sergey <neochapay@gmail.com>
 */
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
 import org.nemomobile.lipstick 0.1

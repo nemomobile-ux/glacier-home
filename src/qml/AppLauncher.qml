@@ -21,13 +21,13 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018-2023, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2024, Chupligin Sergey <neochapay@gmail.com>
 */
 
-import QtQuick 2.6
+import QtQuick
 
-import org.nemomobile.lipstick 0.1
-import Nemo.Configuration 1.0
+import org.nemomobile.lipstick
+import Nemo.Configuration
 
 import Nemo.Controls
 

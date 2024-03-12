@@ -1,6 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
+** Copyright (C) 2024 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,9 +30,9 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import QtQuick.Window 2.1
-import org.nemomobile.lipstick 0.1
+import QtQuick
+import QtQuick.Window
+import org.nemomobile.lipstick
 
 Item {
 

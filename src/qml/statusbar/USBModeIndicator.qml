@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2022 Sergey Chupligin (NeoChapay) <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Sergey Chupligin (NeoChapay) <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,8 +29,8 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import org.nemomobile.systemsettings 1.0
+import QtQuick
+import org.nemomobile.systemsettings
 
 StatusbarItem {
     id: developerModeIndicator

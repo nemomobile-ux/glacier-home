@@ -29,12 +29,11 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
+import Nemo.DBus
 
-import org.nemomobile.lipstick 0.1
-
-import Nemo.DBus 2.0
+import org.nemomobile.lipstick
 
 import "NofiticationImage.js" as NotificationImage
 

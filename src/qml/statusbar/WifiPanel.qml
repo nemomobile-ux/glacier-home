@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2017-2023 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2017-2024 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,7 +30,7 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 import Connman 0.2
 

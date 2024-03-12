@@ -19,8 +19,9 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
+// Copyright (C) 2024 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 
-import QtQuick 2.6
+import QtQuick
 
 PathView {
     id: pager

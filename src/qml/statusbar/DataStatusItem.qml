@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2023 Sergey Chupligin <neochapay@gmail.com>
+** Copyright (C) 2019-2024 Sergey Chupligin <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -28,11 +28,11 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import Connman 0.2
-import QOfono 0.2
+import Connman
+import QOfono
 
 StatusbarItem{
     id: dataStatus

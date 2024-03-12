@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2019-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2019-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,7 +30,7 @@
 ****************************************************************************************/
 
 import QtQuick
-import Nemo.Mce 1.0
+import Nemo.Mce
 
 import Nemo
 import Nemo.Controls

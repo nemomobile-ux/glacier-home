@@ -2,7 +2,7 @@
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
 // Copyright (C) 2017 Aleksi Suomalainen
 // Copyright (C) 2020 Eetu Kahelin
-// Copyright (C) 2021-2023 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+// Copyright (C) 2021-2024 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 // This file is part of Glacier Home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-import QtQuick 2.6
-import QtQuick.Window 2.1
+import QtQuick
+import QtQuick.Window
 import Nemo
 
-import org.nemomobile.lipstick 0.1
-import org.nemomobile.devicelock 1.0
-import Nemo.Configuration 1.0
+import org.nemomobile.lipstick
+import org.nemomobile.devicelock
+import Nemo.Configuration
 
 import "compositor"
 
@@ -136,7 +136,7 @@ Item {
         property int lockscreenY
         enabled: DeviceLock.state != DeviceLock.Locked
 
-        onPositionChanged: {
+        onPositionChanged: function(gesture){
             if (root.appActive && diagonal && gestureArea.progress >= swipeThreshold) {
                 if (diagonal == "left") {
                     resizeBorder.x = mouseX
@@ -159,7 +159,7 @@ Item {
             comp.lastClick = null
         }
 
-        onGestureStarted: {
+        onGestureStarted: function(gesture) {
             swipeAnimation.stop()
             cancelAnimation.stop()
             lockAnimation.stop()
@@ -169,7 +169,7 @@ Item {
             }
         }
 
-        onGestureFinished: {
+        onGestureFinished: function(gesture) {
             resizeBorder.visible = false
             if (comp.appActive) {
                 if (diagonal && gestureArea.progress >= swipeThreshold) {
@@ -405,14 +405,14 @@ Item {
         onSensorOrientationChanged: recalcOrientation()
         onOrientationLockChanged: recalcOrientation()
 
-        onDisplayOff: {
+        onDisplayOff: function() {
             if (root.topmostAlarmWindow == null) {
                 setCurrentWindow(root.homeWindow)
             }
             lastClick = null
         }
 
-        onWindowAdded: {
+        onWindowAdded: function(window){
             console.log("Compositor: Window added \"" + window.title + "\""
                         + " category: " + window.category)
 
@@ -490,13 +490,13 @@ Item {
             lastClick = null
         }
 
-        onWindowRaised: {
+        onWindowRaised: function(window) {
             console.log("Compositor: Raising window: " + window.title
                         + " category: " + window.category)
             windowToFront(window.windowId)
         }
 
-        onWindowRemoved: {
+        onWindowRemoved: function(window) {
             console.log("Compositor: Window removed \"" + window.title + "\""
                         + " category: " + window.category)
             var w = window.userData

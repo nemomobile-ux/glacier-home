@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,9 +29,9 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import org.nemomobile.glacier 1.0
-import Nemo.Configuration 1.0
+import QtQuick
+import org.nemomobile.glacier
+import Nemo.Configuration
 
 StatusbarItem {
     id: gpsIndicator

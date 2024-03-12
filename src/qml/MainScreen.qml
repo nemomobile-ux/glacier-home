@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
 ** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
@@ -31,21 +31,18 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.0
-import Nemo.Controls
-
+import QtQuick
 import QtQml.Models
-import Nemo.Time 1.0
-import Nemo.Configuration 1.0
-import org.nemomobile.lipstick 0.1
-import org.nemomobile.devicelock 1.0
-import org.nemomobile.statusnotifier 1.0
 
-import org.nemomobile.systemsettings 1.0
-
-import Nemo.DBus 2.0
-
-import org.nemomobile.glacier 1.0
+import Nemo.Controls
+import Nemo.Time
+import Nemo.Configuration
+import Nemo.DBus
+import org.nemomobile.lipstick
+import org.nemomobile.devicelock
+import org.nemomobile.statusnotifier
+import org.nemomobile.systemsettings
+import org.nemomobile.glacier
 
 import "mainscreen"
 import "dialogs"

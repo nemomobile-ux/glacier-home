@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021-2022 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -32,10 +32,10 @@
 import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.lipstick 0.1
-import org.nemomobile.devicelock 1.0
+import org.nemomobile.lipstick
+import org.nemomobile.devicelock
 
-import Nemo.Configuration 1.0
+import Nemo.Configuration
 
 import "notifications"
 import "lockscreen"

@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2023 Sergey Chupligin <mail@neochapay.ru>
+** Copyright (C) 2020-2024 Sergey Chupligin <mail@neochapay.ru>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,8 +29,8 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
-import Connman 0.2
+import QtQuick
+import Connman
 
 StatusbarItem {
     id: wifiStatus

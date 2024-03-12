@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
-** Copyright (c) 2018-2023, Chupligin Sergey
+** Copyright (c) 2018-2024, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,11 +29,11 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.lipstick 0.1
-import org.nemomobile.contacts 1.0
+import org.nemomobile.lipstick
+import org.nemomobile.contacts
 
 Item {
     id:searchList

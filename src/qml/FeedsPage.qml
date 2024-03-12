@@ -20,13 +20,13 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2021-2023, Chipligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2021-2024, Chipligin Sergey <neochapay@gmail.com>
 */
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.lipstick 0.1
+import org.nemomobile.lipstick
 // Feeds page:
 // the place for an event feed.
 

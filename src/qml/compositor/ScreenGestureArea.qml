@@ -1,4 +1,5 @@
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
+// Copyright (C) 2024 Chupligin Sergey <neochapay@gmail.com>
 //
 // This file is part of colorful-home, a nice user experience for touchscreens.
 //
@@ -20,11 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import QtQuick 2.6
-import QtQuick.Window 2.0
-import org.nemomobile.lipstick 0.1
+import QtQuick
+import QtQuick.Window
+import org.nemomobile.lipstick
 
-import Nemo.Configuration 1.0
+import Nemo.Configuration
 
 MouseArea {
     id: root
@@ -75,7 +76,7 @@ MouseArea {
     }
 
 
-    onPressed: {
+    onPressed: function(mouse) {
         var mouseReal = mouseToMouseReal(mouse)
 
         if (mouseReal.y < boundary) {
@@ -112,7 +113,7 @@ MouseArea {
         gestureStarted(Lipstick.compositor.homeActive ?  gesture : realGesture(gesture))
     }
 
-    onPositionChanged: {
+    onPositionChanged: function(mouse) {
         var mouseReal = mouseToMouseReal(mouse)
         var p = horizontal ? mouseReal.x : mouseReal.y
         value = Math.max(Math.min(p - _mouseStart, max), -max)

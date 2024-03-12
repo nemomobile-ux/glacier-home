@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,12 +29,12 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
 
-import Nemo.Dialogs 1.0
+import Nemo.Dialogs
 
-import org.nemomobile.lipstick 0.1
+import org.nemomobile.lipstick
 
 QueryDialog {
     id: audioWarningDialog

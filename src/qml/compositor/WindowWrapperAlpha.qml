@@ -1,4 +1,5 @@
 // Copyright (C) 2013 Jolla Ltd, Robin Burchell: <robin.burchell@jolla.com>
+// Copyright (c) 2024, Sergey Chupligin <neochapay@gmail.com>
 //
 // This file is part of colorful-home, a nice user experience for touchscreens.
 //
@@ -20,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import QtQuick 2.6
+import QtQuick
 
 WindowWrapperBase {
     id: wrapper

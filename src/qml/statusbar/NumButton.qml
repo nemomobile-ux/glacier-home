@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2020-2023 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,7 +29,7 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **
 ****************************************************************************************/
-import QtQuick 2.1
+import QtQuick
 import Nemo.Controls
 
 Rectangle {

@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2018-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2018-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,9 +30,9 @@
 **
 ****************************************************************************************/
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
-import org.nemomobile.lipstick 0.1
+import org.nemomobile.lipstick
 
 import "../system"
 

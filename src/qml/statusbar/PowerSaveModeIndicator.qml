@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,9 +29,8 @@
 **
 ****************************************************************************************/
 
-
-import QtQuick 2.6
-import Nemo.Mce 1.0
+import QtQuick
+import Nemo.Mce
 
 StatusbarItem {
     id: powerSaveModeIndicator

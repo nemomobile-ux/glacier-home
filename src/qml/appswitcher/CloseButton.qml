@@ -20,9 +20,9 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2023, Chupigin Sergey (NeoChapay) <neochapay@gmail.com>
+// Copyright (c) 2023-2024, Chupigin Sergey (NeoChapay) <neochapay@gmail.com>
 
-import QtQuick 2.6
+import QtQuick
 
 Image {
     id: closeButton

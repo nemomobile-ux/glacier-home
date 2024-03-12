@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,11 +17,11 @@
  * Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.6
+import QtQuick
 import Nemo.Controls
-import Connman 0.2
-import QOfono 0.2
-import Nemo.Connectivity 1.0
+import Connman
+import QOfono
+import Nemo.Connectivity
 
 ControlButton{
     id: cellularDataControlButton
