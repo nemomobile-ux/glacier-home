@@ -72,7 +72,10 @@ Item {
         MouseArea {
             id: usbDialogBackground
             anchors.fill: parent
-            onClicked: { usbModeSelector.setUSBMode(4); usbDialog.shouldBeVisible = false }
+            onClicked: {
+                usbModeSelector.setUSBMode(4);
+                usbDialog.shouldBeVisible = false
+            }
 
             Rectangle {
                 id: chargingOnly
@@ -118,7 +121,10 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { usbModeSelector.setUSBMode(11); usbDialog.shouldBeVisible = false }
+                    onClicked: {
+                        usbModeSelector.setUSBMode(11);
+                        usbDialog.shouldBeVisible = false
+                    }
                 }
             }
 
@@ -138,7 +144,10 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { usbModeSelector.setUSBMode(3); usbDialog.shouldBeVisible = false }
+                    onClicked: {
+                        usbModeSelector.setUSBMode(3);
+                        usbDialog.shouldBeVisible = false
+                    }
                 }
             }
 
@@ -158,14 +167,21 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { usbModeSelector.setUSBMode(10); usbDialog.shouldBeVisible = false }
+                    onClicked: {
+                        usbModeSelector.setUSBMode(10);
+                        usbDialog.shouldBeVisible = false
+                    }
                 }
             }
         }
 
         Connections {
             target: usbModeSelector
-            function onWindowVisibleChanged(windowVisible) { if (usbModeSelector.windowVisible) usbDialog.shouldBeVisible = true }
+            function onWindowVisibleChanged(windowVisible) {
+                if (usbModeSelector.windowVisible) {
+                    usbDialog.shouldBeVisible = true
+                }
+            }
         }
 
         Behavior on opacity {
