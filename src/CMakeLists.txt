@@ -42,7 +42,8 @@ target_link_libraries(lipstick PUBLIC
     Qt6::DBus
     PkgConfig::LIPSTICK
     PkgConfig::MLITE6
-    PkgConfig::NEMODEVICELOCK)
+    PkgConfig::NEMODEVICELOCK
+    PkgConfig::NEMOCONNECTIVITY)
 
 target_link_libraries(lipstick PUBLIC
         Qt6::WaylandCompositor)
