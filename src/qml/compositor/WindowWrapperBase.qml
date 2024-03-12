@@ -1,5 +1,5 @@
 // Copyright (C) 2013 Jolla Ltd.
-// Copyright (c) 2022-2023, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2022-2024, Chupligin Sergey <neochapay@gmail.com>
 // This file is part of glacier-home, a nice user experience for touchscreens.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,10 +25,11 @@ import QtQml
 
 Item {
     id: wrapper
-    width: window.width
-    height: window.height
 
     property Item window
+
+    width: window ? window.width : 0
+    height: window ? window.height : 0
 
     function animateIn() {
         if(comp.lastClick != null) {
