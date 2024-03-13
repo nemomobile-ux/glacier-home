@@ -18,16 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// Copyright (c) 2020-2021, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2020-2024, Chupligin Sergey <neochapay@gmail.com>
 
 #include "fileutils.h"
 
 #include <QDateTime>
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
 #include <QTextStream>
+
+#include "logging.h"
 
 FileUtils::FileUtils(QObject* parent)
     : QObject(parent)
@@ -58,7 +59,7 @@ QStringList FileUtils::getBlacklistedApplications()
 
     QByteArray blackListFilePath = qgetenv("GLACIER_BLACKLISTAPP_FILE");
     if (blackListFilePath.isEmpty()) {
-        qDebug() << "GLACIER_BLACKLISTAPP_FILE env is empty - use default file";
+        qCDebug(lcGlacierHomeCoreLog) << "GLACIER_BLACKLISTAPP_FILE env is empty - use default file";
         blackListFilePath = "/etc/glacier/blacklistapp";
     }
 
@@ -75,14 +76,14 @@ QStringList FileUtils::getBlacklistedApplications()
                 if (QFile::exists(line) && line.contains(".desktop")) {
                     blackListedApplications.append(line);
                 } else {
-                    qWarning() << "Wrong line" << line;
+                    qCDebug(lcGlacierHomeCoreLog) << "Wrong line" << line;
                 }
             }
         } else {
-            qWarning() << "Can't open blacklist app file" << blackListFilePath;
+            qCDebug(lcGlacierHomeCoreLog) << "Can't open blacklist app file" << blackListFilePath;
         }
     } else {
-        qDebug() << "Blacklist app file" << blackListFilePath << "not exist";
+        qCDebug(lcGlacierHomeCoreLog) << "Blacklist app file" << blackListFilePath << "not exist";
     }
 
     return blackListedApplications;

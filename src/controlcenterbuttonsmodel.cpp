@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021-2023 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2024 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -30,7 +30,7 @@
 ****************************************************************************************/
 
 #include "controlcenterbuttonsmodel.h"
-#include <QDebug>
+#include "logging.h"
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
@@ -100,7 +100,7 @@ void ControlCenterButtonsModel::loadConfig()
 {
     QFile config(m_configFilePath);
     if (!config.open(QFile::ReadOnly | QFile::Text)) {
-        qWarning() << "Can't read config" << m_configFilePath;
+        qCDebug(lcGlacierHomeCoreLog) << "Can't read config" << m_configFilePath;
         return;
     }
 

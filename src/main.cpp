@@ -20,7 +20,7 @@
 // SOFTWARE.
 //
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2018-2023, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2024, Chupligin Sergey <neochapay@gmail.com>
 
 #include <QFont>
 #include <QQmlContext>
@@ -43,6 +43,7 @@
 #include "fileutils.h"
 #include "glacierwindowmodel.h"
 #include "mceconnect.h"
+#include "logging.h"
 
 int main(int argc, char** argv)
 {
@@ -50,14 +51,14 @@ int main(int argc, char** argv)
 
     QTranslator* myappTranslator = new QTranslator(&app);
     if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt6/translations/"))) {
-        qDebug() << "translation.load() success" << QLocale::system().name();
+        qCDebug(lcGlacierHomeCoreLog) << "translation.load() success" << QLocale::system().name();
         if (app.installTranslator(myappTranslator)) {
-            qDebug() << "installTranslator() success" << QLocale::system().name();
+            qCDebug(lcGlacierHomeCoreLog) << "installTranslator() success" << QLocale::system().name();
         } else {
-            qDebug() << "installTranslator() failed" << QLocale::system().name();
+            qCDebug(lcGlacierHomeCoreLog) << "installTranslator() failed" << QLocale::system().name();
         }
     } else {
-        qDebug() << "translation.load() failed" << QLocale::system().name();
+        qCDebug(lcGlacierHomeCoreLog) << "translation.load() failed" << QLocale::system().name();
     }
 
     QmlPath::append("/usr/share/lipstick-glacier-home-qt6/qml");

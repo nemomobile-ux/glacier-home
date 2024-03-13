@@ -10,6 +10,8 @@ set(SRC
     glacierwindowmodel.h
     mceconnect.cpp
     mceconnect.h
+    logging.h
+    logging.cpp
     ${QML_JS_FILES}
     )
 

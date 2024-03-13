@@ -29,33 +29,11 @@
 **
 ****************************************************************************************/
 
-#include "glacierwindowmodel.h"
-#include "logging.h"
+#ifndef LOGGING_H
+#define LOGGING_H
 
-GlacierWindowModel::GlacierWindowModel()
-    : WindowModel()
-{
-}
+#include <QLoggingCategory>
 
-int GlacierWindowModel::getWindowIdForTitle(QString title)
-{
-    return m_titles.value(title, 0);
-}
+Q_DECLARE_LOGGING_CATEGORY(lcGlacierHomeCoreLog)
 
-bool GlacierWindowModel::approveWindow(LipstickCompositorWindow* window)
-{
-    bool accepted = window->isInProcess() == false
-        && window->category() != QLatin1String("overlay")
-        && window->category() != QLatin1String("cover")
-        && window->title() != QLatin1String("maliit-server");
-    if (accepted) {
-        m_titles.insert(window->title(), window->windowId());
-    }
-    return accepted;
-}
-
-void GlacierWindowModel::removeWindowForTitle(QString title)
-{
-    qCDebug(lcGlacierHomeCoreLog) << "Removing window: " + title;
-    m_titles.remove(title);
-}
+#endif // LOGGING_H
