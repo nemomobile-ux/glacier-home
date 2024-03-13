@@ -45,6 +45,8 @@
 #include "mceconnect.h"
 #include "logging.h"
 
+#include "audiocontrol/audioroutemanager.h"
+
 int main(int argc, char** argv)
 {
     HomeApplication app(argc, argv, QString());
@@ -64,6 +66,7 @@ int main(int argc, char** argv)
     QmlPath::append("/usr/share/lipstick-glacier-home-qt6/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
 
+    AudioRouteManager* audioRouteManager = new AudioRouteManager();
     FileUtils* fileUtils = new FileUtils();
     MceConnect* mceConnect = new MceConnect();
 
@@ -92,6 +95,7 @@ int main(int argc, char** argv)
     }
 
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
+    app.engine()->rootContext()->setContextProperty("audioRouteManager", audioRouteManager);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
     app.engine()->rootContext()->setContextProperty("mceConnect", mceConnect);
     app.engine()->addImportPath("/usr/lib/qt6/qml");
