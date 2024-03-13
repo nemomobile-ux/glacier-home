@@ -1,0 +1,64 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+    <interface name="org.nemomobile.Route.Manager">
+        <method name="InterfaceVersion">
+            <arg name="version" type="u" direction="out"/>
+        </method>
+    <!-- since InterfaceVersion 1 -->
+        <method name="GetAll">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out4" value="QVariantMap"/>
+            <arg name="output_device" type="s" direction="out"/>
+            <arg name="output_device_type" type="u" direction="out"/>
+            <arg name="input_device" type="s" direction="out"/>
+            <arg name="input_device_type" type="u" direction="out"/>
+            <arg name="features" type="a(suu)" direction="out"/>
+        </method>
+        <method name="Enable">
+            <arg name="feature" type="s" direction="in"/>
+        </method>
+        <method name="Disable">
+            <arg name="feature" type="s" direction="in"/>
+        </method>
+        <signal name="AudioRouteChanged">
+            <arg name="device" type="s"/>
+            <arg name="device_type" type="u"/>
+        </signal>
+        <signal name="AudioFeatureChanged">
+            <arg name="name" type="s"/>
+            <arg name="allowed" type="u"/>
+            <arg name="enabled" type="u"/>
+        </signal>
+
+    <!-- since InterfaceVersion 2 -->
+        <method name="Features">
+            <arg name="features" type="as" direction="out"/>
+        </method>
+        <method name="FeaturesAllowed">
+            <arg name="features_allowed" type="as" direction="out"/>
+        </method>
+        <method name="FeaturesEnabled">
+            <arg name="features_enabled" type="as" direction="out"/>
+        </method>
+        <method name="Routes">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <arg name="routes" type="a(su)" direction="out"/>
+        </method>
+        <method name="ActiveRoutes">
+            <arg name="output_device" type="s" direction="out"/>
+            <arg name="output_device_type" type="u" direction="out"/>
+            <arg name="input_device" type="s" direction="out"/>
+            <arg name="input_device_type" type="u" direction="out"/>
+        </method>
+
+    <!-- since InterfaceVersion 3 -->
+        <method name="RoutesFiltered">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <arg name="filter" type="u" direction="in"/>
+            <arg name="routes" type="a(su)" direction="out"/>
+        </method>
+
+        <method name="Prefer">
+            <arg name="device" type="sub" direction="in"/>
+        </method>
+    </interface>
+</node>

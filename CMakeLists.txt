@@ -32,6 +32,7 @@ pkg_check_modules(LIPSTICK lipstick-qt6 REQUIRED IMPORTED_TARGET)
 pkg_check_modules(NEMODEVICELOCK nemodevicelock REQUIRED IMPORTED_TARGET)
 pkg_check_modules(NEMOCONNECTIVITY nemoconnectivity REQUIRED IMPORTED_TARGET)
 pkg_check_modules(MLITE6 mlite6 REQUIRED IMPORTED_TARGET)
+pkg_check_modules(LIBRESOURCE libresourceqt6 REQUIRED IMPORTED_TARGET)
 
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
@@ -46,6 +47,7 @@ add_subdirectory(settings-plugins)
 
 if(USE_SYSTEMD)
     install(FILES data/lipstick.service DESTINATION /usr/lib/systemd/user)
+    install(FILES data/glacier-home.conf DESTINATION /etc/dbus-1/system.d)
 endif()
 
 install(FILES data/nemovars.conf
