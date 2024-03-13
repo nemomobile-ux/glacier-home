@@ -42,8 +42,8 @@
 
 #include "fileutils.h"
 #include "glacierwindowmodel.h"
-#include "mceconnect.h"
 #include "logging.h"
+#include "mceconnect.h"
 
 int main(int argc, char** argv)
 {
