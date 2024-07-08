@@ -46,22 +46,9 @@ Page {
         defaultValue: "file:///usr/share/lipstick-glacier-home-qt6/qml/images/graphics-wallpaper-home.jpg"
     }
 
-    ConfigurationValue {
-        id: enableParallax
-        key: "/home/glacier/homeScreen/enableParallax"
-        defaultValue: false
-    }
-
     SettingsColumn{
         id: wallpaperSettings
         spacing: Theme.itemSpacingLarge
-
-        RightCheckBox{
-            id: parallaxWallpaperCheck
-            label: qsTr("Use parallax effect for wallpaper");
-            checked: enableParallax.value
-            onClicked: enableParallax.value = checked
-        }
 
         RightCheckBox{
             id: differentImagesCheck

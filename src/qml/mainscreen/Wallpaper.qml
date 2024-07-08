@@ -30,7 +30,6 @@
 ****************************************************************************************/
 
 import QtQuick
-import QtSensors
 import QtQuick.Window
 
 import org.nemomobile.lipstick
@@ -47,43 +46,6 @@ Item {
         id: wallpaperSource
         key: "/home/glacier/homeScreen/wallpaperImage"
         defaultValue: "/usr/share/lipstick-glacier-home-qt6/qml/images/wallpaper-portrait-bubbles.png"
-    }
-
-    ConfigurationValue {
-        id: enableParallax
-        key: "/home/glacier/homeScreen/enableParallax"
-        defaultValue: false
-        onValueChanged: {
-            if(!LipstickSettings.lockscreenVisible && value) {
-                accelerometer.active = true
-            } else {
-                accelerometer.active = false
-            }
-        }
-    }
-
-    Accelerometer {
-        id: accelerometer
-        active: (enableParallax.value === true && !LipstickSettings.lockscreenVisible === true)
-
-        onReadingChanged: {
-            var calculateX = -maxX+maxX*accelerometer.reading.x*0.1
-            var calculateY = -maxY+maxY*accelerometer.reading.y*0.1
-            if(calculateX > maxX) {
-                calculateX = maxX
-            } else if  (calculateX < -maxX) {
-                calculateX = -maxX
-            }
-
-            if(calculateY > maxY) {
-                calculateY = maxY
-            } else if  (calculateY < -maxY) {
-                calculateX = -maxY
-            }
-
-            wallpaperImage.x = calculateX
-            wallpaperImage.y = calculateY
-        }
     }
 
     Image {
@@ -103,18 +65,6 @@ Item {
 
         Behavior on y {
             NumberAnimation { duration: 200 }
-        }
-    }
-
-/*Disable accelerometer when device locked */
-    Connections {
-        target: LipstickSettings
-        function onLockscreenVisibleChanged() {
-            if(!LipstickSettings.lockscreenVisible === true && enableParallax.value == true) {
-                accelerometer.active = true
-            } else {
-                accelerometer.active = false
-            }
         }
     }
 
