@@ -54,13 +54,6 @@ Flickable{
         }
     }
 
-    ConfigurationValue {
-        id: columnCount
-        key: "/home/glacier/appLauncher/columnCount"
-        defaultValue: 5
-    }
-
-
     LauncherFolderModel{
         id: launcherModel
 
@@ -120,58 +113,65 @@ Flickable{
 
     /*app grid*/
 
-    GridView {
-        id: gridview
-        cellWidth:  Math.min(parent.width, parent.height)/columnCount.value
-        cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
-
-        height: parent.height
-        anchors.top: searchListView.bottom
-        anchors.topMargin: Theme.itemSpacingMedium
-        anchors.bottom: parent.bottom
+    Item {
+        id: appLauncherGridContainer
         width: parent.width
+        height: parent.height - searchListView.height - Theme.itemSpacingMedium * 3
 
-        cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
-
-        property Item reorderItem
-        property bool onUninstall
-        property var switcher: null
-        property int iconSize: Theme.itemHeightSmall
-
-        maximumFlickVelocity: parent.Height * 4
-
-        visible: searchString.length === 0
-
-        property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
-        property int rows: Math.floor(parent.height / cellWidth)
-        property int columns:  Math.floor(parent.width / cellHeight)
-
-        y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
-
-        Behavior on y {
-            NumberAnimation { duration: 200 }
+        anchors{
+            top: searchListView.bottom
+            topMargin: Theme.itemSpacingMedium
         }
 
-        onContentYChanged: {
-            if( contentY < -Theme.itemHeightHuge && alwaysShowSearch.value == false ) {
-                searchListView.visible = true
-                searchListViewTimer.running = true
+        GridView {
+            id: gridview
+            cellWidth:  parent.width/Math.round(parent.width/Theme.itemWidthSmall)
+            cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
+
+            height: parent.height
+            width: parent.width
+
+            cacheBuffer: (gridview.contentHeight > 0) ? gridview.contentHeight : 0
+
+            property Item reorderItem
+            property bool onUninstall
+            property var switcher: null
+            property int iconSize: Theme.itemHeightSmall
+
+            maximumFlickVelocity: parent.Height * 4
+
+            visible: searchString.length === 0
+
+            property int minCellSize: Theme.iconSizeLauncher +  Theme.iconSizeLauncher/2
+            property int rows: Math.floor(parent.height / cellWidth)
+            property int columns:  Math.floor(parent.width / cellHeight)
+
+            y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
+
+            Behavior on y {
+                NumberAnimation { duration: 200 }
             }
-        }
 
-        property int folderIndex: -1
-        property bool isRootFolder:true
-        property bool newFolderActive
-        property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
-        clip: true
+            onContentYChanged: {
+                if( contentY < -Theme.itemHeightHuge && alwaysShowSearch.value == false ) {
+                    searchListView.visible = true
+                    searchListViewTimer.running = true
+                }
+            }
 
-        footer: Item {
-            height: Math.min(desktop.width,desktop.height)/10
-        }
+            property int folderIndex: -1
+            property bool isRootFolder:true
+            property bool newFolderActive
+            property bool newFolder: newFolderActive &&  isRootFolder && folderIndex >= 0
+            clip: true
 
-        onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
+            footer: Item {
+                height: Math.min(desktop.width,desktop.height)/10
+            }
 
-        model: launcherModel
+            onFolderIndexChanged: if (folderIndex == -1) newFolderActive = false
+
+            model: launcherModel
 
             //Using loader that in the future we can also have widgets as delegate
             delegate: Loader {
@@ -185,34 +185,35 @@ Flickable{
                 sourceComponent: object.type == LauncherModel.Folder ? folder : app
             }
 
-        Component {
-            id:app
-            LauncherItemDelegate {
-                id: launcherItem
-                parent: gridview
-                parentItem: gridview
-                iconCaption.color:Theme.textColor
-                folderModel:launcherModel
+            Component {
+                id:app
+                LauncherItemDelegate {
+                    id: launcherItem
+                    parent: gridview
+                    parentItem: gridview
+                    iconCaption.color:Theme.textColor
+                    folderModel:launcherModel
 
-                Component.onCompleted: {
-                    if(modelData) {
-                        launcherItem.iconCaption.text = modelData.object.title
-                        launcherItem.isFolder = modelData.object.type == LauncherModel.Folder
-                        launcherItem.source = modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+                    Component.onCompleted: {
+                        if(modelData) {
+                            launcherItem.iconCaption.text = modelData.object.title
+                            launcherItem.isFolder = modelData.object.type == LauncherModel.Folder
+                            launcherItem.source = modelData.object.iconId == "" ? "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
+                        }
                     }
                 }
             }
-        }
-        Component {
-            id:folder
-            LauncherItemFolder {
-                id: launcherfolder
-                parent: gridview
-                iconCaption.color:Theme.textColor
-                iconCaption.text: modelData.object.title
-                isFolder: modelData.object.type == LauncherModel.Folder
-                folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
-                folderModel:launcherModel
+            Component {
+                id:folder
+                LauncherItemFolder {
+                    id: launcherfolder
+                    parent: gridview
+                    iconCaption.color:Theme.textColor
+                    iconCaption.text: modelData.object.title
+                    isFolder: modelData.object.type == LauncherModel.Folder
+                    folderAppsCount: isFolder && modelData.object ? modelData.object.itemCount : 0
+                    folderModel:launcherModel
+                }
             }
         }
     }

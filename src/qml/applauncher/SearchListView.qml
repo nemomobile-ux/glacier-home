@@ -33,7 +33,6 @@ import QtQuick
 import Nemo.Controls
 
 import org.nemomobile.lipstick
-import org.nemomobile.contacts
 
 Item {
     id:searchList
@@ -60,7 +59,7 @@ Item {
             if(searchField.text.length > 0){
                return  parent.height
             }
-            return searchRow.height+Theme.itemSpacingHuge
+            return searchRow.height+Theme.itemSpacingMedium
         }
         else
         {
@@ -89,10 +88,10 @@ Item {
             top: parent.top
             left: parent.left
             right: parent.right
-            topMargin: Theme.itemSpacingHuge
+            topMargin: Theme.itemSpacingMedium
             leftMargin: Theme.itemSpacingMedium
             rightMargin: Theme.itemSpacingMedium
-            bottomMargin:Theme.itemSpacingHuge
+            bottomMargin:Theme.itemSpacingMedium
         }
 
         Image {
@@ -237,14 +236,6 @@ Item {
 
         model: ListModel {
             id: listModel
-        }
-
-        LauncherFolderModel { id: searchLauncherModel }
-        PeopleModel {
-            id: peopleModel
-            filterType: PeopleModel.FilterAll
-            filterPattern: searchString
-            requiredProperty: PeopleModel.PhoneNumberRequired
         }
 
         //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com> **BSD
