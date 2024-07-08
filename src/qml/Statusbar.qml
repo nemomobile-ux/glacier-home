@@ -34,8 +34,9 @@ import QtQuick
 import QtQuick.Layouts
 import Nemo.Controls
 
+import Amber.Mpris 1.0
+
 import org.nemomobile.lipstick
-import org.nemomobile.mpris
 import org.nemomobile.statusnotifier
 
 import "statusbar"
@@ -97,7 +98,6 @@ Item {
             }
         }
     }
-
 
     Item {
         id: statusbarRight

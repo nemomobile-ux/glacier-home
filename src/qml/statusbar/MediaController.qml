@@ -32,10 +32,11 @@
 import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.mpris
+import Amber.Mpris 1.0
 
 Component {
     id: mediaPanelItem
+
     CommonPanel {
         id: mediaPanelcommon
         switcherEnabled: false

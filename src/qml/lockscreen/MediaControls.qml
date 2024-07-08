@@ -32,35 +32,16 @@
 import QtQuick
 import Nemo.Controls
 
-import org.nemomobile.mpris
+import Amber.Mpris 1.0
 
 Item {
     id: mediaControls
-    visible: mprisManager.currentService
 
-    MprisManager {
-        id: mprisManager
-        onCurrentServiceChanged: {
-            if(currentService) {
-                mediaControls.visible = true
-            } else {
-                mediaControls.visible = false
-            }
-        }
-
-        onMetadataChanged: {
-            var artistTag = Mpris.metadataToString(Mpris.Artist)
-            var titleTag = Mpris.metadataToString(Mpris.Title)
-
-            artistLabel.text = (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : qsTr("Unknown artist")
-            songLabel.text = (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : qsTr("Unknown track")
-        }
-    }
-
-    property bool isPlaying: mprisManager.currentService && mprisManager.playbackStatus == Mpris.Playing
-
-    height: childrenRect.height
+    height: parent.height
     width: parent.width
+
+    property MprisController mprisController
+    property bool isPlaying:  mprisController.playbackStatus == Mpris.Playing
 
     Column {
         id: column
@@ -71,12 +52,14 @@ Item {
             id: artistLabel
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            text: (mprisController.metaData.contributingArtist || qsTr("Unknown artist")).join(', ')
         }
 
         Label {
             id: songLabel
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            text:  mprisController.metaData.title || ''
         }
 
 
@@ -85,7 +68,7 @@ Item {
             width: parent.width
             height: Theme.itemHeightExtraLarge
             color: "transparent"
-            visible: mprisManager.canPause || mprisManager.canPause
+            visible: mprisController.canPlay || mprisController.canPause
 
             Image{
                 id: playPauseBtn
@@ -100,8 +83,7 @@ Item {
 
                 MouseArea{
                     anchors.fill: parent
-                    //bool MprisController::playPause() The method is not allowed
-                    onClicked: mediaControls.isPlaying ? mprisManager.pause() : mprisManager.play()
+                    onClicked: mprisController.playPause()
                 }
             }
 
@@ -109,7 +91,7 @@ Item {
                 id: forwBtn
                 width: playPauseBtn.width*0.6
                 height: width
-                visible: mprisManager.canGoNext
+                visible: mprisController.canGoNext
 
                 anchors{
                     left: playPauseBtn.right
@@ -121,7 +103,7 @@ Item {
 
                 MouseArea{
                     anchors.fill: parent
-                    onClicked: mprisManager.next()
+                    onClicked: mprisController.next()
                 }
             }
 
@@ -129,7 +111,7 @@ Item {
                 id: backBtn
                 width: playPauseBtn.width*0.6
                 height: width
-                visible: mprisManager.canGoPrevious
+                visible: mprisController && mprisController.canGoPrevious
 
                 anchors{
                     right: playPauseBtn.left
@@ -139,7 +121,7 @@ Item {
 
                 MouseArea{
                     anchors.fill: parent
-                    onClicked: mprisManager.previous()
+                    onClicked: mprisController.previous()
                 }
 
                 source: "image://theme/backward"

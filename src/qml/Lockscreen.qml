@@ -32,6 +32,8 @@
 import QtQuick
 import Nemo.Controls
 
+import Amber.Mpris
+
 import org.nemomobile.lipstick
 import org.nemomobile.devicelock
 
@@ -267,14 +269,26 @@ Image {
         }
     }
 
-    MediaControls{
-        id: mediaControls
+    Item{
+        id: mediaControlsItem
         visible: !codePad.visible
+        width: parent.width
+        height: visible ? Theme.itemHeightHuge*2 : 0
+
+        MprisController {
+            id: mprisController
+        }
 
         anchors{
             top: operatorLine.bottom
             bottomMargin: -Theme.itemSpacingHuge
             horizontalCenter: parent.horizontalCenter
+        }
+
+        Loader{
+            id: mediaControlsLoader
+            active: mprisController.availableServices.length > 0
+            Component.onCompleted: setSource("lockscreen/MediaControls.qml", { "mprisController": mprisController, "parent": mediaControlsItem})
         }
     }
 
