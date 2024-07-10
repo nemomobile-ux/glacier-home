@@ -52,7 +52,7 @@ Item {
             id: artistLabel
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
-            text: (mprisController.metaData.contributingArtist || qsTr("Unknown artist")).join(', ')
+            text: mprisController.metaData.contributingArtist ? (mprisController.metaData.contributingArtist || qsTr("Unknown artist")).join(', ') : ""
         }
 
         Label {
