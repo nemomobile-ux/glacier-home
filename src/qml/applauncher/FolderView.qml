@@ -128,7 +128,7 @@ Item{
                 topMargin: Theme.itemSpacingMedium
             }
 
-            cellWidth:  Math.min(folderLoader.width, folderLoader.height)/(columnCount.value-1)
+            cellWidth:  parent.width/Math.round(parent.width/Theme.itemWidthSmall)
             cellHeight: cellWidth+Theme.itemSpacingMedium+Theme.fontSizeTiny*3
 
             delegate: LauncherItemDelegate {
