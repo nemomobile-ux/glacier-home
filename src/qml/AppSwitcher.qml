@@ -154,7 +154,7 @@ Item {
         }
     }
     Connections {
-        target: pager
+        target: pager.item
         function onFlickEnded() {
             closeMode = false
         }
