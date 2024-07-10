@@ -166,7 +166,7 @@ Item {
                         topMargin: (text == "") ? undefined : (notificationArea.height-icon.width)/4
                     }
 
-                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewSummary : ""
+                    text: notificationPreviewPresenter.notification ? notificationPreviewPresenter.notification.previewSummary ? notificationPreviewPresenter.notification.previewSummary : "" : ""
                     color: Theme.textColor
                     clip: true
                     elide: Text.ElideRight
@@ -185,7 +185,7 @@ Item {
                         bold: false
                     }
                     width:  parent.width
-                    text: notificationPreviewPresenter.notification != null ? notificationPreviewPresenter.notification.previewBody : ""
+                    text: notificationPreviewPresenter.notification ? notificationPreviewPresenter.notification.previewBody ? notificationPreviewPresenter.notification.previewBody : "" : ""
                     color: Theme.textColor
                     clip: true
                     elide: Text.ElideRight
