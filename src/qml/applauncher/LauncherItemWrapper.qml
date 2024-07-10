@@ -255,7 +255,7 @@ MouseArea {
     }
 
     Connections {
-        target: modelData.object
+        target: modelData ? modelData.object : null
         ignoreUnknownSignals: true
         function onItemRemoved(removedModelData) {
             var modelDataObject = modelData.object

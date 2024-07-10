@@ -92,7 +92,7 @@ Item {
                 anchors.centerIn:  iconImage
                 width: parent.width - Theme.itemSpacingHuge
                 height: width
-                enabled: (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false
+                enabled: modelData ? (modelData.object.type === LauncherModel.Application) ? modelData.object.isLaunching ? switcher.switchModel.getWindowIdForTitle(modelData.object.title) == 0 : false : false : false
 
                 Connections {
                     target: Lipstick.compositor
