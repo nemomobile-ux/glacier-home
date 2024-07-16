@@ -59,7 +59,7 @@ Image {
     ConfigurationValue{
         id: lockScreenWallpaper
         key: (differentWallpaper.value == true) ? "/home/glacier/lockScreen/wallpaperImage" : "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt6/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "/usr/share/glacier-home/qml/images/graphics-wallpaper-home.jpg"
     }
 
     ConfigurationValue{

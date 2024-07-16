@@ -74,7 +74,7 @@ Item{
             id: buttonRepeater
             model: controlCenterButtonModel
             delegate: Loader{
-                source: "/usr/share/lipstick-glacier-home-qt6/qml/feedspage/"+path+".qml"
+                source: "/usr/share/glacier-home/qml/feedspage/"+path+".qml"
             }
         }
     }

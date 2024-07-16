@@ -71,13 +71,13 @@ StatusbarItem {
         id: batteryStatus
     }
 
-    source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery"+chargeValue+".png"
+    source: "/usr/share/glacier-home/qml/theme/battery"+chargeValue+".png"
 
     NemoIcon {
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
-        source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/battery_grid.png"
+        source: "/usr/share/glacier-home/qml/theme/battery_grid.png"
 
         color: if(batteryStatus.status === MceBatteryStatus.Ok) {
                    Theme.textColor

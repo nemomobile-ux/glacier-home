@@ -36,7 +36,7 @@ StatusbarItem {
     id: bluetoothIndicator
     iconSize:       parent.height * 0.671875
     iconSizeHeight: parent.height
-    source: "/usr/share/lipstick-glacier-home-qt6/qml/theme/icon_bluetooth.png"
+    source: "/usr/share/glacier-home/qml/theme/icon_bluetooth.png"
     visible: bluetoothTechnology.powered
 
     transparent: true

@@ -350,7 +350,7 @@ Item {
                         }
                     }
                 } else {
-                    return "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png"
+                    return "/usr/share/glacier-home/qml/theme/default-icon.png"
                 }
             }
 
@@ -369,7 +369,7 @@ Item {
                 anchors.leftMargin: Theme.itemSpacingLarge
                 onStatusChanged: {
                     if (iconImage.status == Image.Error) {
-                        iconImage.source = "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png"
+                        iconImage.source = "/usr/share/glacier-home/qml/theme/default-icon.png"
                     }
                 }
             }

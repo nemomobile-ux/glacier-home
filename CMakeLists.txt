@@ -48,7 +48,7 @@ if(USE_SYSTEMD)
 endif()
 
 install(FILES data/nemovars.conf
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt6)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-home)
 install(FILES
     data/90-glacier-powerkey.conf
     data/90-glacier-devlock.conf
@@ -61,6 +61,6 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(lipstick translations)
 
 install(FILES ${QM_FILES}
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt6/translations)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-home/translations)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

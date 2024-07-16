@@ -26,7 +26,7 @@ import Nemo.Connectivity
 ControlButton{
     id: cellularDataControlButton
 
-    image: cellularRegistration.status ? "image://theme/exchange-alt" :"/usr/share/lipstick-glacier-home-qt6/qml/theme/nosim.png"
+    image: cellularRegistration.status ? "image://theme/exchange-alt" :"/usr/share/glacier-home/qml/theme/nosim.png"
     assignedSettingsPage: "mobile"
     activated: cellularNetworkTechnology.connected
 

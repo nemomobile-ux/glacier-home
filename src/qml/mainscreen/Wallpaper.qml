@@ -45,7 +45,7 @@ Item {
     ConfigurationValue {
         id: wallpaperSource
         key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "/usr/share/lipstick-glacier-home-qt6/qml/images/wallpaper-portrait-bubbles.png"
+        defaultValue: "/usr/share/glacier-home/qml/images/wallpaper-portrait-bubbles.png"
     }
 
     Image {

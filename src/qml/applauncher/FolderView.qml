@@ -140,7 +140,7 @@ Item{
                 width: folderGridView.cellWidth
                 height: folderGridView.cellHeight
                 isFolder: model.object.type == LauncherModel.Folder
-                source: model.object.iconId == "" || isFolder ? "/usr/share/lipstick-glacier-home-qt6/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
+                source: model.object.iconId == "" || isFolder ? "/usr/share/glacier-home/qml/theme/default-icon.png" : (model.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + model.object.iconId
                 iconCaption.text: model.object.title
                 iconCaption.color: Theme.textColor
                 folderModel:folderGridView.model

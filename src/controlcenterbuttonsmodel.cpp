@@ -73,11 +73,11 @@ QVariant ControlCenterButtonsModel::data(const QModelIndex& index, int role) con
 QStringList ControlCenterButtonsModel::allButtons()
 {
     /*
-     * All button must be here /usr/share/lipstick-glacier-home-qt6/qml/feedspage/
+     * All button must be here /usr/share/glacier-home/qml/feedspage/
      * and name must be <SomeThing>ControlButton.qml
      */
     QStringList allButtons;
-    QDir directory("/usr/share/lipstick-glacier-home-qt6/qml/feedspage/");
+    QDir directory("/usr/share/glacier-home/qml/feedspage/");
     QStringList controlButtons = directory.entryList(QStringList() << "*?ControlButton.qml", QDir::Files);
     foreach (QString filename, controlButtons) {
         allButtons << filename.remove(".qml");

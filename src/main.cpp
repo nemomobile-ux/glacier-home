@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     HomeApplication app(argc, argv, QString());
 
     QTranslator* myappTranslator = new QTranslator(&app);
-    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/lipstick-glacier-home-qt6/translations/"))) {
+    if (myappTranslator->load(QLocale(), QLatin1String("glacier-home"), QLatin1String("_"), QLatin1String("/usr/share/glacier-home/translations/"))) {
         qCDebug(lcGlacierHomeCoreLog) << "translation.load() success" << QLocale::system().name();
         if (app.installTranslator(myappTranslator)) {
             qCDebug(lcGlacierHomeCoreLog) << "installTranslator() success" << QLocale::system().name();
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
         qCDebug(lcGlacierHomeCoreLog) << "translation.load() failed" << QLocale::system().name();
     }
 
-    QmlPath::append("/usr/share/lipstick-glacier-home-qt6/qml");
+    QmlPath::append("/usr/share/glacier-home/qml");
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils* fileUtils = new FileUtils();
@@ -106,8 +106,8 @@ int main(int argc, char** argv)
     app.engine()->rootContext()->setContextProperty("usegeoclue2", false);
 #endif
 
-    app.setCompositorPath("/usr/share/lipstick-glacier-home-qt6/qml/GlacierCompositor.qml");
-    app.setQmlPath("/usr/share/lipstick-glacier-home-qt6/qml/MainScreen.qml");
+    app.setCompositorPath("/usr/share/glacier-home/qml/GlacierCompositor.qml");
+    app.setQmlPath("/usr/share/glacier-home/qml/MainScreen.qml");
 
     // Give these to the environment inside the lipstick homescreen
     // Fixes a bug where some applications wouldn't launch, eg. terminal or browser

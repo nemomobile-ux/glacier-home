@@ -53,4 +53,4 @@ target_link_libraries(lipstick PUBLIC
 install(TARGETS lipstick RUNTIME
     DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY qml
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/lipstick-glacier-home-qt6)
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-home)
