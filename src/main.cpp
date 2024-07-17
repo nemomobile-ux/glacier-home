@@ -34,14 +34,15 @@
 #include <homewindow.h>
 #include <lipstickqmlpath.h>
 
-#include "controlcenterbuttonsmodel.h"
+#include "models/controlcenterbuttonsmodel.h"
+#include "models/glacierwindowmodel.h"
+#include "models/searchmodel.h"
 
 #ifdef USE_GEOCLUE2
 #include "geoclueagent.h"
 #endif
 
 #include "fileutils.h"
-#include "glacierwindowmodel.h"
 #include "logging.h"
 #include "mceconnect.h"
 
@@ -99,6 +100,7 @@ int main(int argc, char** argv)
     qmlRegisterType<GlacierWindowModel>("org.nemomobile.glacier", 1, 0, "GlacierWindowModel");
     qmlRegisterType<MceConnect>("org.nemomobile.glacier", 1, 0, "GlacierMceConnect");
     qmlRegisterType<ControlCenterButtonsModel>("org.nemomobile.glacier", 1, 0, "ControlCenterButtonsModel");
+    qmlRegisterType<SearchModel>("org.nemomobile.glacier", 1, 0, "GlacierSearchModel");
 #ifdef USE_GEOCLUE2
     app.engine()->rootContext()->setContextProperty("usegeoclue2", true);
     qmlRegisterType<GeoclueAgent>("org.nemomobile.glacier", 1, 0, "GlacierGeoAgent");
