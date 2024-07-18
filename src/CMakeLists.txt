@@ -2,18 +2,20 @@ file(GLOB_RECURSE QML_JS_FILES *.qml *.js)
 
 set(SRC
     main.cpp
-    controlcenterbuttonsmodel.cpp
-    controlcenterbuttonsmodel.h
     fileutils.cpp
     fileutils.h
-    glacierwindowmodel.cpp
-    glacierwindowmodel.h
     mceconnect.cpp
     mceconnect.h
     logging.h
     logging.cpp
-    ${QML_JS_FILES}
-    )
+    glacier_global.h
+    models/glacierwindowmodel.cpp
+    models/glacierwindowmodel.h
+    models/controlcenterbuttonsmodel.cpp
+    models/controlcenterbuttonsmodel.h
+    models/searchmodel.h
+    models/searchmodel.cpp
+    ${QML_JS_FILES})
 
 #add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
 #    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
@@ -35,13 +37,16 @@ if(USE_GEOCLUE2)
         geoagent.h)
 endif()
 
-add_executable(lipstick ${SRC} ${GEOCLUE_SRC})
+add_executable(lipstick ${SRC} ${GEOCLUE_SRC} ${PUBLIC_HEADERS})
+
+include_directories(${CMAKE_SOURCE_DIR}/lib)
 
 target_link_libraries(lipstick PUBLIC
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
     Qt6::DBus
+    GlacierHome::Search
     PkgConfig::LIPSTICK
     PkgConfig::MLITE6
     PkgConfig::NEMODEVICELOCK

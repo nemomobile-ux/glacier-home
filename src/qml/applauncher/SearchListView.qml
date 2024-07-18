@@ -31,15 +31,27 @@
 ****************************************************************************************/
 import QtQuick
 import Nemo.Controls
+import Nemo.DBus
 
 import org.nemomobile.lipstick
+import org.nemomobile.glacier
 
 Item {
     id:searchList
     height: calculateHeight()
     anchors.bottomMargin:Theme.itemSpacingHuge
     property alias searchField: searchField
+    property alias searchString: searchField.text
     property int oldHeight
+
+    GlacierSearchModel{
+        id: searchModel
+    }
+
+    DBusInterface{
+        id: callingIface
+        bus: DBus.SessionBus
+    }
 
     function cleanup(){
         searchField.focus = false
@@ -57,7 +69,7 @@ Item {
     {
         if(searchList.visible){
             if(searchField.text.length > 0){
-               return  parent.height
+                return  parent.height
             }
             return searchRow.height+Theme.itemSpacingMedium
         }
@@ -117,14 +129,10 @@ Item {
             width:parent.width - searchIcon.width - Theme.itemSpacingMedium
             placeholderText: qsTr("Search")
 
-            Binding {
-                target: appLauncher
-                property: "searchString"
-                value: searchField.text.toLowerCase().trim()
-            }
             onTextChanged: {
-                if(text.lenght>0) {
+                if(searchField.text.length > 0) {
                     searchField.forceActiveFocus()
+                    searchModel.search(searchField.text)
                 }
             }
 
@@ -170,36 +178,26 @@ Item {
     }
 
     ListView {
-        id:listView
+        id: searchResultListView
         clip: true
         width: parent.width
         height:contentHeight
         anchors{
             top: searchRow.bottom
-            topMargin: listModel.count > 0 ? Theme.itemSpacingSmall : 0
+            topMargin: searchModel.count > 0 ? Theme.itemSpacingSmall : 0
         }
-        visible: searchString.length>0
+        visible: searchModel.count > 0
         section.property: 'category'
         section.delegate: Component{
             id: sectionHeading
             Rectangle {
-                width: listView.width
+                width: searchResultListView.width
                 height: Theme.itemHeightMedium
                 color: "transparent"
 
                 Text {
                     id: sectionText
-                    text: {
-                        switch (section) {
-                        case 'Application':
-                            return qsTr("Application")
-                        case 'Contact':
-                            return qsTr("Contact")
-                        default:
-                            return qsTr("Content")
-                        }
-                    }
-
+                    text: section
                     font.capitalization: Font.AllUppercase
                     font.pixelSize: Theme.fontSizeSmall
                     color: Theme.textColor
@@ -214,7 +212,7 @@ Item {
                     id: line
                     height: 1
                     color: Theme.textColor
-                    width: listView.width-sectionText.width-Theme.itemHeightExtraSmall
+                    width: searchResultListView.width-sectionText.width-Theme.itemHeightExtraSmall
                     anchors{
                         left: sectionText.right
                         leftMargin: Theme.itemSpacingSmall
@@ -230,130 +228,15 @@ Item {
 
         Connections {
             target: appLauncher
-            function onSearchStringChanged() { listView.update() }
+            function onSearchStringChanged() { searchResultListView.update() }
         }
 
 
-        model: ListModel {
-            id: listModel
-        }
-
-        //Orginal function ** Copyright (C) 2013 Jolla Ltd. ** Contact: Joona Petrell <joona.petrell@jollamobile.com> **BSD
-        //Function has been modified
-        function update() {
-            if(searchString.length<1) {
-                listModel.clear()
-            } else {
-                var iconTitle
-                var category
-                var extraCaption
-                var iconId
-                var found
-                var i
-
-                var titles = []
-                var contacts = []
-                for (i = 0; i < searchLauncherModel.itemCount; ++i) {
-                    if (searchLauncherModel.get(i).type === LauncherModel.Folder) {
-                        for(var j = 0; j< searchLauncherModel.get(i).itemCount; ++j ) {
-                            titles.push({
-                                            'iconTitle':searchLauncherModel.get(i).get(j).title,
-                                            'iconSource':searchLauncherModel.get(i).get(j).iconId,
-                                            'id':i,
-                                            'folderId':j,
-                                            'category':qsTr("Application"),
-                                            'extraCaption': qsTr("installed on your device")
-                                        })
-                        }
-                    } else {
-                        titles.push({
-                                        'iconTitle':searchLauncherModel.get(i).title,
-                                        'iconSource':searchLauncherModel.get(i).iconId,
-                                        'id':i,
-                                        'folderId':-1,
-                                        'category':qsTr("Application"),
-                                        'extraCaption': qsTr("installed on your device")
-                                    })
-                    }
-                }
-                for (i = 0; i < peopleModel.count; ++i) {
-                    if(peopleModel.get(i).firstName && peopleModel.get(i).lastName) {
-                        contacts.push({
-                                          'title':(peopleModel.get(i).firstName + " " + peopleModel.get(i).lastName),
-                                          'iconSource':peopleModel.get(i).avatarUrl.toString(),
-                                          'extraCaption':peopleModel.get(i).phoneNumbers,
-                                          'category':qsTr("Contact")
-                                      })
-                    }
-                }
-                var filteredTitles = titles.filter(function (icon) {
-                    return icon.iconTitle.toLowerCase().indexOf(searchString) !== -1
-                })
-                // helper objects that can be quickly accessed
-                var filteredTitleObject = new Object
-                for (i = 0; i < filteredTitles.length; ++i) {
-                    filteredTitleObject[filteredTitles[i].iconTitle] = true
-                }
-                var existingTitleObject = new Object
-                for (i = 0; i < count; ++i) {
-                    iconTitle = listModel.get(i).title
-                    existingTitleObject[iconTitle] = true
-                }
-
-                // remove items no longer in filtered set
-                i = 0
-                while (i < count) {
-                    iconTitle = listModel.get(i).title
-                    found = filteredTitleObject.hasOwnProperty(iconTitle)
-                    if (!found) {
-                        listModel.remove(i)
-                    } else {
-                        i++
-                    }
-                }
-                // add new items
-                for (i = 0; i < filteredTitles.length; ++i) {
-                    iconTitle = filteredTitles[i].iconTitle
-                    iconId =  filteredTitles[i].iconSource
-                    var id = filteredTitles[i].id
-                    var folderId = filteredTitles[i].folderId
-                    category = filteredTitles[i].category
-                    found = existingTitleObject.hasOwnProperty(iconTitle)
-                    if (!found) {
-                        // for simplicity, just adding to end instead of corresponding position in original list
-                        listModel.append({'title':iconTitle, 'iconSource':iconId, 'id':id, 'folderId':folderId, 'category':category, 'extraCaption': ""})
-                    }
-                }
-                for (i = 0; i < contacts.length; ++i) {
-                    iconTitle = contacts[i].title
-                    iconId =  contacts[i].iconSource
-                    extraCaption = contacts[i].extraCaption[0]
-                    category = contacts[i].category
-                    listModel.append({'title':iconTitle, 'iconSource':iconId, 'extraCaption':extraCaption, 'category':category})
-                }
-            }
-        }
+        model: searchModel
 
         delegate: Item {
-            width: listView.width
+            width: searchResultListView.width
             height:Theme.itemHeightExtraLarge*1.2
-            property string iconCaption: model.title
-            property string iconSource: {
-                if(model.iconSource) {
-                    if (model.iconSource.indexOf("file:///") == 0) {
-                        return model.iconSource
-                    } else {
-                        if( model.iconSource.indexOf("/") == 0) {
-                            return "file://" + model.iconSource
-                        } else {
-                            return "image://theme/" + model.iconSource
-                        }
-                    }
-                } else {
-                    return "/usr/share/glacier-home/qml/theme/default-icon.png"
-                }
-            }
-
             Rectangle {
                 anchors.fill: parent
                 color: "#11ffffff"
@@ -380,16 +263,8 @@ Item {
                 }
                 width: height
                 height: parent.height - Theme.itemSpacingHuge
-                enabled: {
-                    if(searchLauncherModel.get(model.id).type === LauncherModel.Application) {
-                        if(searchLauncherModel.get(model.id).isLaunching)
-                            return switcher.switchModel.getWindowIdForTitle(model.title) == 0
-                    } else if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
-                        if (searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
-                            return switcher.switchModel.getWindowIdForTitle(model.title) == 0
-                    }
-                    return false
-                }
+                enabled: false
+
                 Connections {
                     target: Lipstick.compositor
                     function onWindowAdded(window) {
@@ -411,7 +286,7 @@ Item {
                 height: labelWrapper.childrenRect.height
                 Label {
                     id:mainLabel
-                    text:iconCaption
+                    text:iconTitle
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -437,30 +312,22 @@ Item {
             MouseArea {
                 id:mouse
                 anchors.fill: parent
-                onClicked: {
-                    switch (category ) {
-                    case "Application":
-                        var winId
-                        if (searchLauncherModel.get(model.id).type !== LauncherModel.Folder) {
-                            winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 && !searchLauncherModel.get(model.id).isLaunching)
-                                searchLauncherModel.get(model.id).launchApplication()
-                            else
-                                Lipstick.compositor.windowToFront(winId)
-                        } else  if (searchLauncherModel.get(model.id).type === LauncherModel.Folder && model.folderId > -1) {
-                            winId = switcher.switchModel.getWindowIdForTitle(model.title)
-                            if (winId == 0 && !searchLauncherModel.get(model.id).get(model.folderId).isLaunching)
-                                searchLauncherModel.get(model.id).get(model.folderId).launchApplication()
-                            else
-                                Lipstick.compositor.windowToFront(winId)
-                        }
+                onClicked: if(action.type == "exec") {
+                               var winId = switcher.switchModel.getWindowIdForTitle(iconTitle)
+                               if (winId == 0 && !launcherModel.get(action.app_id).isLaunching) {
+                                   launcherModel.get(action.app_id).launchApplication()
+                               } else {
+                                   Lipstick.compositor.windowToFront(winId)
+                               }
+                           } else if (action.type == "dbus") {
+                                callingIface.service = action.dbus_service
+                                callingIface.path = action.dbus_path
+                                callingIface.iface = action.dbus_iface
 
-                        break
-                    case "Contact":
-                        console.log("Call to person. Or open contextmenu where sms and call")
-                        break
-                    }
-                }
+                                callingIface.call(action.dbus_call, action.dbus_params)
+                           } else {
+                                console.warn("Wrong action type:"+action.type)
+                           }
             }
         }
     }

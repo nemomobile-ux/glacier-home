@@ -40,6 +40,7 @@ find_package(KF6BluezQt REQUIRED)
 add_definitions(-DBLUEZQT_VERSION_MAJOR=${KF6BluezQt_VERSION_MAJOR})
 add_definitions(-DBLUEZQT_VERSION_MINOR=${KF6BluezQt_VERSION_MINOR})
 
+add_subdirectory(lib)
 add_subdirectory(src)
 add_subdirectory(settings-plugins)
 

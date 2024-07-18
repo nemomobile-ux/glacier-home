@@ -41,7 +41,7 @@ Flickable{
     width: parent.width
     height: desktop.height
     property var switcher: null
-    property string searchString
+    property alias searchString: searchListView.searchString
 
     ConfigurationValue {
         id: alwaysShowSearch
