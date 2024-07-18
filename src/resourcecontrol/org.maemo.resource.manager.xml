@@ -1,0 +1,59 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+    <interface name="org.maemo.resource.manager">
+        <method name="Register">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuuuuuusu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="unregister">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="update">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuuuuuusu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="acquire">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="release">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="grant">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="advice">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="audio">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuususis)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+        <method name="video">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <arg name="send"        type="a(iuuu)" direction="in"/>
+            <arg name="error"       type="a(iuuis)" direction="out"/>
+        </method>
+    </interface>
+</node>
