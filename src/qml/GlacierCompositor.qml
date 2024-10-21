@@ -54,7 +54,7 @@ Item {
     }
 
     Connections {
-        target: comp.quickWindow
+        target: comp ? comp.quickWindow : null
         function onActiveFocusItemChanged() {
             // Search for the layer of the focus item
             var focusedLayer = comp.activeFocusItem
@@ -81,7 +81,7 @@ Item {
 
         Item {
             id: homeLayer
-            z: comp.homeActive ? 4 : 1
+            z: comp ? comp.homeActive ? 4 : 1 : -1
             anchors.fill: parent
         }
 
@@ -91,7 +91,7 @@ Item {
 
             width: parent.width
             height: parent.height
-            visible: comp.appActive && !LipstickSettings.lockscreenVisible
+            visible: comp ? comp.appActive && !LipstickSettings.lockscreenVisible : false
         }
 
         Rectangle {
@@ -112,7 +112,7 @@ Item {
         Item {
             id: overlayLayer
             z: 5
-            visible: comp.appActive
+            visible: comp ? comp.appActive : false
         }
 
         Item {
@@ -225,7 +225,7 @@ Item {
                 }
 
                 PropertyChanges {
-                    target: comp.topmostAlarmWindow == null ? appLayer : alarmsLayer
+                    target: comp ? comp.topmostAlarmWindow == null ? appLayer : alarmsLayer : alarmsLayer
                     x: gestureArea.horizontal ? gestureArea.value : 0
                     y: gestureArea.horizontal ? 0 : gestureArea.value
                 }
@@ -298,7 +298,7 @@ Item {
                 }
                 NumberAnimation {
                     id: wOpacityAnimation
-                    target: comp.topmostWindow
+                    target: comp ? comp.topmostWindow : null
                     property: "opacity"
                     to: 0
                     duration: 200
