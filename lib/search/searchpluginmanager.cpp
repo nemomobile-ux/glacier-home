@@ -54,7 +54,7 @@ void SearchPluginManager::loadSearchPlugins()
     QDir pluginsDir(QString::fromUtf8(INSTALL_LIBDIR) + "/glacier-home/plugins/search");
     QList<QString> pluginsLibList = pluginsDir.entryList(QDir::Files);
 
-    for (const QString& file : qAsConst(pluginsLibList)) {
+    for (const QString& file : std::as_const(pluginsLibList)) {
         QPluginLoader pluginLoader(pluginsDir.path() + "/" + file);
 
         QObject* plugin = pluginLoader.instance();
