@@ -30,6 +30,7 @@
 ****************************************************************************************/
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 import Amber.Mpris 1.0

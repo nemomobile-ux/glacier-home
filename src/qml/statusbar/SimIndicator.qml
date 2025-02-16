@@ -31,7 +31,7 @@
 
 import QtQuick
 import QtQuick.Layouts
-
+import Nemo
 import QOfono
 
 import org.nemomobile.lipstick

@@ -18,6 +18,7 @@
  */
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 Item {
@@ -53,8 +54,8 @@ Item {
             width: parent.width*0.6
             height: parent.height*0.6
 
-            sourceSize.width: size.dp(86)
-            sourceSize.height: size.dp(86)
+            sourceSize.width: Theme.dp(86)
+            sourceSize.height: Theme.dp(86)
 
             color: activated ? Theme.textColor : Theme.fillColor
         }

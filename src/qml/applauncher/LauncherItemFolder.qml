@@ -23,6 +23,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 import org.nemomobile.lipstick
 

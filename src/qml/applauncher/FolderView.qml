@@ -19,6 +19,7 @@
 // Copyright (c) 2020-2024, Chupigin Sergey <neochapay@gmail.com>
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 import org.nemomobile.lipstick

@@ -23,6 +23,7 @@
 
 import QtQuick
 import QtQuick.Window
+import Nemo
 import org.nemomobile.lipstick
 
 WindowWrapperBase {
@@ -57,10 +58,10 @@ WindowWrapperBase {
 
     MouseArea{
         id: windowHeader
-        width: parent.width + size.dp(8)
-        height: parent.height - y + size.dp(8)
+        width: parent.width + Theme.dp(8)
+        height: parent.height - y + Theme.dp(8)
         y: -Theme.itemHeightMedium
-        x: -size.dp(4)
+        x: -Theme.dp(4)
         z: (window) ? window.z - 1 : 0
         visible: (window) ? (window.width != Screen.width || window.height != Screen.height) : false
 

@@ -33,7 +33,7 @@
 
 import QtQuick
 import QtQml.Models
-
+import Nemo
 import Nemo.Controls
 import Nemo.Time
 import Nemo.Configuration

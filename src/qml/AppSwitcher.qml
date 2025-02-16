@@ -24,6 +24,7 @@
 
 import QtQuick
 import org.nemomobile.lipstick
+import Nemo
 import Nemo.Controls
 import org.nemomobile.glacier
 
@@ -178,7 +179,7 @@ Item {
             color: Theme.fillDarkColor
             opacity: 0.3
             border {
-                width: size.dp(1)
+                width: Theme.dp(1)
                 color: Theme.backgroundColor
             }
         }

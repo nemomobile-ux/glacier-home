@@ -28,7 +28,7 @@ import QtQuick
 
 import org.nemomobile.lipstick
 import Nemo.Configuration
-
+import Nemo
 import Nemo.Controls
 
 import "applauncher"

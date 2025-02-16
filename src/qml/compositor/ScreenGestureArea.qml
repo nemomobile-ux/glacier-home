@@ -25,12 +25,13 @@ import QtQuick
 import QtQuick.Window
 import org.nemomobile.lipstick
 
+import Nemo
 import Nemo.Configuration
 
 MouseArea {
     id: root
 
-    property int boundary: size.dp(20)
+    property int boundary: Theme.dp(20)
     property bool delayReset
 
     signal gestureStarted(string gesture)

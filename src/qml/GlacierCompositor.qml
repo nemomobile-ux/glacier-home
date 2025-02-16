@@ -22,10 +22,10 @@
 import QtQuick
 import QtQuick.Window
 import Nemo
+import Nemo.Configuration
 
 import org.nemomobile.lipstick
 import org.nemomobile.devicelock
-import Nemo.Configuration
 
 import "compositor"
 

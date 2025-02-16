@@ -35,7 +35,7 @@ import Nemo.Controls
 import org.nemomobile.lipstick
 import Nemo.Notifications
 import Nemo.Ngf
-
+import Nemo
 import org.nemomobile.glacier 1
 
 Item {

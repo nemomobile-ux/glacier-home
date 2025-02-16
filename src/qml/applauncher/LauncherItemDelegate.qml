@@ -27,6 +27,7 @@
 
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 import org.nemomobile.lipstick
 
