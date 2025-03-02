@@ -18,6 +18,7 @@
  */
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 import Nemo.Configuration 1.0
