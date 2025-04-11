@@ -21,7 +21,7 @@
 //
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
-// Copyright (c) 2018-2024, Sergey Chupligin <neochapay@gmail.com>
+// Copyright (c) 2018-2025, Sergey Chupligin <neochapay@gmail.com>
 
 import QtQuick
 import Nemo.Controls
@@ -31,57 +31,12 @@ import org.nemomobile.lipstick 0.1
 Item {
     id: switcherItemRoot
 
-    property bool rotateWindowContent: !desktop.isUiPortrait
-    property int desktopAngle: {
-        switch(Lipstick.compositor.screenOrientation) {
-        case Qt.PortraitOrientation:
-            return 0
-        case Qt.InvertedPortraitOrientation:
-            return 180
-        case Qt.LandscapeOrientation:
-            return 270
-        case Qt.InvertedLandscapeOrientation:
-            return 90
-        }
-    }
-
-    property int originX: {
-        switch(Lipstick.compositor.screenOrientation) {
-        case Qt.PortraitOrientation:
-            return 0
-        case Qt.InvertedPortraitOrientation:
-            return windowPixmap.width / 2
-        case Qt.LandscapeOrientation:
-            return windowPixmap.width / 2
-        case Qt.InvertedLandscapeOrientation:
-            return windowPixmap.height / 2
-        }
-    }
-    property int originY: {
-        switch(Lipstick.compositor.screenOrientation) {
-        case Qt.PortraitOrientation:
-            return 0
-        case Qt.InvertedPortraitOrientation:
-            return windowPixmap.height / 2
-        case Qt.LandscapeOrientation:
-            return windowPixmap.width / 2
-        case Qt.InvertedLandscapeOrientation:
-            return windowPixmap.height / 2
-        }
-    }
-
     WindowPixmapItem {
         id: windowPixmap
-        width: rotateWindowContent ? parent.height : parent.width
-        height: rotateWindowContent ? parent.width : parent.height
+        anchors.fill: parent
         windowId: model.window
         smooth: true
 
-        transform: Rotation {
-            angle: desktopAngle
-            origin.x: originX
-            origin.y: originY
-        }
         opacity: switcherRoot.closeMode ? .6 : 1
         Behavior on opacity { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
     }
@@ -129,7 +84,7 @@ Item {
 
     CloseButton {
         id: closeButton
-        width: (rotateWindowContent ? parent.height : parent.width) / 4
+        width: parent.height / 4
         height: width
         Behavior on scale { PropertyAnimation { duration: 300; easing.type: Easing.OutBack } }
         scale: switcherRoot.closeMode ? 1 : 0
