@@ -2,7 +2,7 @@
 // Copyright (C) 2013 John Brooks <john.brooks@dereferenced.net>
 // Copyright (C) 2017 Aleksi Suomalainen
 // Copyright (C) 2020 Eetu Kahelin
-// Copyright (C) 2021-2024 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
+// Copyright (C) 2021-2025 Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 // This file is part of Glacier Home, a nice user experience for touchscreens.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -382,7 +382,7 @@ Item {
             if (w == null)
                 w = homeWindow
             
-            if (w.window.title !== "maliit-server") {
+            if (w.window && w.window.title !== "maliit-server") {
                 topmostWindow = w
             }
 

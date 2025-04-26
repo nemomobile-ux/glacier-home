@@ -21,7 +21,7 @@
 // Copyright (c) 2011, Tom Swindell <t.swindell@rubyx.co.uk>
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2017, Eetu Kahelin
-// Copyright (c) 2018-2024, Chupligin Sergey <neochapay@gmail.com>
+// Copyright (c) 2018-2025, Chupligin Sergey <neochapay@gmail.com>
 */
 
 import QtQuick
@@ -74,10 +74,9 @@ Flickable{
             interval: 7000;
             repeat: true
             onTriggered: {
-                if(searchString.length < 1 && !alwaysShowSearch.value == true)
+                if(searchString.length < 1 && alwaysShowSearch.value == false)
                 {
-                    searchListView.visible = false
-                    searchListView.height = 0
+                    searchListView.cleanup()
                 }
             }
         }
@@ -98,12 +97,17 @@ Flickable{
             searchListView.cleanup()
         }
         function onWindowAdded(window) {
-            if(window.category === "" && window.title !== "Home"){
+            if(window.category === ""
+               && window.title !== "Home"
+               && window.title !== "maliit-server")
+            {
                 searchListView.cleanup()
             }
         }
         function onWindowRaised(window) {
-            if(window.category === "" && window.title !== "Home"){
+            if(window.category === ""
+                    && window.title !== "Home"
+                    && window.title !== "maliit-server"){
                 searchListView.cleanup()
             }
         }

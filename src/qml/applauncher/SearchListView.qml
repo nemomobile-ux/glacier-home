@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (c) 2017, Eetu Kahelin
-** Copyright (c) 2018-2024, Chupligin Sergey
+** Copyright (c) 2018-2025, Chupligin Sergey
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -59,7 +59,7 @@ Item {
         appLauncher.searchString = ""
         searchField.text = ""
 
-        if(!alwaysShowSearch.value)
+        if(alwaysShowSearch.value == false)
         {
             searchListView.visible = false;
             searchListView.height = 0
@@ -68,6 +68,7 @@ Item {
 
     function calculateHeight()
     {
+        console.log("calculateHeight")
         if(searchList.visible){
             if(searchField.text.length > 0){
                 return  parent.height
@@ -81,17 +82,14 @@ Item {
     }
 
     onVisibleChanged: {
-        if(!alwaysShowSearch.value)
-        {
-            if(visible){
-                searchList.height = calculateHeight()
-                searchField.focus = true
-                searchField.forceActiveFocus()
-            } else {
-                searchField.focus = false
-            }
-            oldHeight=height
+        if(visible){
+            searchList.height = calculateHeight()
+            searchField.focus = true
+            searchField.forceActiveFocus()
+        } else {
+            cleanup()
         }
+        oldHeight=height
     }
 
     Row {
@@ -321,13 +319,13 @@ Item {
                                    Lipstick.compositor.windowToFront(winId)
                                }
                            } else if (action.type == "dbus") {
-                                callingIface.service = action.dbus_service
-                                callingIface.path = action.dbus_path
-                                callingIface.iface = action.dbus_iface
+                               callingIface.service = action.dbus_service
+                               callingIface.path = action.dbus_path
+                               callingIface.iface = action.dbus_iface
 
-                                callingIface.call(action.dbus_call, action.dbus_params)
+                               callingIface.call(action.dbus_call, action.dbus_params)
                            } else {
-                                console.warn("Wrong action type:"+action.type)
+                               console.warn("Wrong action type:"+action.type)
                            }
             }
         }
