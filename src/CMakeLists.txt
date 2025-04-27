@@ -2,6 +2,16 @@ file(GLOB_RECURSE QML_JS_FILES *.qml *.js)
 
 set(SRC
     main.cpp
+    audiocontrol/audioroutemanager.h
+    audiocontrol/audioroutemanager.cpp
+    audiocontrol/audiorouteservice.h
+    audiocontrol/audiorouteservice.cpp
+    audiocontrol/org.nemomobile.Route.Manager.xml
+    resourcecontrol/org.maemo.resource.manager.xml
+    resourcecontrol/resourcecontrolservice.cpp
+    resourcecontrol/resourcecontrolservice.h
+    resourcecontrol/resourcecontrolmanager.cpp
+    resourcecontrol/resourcecontrolmanager.h
     fileutils.cpp
     fileutils.h
     mceconnect.cpp
@@ -17,15 +27,17 @@ set(SRC
     models/searchmodel.cpp
     ${QML_JS_FILES})
 
-#add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.h ${CMAKE_CURRENT_SOURCE_DIR}/geoagent.cpp
-#    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
-#    COMMENT "Generate adaptors files for Dbus service"
-#    COMMAND qdbusxml2cpp -l GeoclueAgent -i geoclueagent.h -a geoagent.h: ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
-#    COMMAND qdbusxml2cpp -i geoagent.h -l GeoclueAgent -i geoclueagent.h -a :geoagent.cpp ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.GeoClue2.Agent.xml
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+qt_add_dbus_adaptor(SRC "${CMAKE_SOURCE_DIR}/src/audiocontrol/org.nemomobile.Route.Manager.xml"
+    "audiocontrol/audiorouteservice.h"
+    "AudioRouteService"
+    "routemanageradaptor"
+    "RouteManagerAdaptor")
 
-#set_property(SOURCE geoagent.h PROPERTY SKIP_AUTOGEN ON)
-#set_property(SOURCE geoagent.cpp PROPERTY SKIP_AUTOGEN ON)
+qt_add_dbus_adaptor(SRC "${CMAKE_SOURCE_DIR}/src/resourcecontrol/org.maemo.resource.manager.xml"
+    "resourcecontrol/resourcecontrolservice.h"
+    "ResourceControlService"
+    "resourcecontroladaptor"
+    "ResourCecontrolAdaptor")
 
 if(USE_GEOCLUE2)
     add_compile_options(-DUSE_GEOCLUE2)
@@ -50,7 +62,8 @@ target_link_libraries(lipstick PUBLIC
     PkgConfig::LIPSTICK
     PkgConfig::MLITE6
     PkgConfig::NEMODEVICELOCK
-    PkgConfig::NEMOCONNECTIVITY)
+    PkgConfig::NEMOCONNECTIVITY
+    PkgConfig::LIBRESOURCE)
 
 target_link_libraries(lipstick PUBLIC
         Qt6::WaylandCompositor)
