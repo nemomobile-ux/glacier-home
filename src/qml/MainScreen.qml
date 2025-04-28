@@ -89,15 +89,6 @@ Item {
         onConnectDevice: bluetoothAgent.connectDevice(address)
     }
 
-    //force refresh
-    Connections {
-        target: Lipstick.compositor
-        function onDisplayAboutToBeOn() {
-            wallClock.enabled = false
-            wallClock.enabled = true
-        }
-    }
-
     //USB mode selector connections
     Connections{
         target: usbModeSelector
@@ -194,13 +185,6 @@ Item {
     GlacierRotation {
         id: glacierRotation
         rotationParent: desktop.parent
-    }
-
-    Connections{
-        target: Lipstick.compositor
-        function onScreenOrientationChanged(){
-            glacierRotation.rotateRotationParent(Lipstick.compositor.screenOrientation)
-        }
     }
 
     onParentChanged: {
@@ -386,6 +370,13 @@ Item {
         }
         function onDisplayOn() {
             desktop.displayOn = true;
+        }
+        function onDisplayAboutToBeOn() {
+            wallClock.enabled = false
+            wallClock.enabled = true
+        }
+        function onScreenOrientationChanged(){
+            glacierRotation.rotateRotationParent(Lipstick.compositor.screenOrientation)
         }
     }
 
