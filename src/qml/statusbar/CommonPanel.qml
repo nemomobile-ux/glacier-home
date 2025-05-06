@@ -137,7 +137,7 @@ Rectangle {
     Connections {
         target: lockScreen
         function onVisibleChanged() {
-            if(lockscreenVisible()) {
+            if(LipstickSettings.lockscreenVisible) {
                panel_loader.visible = false
             }
         }

@@ -211,10 +211,6 @@ Item {
         }
     }
 
-    function lockscreenVisible() {
-        return LipstickSettings.lockscreenVisible === true
-    }
-
     function setLockScreen(enabled) {
         if (enabled) {
             LipstickSettings.lockScreen(true)
@@ -329,7 +325,7 @@ Item {
 
     Lockscreen {
         id: lockScreen
-        visible: lockscreenVisible()
+        visible: LipstickSettings.lockscreenVisible
 
         onVisibleChanged: {
             if(visible) {

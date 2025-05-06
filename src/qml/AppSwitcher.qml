@@ -149,7 +149,7 @@ Item {
     Connections {
         target: lockScreen
         function onVisibleChanged() {
-            if(lockscreenVisible()) {
+            if(LipstickSettings.lockscreenVisible) {
                 closeMode = false
             }
         }

@@ -236,7 +236,7 @@ Item {
     Connections {
         target: LipstickSettings
         function onLockscreenVisibleChanged(visible) {
-            if (lockscreenVisible() && displayOn) {
+            if (LipstickSettings.lockscreenVisible && displayOn) {
                 displayOffTimer.restart()
             }
         }
@@ -250,7 +250,7 @@ Item {
             }
         }
         onTriggered: {
-            if(displayOn && lockscreenVisible() && !Lipstick.compositor.gestureOnGoing && !codePad.visible) {
+            if(displayOn && LipstickSettings.lockscreenVisible && !Lipstick.compositor.gestureOnGoing && !codePad.visible) {
                 setLockScreen(true)
                 Lipstick.compositor.setDisplayOff()
             }
@@ -387,8 +387,9 @@ Item {
 
     AngleAnimation {
         id: angileAnimation
-        width: Theme.itemHeightLarge
-        height: Theme.itemHeightLarge/2*3
+        width: Theme.itemHeightHuge
+        height: width
+        visible: !codePad.visible
 
         anchors{
             bottom: parent.bottom

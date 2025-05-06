@@ -39,10 +39,7 @@ Item {
         id: angile1
         source: "image://theme/angle-up"
         opacity: 0.75
-        anchors{
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
-        }
+        anchors.centerIn: parent
     }
 
     function run() {

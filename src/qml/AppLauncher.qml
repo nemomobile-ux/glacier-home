@@ -85,7 +85,7 @@ Flickable{
     Connections {
         target: lockScreen
         function onVisibleChanged() {
-            if(lockscreenVisible()) {
+            if(LipstickSettings.lockscreenVisible) {
                 searchListView.cleanup()
             }
         }
