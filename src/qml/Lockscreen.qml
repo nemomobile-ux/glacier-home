@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2021-2024 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2021-2025 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -43,10 +43,16 @@ import Nemo.Configuration
 import "notifications"
 import "lockscreen"
 
-Image {
+Item {
     id: lockScreen
-    source: lockScreenWallpaper.value
-    fillMode: Image.PreserveAspectCrop
+    anchors.fill: parent
+
+    Image{
+        id: backgroundImage
+        source: lockScreenWallpaper.value
+        fillMode: Image.PreserveAspectCrop
+        anchors.fill: parent
+    }
 
     property bool displayOn
     clip: true
@@ -308,8 +314,8 @@ Image {
         authenticationInput: DeviceLockAuthenticationInput {
             readonly property bool unlocking: registered && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
-            registered: lockscreenVisible()
-            active: lockscreenVisible()
+            registered: LipstickSettings.lockscreenVisible === true
+            active: LipstickSettings.lockscreenVisible === true
 
             onUnlockingChanged: {
                 if (unlocking) {
