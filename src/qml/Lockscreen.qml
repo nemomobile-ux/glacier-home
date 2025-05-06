@@ -257,12 +257,22 @@ Item {
         }
     }
 
+    Rectangle{
+        id: clockBackgroundGradient
+        width: parent.width
+        height: lockscreenClock.height + Theme.itemSpacingHuge
+
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: '#b0000000' }
+            GradientStop { position: 1.0; color: '#00000000' }
+        }
+    }
+
     LockscreenClock {
         id: lockscreenClock
         anchors {
             top: parent.top
-            left: parent.left
-            right: parent.right
+            horizontalCenter: parent.horizontalCenter
         }
     }
 

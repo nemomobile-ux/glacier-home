@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2023-2024 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2023-2025 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -29,54 +29,43 @@
 **
 ****************************************************************************************/
 
-
 import QtQuick
 import Nemo
 import Nemo.Controls
 
 import org.nemomobile.devicelock
 
-Rectangle {
+Item {
     id: lockscreenClock
     height: dateDisplay.height+timeDisplay.height+Theme.itemSpacingHuge
-    width: parent.width
+    width: timeDisplay.width
 
-    gradient: Gradient {
-        GradientStop { position: 0.0; color: '#b0000000' }
-        GradientStop { position: 1.0; color: '#00000000' }
+    anchors.topMargin: Theme.itemSpacingHuge
+
+    Text {
+        id: timeDisplay
+        anchors.centerIn: parent
+        font.pixelSize: Theme.fontSizeExtraLarge*3
+        lineHeight: 0.85
+        font.weight: Font.Light
+        horizontalAlignment: Text.AlignHCenter
+        color: Theme.textColor
+        text: Qt.formatDateTime(wallClock.time, "hh:mm")
     }
 
-    Item {
-        id: clockColumn
+    Text {
+        id: dateDisplay
 
-        anchors.fill: parent
-        anchors.topMargin: Theme.itemSpacingHuge
+        font.pixelSize: Theme.fontSizeSmall
+        font.capitalization: Font.AllUppercase
+        color: Theme.textColor
 
-        Text {
-            id: timeDisplay
-            anchors.centerIn: parent
-            font.pixelSize: Theme.fontSizeExtraLarge*3
-            lineHeight: 0.85
-            font.weight: Font.Light
-            horizontalAlignment: Text.AlignHCenter
-            color: Theme.textColor
-            text: Qt.formatDateTime(wallClock.time, "hh:mm")
+        anchors {
+            right: timeDisplay.right
+            bottom: timeDisplay.top
+            bottomMargin: -Theme.itemSpacingHuge
         }
 
-        Text {
-            id: dateDisplay
-
-            font.pixelSize: Theme.fontSizeSmall
-            font.capitalization: Font.AllUppercase
-            color: Theme.textColor
-
-            anchors {
-                right: timeDisplay.right
-                bottom: timeDisplay.top
-                bottomMargin: -Theme.itemSpacingHuge
-            }
-
-            text: Qt.formatDateTime(wallClock.time, "<b>ddd</b>, MMM d")
-        }
+        text: Qt.formatDateTime(wallClock.time, "<b>ddd</b>, MMM d")
     }
 }
