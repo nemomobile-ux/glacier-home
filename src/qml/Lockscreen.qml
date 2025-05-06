@@ -266,6 +266,23 @@ Item {
             GradientStop { position: 0.0; color: '#b0000000' }
             GradientStop { position: 1.0; color: '#00000000' }
         }
+
+        Behavior on height{
+            NumberAnimation {
+                duration: 200
+            }
+        }
+
+        Connections {
+            target: codePad
+            function onVisibleChanged() {
+                if (codePad.visible) {
+                    clockBackgroundGradient.height = lockScreen.height
+                } else {
+                    clockBackgroundGradient.height = lockscreenClock.height + Theme.itemSpacingHuge
+                }
+            }
+        }
     }
 
     LockscreenClock {
@@ -318,9 +335,6 @@ Item {
             topMargin: Theme.itemSpacingHuge
         }
 
-        width: lockScreen.width
-        height: visible ? lockScreen.height / 2 : 0
-
         authenticationInput: DeviceLockAuthenticationInput {
             readonly property bool unlocking: registered && DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined
 
@@ -361,6 +375,7 @@ Item {
     Column {
         id: lockscreenNotificationColumn
         width: parent.width
+        height: 100
         visible: !codePad.visible
 
         anchors {

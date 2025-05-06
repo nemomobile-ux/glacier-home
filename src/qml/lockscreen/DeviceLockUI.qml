@@ -1,6 +1,6 @@
 /****************************************************************************************
 **
-** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2025 Chupligin Sergey <neochapay@gmail.com>
 ** All rights reserved.
 **
 ** You may use this file under the terms of BSD license as follows:
@@ -38,7 +38,10 @@ import org.nemomobile.devicelock
 import Nemo.DBus
 
 Item {
-    id: root
+    id: deviceLockUi
+
+    width: codePad.width
+    height: visible ? messagesRow.height + lockCode.height + Theme.itemWidthSmall*4 + Theme.itemSpacingSmall * 6 : 0
 
     property int remainingAttempts
     property AuthenticationInput authenticationInput
@@ -59,6 +62,7 @@ Item {
         }
 
         Row {
+            id: messagesRow
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width
             Label {
@@ -77,111 +81,40 @@ Item {
             }
         }
 
-        Rectangle{
+        Item{
             id: lockCode
-            width: parent.width*0.85
+            width: codePad.width
             height: Theme.itemHeightExtraLarge
-            radius: Theme.itemSpacingSmall
 
             anchors.horizontalCenter: parent.horizontalCenter
 
-            color: "transparent"
-            clip: true
-
-            Rectangle{
-                anchors.fill: parent
-                color: Theme.backgroundColor
-                opacity: 0.5
-                radius: Theme.itemSpacingSmall
-            }
-
             TextField {
                 id: lockCodeField
-
+                width: parent.width - Theme.itemSpacingSmall*2
                 anchors{
                     left: parent.left
                     leftMargin: Theme.itemSpacingSmall
                     verticalCenter: parent.verticalCenter
                 }
-
+                horizontalAlignment: TextInput.AlignHCenter
+                background: Item {}
                 readOnly: true
                 echoMode: TextInput.PasswordEchoOnEdit
-                font.pixelSize: Theme.fontSizeMedium
-            }
-
-            Image {
-                width: parent.height-Theme.itemSpacingSmall*2
-                height: width
-
-                anchors{
-                    right: parent.right
-                    rightMargin: Theme.itemSpacingSmall*2
-                    verticalCenter: parent.verticalCenter
-                }
-                fillMode: Image.PreserveAspectFit
-                source:  (lockCodeField.echoMode == TextInput.PasswordEchoOnEdit) ? "image://theme/eye-slash" : "image://theme/eye"
-
-                MouseArea{
-                    anchors.fill: parent
-                    onPressAndHold: {
-                        if(lockCodeField.echoMode == TextInput.PasswordEchoOnEdit) {
-                            lockCodeField.echoMode = TextInput.Normal
-                        } else {
-                            lockCodeField.echoMode = TextInput.PasswordEchoOnEdit
-                        }
-                    }
-                }
+                font.pixelSize: Theme.fontSizeExtraLarge
             }
         }
 
         Grid {
             id: codePad
-            height: parent.height
+            width: Theme.itemWidthSmall*3 + Theme.itemSpacingSmall*4
+            height: childrenRect.height
             anchors.horizontalCenter: parent.horizontalCenter
+            padding: Theme.itemSpacingSmall
+            spacing: Theme.itemSpacingSmall
             columns: 3
             Repeater {
                 model: ["1","2","3","4","5","6","7","8","9","<","0","OK"]
-                delegate:
-                    Rectangle {
-                    id:button
-                    width: root.width/3 > root.height/4 ? root.height/4 : root.width/3
-                    height: width
-
-                    color: "transparent"
-
-                    Text {
-                        id: numLabel
-                        text: modelData
-                        font.pixelSize: Theme.fontSizeLarge
-                        anchors.centerIn: parent
-                        color: "white"
-                    }
-
-                    MouseArea{
-                        anchors.fill: parent
-
-                        onClicked: {
-                            feedbackLabel.text = " "
-                            attemptsRemainingLabel.text = " "
-                            if (numLabel.text !== "<" && numLabel.text !== "OK") {
-                                lockCodeField.insert(lockCodeField.cursorPosition, numLabel.text)
-                            } else {
-                                if (numLabel.text === "OK") {
-                                    authenticationInput.enterSecurityCode(lockCodeField.text)
-                                    lockCodeField.text = ""
-                                } else if (numLabel.text === "<"){
-                                    lockCodeField.text = lockCodeField.text.slice(0, -1)
-                                }
-                            }
-                        }
-
-                        onPressAndHold: {
-                            if (numLabel.text === "<"){
-                                lockCodeField.text = ""
-                            }
-                        }
-                    }
-                }
+                delegate: NumPadButton {}
             }
         }
     }
@@ -207,9 +140,9 @@ Item {
     }
 
     Connections {
-        target: root.authenticationInput
+        target: deviceLockUi.authenticationInput
 
-        function onFeedback(feedback, data) { root.displayFeedback(feedback, data) }
+        function onFeedback(feedback, data) { deviceLockUi.displayFeedback(feedback, data) }
         function onAuthenticationEnded(confirmed) {
             if(confirmed) {
                 authOK()
