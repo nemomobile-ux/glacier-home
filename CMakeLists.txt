@@ -17,6 +17,7 @@ include(GNUInstallDirs)
 
 option(USE_SYSTEMD "Use systemd services" ON)
 option(USE_GEOCLUE2 "Use geoclue2 location service. If no use classic geoclue" OFF)
+option(BUILD_TESTS "Build tests" OFF)
 
 set(QT_MIN_VERSION "6.2.0")
 set(CMAKE_INSTALL_PREFIX /usr)
@@ -47,6 +48,11 @@ add_subdirectory(settings-plugins)
 
 if(USE_SYSTEMD)
     install(FILES data/lipstick.service DESTINATION /usr/lib/systemd/user)
+endif()
+
+if(BUILD_TESTS)
+    find_package(Glacier 1.1 COMPONENTS App REQUIRED)
+    add_subdirectory(tests)
 endif()
 
 install(FILES data/nemovars.conf
