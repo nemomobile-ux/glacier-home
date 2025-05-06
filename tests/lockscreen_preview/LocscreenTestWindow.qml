@@ -39,6 +39,8 @@ ApplicationWindow {
         var lockScreen = Qt.createComponent(sourceDir + "/src/qml/Lockscreen.qml");
         if (lockScreen.status == Component.Ready) {
                 lockScreen.createObject(root, {x: 0, y: 0});
+        } else {
+              console.log("Error loading component:", lockScreen.errorString());
         }
     }
 }
