@@ -386,7 +386,7 @@ Item {
         visible: !codePad.visible
 
         anchors {
-            bottom: angileAnimation.top
+            bottom: lockScreen.bottom
             bottomMargin: Theme.itemSpacingHuge
             horizontalCenter: parent.horizontalCenter
             left: parent.left
@@ -414,19 +414,6 @@ Item {
                     z: -1
                 }
             }
-        }
-    }
-
-    AngleAnimation {
-        id: angileAnimation
-        width: Theme.itemHeightHuge
-        height: width
-        visible: !codePad.visible
-
-        anchors{
-            bottom: parent.bottom
-            bottomMargin: Theme.itemSpacingSmall
-            horizontalCenter: parent.horizontalCenter
         }
     }
 }
