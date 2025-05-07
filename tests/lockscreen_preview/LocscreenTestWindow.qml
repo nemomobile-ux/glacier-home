@@ -43,4 +43,14 @@ ApplicationWindow {
               console.log("Error loading component:", lockScreen.errorString());
         }
     }
+
+    Rectangle{
+        anchors.fill: parent
+        color: "green"
+
+        Label{
+            anchors.centerIn: parent
+            text: "DESKTOP"
+        }
+    }
 }
