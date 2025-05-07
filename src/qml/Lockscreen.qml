@@ -294,9 +294,11 @@ Item {
     LockscreenClock {
         id: lockscreenClock
         anchors {
-            top: parent.top
+            top: backgroundImage.top
             horizontalCenter: parent.horizontalCenter
         }
+        opacity: 1+backgroundImage.y/(lockScreen.width/15)
+        scale: 1-backgroundImage.y/(lockScreen.width/4)
     }
 
     OperatorLine {
