@@ -43,7 +43,6 @@
 #error "Source dir not deffined"
 #endif
 
-
 int main(int argc, char** argv)
 {
     QGuiApplication* app = GlacierApp::app(argc, argv);
@@ -53,12 +52,11 @@ int main(int argc, char** argv)
     LipstickSettingsStub lipstickSettings;
     WallClockStub wallClock;
 
-
     engine->rootContext()->setContextProperty("LipstickSettings", &lipstickSettings);
     engine->rootContext()->setContextProperty("wallClock", &wallClock);
     engine->rootContext()->setContextProperty("sourceDir", sourceDir);
 
-    QQuickWindow* window = GlacierApp::showWindow(sourceDir+"/tests/lockscreen_preview/LocscreenTestWindow.qml");
+    QQuickWindow* window = GlacierApp::showWindow(sourceDir + "/tests/lockscreen_preview/LocscreenTestWindow.qml");
     window->setTitle(QObject::tr("Lockscreen test"));
 
     return app->exec();

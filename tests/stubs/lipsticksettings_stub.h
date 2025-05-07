@@ -15,6 +15,7 @@ public:
 
 signals:
     void lockscreenVisibleChanged();
+
 private:
     bool m_lockscreenVisible;
 };

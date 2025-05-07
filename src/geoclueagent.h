@@ -46,7 +46,7 @@ class GeoclueAgent : public QObject {
     Q_PROPERTY(bool inUse READ inUse NOTIFY inUseChanged)
     Q_SCRIPTABLE Q_PROPERTY(uint MaxAccuracyLevel READ MaxAccuracyLevel)
 
-        public : explicit GeoclueAgent(QObject* parent = nullptr);
+    public : explicit GeoclueAgent(QObject* parent = nullptr);
     uint MaxAccuracyLevel();
     bool inUse() { return m_inUse; }
 

@@ -4,13 +4,13 @@
 #include <QDateTime>
 #include <QObject>
 
-class WallClockStub  : public QObject  {
+class WallClockStub : public QObject {
     Q_OBJECT
     Q_PROPERTY(QDateTime time READ time WRITE setTime NOTIFY timeChanged FINAL)
 public:
     explicit WallClockStub(QObject* parent = nullptr);
     QDateTime time() const;
-    void setTime(const QDateTime &newTime);
+    void setTime(const QDateTime& newTime);
 
 signals:
     void timeChanged();
