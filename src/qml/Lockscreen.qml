@@ -51,7 +51,11 @@ Item {
         id: backgroundImage
         source: lockScreenWallpaper.value
         fillMode: Image.PreserveAspectCrop
-        anchors.fill: parent
+        width: lockScreen.width
+        height: lockScreen.height
+        x: 0
+        y: 0
+        z: -1
     }
 
     property bool displayOn
@@ -80,7 +84,7 @@ Item {
      * the lockscreen is "down" (obscures the view) and 1 means the
      * lockscreen is "up" (not visible).
      **/
-    property real openingState: y / -height
+    property real openingState: backgroundImage.y / -height
     visible: openingState < 1
     onHeightChanged: {
         if (mouseArea.fingerDown)
@@ -136,7 +140,7 @@ Item {
 
     PropertyAnimation {
         id: snapClosedAnimation
-        target: lockScreen
+        target: backgroundImage
         property: "y"
         to: 0
         easing.type: Easing.OutBounce
@@ -145,7 +149,7 @@ Item {
 
     PropertyAnimation {
         id: snapOpenAnimation
-        target: lockScreen
+        target: backgroundImage
         property: "y"
         to: -height
         easing.type: Easing.OutExpo
@@ -179,16 +183,17 @@ Item {
         onPositionChanged: {
             if(!locked) {
                 var delta = pressY - mouseY
-                if (parent.y - delta > 0)
+                if (backgroundImage.y - delta > 0) {
                     return
-                parent.y = parent.y - delta
+                }
+                backgroundImage.y = -delta
             }
         }
 
         onReleased: {
             if(!locked) {
                 displayOffTimer.restart()
-                if(lockScreen.y < -(lockScreen.width/3)) {
+                if(backgroundImage.y < -(lockScreen.width/3)) {
                     unlockAnimation.start()
                 } else {
                     lockScreen.snapPosition()
@@ -210,14 +215,15 @@ Item {
 
         NumberAnimation {
             id: unlockNumAnimation
-            target: lockScreen
+            target: backgroundImage
             property: "y"
             to: -height
             duration: 250
             easing.type: Easing.OutQuint
         }
+
         onStopped: {
-            setLockScreen(false)
+            LipstickSettings.lockscreenVisible = false
         }
     }
     Connections {
@@ -251,7 +257,7 @@ Item {
         }
         onTriggered: {
             if(displayOn && LipstickSettings.lockscreenVisible && !Lipstick.compositor.gestureOnGoing && !codePad.visible) {
-                setLockScreen(true)
+                LipstickSettings.lockscreenVisible = true
                 Lipstick.compositor.setDisplayOff()
             }
         }
@@ -375,7 +381,6 @@ Item {
     Column {
         id: lockscreenNotificationColumn
         width: parent.width
-        height: 100
         visible: !codePad.visible
 
         anchors {
