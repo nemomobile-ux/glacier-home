@@ -4,7 +4,7 @@ Requires=dbus.socket pre-user-session.target
 After=pre-user-session.target
 
 [Service]
-Type=simple
+Type=notify
 EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
 EnvironmentFile=-/var/lib/environment/compositor/*.conf
 ExecStart=/usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
