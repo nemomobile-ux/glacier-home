@@ -97,12 +97,6 @@ Item {
         }
     }
 
-    onDisplayOnChanged: {
-        if(lockScreen.displayOn) {
-            angileAnimation.run()
-        }
-    }
-
     function snapPosition() {
         if (LipstickSettings.lockscreenVisible) {
             snapOpenAnimation.stop()
