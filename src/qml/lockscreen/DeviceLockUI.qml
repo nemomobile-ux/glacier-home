@@ -52,7 +52,7 @@ Item {
 
     Column {
         id: codePadColumn
-        anchors.fill: parent
+        anchors.bottom: deviceLockUi.bottom
 
         SequentialAnimation  {
             id: animation;

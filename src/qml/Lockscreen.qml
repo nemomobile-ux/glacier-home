@@ -338,10 +338,11 @@ Item {
     DeviceLockUI {
         id: codePad
         visible: false
-        anchors {
-            top: lockscreenClock.bottom
+
+        anchors{
+            bottom: parent.bottom
+            bottomMargin: Theme.itemSpacingHuge
             horizontalCenter: parent.horizontalCenter
-            topMargin: Theme.itemSpacingHuge
         }
 
         authenticationInput: DeviceLockAuthenticationInput {
