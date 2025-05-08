@@ -51,6 +51,8 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         color: Theme.textColor
         text: Qt.formatDateTime(wallClock.time, "hh:mm")
+        style: Text.Raised;
+        styleColor: Theme.backgroundColor
     }
 
     Text {
@@ -67,5 +69,7 @@ Item {
         }
 
         text: Qt.formatDateTime(wallClock.time, "<b>ddd</b>, MMM d")
+        style: Text.Raised;
+        styleColor: Theme.backgroundColor
     }
 }
