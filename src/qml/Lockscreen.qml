@@ -165,32 +165,32 @@ Item {
 
         property bool locked: DeviceLock.state >= DeviceLock.Locked && DeviceLock.automaticLocking >=0
 
-        onClicked: {
-            if(locked) {
-                codePad.visible = true
-                codePad.width = 400
-            }
-        }
-
         onPressed: {
+            pressY = mouseY
             if(!locked) {
                 fingerDown = true
                 cancelSnap()
-                pressY = mouseY
             }
         }
 
         onPositionChanged: {
+            var delta = pressY - mouseY
             if(!locked) {
-                var delta = pressY - mouseY
                 if (backgroundImage.y - delta > 0) {
                     return
                 }
                 backgroundImage.y = -delta
+            } else {
+                var backOpacity = 0.75*(Math.abs(mouseY - pressY)/lockScreen.height*3);
+                if(backOpacity > 0.75) {
+                    backOpacity = 0.75
+                }
+                numpadBackgroundGradient.opacity = backOpacity;
             }
         }
 
         onReleased: {
+            pressY = 0
             if(!locked) {
                 displayOffTimer.restart()
                 if(backgroundImage.y < -(lockScreen.width/3)) {
@@ -198,12 +198,14 @@ Item {
                 } else {
                     lockScreen.snapPosition()
                 }
+            } else {
+                if(numpadBackgroundGradient.opacity < 0.75) {
+                    numpadBackgroundGradient.opacity = 0
+                    codePad.visible = false
+                } else {
+                    codePad.visible = true
+                }
             }
-        }
-
-        function startCodePadAnimation(value) {
-            snapCodePadAnimation.valueTo = value
-            snapCodePadAnimation.start()
         }
     }
 
@@ -264,16 +266,14 @@ Item {
     }
 
     Rectangle{
-        id: clockBackgroundGradient
+        id: numpadBackgroundGradient
         width: parent.width
-        height: lockscreenClock.height + Theme.itemSpacingHuge
+        height: parent.height
+        color: Theme.backgroundColor
+        opacity: 0
 
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: '#b0000000' }
-            GradientStop { position: 1.0; color: '#00000000' }
-        }
 
-        Behavior on height{
+        Behavior on opacity{
             NumberAnimation {
                 duration: 200
             }
@@ -283,9 +283,9 @@ Item {
             target: codePad
             function onVisibleChanged() {
                 if (codePad.visible) {
-                    clockBackgroundGradient.height = lockScreen.height
+                    numpadBackgroundGradient.opacity = 0.5
                 } else {
-                    clockBackgroundGradient.height = lockscreenClock.height + Theme.itemSpacingHuge
+                    numpadBackgroundGradient.opacity = 0
                 }
             }
         }
@@ -297,6 +297,7 @@ Item {
             top: backgroundImage.top
             horizontalCenter: parent.horizontalCenter
         }
+        visible: !codePad.visible
         opacity: 1+backgroundImage.y/(lockScreen.width/15)
         scale: 1-backgroundImage.y/(lockScreen.width/4)
     }

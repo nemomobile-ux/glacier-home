@@ -47,6 +47,9 @@ Item {
     property AuthenticationInput authenticationInput
     signal authOK()
 
+
+    onVisibleChanged: lockCodeField.text = ""
+
     Column {
         id: codePadColumn
         anchors.fill: parent
