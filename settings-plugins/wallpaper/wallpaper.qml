@@ -38,13 +38,13 @@ Page {
     ConfigurationValue {
         id: homeWallpaperImage
         key: "/home/glacier/homeScreen/wallpaperImage"
-        defaultValue: "file:///usr/share/lipstick-glacier-home-qt6/qml/images/wallpaper-portrait-bubbles.png"
+        defaultValue: "file:///usr/share/glacier-home/qml/images/wallpaper-portrait-bubbles.png"
     }
 
     ConfigurationValue{
         id: lockScreenWallpaperImage
         key: "/home/glacier/lockScreen/wallpaperImage"
-        defaultValue: "file:///usr/share/lipstick-glacier-home-qt6/qml/images/graphics-wallpaper-home.jpg"
+        defaultValue: "file:///usr/share/glacier-home/qml/images/graphics-wallpaper-home.jpg"
     }
 
     SettingsColumn{
@@ -81,7 +81,7 @@ Page {
 
                 MouseArea{
                     anchors.fill: parent
-                    onClicked: pageStack.push("/usr/share/glacier-settings/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/homeScreen/wallpaperImage"})
+                    onClicked: pageStack.push("file:///usr/share/glacier-settings/plugins/wallpaper/selectImage.qml",{valueKey: "/home/glacier/homeScreen/wallpaperImage"})
                     onPressAndHold: homeWallpaperImage.value = homeWallpaperImage.defaultValue
                 }
             }
