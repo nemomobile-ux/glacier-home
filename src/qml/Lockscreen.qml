@@ -157,7 +157,7 @@ Item {
         property int pressY: 0
         property bool fingerDown
 
-        property bool locked: DeviceLock.state >= DeviceLock.Locked && DeviceLock.automaticLocking >=0
+        property bool locked: DeviceLock.state >= DeviceLock.Locked && DeviceLock.state < DeviceLock.Undefined && DeviceLock.automaticLocking >=0
 
         onPressed: {
             pressY = mouseY
