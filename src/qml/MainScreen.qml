@@ -60,6 +60,28 @@ Item {
         defaultValue: false
     }
 
+    ConfigurationValue {
+        id: forceLocking
+        key: "/home/glacier/homeScreen/forceLocking"
+        defaultValue: true
+    }
+
+    Rectangle{
+        id: forceLockingScreen
+        anchors.fill: parent
+        color: "red"
+        z: 9999
+        focus: visible
+
+        Label{
+            text: qsTr("Device lock by security reason. Lock daemon not started.")
+            color: black
+            anchors.centerIn: parent
+        }
+
+        visible: forceLocking.value === true && DeviceLock.state === DeviceLock.Undefined
+    }
+
     // This is used in the favorites page and in the lock screen
     WallClock {
         id: wallClock
