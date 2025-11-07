@@ -120,12 +120,9 @@ Flickable{
     Item {
         id: appLauncherGridContainer
         width: parent.width
-        height: parent.height - searchListView.height - Theme.itemSpacingMedium * 3
+        height: parent.height - searchListView.height
 
-        anchors{
-            top: searchListView.bottom
-            topMargin: Theme.itemSpacingMedium
-        }
+        anchors.top: searchListView.bottom
 
         GridView {
             id: gridview
@@ -150,7 +147,7 @@ Flickable{
             property int rows: Math.floor(parent.height / cellWidth)
             property int columns:  Math.floor(parent.width / cellHeight)
 
-            y: searchListView.visible ? searchListView.height+Theme.itemSpacingHuge : Theme.itemSpacingHuge
+            y: Theme.itemSpacingHuge
 
             Behavior on y {
                 NumberAnimation { duration: 200 }
