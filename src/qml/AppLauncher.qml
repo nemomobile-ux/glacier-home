@@ -68,6 +68,11 @@ Flickable{
         width: appLauncher.width
         visible: alwaysShowSearch.value
 
+        anchors{
+            top: parent.top
+            topMargin: Theme.itemHeightSmall
+        }
+
         Timer{
             id: searchListViewTimer;
             running: false;
