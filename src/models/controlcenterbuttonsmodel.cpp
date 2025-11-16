@@ -122,7 +122,9 @@ void ControlCenterButtonsModel::loadConfig()
 void ControlCenterButtonsModel::saveConfig()
 {
     QFile config(m_configFilePath);
-    config.open(QIODevice::WriteOnly);
+    if (!config.open(QIODevice::WriteOnly)) {
+        qCWarning(lcGlacierHomeCoreLog) << "Can`t write button config";
+    }
 
     QXmlStreamWriter xmlWriter(&config);
     xmlWriter.setAutoFormatting(true);
