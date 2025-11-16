@@ -97,15 +97,18 @@ void FileUtils::makeDefaultMenu()
     }
 
     QFile menu(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/lipstick/applications.menu");
-    menu.open(QIODevice::WriteOnly | QIODevice::Text);
-    QTextStream out(&menu);
-    out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-    out << "<Menu>\n";
-    out << "    <Filename>glacier-dialer.desktop</Filename>\n";
-    out << "    <Filename>glacier-messages.desktop</Filename>\n";
-    out << "    <Filename>glacier-contacts.desktop</Filename>\n";
-    out << "    <Filename>glacier-settings.desktop</Filename>\n";
-    out << "    <Filename>glacier-camera.desktop</Filename>\n";
-    out << "</Menu>\n";
-    menu.close();
+    if (menu.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&menu);
+        out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        out << "<Menu>\n";
+        out << "    <Filename>glacier-dialer.desktop</Filename>\n";
+        out << "    <Filename>glacier-messages.desktop</Filename>\n";
+        out << "    <Filename>glacier-contacts.desktop</Filename>\n";
+        out << "    <Filename>glacier-settings.desktop</Filename>\n";
+        out << "    <Filename>glacier-camera.desktop</Filename>\n";
+        out << "</Menu>\n";
+        menu.close();
+    } else {
+        qCWarning(lcGlacierHomeCoreLog) << "Can't write menu file";
+    }
 }
