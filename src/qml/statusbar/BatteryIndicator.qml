@@ -71,22 +71,8 @@ StatusbarItem {
         id: batteryStatus
     }
 
-    source: "/usr/share/glacier-home/qml/theme/battery"+chargeValue+".png"
+    source: "../images/battery/"+chargeValue+".svg"
 
-    NemoIcon {
-        width: parent.width
-        height: parent.height
-        anchors.centerIn: parent
-        source: "/usr/share/glacier-home/qml/theme/battery_grid.png"
-
-        color: if(batteryStatus.status === MceBatteryStatus.Ok) {
-                   Theme.textColor
-               } else if (batteryStatus.status === MceBatteryStatus.Full) {
-                   Theme.accentColor
-               } else {
-                   "red"
-               }
-    }
 
     NemoIcon {
         id: pluginIndicator
@@ -94,7 +80,7 @@ StatusbarItem {
         height: parent.height
         anchors.centerIn: parent
 
-        source: "image://theme/plug"
+        source: "../images/battery/charge.svg"
         fillMode: Image.PreserveAspectFit
 
         visible: cableState.connected
@@ -108,7 +94,7 @@ StatusbarItem {
         repeat: true
         running: false
         onTriggered: {
-            if(batteryIndicator.chargeValue == 6)
+            if(batteryIndicator.chargeValue == 5)
             {
                 chargeIcon()
             }
@@ -125,23 +111,18 @@ StatusbarItem {
 
     function chargeIcon()
     {
-        if(batteryChargePercentage.percent > 85) {
-            batteryIndicator.chargeValue = 6
-        } else if (batteryChargePercentage.percent <= 5) {
-            batteryIndicator.chargeValue = 0
-        } else if (batteryChargePercentage.percent <= 10) {
-            batteryIndicator.chargeValue = 1
-        } else if (batteryChargePercentage.percent <= 25) {
-            batteryIndicator.chargeValue = 2
-        } else if (batteryChargePercentage.percent <= 40) {
-            batteryIndicator.chargeValue = 3
-        } else if (batteryChargePercentage.percent <= 65) {
-            batteryIndicator.chargeValue = 4
-        } else if (batteryChargePercentage.percent <= 80) {
+        if(batteryChargePercentage.percent > 90) {
             batteryIndicator.chargeValue = 5
+        } else if(batteryChargePercentage.percent > 70) {
+            batteryIndicator.chargeValue = 4
+        } else if(batteryChargePercentage.percent > 50) {
+            batteryIndicator.chargeValue = 3
+        } else if(batteryChargePercentage.percent > 30) {
+            batteryIndicator.chargeValue = 2
+        } else if(batteryChargePercentage.percent > 10) {
+            batteryIndicator.chargeValue = 1
         } else {
-            batteryIndicator.chargeValue = 6
+            batteryIndicator.chargeValue = 0
         }
     }
-
 }

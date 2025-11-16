@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
 ** Copyright (C) 2014 Aleksi Suomalainen <suomalainen.aleksi@gmail.com>
-** Copyright (C) 2020-2024 Chupligin Sergey <neochapay@gmail.com>
+** Copyright (C) 2020-2025 Chupligin Sergey <neochapay@gmail.com>
 ** Copyright (C) 2020 Eetu Kahelin
 ** All rights reserved.
 **
@@ -55,12 +55,6 @@ Item {
     anchors.fill: parent
 
     ConfigurationValue {
-        id: infinityPager
-        key: "/home/glacier/homeScreen/infinityPager"
-        defaultValue: false
-    }
-
-    ConfigurationValue {
         id: forceLocking
         key: "/home/glacier/homeScreen/forceLocking"
         defaultValue: true
@@ -75,7 +69,7 @@ Item {
 
         Label{
             text: qsTr("Device lock by security reason. Lock daemon not started.")
-            color: black
+            color: "black"
             anchors.centerIn: parent
         }
 
@@ -195,8 +189,8 @@ Item {
         id: statusbar
         enabled: DeviceLock.state !== DeviceLock.Locked
         opacity: (Lipstick.compositor.topmostWindow == Lipstick.compositor.homeWindow) ? 1.0 : (
-            Lipstick.compositor.gestureArea.active ?
-            Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
+                                                                                             Lipstick.compositor.gestureArea.active ?
+                                                                                                 Lipstick.compositor.gestureArea.progress / (Math.min(Screen.width, Screen.height)) : 0.0)
         NumberAnimation {
             properties: "opacity"
             duration: 200
@@ -257,86 +251,49 @@ Item {
         }
         AppSwitcher {
             id: switcher
-            width: pager.width
-            height: pager.height
+            width: visible ? pager.width : 0
+            height: visible ? pager.height : 0
             visibleInHome: x > -width && x < desktop.width
             launcher: launcher
             wallpaper: wallpaper
+            visible: switcher.runningAppsCount > 0
         }
     }
 
 
-    Component{
-        id: infinityPagerView
-        Pager {
-            id: pager
-            anchors.fill: parent
-            enabled: Lipstick.compositor.state != "controlCenter"
-            model: visualItemsModel
-            // Initial view should be the AppLauncher
-            currentIndex: 1
-
-            Connections {
-                target: pager
-                function onOffsetChanged() {
-                    var opacityCalc = 0
-
-                    if (offset >= 0 && offset <= 1) {
-                        opacityCalc = 1 - offset
-                    } else if (offset >= 2 && offset <= 3) {
-                        opacityCalc = offset - 2
-                    }
-
-                    statusbar.opacityStart = opacityCalc
-                }
-
-            }
-        }
-    }
-
-    Component {
-        id: listPagerView
-
-        ListView {
-            id: pager
-            anchors.fill: parent
-            orientation: ListView.Horizontal
-            snapMode: ListView.SnapOneItem
-            highlightRangeMode: ListView.StrictlyEnforceRange
-            boundsBehavior: Flickable.StopAtBounds
-
-            model: visualItemsModel
-
-            // Initial view should be the AppLauncher
-            currentIndex: 1
-
-            Connections {
-                target: pager
-
-                function onContentXChanged() {
-                    var opacityCalc
-
-                    if(pager.contentX > desktop.width) {
-                        opacityCalc = 0
-                    } else if (pager.contentX <= 0) {
-                        opacityCalc = 1
-                    } else {
-                        opacityCalc = (desktop.width-pager.contentX)/desktop.width
-                    }
-
-                    statusbar.opacityStart = opacityCalc
-                }
-            }
-
-        }
-    }
-
-    Loader{
+    ListView {
         id: pager
-        anchors.topMargin: statusbar.height
         anchors.fill: parent
-        sourceComponent: infinityPager.value ? infinityPagerView : listPagerView
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        boundsBehavior: Flickable.StopAtBounds
+
+        model: visualItemsModel
+
+        // Initial view should be the AppLauncher
+        currentIndex: 1
+
+        Connections {
+            target: pager
+
+            function onContentXChanged() {
+                var opacityCalc
+
+                if(pager.contentX > desktop.width) {
+                    opacityCalc = 0
+                } else if (pager.contentX <= 0) {
+                    opacityCalc = 1
+                } else {
+                    opacityCalc = (desktop.width-pager.contentX)/desktop.width
+                }
+
+                statusbar.opacityStart = opacityCalc
+            }
+        }
     }
+
+
 
     Wallpaper{
         id: wallpaper
