@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2024-2025 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,7 +29,7 @@ SearchModel::SearchModel(QObject* parent)
     m_hash.insert(Qt::UserRole + 3, QByteArray("extraCaption"));
     m_hash.insert(Qt::UserRole + 4, QByteArray("action"));
 
-    connect(m_manager, &SearchPluginManager::searchResultReady, this, &SearchModel::searchResultHandler);
+    connect(m_manager.get(), &SearchPluginManager::searchResultReady, this, &SearchModel::searchResultHandler);
 }
 
 int SearchModel::rowCount(const QModelIndex& parent) const
