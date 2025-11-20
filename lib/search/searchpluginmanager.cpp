@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2024-2025 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -35,8 +35,10 @@ SearchPluginManager::SearchPluginManager(QObject* parent)
 SearchPluginManager::~SearchPluginManager()
 {
     foreach (const GlacierSearchPlugin* plugin, m_pluginList) {
-        disconnect(plugin, &GlacierSearchPlugin::searchResultReady, this, &SearchPluginManager::searchResultPluginHandler);
-        delete plugin;
+        if(plugin == nullptr) {
+            disconnect(plugin, &GlacierSearchPlugin::searchResultReady, this, &SearchPluginManager::searchResultPluginHandler);
+            delete plugin;
+        }
     }
 }
 

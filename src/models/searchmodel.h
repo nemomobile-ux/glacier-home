@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Chupligin Sergey <neochapay@gmail.com>
+ * Copyright (C) 2024-2025 Chupligin Sergey <neochapay@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -47,7 +47,7 @@ private slots:
 
 private:
     QHash<int, QByteArray> m_hash;
-    SearchPluginManager* m_manager;
+    std::shared_ptr<SearchPluginManager> m_manager;
     QList<GlacierSearchPlugin::SearchResult> m_searchResults;
 };
 
