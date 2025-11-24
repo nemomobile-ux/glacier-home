@@ -119,6 +119,12 @@ int main(int argc, char** argv)
     setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
     setenv("QT_IM_MODULE", "Maliit", 1);
 
-    app.mainWindowInstance()->showFullScreen();
+    const QByteArray raw(qgetenv("DEBUG_COMPOSITOR_IS_WINDOW"));
+    if (raw.startsWith("y")) {
+        app.mainWindowInstance()->show();
+    } else {
+        app.mainWindowInstance()->showFullScreen();
+    }
+
     return app.exec();
 }
