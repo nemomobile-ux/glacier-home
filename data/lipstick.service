@@ -1,11 +1,11 @@
 [Unit]
 Description=Glacier Home UX
-Requires=dbus.socket pre-user-session.target
+Requires=dbus.socket graphical-session-pre.target dconf.service profiled.service
 After=pre-user-session.target
 
 [Service]
 Type=notify
-EnvironmentFile=-/usr/share/lipstick-glacier-home-qt5/nemovars.conf
+EnvironmentFile=-/usr/share/glacier-home/nemovars.conf
 EnvironmentFile=-/var/lib/environment/compositor/*.conf
 ExecStart=/usr/bin/lipstick $LIPSTICK_OPTIONS --systemd
 Restart=always
