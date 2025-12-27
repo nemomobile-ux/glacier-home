@@ -30,7 +30,7 @@ void ApplicationSearchPlugin::search(QString searchString)
 
     for (int i = 0; i < m_launchModel.itemCount(); i++) {
         QObject* item = m_launchModel.get(i);
-        if (item->property("title").toString().toLower().indexOf(searchString) != -1
+        if (item->property("title").toString().indexOf(searchString, Qt::CaseInsensitive) != -1
             && !item->property("isBlacklisted").toBool()) {
             SearchResult result;
             result.iconTitle = item->property("title").toString();
