@@ -118,17 +118,17 @@ Item {
     }
 
     StatusNotifierModel {
-        id: statusNotiferModel
+        id: statusNotifierModel
     }
 
     /*Bluetooth section */
     Connections{
         target: bluetoothAgent
 
-        function onShowRequiesDialog(btMacAddres, name, code) {
+        function onShowRequestDialog(btMacAddress, name, code) {
             btRequestConfirmationDialog.deviceCode = code
             btRequestConfirmationDialog.deviceName = name
-            btRequestConfirmationDialog.mac = btMacAddres
+            btRequestConfirmationDialog.mac = btMacAddress
             btRequestConfirmationDialog.open();
         }
     }
@@ -136,7 +136,7 @@ Item {
     Connections{
         target: bluetoothObexAgent
 
-        function onShowRequiesDialog(deviceName, fileName) {
+        function onShowRequestDialog(deviceName, fileName) {
             btObexRequestConfirmationDialog.deviceName = deviceName
             btObexRequestConfirmationDialog.fileName = fileName
             btObexRequestConfirmationDialog.open()
@@ -146,7 +146,7 @@ Item {
             btObexRequestConfirmationDialog.close()
         }
 
-        function transferFinished(resultPath) {
+        function onTransferFinished(resultPath) {
             btObexRequestConfirmationDialog.close()
         }
     }
@@ -318,7 +318,7 @@ Item {
     }
 
     AudioWarningDialog{
-        id: audioWarnigDialog
+        id: audioWarningDialog
     }
 
     RebootDialog{
@@ -330,7 +330,7 @@ Item {
     Connections {
         target: volumeControl
         function onShowAudioWarning() {
-            audioWarnigDialog.open();
+            audioWarningDialog.open();
         }
     }
 
