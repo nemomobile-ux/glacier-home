@@ -477,6 +477,10 @@ Item {
                 w = isShaderUsed ? mysticWrapper.createObject(parent, {
                                                                   window: window
                                                               }) : w
+                if (window.userData) {
+                    window.userData.destroy()
+                }
+
                 window.userData = w
                 setCurrentWindow(w)
             } else {
