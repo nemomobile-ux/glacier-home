@@ -379,10 +379,13 @@ Item {
         }
 
         function setCurrentWindow(w, skipAnimation) {
-            if (w == null)
+            if (w == null || !w.window)
                 w = homeWindow
             
-            if (w.window && w.window.title !== "maliit-server") {
+            if (w.window.title === "maliit6-server")
+                return
+
+            if (w.window.title !== "maliit-server") {
                 topmostWindow = w
             }
 
