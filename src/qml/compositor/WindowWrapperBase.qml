@@ -32,7 +32,7 @@ Item {
     height: window ? window.height : 0
 
     function animateIn() {
-        if(comp.lastClick != null) {
+        if(comp.lastClick != null && comp.lastClick.length === 2) {
             toX.from = comp.lastClick[0]
             toY.from = comp.lastClick[1]
             openFromIcon.start();
@@ -40,7 +40,8 @@ Item {
     }
 
     Component.onCompleted: {
-        window.parent = wrapper
+        if(window)
+            window.parent = wrapper
     }
 
     ParallelAnimation{

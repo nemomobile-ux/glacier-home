@@ -30,7 +30,7 @@ WindowWrapperBase {
         z: 2
 
         // source Item must be a texture provider
-        property Item source: wrapper.window
+        property Item source: wrapper.window ? wrapper.window : null
 
         fragmentShader: "
                        uniform sampler2D source;
@@ -41,7 +41,7 @@ WindowWrapperBase {
                        }"
     }
     onWindowChanged: {
-        if (window != null) {
+        if (window  && window.paintEnabled) {
             // do not paint the QWaylandSurfaceItem, just use it as
             // a texture provider
             window.setPaintEnabled(false)
