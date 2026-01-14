@@ -142,7 +142,8 @@ MouseArea {
     }
 
     onReleased: {
-        gestureFinished(Lipstick.compositor.homeActive ? gesture : realGesture(gesture))
+        if (gesture !== "")
+            gestureFinished(Lipstick.compositor.homeActive ? gesture : realGesture(gesture))
         if (!delayReset)
             reset()
     }
