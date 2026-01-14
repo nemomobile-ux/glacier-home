@@ -66,6 +66,9 @@ MouseArea {
     }
 
     function realGesture(g) {
+        if (!Screen.orientation)
+            return g
+
         var r = Screen.angleBetween(Lipstick.compositor.screenOrientation, Screen.orientation) / 90
         if (r === 0)
             return g
