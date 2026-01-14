@@ -87,6 +87,7 @@ MouseArea {
 
 
     onPressed: function(mouse) {
+        diagonal = ""
         var mouseReal = mouseToMouseReal(mouse)
 
         if (mouseReal.y < boundary) {
