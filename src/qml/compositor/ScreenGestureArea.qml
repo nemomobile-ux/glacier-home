@@ -151,5 +151,7 @@ MouseArea {
         if (!delayReset)
             reset()
     }
+
+    onCanceled: reset()
 }
 
