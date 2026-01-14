@@ -37,7 +37,8 @@ WindowWrapperBase {
         anchors.fill: parent
         z: 2
         // source Item must be a texture provider
-        property Item source: wrapper.window
+        property Item source: wrapper.window ? wrapper.window : null
+        visible: wrapper.window !== null
 
         fragmentShader: "
            uniform sampler2D source;
@@ -48,13 +49,18 @@ WindowWrapperBase {
            }"
     }
     onWindowChanged: {
-        if (window != null) {
+        if (window) {
             // do not paint the QWaylandSurfaceItem, just use it as
             // a texture provider
             window.setPaintEnabled(false)
         }
     }
 
+    Component.onDestruction: {
+        if (window) {
+            window.setPaintEnabled(true)
+        }
+    }
 
     MouseArea{
         id: windowHeader
@@ -66,7 +72,7 @@ WindowWrapperBase {
         visible: (window) ? (window.width != Screen.width || window.height != Screen.height) : false
 
         onPressAndHold: {
-            drag.target = window.userData
+            if (window && window.userData) drag.target = window.userData
         }
 
         onReleased: {

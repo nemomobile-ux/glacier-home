@@ -114,7 +114,12 @@ Item {
 
     Connections {
         target: LipstickSettings
-        function onLockscreenVisibleChanged(visible) { snapPosition() }
+        function onLockscreenVisibleChanged(visible) {
+            snapPosition()
+            if (LipstickSettings.lockscreenVisible && displayOn) {
+                displayOffTimer.restart()
+            }
+        }
     }
 
     SequentialAnimation {
@@ -235,14 +240,7 @@ Item {
             displayOffTimer.stop()
         }
     }
-    Connections {
-        target: LipstickSettings
-        function onLockscreenVisibleChanged(visible) {
-            if (LipstickSettings.lockscreenVisible && displayOn) {
-                displayOffTimer.restart()
-            }
-        }
-    }
+
     Timer {
         id:displayOffTimer
         interval: 7000

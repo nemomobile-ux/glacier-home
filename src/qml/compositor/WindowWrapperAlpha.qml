@@ -30,18 +30,23 @@ WindowWrapperBase {
         z: 2
 
         // source Item must be a texture provider
-        property Item source: wrapper.window
+        property Item source: wrapper.window ? wrapper.window : null
 
         fragmentShader: "
-                       uniform sampler2D source;
-                       uniform mediump float qt_Opacity;
-                       varying highp vec2 qt_TexCoord0;
-                       void main() {
-                           gl_FragColor = (qt_Opacity * texture2D(source, qt_TexCoord0));
-                       }"
+                        #ifdef GL_ES
+                        precision mediump float;
+                        #endif
+
+                        uniform sampler2D source;
+                        uniform float qt_Opacity;
+                        varying vec2 qt_TexCoord0;
+
+                        void main() {
+                            gl_FragColor = qt_Opacity * texture2D(source, qt_TexCoord0);
+                        }"
     }
     onWindowChanged: {
-        if (window != null) {
+        if (window  && window.paintEnabled) {
             // do not paint the QWaylandSurfaceItem, just use it as
             // a texture provider
             window.setPaintEnabled(false)

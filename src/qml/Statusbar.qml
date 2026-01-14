@@ -89,7 +89,7 @@ Item {
 
             Repeater{
                 id: statusesRepeater
-                model: statusNotiferModel
+                model: statusNotifierModel
 
                 delegate: StatusbarItem{
                     iconSize: statusbarLeft.height

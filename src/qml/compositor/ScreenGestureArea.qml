@@ -42,14 +42,23 @@ MouseArea {
     property string gesture
     property int value
     property int max
-    property real progress: Math.abs(value) / max*(Math.min(Screen.width, Screen.height))
+    property real progress: max > 0 ?
+                                Math.abs(value) / max*(Math.min(Screen.width, Screen.height))
+                              : 0
     property bool horizontal: gesture === "left" || gesture === "right"
     property bool inverted: gesture === "left" || gesture === "up"
     property string diagonal: ""
 
     // Internal
     property int _mouseStart
-    property Item _mapTo: Lipstick.compositor.homeActive ? Lipstick.compositor.topmostWindow ? Lipstick.compositor.topmostWindow.window : parent : parent
+    property Item _mapTo: {
+        if (Lipstick.compositor.homeActive &&
+            Lipstick.compositor.topmostWindow &&
+            Lipstick.compositor.topmostWindow.window)
+            return Lipstick.compositor.topmostWindow.window
+        return parent
+    }
+
     property variant _gestures: ["down", "left", "up", "right"]
 
     function mouseToMouseReal(m) {
@@ -57,6 +66,9 @@ MouseArea {
     }
 
     function realGesture(g) {
+        if (!Screen.orientation)
+            return g
+
         var r = Screen.angleBetween(Lipstick.compositor.screenOrientation, Screen.orientation) / 90
         if (r === 0)
             return g
@@ -78,6 +90,7 @@ MouseArea {
 
 
     onPressed: function(mouse) {
+        diagonal = ""
         var mouseReal = mouseToMouseReal(mouse)
 
         if (mouseReal.y < boundary) {
@@ -133,9 +146,12 @@ MouseArea {
     }
 
     onReleased: {
-        gestureFinished(Lipstick.compositor.homeActive ? gesture : realGesture(gesture))
+        if (gesture !== "")
+            gestureFinished(Lipstick.compositor.homeActive ? gesture : realGesture(gesture))
         if (!delayReset)
             reset()
     }
+
+    onCanceled: reset()
 }
 
