@@ -35,7 +35,7 @@ SearchPluginManager::SearchPluginManager(QObject* parent)
 SearchPluginManager::~SearchPluginManager()
 {
     foreach (const GlacierSearchPlugin* plugin, m_pluginList) {
-        if(plugin == nullptr) {
+        if (plugin == nullptr) {
             disconnect(plugin, &GlacierSearchPlugin::searchResultReady, this, &SearchPluginManager::searchResultPluginHandler);
             delete plugin;
         }
