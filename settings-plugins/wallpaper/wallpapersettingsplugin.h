@@ -28,12 +28,12 @@ class WallpaperSettingsPlugin : public GlacierSettingsPlugin {
     Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
 public:
     explicit WallpaperSettingsPlugin(QObject* parent = nullptr);
-    PluginCategory category() { return PluginCategory::Personalization; }
-    QString id() { return "wallpaper"; }
-    QString title() { return tr("Wallpaper"); }
-    QString description() { return tr("Select background image"); }
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.qml"; }
-    QString icon() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.svg"; }
+    PluginCategory category() const { return PluginCategory::Personalization; }
+    QString id() const { return "wallpaper"; }
+    QString title() const { return tr("Wallpaper"); }
+    QString description() const { return tr("Select background image"); }
+    QString qmlPath() const { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.qml"; }
+    QString icon() const { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.svg"; }
     bool enabled() { return true; }
 };
 

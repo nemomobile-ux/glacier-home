@@ -28,12 +28,12 @@ class DesktopSettingsPlugin : public GlacierSettingsPlugin {
     Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
 public:
     explicit DesktopSettingsPlugin(QObject* parent = nullptr);
-    PluginCategory category() { return PluginCategory::Personalization; }
-    QString id() { return "desktop"; }
-    QString title() { return tr("Desktop"); }
-    QString description() { return tr("Setup desktop behavior"); }
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
-    QString icon() { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
+    PluginCategory category() const { return PluginCategory::Personalization; }
+    QString id() const { return "desktop"; }
+    QString title() const { return tr("Desktop"); }
+    QString description() const { return tr("Setup desktop behavior"); }
+    QString qmlPath() const { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
+    QString icon() const { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
     bool enabled() { return true; }
 };
 
