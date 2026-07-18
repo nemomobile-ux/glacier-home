@@ -56,8 +56,8 @@ if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-install(FILES data/nemovars.conf
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-home)
+install(FILES data/enveroment.conf
+    DESTINATION /etc/glacier-home)
 install(FILES
     data/90-glacier-powerkey.conf
     data/90-glacier-devlock.conf
