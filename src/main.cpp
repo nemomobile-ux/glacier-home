@@ -22,6 +22,7 @@
 // Copyright (c) 2012, Timur Kristóf <venemo@fedoraproject.org>
 // Copyright (c) 2018-2024, Chupligin Sergey <neochapay@gmail.com>
 
+#include <QFile>
 #include <QFont>
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -45,6 +46,31 @@
 #include "fileutils.h"
 #include "logging.h"
 #include "mceconnect.h"
+
+void loadEnvironmentFile(const QString& fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty() || line.startsWith('#'))
+            continue;
+
+        int pos = line.indexOf('=');
+        if (pos == -1)
+            continue;
+
+        QString key = line.left(pos).trimmed();
+        QString value = line.mid(pos + 1).trimmed();
+
+        setenv(key.toUtf8().constData(), value.toUtf8().constData(), 1);
+    }
+}
 
 int main(int argc, char** argv)
 {
@@ -111,13 +137,7 @@ int main(int argc, char** argv)
     app.setCompositorPath("/usr/share/glacier-home/qml/GlacierCompositor.qml");
     app.setQmlPath("/usr/share/glacier-home/qml/MainScreen.qml");
 
-    // Give these to the environment inside the lipstick homescreen
-    // Fixes a bug where some applications wouldn't launch, eg. terminal or browser
-    setenv("EGL_PLATFORM", "wayland", 1);
-    setenv("QT_QPA_PLATFORM", "wayland", 1);
-    setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
-    setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
-    setenv("QT_IM_MODULE", "Maliit", 1);
+    loadEnvironmentFile("/etc/glacier-home/enveroment.conf");
 
     const QByteArray raw(qgetenv("DEBUG_COMPOSITOR_IS_WINDOW"));
     if (raw.startsWith("y")) {
