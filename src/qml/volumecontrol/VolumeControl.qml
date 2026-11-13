@@ -48,6 +48,7 @@ Rectangle{
     property int pressedKey
     property bool upPress
     property bool downPress
+    property bool ready: false
 
     visible: volumeControl.windowVisible
 
@@ -95,6 +96,10 @@ Rectangle{
             stepSize: 1
 
             onValueChanged:{
+                if (!ready) {
+                    volumeControl.volume = volumeSlider.value
+                    return
+                }
                 volumeControlWindow.visible = true
                 voltimer.restart()
 
@@ -102,6 +107,8 @@ Rectangle{
             }
         }
     }
+
+    Component.onCompleted: ready = true
 
     Timer {
         id: voltimer
