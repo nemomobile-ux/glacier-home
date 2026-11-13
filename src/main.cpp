@@ -1,4 +1,3 @@
-
 // This file is part of glacier-home, a nice user experience for NemoMobile.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,6 +26,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QScreen>
+#include <QQuickWindow>
 #include <QTranslator>
 
 #include <QtCore/qmath.h>
@@ -34,6 +34,7 @@
 #include <homeapplication.h>
 #include <homewindow.h>
 #include <lipstickqmlpath.h>
+#include <lipstickcompositor.h>
 
 #include "models/controlcenterbuttonsmodel.h"
 #include "models/glacierwindowmodel.h"
@@ -74,6 +75,24 @@ void loadEnvironmentFile(const QString& fileName)
 
 int main(int argc, char** argv)
 {
+    bool desktopMode = false;
+    for (int i = 1; i < argc; i++) {
+        if (QString::fromLocal8Bit(argv[i]) == QStringLiteral("--desktop") ||
+            QString::fromLocal8Bit(argv[i]) == QStringLiteral("--app")) {
+            desktopMode = true;
+        }
+    }
+    if (!desktopMode) {
+        QByteArray env = qgetenv("GLACIER_DESKTOP");
+        if (env == "1" || env.toLower() == "true" || env.toLower() == "yes") {
+            desktopMode = true;
+        }
+        env = qgetenv("GLACIER_APP_MODE");
+        if (env == "1" || env.toLower() == "true" || env.toLower() == "yes") {
+            desktopMode = true;
+        }
+    }
+
     HomeApplication app(argc, argv, QString());
 
     QTranslator* myappTranslator = new QTranslator(&app);
@@ -92,7 +111,7 @@ int main(int argc, char** argv)
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils* fileUtils = new FileUtils();
-    MceConnect* mceConnect = new MceConnect();
+    MceConnect* mceConnect = new MceConnect(nullptr, !desktopMode);
 
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
     QByteArray v = qgetenv("GLACIER_NATIVEORIENTATION");
@@ -134,16 +153,56 @@ int main(int argc, char** argv)
     app.engine()->rootContext()->setContextProperty("usegeoclue2", false);
 #endif
 
+    if (desktopMode) {
+        const QByteArray display = qgetenv("GLACIER_WAYLAND_DISPLAY");
+        if (!display.isEmpty()) {
+            setenv("WAYLAND_DISPLAY", display.constData(), 1);
+        } else {
+            setenv("WAYLAND_DISPLAY", "wayland-glacier", 1);
+        }
+    }
+
     app.setCompositorPath("/usr/share/glacier-home/qml/GlacierCompositor.qml");
     app.setQmlPath("/usr/share/glacier-home/qml/MainScreen.qml");
 
+    // Give these to the environment inside the lipstick homescreen
+    // Fixes a bug where some applications wouldn't launch, eg. terminal or browser
+    if (!desktopMode) {
+        setenv("EGL_PLATFORM", "wayland", 1);
+        setenv("QT_QPA_PLATFORM", "wayland", 1);
+        setenv("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1", 1);
+    }
+    setenv("QT_VIRTUALKEYBOARD_STYLE", "Nemo", 1);
+    setenv("QT_IM_MODULE", "Maliit", 1);
+
     loadEnvironmentFile("/etc/glacier-home/enveroment.conf");
 
-    const QByteArray raw(qgetenv("DEBUG_COMPOSITOR_IS_WINDOW"));
-    if (raw.startsWith("y")) {
+    if (desktopMode) {
+        QByteArray sizeEnv = qgetenv("GLACIER_SIZE");
+        if (!sizeEnv.isEmpty()) {
+            QStringList parts = QString::fromLocal8Bit(sizeEnv).split('x');
+            if (parts.size() == 2) {
+                app.mainWindowInstance()->resize(QSize(parts.at(0).toInt(), parts.at(1).toInt()));
+            }
+        } else {
+            app.mainWindowInstance()->resize(QSize(480, 640));
+        }
         app.mainWindowInstance()->show();
+        if (LipstickCompositor::instance()) {
+            QQuickWindow* compWindow = LipstickCompositor::instance()->quickWindow();
+            compWindow->hide();
+            compWindow->setVisible(false);
+            compWindow->setOpacity(0.0);
+            compWindow->resize(1, 1);
+            compWindow->setPosition(-10000, -10000);
+        }
     } else {
-        app.mainWindowInstance()->showFullScreen();
+        const QByteArray raw(qgetenv("DEBUG_COMPOSITOR_IS_WINDOW"));
+        if (raw.startsWith("y")) {
+            app.mainWindowInstance()->show();
+        } else {
+            app.mainWindowInstance()->showFullScreen();
+        }
     }
 
     return app.exec();
