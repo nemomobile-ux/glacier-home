@@ -41,7 +41,8 @@ class MceConnect : public QObject {
     Q_PROPERTY(bool rebootDialogVisible READ rebootDialogVisible WRITE rebootDialogVisible NOTIFY rebootDialogVisibleChanged)
 
 public:
-    explicit MceConnect(QObject* parent = 0);
+    explicit MceConnect(QObject* parent = 0, bool enableMce = true);
+    bool mceEnabled() const { return m_mceEnabled; }
     bool mouseAvailable() { return m_mouseAvailable; }
     bool keyboardAvailable() { return m_keyboardAvailable; }
     bool rebootDialogVisible() { return m_rebootDialogVisible; }
@@ -61,6 +62,7 @@ private slots:
     void getKeyboardAction(const QString& keyboard_state);
 
 private:
+    bool m_mceEnabled;
     bool m_mouseAvailable;
     bool m_keyboardAvailable;
     bool m_rebootDialogVisible;

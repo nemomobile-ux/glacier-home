@@ -36,12 +36,17 @@
 #include <mce/dbus-names.h>
 #include <mce/mode-names.h>
 
-MceConnect::MceConnect(QObject* parent)
+MceConnect::MceConnect(QObject* parent, bool enableMce)
     : QObject(parent)
+    , m_mceEnabled(enableMce)
     , m_mouseAvailable(false)
     , m_keyboardAvailable(false)
     , m_rebootDialogVisible(false)
 {
+    if (!m_mceEnabled) {
+        return;
+    }
+
     QDBusConnection::systemBus().connect(
         QString(),
         QStringLiteral(MCE_SIGNAL_PATH),
