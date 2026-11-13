@@ -50,7 +50,8 @@ target_link_libraries(lipstick PUBLIC
     PkgConfig::LIPSTICK
     PkgConfig::MLITE6
     PkgConfig::NEMODEVICELOCK
-    PkgConfig::NEMOCONNECTIVITY)
+    PkgConfig::NEMOCONNECTIVITY
+    PkgConfig::TIMED)
 
 target_link_libraries(lipstick PUBLIC
         Qt6::WaylandCompositor)

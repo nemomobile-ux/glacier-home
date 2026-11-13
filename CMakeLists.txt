@@ -35,6 +35,7 @@ pkg_check_modules(NEMODEVICELOCK nemodevicelock REQUIRED IMPORTED_TARGET)
 pkg_check_modules(NEMOCONNECTIVITY nemoconnectivity REQUIRED IMPORTED_TARGET)
 pkg_check_modules(CONNMAN-QT connman-qt6 REQUIRED IMPORTED_TARGET)
 pkg_check_modules(MLITE6 mlite6 REQUIRED IMPORTED_TARGET)
+pkg_check_modules(TIMED timed-qt6 REQUIRED IMPORTED_TARGET)
 
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
