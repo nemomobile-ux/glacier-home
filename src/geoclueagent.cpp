@@ -32,7 +32,7 @@
 #include "geoclueagent.h"
 #include "geoagent.h"
 
-#include <MGConfItem>
+#include <MDConfItem>
 
 GeoclueAgent::GeoclueAgent(QObject* parent)
     : m_inUse(false)
@@ -44,14 +44,14 @@ GeoclueAgent::GeoclueAgent(QObject* parent)
     QDBusConnection dbus = QDBusConnection::systemBus();
     dbus.registerObject("/org/freedesktop/GeoClue2/Agent", "org.freedesktop.GeoClue2.Agent", this);
 
-    MGConfItem* locationEnabledItem = new MGConfItem(QStringLiteral("/home/glacier/loaction/enabled"));
-    MGConfItem* loactionLevelItem = new MGConfItem(QStringLiteral("/home/glacier/loaction/level"));
+    MDConfItem* locationEnabledItem = new MDConfItem(QStringLiteral("/home/glacier/loaction/enabled"));
+    MDConfItem* loactionLevelItem = new MDConfItem(QStringLiteral("/home/glacier/loaction/level"));
 
-    connect(locationEnabledItem, &MGConfItem::valueChanged, this, &GeoclueAgent::locationEnabledItemChanded);
-    connect(loactionLevelItem, &MGConfItem::valueChanged, this, &GeoclueAgent::loactionLevelItemChanged);
+    connect(locationEnabledItem, &MDConfItem::valueChanged, this, &GeoclueAgent::locationEnabledItemChanded);
+    connect(loactionLevelItem, &MDConfItem::valueChanged, this, &GeoclueAgent::loactionLevelItemChanged);
 
-    m_locationEnabled = MGConfItem(QStringLiteral("/home/glacier/loaction/enabled")).value(0).toBool();
-    m_locationLevel = MGConfItem(QStringLiteral("/home/glacier/loaction/level")).value(0).toUInt();
+    m_locationEnabled = MDConfItem(QStringLiteral("/home/glacier/loaction/enabled")).value(0).toBool();
+    m_locationLevel = MDConfItem(QStringLiteral("/home/glacier/loaction/level")).value(0).toUInt();
 
     authorizationRequest();
 
@@ -117,13 +117,13 @@ void GeoclueAgent::propertiesChanged(QString interface, QVariantMap properties)
 
 void GeoclueAgent::locationEnabledItemChanded()
 {
-    m_locationEnabled = MGConfItem(QStringLiteral("/home/glacier/loaction/enabled")).value(0).toBool();
+    m_locationEnabled = MDConfItem(QStringLiteral("/home/glacier/loaction/enabled")).value(0).toBool();
     deleteClient(); // to update currect values we need to reload clients
 }
 
 void GeoclueAgent::loactionLevelItemChanged()
 {
-    m_locationLevel = MGConfItem(QStringLiteral("/home/glacier/loaction/level")).value(0).toUInt();
+    m_locationLevel = MDConfItem(QStringLiteral("/home/glacier/loaction/level")).value(0).toUInt();
     deleteClient(); // to update currect values we need to reload clients
 }
 
