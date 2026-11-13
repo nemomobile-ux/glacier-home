@@ -178,6 +178,8 @@ int main(int argc, char** argv)
     loadEnvironmentFile("/etc/glacier-home/enveroment.conf");
 
     if (desktopMode) {
+        // Force a real (non-compositor-managed) window so the UI is visible.
+        setenv("DEBUG_COMPOSITOR_IS_WINDOW", "yes", 1);
         QByteArray sizeEnv = qgetenv("GLACIER_SIZE");
         if (!sizeEnv.isEmpty()) {
             QStringList parts = QString::fromLocal8Bit(sizeEnv).split('x');
