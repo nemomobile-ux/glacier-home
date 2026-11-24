@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ar">
+    <context>
+        <name>AppSwitcher</name>
+        <message>
+            <location filename="../src/qml/AppSwitcher.qml" line="209" />
+            <source>Done</source>
+            <translation>تم</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/AppSwitcher.qml" line="225" />
+            <source>Close All</source>
+            <translation>إغلاق الكل</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/AppSwitcher.qml" line="235" />
+            <source>Nothing open yet</source>
+            <translation>لا يوجد شيء مفتوح بعد</translation>
+        </message>
+    </context>
+    <context>
+        <name>AudioWarningDialog</name>
+        <message>
+            <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="46" />
+            <source>Cancel</source>
+            <translation>إلغاء</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="47" />
+            <source>Ok</source>
+            <translation>موافق</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="48" />
+            <source>Dangerous volume level!</source>
+            <translation>مستوى صوت خطير!</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/volumecontrol/AudioWarningDialog.qml" line="49" />
+            <source>Do you want to continue?</source>
+            <translation>هل تريد المتابعة؟</translation>
+        </message>
+    </context>
+    <context>
+        <name>BtObexRequestConfirmationDialog</name>
+        <message>
+            <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="47" />
+            <source>Cancel</source>
+            <translation>إلغاء</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48" />
+            <source>Download</source>
+            <translation>تنزيل</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49" />
+            <source>send you file</source>
+            <translation>أرسل لك ملفًا</translation>
+        </message>
+    </context>
+    <context>
+        <name>BtRequestConfirmationDialog</name>
+        <message>
+            <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="48" />
+            <source>Cancel</source>
+            <translation>إلغاء</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="49" />
+            <source>Connect</source>
+            <translation>اتصال</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="50" />
+            <source>Connect to device </source>
+            <translation>الاتصال بالجهاز </translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51" />
+            <source>code: </source>
+            <translation>الرمز: </translation>
+        </message>
+    </context>
+    <context>
+        <name>DeviceLockUI</name>
+        <message>
+            <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="194" />
+            <source>Enter security code</source>
+            <translation>أدخل رمز الأمان</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="198" />
+            <source>Incorrect code</source>
+            <translation>رمز غير صحيح</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/lockscreen/DeviceLockUI.qml" line="206" />
+            <source>Temporarily locked</source>
+            <translation>مقفل مؤقتًا</translation>
+        </message>
+    </context>
+    <context>
+        <name>FileUtils</name>
+        <message>
+            <location filename="../src/fileutils.cpp" line="50" />
+            <source>Screenshot</source>
+            <translation>لقطة شاشة</translation>
+        </message>
+    </context>
+    <context>
+        <name>LauncherItemWrapper</name>
+        <message>
+            <location filename="../src/qml/applauncher/LauncherItemWrapper.qml" line="174" />
+            <source>folder</source>
+            <translation>مجلد</translation>
+        </message>
+    </context>
+    <context>
+        <name>MediaController</name>
+        <message>
+            <location filename="../src/qml/statusbar/MediaController.qml" line="67" />
+            <source>No music playing</source>
+            <translation>لا توجد موسيقى قيد التشغيل</translation>
+        </message>
+    </context>
+    <context>
+        <name>MediaControls</name>
+        <message>
+            <location filename="../src/qml/lockscreen/MediaControls.qml" line="56" />
+            <source>Unknown artist</source>
+            <translation>فنان غير معروف</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/lockscreen/MediaControls.qml" line="57" />
+            <source>Unknown track</source>
+            <translation>مقطع غير معروف</translation>
+        </message>
+    </context>
+    <context>
+        <name>NotificationItem</name>
+        <message numerus="yes">
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="120" />
+            <source>%n year(s) ago</source>
+            <comment>notifications</comment>
+            <translation>
+                <numerusform>منذ سنة</numerusform>
+                <numerusform>منذ سنة واحدة</numerusform>
+                <numerusform>منذ سنتين</numerusform>
+                <numerusform>منذ %n سنوات</numerusform>
+                <numerusform>منذ %n سنة</numerusform>
+                <numerusform>منذ %n سنة</numerusform>
+            </translation>
+        </message>
+        <message numerus="yes">
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="122" />
+            <source>%n months(s) ago</source>
+            <comment>notifications</comment>
+            <translation>
+                <numerusform>منذ شهر</numerusform>
+                <numerusform>منذ شهر واحد</numerusform>
+                <numerusform>منذ شهرين</numerusform>
+                <numerusform>منذ %n أشهر</numerusform>
+                <numerusform>منذ %n شهرًا</numerusform>
+                <numerusform>منذ %n شهر</numerusform>
+            </translation>
+        </message>
+        <message numerus="yes">
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="124" />
+            <source>%n day(s) ago</source>
+            <comment>notifications</comment>
+            <translation>
+                <numerusform>منذ يوم</numerusform>
+                <numerusform>منذ يوم واحد</numerusform>
+                <numerusform>منذ يومين</numerusform>
+                <numerusform>منذ %n أيام</numerusform>
+                <numerusform>منذ %n يومًا</numerusform>
+                <numerusform>منذ %n يوم</numerusform>
+            </translation>
+        </message>
+        <message numerus="yes">
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="126" />
+            <source>%n hours(s) ago</source>
+            <comment>notifications</comment>
+            <translation>
+                <numerusform>منذ ساعة</numerusform>
+                <numerusform>منذ ساعة واحدة</numerusform>
+                <numerusform>منذ ساعتين</numerusform>
+                <numerusform>منذ %n ساعات</numerusform>
+                <numerusform>منذ %n ساعة</numerusform>
+                <numerusform>منذ %n ساعة</numerusform>
+            </translation>
+        </message>
+        <message numerus="yes">
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="128" />
+            <source>%n minutes(s) ago</source>
+            <comment>notifications</comment>
+            <translation>
+                <numerusform>منذ دقيقة</numerusform>
+                <numerusform>منذ دقيقة واحدة</numerusform>
+                <numerusform>منذ دقيقتين</numerusform>
+                <numerusform>منذ %n دقائق</numerusform>
+                <numerusform>منذ %n دقيقة</numerusform>
+                <numerusform>منذ %n دقيقة</numerusform>
+            </translation>
+        </message>
+        <message>
+            <location filename="../src/qml/notifications/NotificationItem.qml" line="130" />
+            <source>Just now</source>
+            <translation>الآن</translation>
+        </message>
+    </context>
+    <context>
+        <name>Screenshot</name>
+        <message>
+            <location filename="../src/qml/system/Screenshot.qml" line="67" />
+            <source>Desktop</source>
+            <translation>سطح المكتب</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/system/Screenshot.qml" line="68" />
+            <source>Screenshot saved</source>
+            <translation>تم حفظ لقطة الشاشة</translation>
+        </message>
+    </context>
+    <context>
+        <name>SearchListView</name>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="120" />
+            <source>Search</source>
+            <translation>بحث</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="151" />
+            <source>Hide search panel</source>
+            <translation>إخفاء لوحة البحث</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="151" />
+            <source>Pinup search panel</source>
+            <translation>تثبيت لوحة البحث</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="199" />
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="276" />
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="286" />
+            <source>Application</source>
+            <translation>تطبيق</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="201" />
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="297" />
+            <source>Contact</source>
+            <translation>جهة اتصال</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="203" />
+            <source>Content</source>
+            <translation>محتوى</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="277" />
+            <location filename="../src/qml/applauncher/SearchListView.qml" line="287" />
+            <source>installed on your device</source>
+            <translation>مثبت على جهازك</translation>
+        </message>
+    </context>
+    <context>
+        <name>ShutdownScreen</name>
+        <message>
+            <location filename="../src/qml/system/ShutdownScreen.qml" line="74" />
+            <source>Shutting down</source>
+            <translation>جارٍ إيقاف التشغيل</translation>
+        </message>
+    </context>
+    <context>
+        <name>USBModeSelector</name>
+        <message>
+            <location filename="../src/qml/connectivity/USBModeSelector.qml" line="75" />
+            <source>Current mode: Charging only</source>
+            <translation>الوضع الحالي: الشحن فقط</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/connectivity/USBModeSelector.qml" line="91" />
+            <source>MTP Mode</source>
+            <translation>وضع MTP</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/connectivity/USBModeSelector.qml" line="111" />
+            <source>Mass Storage Mode</source>
+            <translation>وضع التخزين الكبير</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/connectivity/USBModeSelector.qml" line="131" />
+            <source>Developer Mode</source>
+            <translation>وضع المطور</translation>
+        </message>
+    </context>
+    <context>
+        <name>UsbModeDialog</name>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="74" />
+            <source>Cancel</source>
+            <translation>إلغاء</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="75" />
+            <source>Ok</source>
+            <translation>موافق</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="76" />
+            <source>Select USB mode</source>
+            <translation>اختر وضع USB</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="61" />
+            <source>MTP</source>
+            <translation>MTP</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="65" />
+            <source>Charging only</source>
+            <translation>الشحن فقط</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="57" />
+            <source>Connection sharing</source>
+            <translation>مشاركة الاتصال</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53" />
+            <source>Ask</source>
+            <translation>اسأل</translation>
+        </message>
+        <message>
+            <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69" />
+            <source>Developer mode</source>
+            <translation>وضع المطور</translation>
+        </message>
+    </context>
+    <context>
+        <name>WifiPanel</name>
+        <message>
+            <location filename="../src/qml/statusbar/WifiPanel.qml" line="41" />
+            <source>Wifi</source>
+            <translation>Wi-Fi</translation>
+        </message>
+    </context>
+</TS>
