@@ -25,16 +25,16 @@
 class DesktopSettingsPlugin : public GlacierSettingsPlugin {
     Q_OBJECT
     Q_INTERFACES(GlacierSettingsPlugin)
-    Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
+    Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin/1.0")
 public:
     explicit DesktopSettingsPlugin(QObject* parent = nullptr);
-    PluginCategory category() { return PluginCategory::Personalization; }
-    QString id() { return "desktop"; }
-    QString title() { return tr("Desktop"); }
-    QString description() { return tr("Setup desktop behavior"); }
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
-    QString icon() { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
-    bool enabled() { return true; }
+    PluginCategory category() const override { return PluginCategory::Personalization; }
+    QString id() const override { return "desktop"; }
+    QString title() const override { return tr("Desktop"); }
+    QString description() const override { return tr("Setup desktop behavior"); }
+    QString qmlPath() const override { return "/usr/share/glacier-settings/plugins/desktop/desktop.qml"; }
+    QString icon() const override { return "/usr/share/glacier-settings/plugins/desktop/desktop.svg"; }
+    bool enabled() override { return true; }
 };
 
 #endif // DESCTOPSETTINGSPLUGIN_H

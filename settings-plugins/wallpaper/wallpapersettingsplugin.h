@@ -25,16 +25,16 @@
 class WallpaperSettingsPlugin : public GlacierSettingsPlugin {
     Q_OBJECT
     Q_INTERFACES(GlacierSettingsPlugin)
-    Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin")
+    Q_PLUGIN_METADATA(IID "Glacier.SettingsPlugin/1.0")
 public:
     explicit WallpaperSettingsPlugin(QObject* parent = nullptr);
-    PluginCategory category() { return PluginCategory::Personalization; }
-    QString id() { return "wallpaper"; }
-    QString title() { return tr("Wallpaper"); }
-    QString description() { return tr("Select background image"); }
-    QString qmlPath() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.qml"; }
-    QString icon() { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.svg"; }
-    bool enabled() { return true; }
+    PluginCategory category() const override { return PluginCategory::Personalization; }
+    QString id() const override { return "wallpaper"; }
+    QString title() const override { return tr("Wallpaper"); }
+    QString description() const override { return tr("Select background image"); }
+    QString qmlPath() const override { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.qml"; }
+    QString icon() const override { return "/usr/share/glacier-settings/plugins/wallpaper/wallpaper.svg"; }
+    bool enabled() override { return true; }
 };
 
 #endif // WALLPAPERSETTINGSPLUGIN_H

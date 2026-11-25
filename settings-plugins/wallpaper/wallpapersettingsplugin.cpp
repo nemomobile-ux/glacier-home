@@ -20,5 +20,6 @@
 #include "wallpapersettingsplugin.h"
 
 WallpaperSettingsPlugin::WallpaperSettingsPlugin(QObject* parent)
+    : GlacierSettingsPlugin(parent)
 {
 }

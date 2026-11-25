@@ -20,5 +20,6 @@
 #include "desktopsettingsplugin.h"
 
 DesktopSettingsPlugin::DesktopSettingsPlugin(QObject* parent)
+    : GlacierSettingsPlugin(parent)
 {
 }
