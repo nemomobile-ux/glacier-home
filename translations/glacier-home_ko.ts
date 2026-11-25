@@ -323,4 +323,37 @@
             <translation>Wi-Fi</translation>
         </message>
     </context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >제거</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >취소</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >애플리케이션 제거 중</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >패키지 관리자</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >패키지를 찾을 수 없음</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

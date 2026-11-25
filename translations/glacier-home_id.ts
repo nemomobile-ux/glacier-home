@@ -323,4 +323,37 @@
             <translation>Wi-Fi</translation>
         </message>
     </context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >Hapus pemasangan</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >Batal</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >Menghapus pemasangan aplikasi</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >Manajer paket</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >Paket tidak ditemukan</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -311,4 +311,37 @@
         <translation>Wifi</translation>
     </message>
 </context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >Odinstaluj</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >Odinstalowywanie aplikacji</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >Menedżer pakietów</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >Nie znaleziono pakietu</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

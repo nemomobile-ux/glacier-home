@@ -34,12 +34,12 @@
     <message>
         <location filename="../desktop.qml" line="81"/>
         <source>Infinite scrolling main screen</source>
-        <translation type="unfinished"></translation>
+        <translation >Бесконечная прокрутка главного экрана</translation>
     </message>
     <message>
         <location filename="../desktop.qml" line="88"/>
         <source>Window animation</source>
-        <translation type="unfinished"></translation>
+        <translation >Анимация окон</translation>
     </message>
 </context>
 </TS>

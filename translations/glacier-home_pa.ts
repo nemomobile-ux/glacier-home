@@ -328,4 +328,37 @@
             <translation>Wi-Fi</translation>
         </message>
     </context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >ਅਣਇੰਸਟਾਲ ਕਰੋ</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >ਰੱਦ ਕਰੋ</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >ਐਪਲੀਕੇਸ਼ਨ ਅਣਇੰਸਟਾਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >ਪੈਕੇਜ ਮੈਨੇਜਰ</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >ਪੈਕੇਜ ਨਹੀਂ ਮਿਲਿਆ</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -28,6 +28,7 @@ import QtQuick
 
 import org.nemomobile.lipstick
 import Nemo.Configuration
+import Nemo.Notifications
 import Nemo
 import Nemo.Controls
 
@@ -42,6 +43,8 @@ Flickable{
     height: desktop.height
     property var switcher: null
     property alias searchString: searchListView.searchString
+    property var contextMenuItem: null
+    property string uninstallingDesktopFile: ""
 
     ConfigurationValue {
         id: alwaysShowSearch
@@ -60,6 +63,39 @@ Flickable{
         Component.onCompleted: {
             blacklistedApplications = fileUtils.getBlacklistedApplications();
         }
+    }
+
+    Connections {
+        target: pkgUtils
+        function onPackageManagerTransactionStarted() {
+            uninstallNotification.summary = qsTr("Uninstalling application")
+            uninstallNotification.body = ""
+            uninstallNotification.progress = -1
+            uninstallNotification.publish()
+        }
+
+        function onPackageManagerActionProgress(action, status, progress) {
+            if (action) {
+                uninstallNotification.summary = action
+            }
+            if (status) {
+                uninstallNotification.body = status
+            }
+            uninstallNotification.progress = progress
+            uninstallNotification.publish()
+        }
+
+        function onPackageManagerTransactionFinished() {
+            uninstallNotification.progress = 0
+            uninstallNotification.close()
+            appLauncher.uninstallingDesktopFile = ""
+        }
+    }
+
+    Notification{
+        id: uninstallNotification
+        appName: qsTr("Package manager")
+        itemCount: 1
     }
 
     /*top search line*/
@@ -92,6 +128,7 @@ Flickable{
         function onVisibleChanged() {
             if(LipstickSettings.lockscreenVisible) {
                 searchListView.cleanup()
+                appLauncher.contextMenuItem = null
             }
         }
     }
@@ -100,6 +137,7 @@ Flickable{
         target: Lipstick.compositor
         function onDisplayOff() {
             searchListView.cleanup()
+            appLauncher.contextMenuItem = null
         }
         function onWindowAdded(window) {
             if(window.category === ""
@@ -107,6 +145,7 @@ Flickable{
                && window.title !== "maliit-server")
             {
                 searchListView.cleanup()
+                appLauncher.contextMenuItem = null
             }
         }
         function onWindowRaised(window) {
@@ -114,6 +153,7 @@ Flickable{
                     && window.title !== "Home"
                     && window.title !== "maliit-server"){
                 searchListView.cleanup()
+                appLauncher.contextMenuItem = null
             }
         }
     }
@@ -207,6 +247,10 @@ Flickable{
                             launcherItem.source = modelData.object.iconId == "" ? "/usr/share/glacier-home/qml/theme/default-icon.png" : (modelData.object.iconId.indexOf("/") == 0 ? "file://" : "image://theme/") + modelData.object.iconId
                         }
                     }
+
+                    onContextMenuRequested: {
+                        appLauncher.contextMenuItem = modelData ? modelData.object : null
+                    }
                 }
             }
             Component {
@@ -226,6 +270,9 @@ Flickable{
 
     FolderView{
         id: folderLoader
+        onContextMenuRequested: function(appObject) {
+            appLauncher.contextMenuItem = appObject
+        }
     }
 
     //When display goes off, close the folderloader
@@ -233,6 +280,86 @@ Flickable{
         target: Lipstick.compositor
         function onDisplayOff() {
             folderLoader.model = 0
+        }
+    }
+
+    Item {
+        id: contextMenuOverlay
+        visible: appLauncher.contextMenuItem !== null
+        width: appLauncher.width
+        height: appLauncher.height
+        y: appLauncher.contentY
+        z: 10000000000
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: appLauncher.contextMenuItem = null
+        }
+
+        Rectangle {
+            id: contextMenuPanel
+            width: Math.min(parent.width * 0.6, Theme.itemWidthExtraLarge)
+            height: contextMenuColumn.height + Theme.itemSpacingMedium * 2
+            radius: Theme.itemSpacingSmall
+            color: Theme.backgroundColor
+            border.color: Theme.textColor
+            border.width: 1
+            anchors.centerIn: parent
+
+            MouseArea {
+                anchors.fill: parent
+            }
+
+            Column {
+                id: contextMenuColumn
+                width: parent.width - Theme.itemSpacingMedium * 2
+                anchors.centerIn: parent
+                spacing: Theme.itemSpacingSmall
+
+                Label {
+                    width: parent.width
+                    text: appLauncher.contextMenuItem ? appLauncher.contextMenuItem.title : ""
+                    font.pixelSize: Theme.fontSizeSmall
+                    color: Theme.textColor
+                    horizontalAlignment: Text.AlignHCenter
+                    elide: Text.ElideRight
+                }
+
+                Button {
+                    width: parent.width
+                    height: Theme.itemHeightSmall
+                    text: qsTr("Uninstall")
+                    onClicked: {
+                        if (appLauncher.contextMenuItem) {
+                            var filePath = appLauncher.contextMenuItem.filePath
+                            var title = appLauncher.contextMenuItem.title || ""
+                            if (filePath) {
+                                appLauncher.uninstallingDesktopFile = filePath
+                                if (!pkgUtils.uninstallApplication(filePath)) {
+                                    appLauncher.uninstallingDesktopFile = ""
+                                    uninstallNotification.summary = qsTr("Package not found")
+                                    uninstallNotification.body = filePath || title
+                                    uninstallNotification.progress = 0
+                                    uninstallNotification.publish()
+                                }
+                            } else {
+                                uninstallNotification.summary = qsTr("Package not found")
+                                uninstallNotification.body = title
+                                uninstallNotification.progress = 0
+                                uninstallNotification.publish()
+                            }
+                        }
+                        appLauncher.contextMenuItem = null
+                    }
+                }
+
+                Button {
+                    width: parent.width
+                    height: Theme.itemHeightSmall
+                    text: qsTr("Cancel")
+                    onClicked: appLauncher.contextMenuItem = null
+                }
+            }
         }
     }
 }

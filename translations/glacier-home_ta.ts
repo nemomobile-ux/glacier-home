@@ -328,4 +328,37 @@
             <translation>Wi-Fi</translation>
         </message>
     </context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >நிறுவல் நீக்கு</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >ரத்து செய்</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >பயன்பாடு நிறுவல் நீக்கப்படுகிறது</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >தொகுப்பு மேலாளர்</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >தொகுப்பு காணப்படவில்லை</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -65,7 +65,7 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/mce)
 
 # Translations
-file(GLOB TS_FILES translations/*.ts)
+file(GLOB TS_FILES CONFIGURE_DEPENDS translations/*.ts)
 qt6_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(lipstick translations)

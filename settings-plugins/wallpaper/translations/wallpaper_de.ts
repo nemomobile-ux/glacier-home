@@ -11,7 +11,7 @@
     <message>
         <location filename="../wallpapersettingsplugin.h" line="34"/>
         <source>Select background image</source>
-        <translation type="unfinished"></translation>
+        <translation >Hintergrundbild auswählen</translation>
     </message>
 </context>
 <context>

@@ -4,6 +4,8 @@ set(SRC
     main.cpp
     fileutils.cpp
     fileutils.h
+    pkgutils.cpp
+    pkgutils.h
     mceconnect.cpp
     mceconnect.h
     logging.h

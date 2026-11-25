@@ -11,7 +11,7 @@
     <message>
         <location filename="../desktopsettingsplugin.h" line="34"/>
         <source>Setup desktop behavior</source>
-        <translation type="unfinished"></translation>
+        <translation >Schreibtischverhalten einrichten</translation>
     </message>
 </context>
 <context>
@@ -34,12 +34,12 @@
     <message>
         <location filename="../desktop.qml" line="81"/>
         <source>Infinite scrolling main screen</source>
-        <translation type="unfinished"></translation>
+        <translation >Unendliches Scrollen des Hauptbildschirms</translation>
     </message>
     <message>
         <location filename="../desktop.qml" line="88"/>
         <source>Window animation</source>
-        <translation type="unfinished"></translation>
+        <translation >Fensteranimation</translation>
     </message>
 </context>
 </TS>

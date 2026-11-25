@@ -39,6 +39,11 @@ Item {
     property bool isFolder
     property alias parentItem: launcherItem.parentItem
     property alias folderModel:launcherItem.folderModel
+    property bool uninstalling: !isFolder && modelData && modelData.object
+                                && typeof appLauncher !== "undefined"
+                                && appLauncher.uninstallingDesktopFile !== ""
+                                && appLauncher.uninstallingDesktopFile === modelData.object.filePath
+    signal contextMenuRequested()
 
     onXChanged: moveTimer.start()
     onYChanged: moveTimer.start()
@@ -63,11 +68,13 @@ Item {
         width: wrapper.width
         height: iconWrapper.height+Theme.itemSpacingSmall+Theme.fontSizeTiny*3
         isFolder: wrapper.isFolder
+        onContextMenuRequested: wrapper.contextMenuRequested()
 
         Item {
             id: iconWrapper
             height: width
             width: parent.width-Theme.itemSpacingSmall*2
+            opacity: wrapper.uninstalling ? 0.4 : 1.0
             anchors{
                 top: parent.top
                 horizontalCenter: parent.horizontalCenter
@@ -121,6 +128,21 @@ Item {
                 }
             }
 
+            Spinner {
+                id: uninstallSpinner
+                anchors.centerIn: iconImage
+                width: parent.width - Theme.itemSpacingHuge
+                height: width
+                enabled: wrapper.uninstalling
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: wrapper.uninstalling
+            onPressed: function(mouse) { mouse.accepted = true }
+            onClicked: function(mouse) { mouse.accepted = true }
+            onPressAndHold: function(mouse) { mouse.accepted = true }
         }
         // Caption for the icon
         Text {
@@ -132,6 +154,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeTiny
             color: Theme.textColor
+            opacity: wrapper.uninstalling ? 0.4 : 1.0
 
             wrapMode: Text.WordWrap
 

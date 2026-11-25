@@ -174,7 +174,7 @@ Item {
 
     // Implements back key navigation
 
-    Keys.onReleased: {
+    Keys.onReleased: function(event) {
         if (event.key === Qt.Key_Back) {
             if (pageStack.depth > 1) {
                 pageStack.pop();

@@ -75,9 +75,32 @@ MouseArea {
             }
         }
     }
+    property real pressStartX: 0
+    property real pressStartY: 0
+    property bool contextMenuArmed: false
+
+    signal contextMenuRequested()
+
     onPressed: function(mouse) {
         newIndex = -1
         newFolderIndex = -1
+        var startPos = mapToItem(null, mouse.x, mouse.y)
+        pressStartX = startPos.x
+        pressStartY = startPos.y
+        contextMenuArmed = modelData && modelData.object.type !== LauncherModel.Folder
+        deleteMenuTimer.restart()
+    }
+
+    onPositionChanged: function(mouse) {
+        if (deleteMenuTimer.running) {
+            var pos = mapToItem(null, mouse.x, mouse.y)
+            var dx = Math.abs(pos.x - pressStartX)
+            var dy = Math.abs(pos.y - pressStartY)
+            if (dx > Theme.itemSpacingSmall || dy > Theme.itemSpacingSmall) {
+                deleteMenuTimer.stop()
+                contextMenuArmed = false
+            }
+        }
     }
 
     onPressAndHold: function(mouse) {
@@ -86,15 +109,41 @@ MouseArea {
         drag.target = launcherItem
         z = 1000
         reordering = true
-        if(!isFolder){
-            parentItem.onUninstall = true
-        }
 
         // don't allow dragging an icon out of pages with a horizontal flick
         pager.interactive = false
     }
 
+    Timer {
+        id: deleteMenuTimer
+        interval: 1500
+        repeat: false
+        onTriggered: {
+            if (launcherItem.contextMenuArmed && launcherItem.pressed) {
+                launcherItem.contextMenuArmed = false
+                if (launcherItem.reordering) {
+                    launcherItem.reordering = false
+                    launcherItem.drag.target = null
+                    reorderTimer.stop()
+                    launcherItem.newIndex = -1
+                    launcherItem.newFolderIndex = -1
+                    if (launcherItem.parentItem) {
+                        launcherItem.parentItem.reorderItem = null
+                        launcherItem.parentItem.folderIndex = -1
+                    }
+                    pager.interactive = true
+                    launcherItem.reparent(launcherItem.parentItem ? launcherItem.parentItem.contentItem : launcherItem.parent)
+                    launcherItem.z = launcherItem.parent ? launcherItem.parent.z : 0
+                    launcherItem.slideMoveAnim.start()
+                }
+                launcherItem.contextMenuRequested()
+            }
+        }
+    }
+
     onReleased: function(mouse) {
+        deleteMenuTimer.stop()
+        contextMenuArmed = false
         if (reordering) {
             reordering = false
             reorderEnded()

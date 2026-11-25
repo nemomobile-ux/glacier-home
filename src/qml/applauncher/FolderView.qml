@@ -37,6 +37,7 @@ Item{
     property alias model: folderGridView.model
     property alias count: folderGridView.count
     property alias reorderItem: folderGridView.reorderItem
+    signal contextMenuRequested(var appObject)
 
     Rectangle {
         width: folderLoader.width
@@ -145,6 +146,7 @@ Item{
                 iconCaption.text: model.object.title
                 iconCaption.color: Theme.textColor
                 folderModel:folderGridView.model
+                onContextMenuRequested: folderLoader.contextMenuRequested(model.object)
             }
         }
 

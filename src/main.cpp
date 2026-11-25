@@ -25,16 +25,16 @@
 #include <QFont>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QScreen>
 #include <QQuickWindow>
+#include <QScreen>
 #include <QTranslator>
 
 #include <QtCore/qmath.h>
 
 #include <homeapplication.h>
 #include <homewindow.h>
-#include <lipstickqmlpath.h>
 #include <lipstickcompositor.h>
+#include <lipstickqmlpath.h>
 
 #include "models/controlcenterbuttonsmodel.h"
 #include "models/glacierwindowmodel.h"
@@ -47,6 +47,7 @@
 #include "fileutils.h"
 #include "logging.h"
 #include "mceconnect.h"
+#include "pkgutils.h"
 
 void loadEnvironmentFile(const QString& fileName)
 {
@@ -62,7 +63,7 @@ void loadEnvironmentFile(const QString& fileName)
         if (line.isEmpty() || line.startsWith('#'))
             continue;
 
-        int pos = line.indexOf('=');
+        const qsizetype pos = line.indexOf('=');
         if (pos == -1)
             continue;
 
@@ -77,8 +78,7 @@ int main(int argc, char** argv)
 {
     bool desktopMode = false;
     for (int i = 1; i < argc; i++) {
-        if (QString::fromLocal8Bit(argv[i]) == QStringLiteral("--desktop") ||
-            QString::fromLocal8Bit(argv[i]) == QStringLiteral("--app")) {
+        if (QString::fromLocal8Bit(argv[i]) == QStringLiteral("--desktop") || QString::fromLocal8Bit(argv[i]) == QStringLiteral("--app")) {
             desktopMode = true;
         }
     }
@@ -111,6 +111,7 @@ int main(int argc, char** argv)
     QGuiApplication::setFont(QFont("Open Sans"));
 
     FileUtils* fileUtils = new FileUtils();
+    PkgUtils* pkgUtils = new PkgUtils();
     MceConnect* mceConnect = new MceConnect(nullptr, !desktopMode);
 
     Qt::ScreenOrientation nativeOrientation = app.primaryScreen()->nativeOrientation();
@@ -139,6 +140,7 @@ int main(int argc, char** argv)
 
     app.engine()->rootContext()->setContextProperty("nativeOrientation", nativeOrientation);
     app.engine()->rootContext()->setContextProperty("fileUtils", fileUtils);
+    app.engine()->rootContext()->setContextProperty("pkgUtils", pkgUtils);
     app.engine()->rootContext()->setContextProperty("mceConnect", mceConnect);
     app.engine()->addImportPath("/usr/lib/qt6/qml");
 

@@ -26,7 +26,7 @@ INSTALL(FILES ${PLUGINS_FILES}
     DESTINATION /usr/share/glacier-settings/plugins/wallpaper/)
 
 # Translations
-file(GLOB TS_FILES translations/*.ts)
+file(GLOB TS_FILES CONFIGURE_DEPENDS translations/*.ts)
 #set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_INSTALL_LOCALEDIR})
 qt6_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(wallpaper_translations DEPENDS ${QM_FILES})

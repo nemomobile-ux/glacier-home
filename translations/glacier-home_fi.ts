@@ -52,12 +52,12 @@
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation >Lataa</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
         <source>send you file</source>
-        <translation type="unfinished"></translation>
+        <translation >lähetti sinulle tiedoston</translation>
     </message>
 </context>
 <context>
@@ -251,7 +251,7 @@
     <message>
         <location filename="../src/qml/system/ShutdownScreen.qml" line="74"/>
         <source>Shutting down</source>
-        <translation type="unfinished"></translation>
+        <translation >Sammutetaan</translation>
     </message>
 </context>
 <context>
@@ -326,6 +326,39 @@
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
+    </message>
+</context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >Poista asennus</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >Peruuta</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >Poistetaan sovellusta</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >Paketinhallinta</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >Pakettia ei löytynyt</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

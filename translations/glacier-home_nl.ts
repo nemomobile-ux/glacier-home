@@ -52,12 +52,12 @@
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="48"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation >Downloaden</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/BtObexRequestConfirmationDialog.qml" line="49"/>
         <source>send you file</source>
-        <translation type="unfinished"></translation>
+        <translation >heeft je een bestand gestuurd</translation>
     </message>
 </context>
 <context>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../src/qml/dialogs/BtRequestConfirmationDialog.qml" line="51"/>
         <source>code: </source>
-        <translation type="unfinished"></translation>
+        <translation >code: </translation>
     </message>
 </context>
 <context>
@@ -130,12 +130,12 @@
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="56"/>
         <source>Unknown artist</source>
-        <translation type="unfinished"></translation>
+        <translation >Onbekende artiest</translation>
     </message>
     <message>
         <location filename="../src/qml/lockscreen/MediaControls.qml" line="57"/>
         <source>Unknown track</source>
-        <translation type="unfinished"></translation>
+        <translation >Onbekend nummer</translation>
     </message>
 </context>
 <context>
@@ -243,7 +243,7 @@
         <location filename="../src/qml/applauncher/SearchListView.qml" line="277"/>
         <location filename="../src/qml/applauncher/SearchListView.qml" line="287"/>
         <source>installed on your device</source>
-        <translation type="unfinished"></translation>
+        <translation >op je apparaat geïnstalleerd</translation>
     </message>
 </context>
 <context>
@@ -251,7 +251,7 @@
     <message>
         <location filename="../src/qml/system/ShutdownScreen.qml" line="74"/>
         <source>Shutting down</source>
-        <translation type="unfinished"></translation>
+        <translation >Afsluiten</translation>
     </message>
 </context>
 <context>
@@ -312,7 +312,7 @@
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="53"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation >Vragen</translation>
     </message>
     <message>
         <location filename="../src/qml/dialogs/UsbModeDialog.qml" line="69"/>
@@ -326,6 +326,39 @@
         <location filename="../src/qml/statusbar/WifiPanel.qml" line="41"/>
         <source>Wifi</source>
         <translation>Wifi</translation>
+    </message>
+</context>
+<context>
+    <name>AppLauncher</name>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="291"/>
+        <source>Uninstall</source>
+        <translation >Verwijderen</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="303"/>
+        <source>Cancel</source>
+        <translation >Annuleren</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="77"/>
+        <source>Uninstalling application</source>
+        <translation >App wordt verwijderd</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="102"/>
+        <source>Package manager</source>
+        <translation >Pakketbeheer</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="345"/>
+        <source>Package not found</source>
+        <translation >Pakket niet gevonden</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/AppLauncher.qml" line="353"/>
+        <source>Package manager unavailable</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
